@@ -1,0 +1,125 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>融资统计</title>
+ <link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+<script src="../static/script/autoload.js" type="text/javascript"></script>
+<script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+<script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+
+<script src="../static/script/echarts/echarts.js" type="text/javascript"></script>
+<!--月度融资统计地图数据获取-->
+<script  type="text/javascript">
+//历史总量数据
+function getHistoryCountData() {
+	     var table = layui.table;
+		 var gridData = queryhistorydata;
+	     table.render({
+	         width : 605,
+	         id: 'result_monthtotle_maps_id'
+	         , elem: '#result_monthtotle_maps_id' //指定原始表格元素选择器（推荐id选择器）
+	         , data: gridData
+	         , cols: [[ //标题栏
+	             {field: 'rank', title: '名次', width: 200, align: 'center'}
+	             , {field: 'area', title: '区域', width: 200, align: 'center'}
+	             , {field: 'amount', title: '融资金额（RMB）', width: 200, align: 'center'}
+	         ]]
+	     });
+}
+
+var queryhistorydata;//获取查询数据
+var query_date;//查询时间
+function historyDataInit(query_date) {
+    $.ajax({
+        type: "post",//请求方式
+        url: "getCountAreaInfos",//url地址
+        cache: false,//清楚缓存
+        async: false,//同步
+        dataType: "json",//传递查询条件格式json
+        data: {"query_date": query_date},//查询条件(序列化对象)
+        success: function (data) {
+            queryhistorydata = data;
+            getHistoryCountData();
+        }
+    });
+}
+
+$(function () {
+    historyDataInit("");//默认时间查询数据
+});
+
+</script>
+
+<style type="text/css">
+.rank-menu-history-query-div {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.rank-menu-history-query-input {
+    border: 1px solid #8DBDDC;
+    border-radius: 2px;
+    width: 200px;
+    line-height: 25px;
+    font-size: 16px;
+}
+
+.rank-menu-history-first-div {
+    margin-top: 20px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.rank-menu-history-first-title {
+    background: #9FC6EA;
+    padding: 15px;
+    width: 196px;
+    color: #3A7FBF;
+}
+
+.rank-menu-history-first-data {
+    background: #E6EEFB;
+    width: 196px;
+    padding: 15px;
+    text-align: center;
+}
+
+.result_maps {
+    height: 900px;
+    margin: 0 auto;
+    border-top: none;
+}
+
+.rank-menu-company-detail-div-history {
+    /*margin-top: 50px;*/
+    margin-left: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.rank-menu-org-detail-div-history {
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+</style>
+</head>
+<body>
+	<!--头部logo以及登录注册开始-->
+	<div class="boxWrap">
+		<p class="boxTitle">融资统计</p>
+		<div class="formWrap">
+			<!--总记录-->
+			<div class="rank-menu-history-first-div">
+				 <table id="result_monthtotle_maps_id" lay-filter="test"></table>
+			</div>
+		</div>
+		<!--融资统计结束-->
+	</div>
+</body>
+</html>

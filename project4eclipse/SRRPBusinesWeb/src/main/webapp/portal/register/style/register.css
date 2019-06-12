@@ -1,0 +1,313 @@
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+    margin: 0;
+    padding: 0
+}
+
+/*body, button, input, select, textarea {*/
+/*font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;*/
+/*text-align: justify;*/
+/*text-justify: inter-ideograph;*/
+/*word-break: break-all;*/
+/*word-wrap: break-word*/
+/*}*/
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%
+}
+
+address, cite, dfn, em, var, i, u {
+    font-style: normal
+}
+
+code, kbd, pre, samp {
+    font-family: courier new, courier, monospace
+}
+
+small {
+    font-size: 12px
+}
+
+ul, ol {
+    list-style: none
+}
+
+sup {
+    vertical-align: text-top
+}
+
+sub {
+    vertical-align: text-bottom
+}
+
+button, input, select, textarea {
+    font-size: 100%;
+    padding: 0;
+    margin: 0
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+caption, th {
+    text-align: left
+}
+
+.ovh {
+    overflow: hidden
+}
+
+.l {
+    float: left
+}
+
+.r {
+    float: right
+}
+
+.cur {
+    cursor: pointer
+}
+
+.dis {
+    display: block
+}
+
+.heading {
+    color: #005088;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.bigheading {
+    margin-left: 10px;
+    color: #005088;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+/*分割线基本设置虚线上下边距*/
+.dashedstyle {
+    border: 1px dashed #ddd;
+    margin: 10px;
+}
+
+body {
+    font-family: "Microsoft YaHei", 宋体;
+    color: #333;
+}
+
+/*hover*/
+/*注册*/
+.reg_input {
+    background-color: #FFF;
+    border: 1px solid #d5cfc2;
+    font-size: 14px;
+    vertical-align: middle;
+    padding: 0 0 0 10px;
+}
+
+.reg_input:hover {
+    border: 1px solid #99BBDE;
+    background-color: #F2FAFF;
+}
+
+.reg_input {
+    /*_behavior: url(register/js/Round_htc.htc);*/
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    height: 30px;
+    width: 25%;
+}
+
+.r_button {
+    background: url(../images/register_button.png) no-repeat;
+    width: 118px;
+    height: 39px;
+    border: none;
+    cursor: pointer;
+    display: block;
+    float: left;
+    text-indent: -9000px
+}
+
+.r_button {
+    background-position: -138px -60px;
+    margin-left: 25%
+}
+
+.r_button:hover {
+    background-position: -138px 0;
+}
+
+.f_reg_but {
+    margin: 10px 0 0 115px
+}
+
+.reg {
+    width: 65%; /*定义注册页面宽度*/
+    font-size: 14px;
+    line-height: 25px;
+    overflow: hidden;
+    margin-left: 20%; /*定义注册页面位置*/
+    margin-right: 20%; /*定义注册页面位置*/
+    background-color: #FFFFFF; /*定义注册页面背景颜色*/
+}
+
+.reg dl {
+    padding-left: 10px;
+    font-size: 14px;
+}
+
+.reg dl dt {
+    margin-top: 15px
+}
+
+.reg dl dd {
+    padding: 0px 0
+}
+
+/*非必填标题*/
+.reg .title-normal {
+    margin-left: 5%;
+    width: 15%;
+    display: inline-block;
+    text-align: left;
+}
+
+.reg .title-normal a {
+    font-size: 20px;
+    color: #FFFFFF;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+/*必填标题*/
+.reg .title-star {
+    margin-left: 5%;
+    width: 15%;
+    display: inline-block;
+    text-align: left;
+}
+
+.reg .title-star a {
+    font-size: 20px;
+    color: #FF0000;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.reg .img {
+    position: absolute
+}
+
+.reg_m {
+    margin-left: 90px
+}
+
+.clew_txt {
+    display: inline-block;
+    padding: 7px 0 0 15px;
+    font-size: 12px;
+}
+
+.currentsite {
+    margin-left: 20%;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline;
+    /*background: #f3f3f3; !*#9d192b;*!*/
+    line-height: 30px;
+    color: #000000;
+}
+
+.register-intruoduce {
+    width: 55%;
+    height: 150px;
+    font-size: 12px;
+    background-color: #FFF;
+    margin-left: 20%;
+    margin-top: -25px;
+    padding: 0 20px 0 10px;
+    border: 1px solid #d5cfc2;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.register-intruoduce:hover {
+    border: 1px solid #99BBDE;
+    background-color: #F2FAFF;
+}
+
+.reg-checkbtn {
+    margin-left: 20px;
+}
+.reg-industry-brcheckbtn {
+    margin-left: 42px;
+}
+.reg-industry-checkbtn {
+    margin-left: 15px;
+}
+
+.reg-industry-checkbtn-content {
+    width: 126px;
+    display: inline-block;
+    text-align: left;
+}
+.reg-industry-checkbtn-content-end {
+    width: 281px;
+    display: inline-block;
+    text-align: left;
+}
+.onShow, .onFocus, .onError, .onCorrect, .onLoad {
+    background: url(../images/reg_bg.png) no-repeat 3000px 3000px;
+    padding-left: 30px;
+    font-size: 12px;
+    height: 25px;
+    width: 70px;
+    display: inline-block;
+    line-height: 25px;
+    vertical-align: middle;
+    overflow: hidden;
+    margin-left: 0px
+}
+
+.onShow {
+    width: 120px;
+    color: red;
+    /*padding-left:0px错位原因是因为这一行代码*/
+}
+
+.onShow {
+    width: 120px;
+    color: #999;
+    /*padding-left:0px错位原因是因为这一行代码*/
+}
+
+.onFocus {
+    width: 120px;
+    background-position: 0px -30px;
+    color: #333
+}
+
+.onError {
+    width: 27%;
+    background-position: -1px -58px;
+    color: #333;
+    background-size: 174px 83px;
+    font-size: 12px;
+    padding-left: 34px;
+}
+
+.onCorrect {
+    width: 120px;
+    background-position: 0px 0;
+    text-indent: -9000px
+}
+
+.onLoad {
+    width: 120px;
+    background-position: 0px 0
+}

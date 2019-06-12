@@ -1,0 +1,499 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>投资需求</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/page/todo.css">
+    <style>
+        .layui-form #layer-photos img {
+            max-width: 200px;
+        }
+        .layui-form .industryCheckbox li {
+            float: left;
+            width: 33%;
+        }
+        .layui-form-label {
+            padding: 6px 0px;
+            width: 110px;
+        }
+        .input-insert-data{
+            width: 280px;
+            height: 22px;
+            border: 1px solid #8DBDDC;
+            border-radius: 3px;
+        }
+          .layui-input1{
+           width: 787px;
+            height: 22px;
+            border: 1px solid #8DBDDC;
+            border-radius: 3px;
+            margin-top:4px;
+        }
+        .layui-input, .layui-select, .layui-textarea {
+          height: 22px;
+        }
+        .boxWrap .formWrap .form-title {
+          height: 100%;
+          padding-top:10px;
+        }
+        .layui-input-block1{
+          padding-top:10px;
+          padding-right:20px;
+        }
+        .layui-form-item1 {
+          height: 30px;
+          margin-bottom: 5px;
+        }
+        .layui-form-item {
+          margin-bottom: 3px;
+        }  
+    </style>
+</head>
+<body>
+<!--用户启用禁用状态    默认是启用-->
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <div class="boxContent">
+    <div class="formWrap">
+         <form id="form1" name ="form1" class="layui-form" method="post" > <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+          <input type="hidden" name="investorId" value='${investor.investorId}'/>
+          <input type ="hidden" name="baseInfo"  value='55' />
+          <input type ="hidden" id="perFlag" value="${investor.perFlag}">
+          <input type ="hidden" id="baseFlag" value="${investor.baseFlag}">
+          <div class="layui-form-item">
+<!--            style="border-top: 1px dotted #ccc;heigth:20%;" -->
+              <div class="form-title" style="width: 60%;"><span>导出文件</span><span style="font-size: 12px;">请导出注册申请表和授权书，加盖公章和法人签字后再进行上传。</span></div>
+            </div>   
+            <div style="margin-left:3%;"> 
+		          <div class="layui-form-item">
+		          <label class="layui-form-label" style="width: 17%;"><span class="star">*</span>导出注册申请表：</label>
+	                    <button type="button"  class="layui-btn layui-btn-small uploadButton" id="downLoadPdf"  lay-submit lay-filter="export"><i class="layui-icon">&#xe61e;</i>导出注册申请表</button>
+	                  <span style="font-size: 10px;color: #FF6838;">*注：信息录入完成后可生成注册申请表</span>
+                   </div>
+                   <div class="layui-form-item">
+                   <label class="layui-form-label" style="width: 17%;"><span class="star">*</span>导出授权书：</label>
+	                    <button type="button"  class="layui-btn layui-btn-small uploadButton" id="downLoadWarrantPdf"  lay-submit lay-filter="exportWarrant"><i class="layui-icon">&#xe61e;</i>&nbsp;&nbsp;&nbsp;导出授权书 &nbsp;&nbsp;&nbsp;</button>
+	                  <span style="font-size: 10px;color: #FF6838;">*注：信息录入完成后可生成授权书</span>
+                   </div>
+           
+           </div>
+            <div class="layui-form-item" >
+                    <div class="form-title"><span>上传文件</span></div>
+            </div>          
+           <div style="margin-left:3%;">
+                 <div class="layui-form-item">
+                      <label class="layui-form-label" style="width: 17%;"><span class="star">*</span>营业执照：</label>
+                      <div class="layui-input-block clearfix" style="width: 300%;">
+                                   <input type="hidden" id="imgHidden" name="licensePath" value='${investor.licensePath}' autocomplete="off" class="layui-input">
+                                   <input type="hidden" id="fileName" name="fileName" value="${investor.fileName}">
+                             <button type="button" class="layui-btn layui-btn-small uploadButton" id="licenseUploadBtn">
+                               <i class="layui-icon">&#xe67c;</i>&nbsp;上传营业执照&nbsp;&nbsp;
+                            </button>
+                        <a  id="preview" name = "preview" download="${investor.fileName}" style="cursor:pointer;font-weight:bold;color:#0D4F92;text-decoration: underline;" href="${investor.licensePath}">${investor.fileName}</a>
+                    </div>
+                </div>
+                
+           </div>
+           <div style="margin-left:3%;">
+		          <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 17%;"><span class="star">*</span>注册申请表：</label>
+                      <div class="layui-input-block clearfix" style="width: 300%;">
+                            <input type="hidden" id="registerAutographHidden" name="registerAutographPath" value='${investor.registerAutographPath}' autocomplete="off" class="layui-input">
+                            <input type="hidden" id="registerAutographName" name="registerAutographName" value="${investor.registerAutographName}">
+                             <button type="button" class="layui-btn layui-btn-small uploadButton" id="registerUploadBtn">
+                               <i class="layui-icon">&#xe67c;</i>上传注册申请表
+                            </button>
+                        <a  id="registerPreview" name = "registerPreview" style="cursor:pointer;font-weight:bold;color:#0D4F92;text-decoration: underline;" download="${investor.registerAutographName}" href="${investor.registerAutographPath}">${investor.registerAutographName}</a>
+                    </div>
+                  </div>
+             </div>
+             <div style="margin-left:3%;">
+		          <div class="layui-form-item">
+                     <label class="layui-form-label" style="width: 17%;"><span class="star">*</span>授权书：</label>
+                     <input type="hidden" id="fileupHidden" name="creditAuthorizationPath" value='${investor.creditAuthorizationPath}' autocomplete="off" class="layui-input">
+                     <input type="hidden" id="creditAuthorizationName" name="creditAuthorizationName" value="${investor.creditAuthorizationName}">       
+                    <button type="button" class="layui-btn layui-btn-small uploadButton" id="creditAuthUploadFile">
+                         <i class="layui-icon">&#xe67c;</i>上&nbsp;传&nbsp;&nbsp;&nbsp;授&nbsp;&nbsp;权&nbsp;书
+                    </button>
+                    <a id="downloadFile" style="cursor:pointer;font-weight:bold;color:#0D4F92;text-decoration: underline;" download="${investor.creditAuthorizationName}"
+                                    href="${investor.creditAuthorizationPath}">${investor.creditAuthorizationName}
+	                  </a>
+                   </div>
+             </div>
+           <div style="margin-left:3%;">
+              <div class="layui-form-item heightAuto">
+               <label class="layui-form-label" style="width: 17%;">LOGO：</label>
+               <div class="layui-input-block clearfix" style="width: 300%;">
+                     <input type="hidden" id="logoHidden" name="logoPath" value='${investor.logoPath}' autocomplete="off" class="layui-input">
+                     <input type="hidden" id="logoName" name="logoName" value="${investor.logoName}">
+                     <button type="button" class="layui-btn layui-btn-small uploadButton" id="logoUploadBtn">
+                          <i class="layui-icon">&#xe67c;</i>&nbsp;上&nbsp;&nbsp;传&nbsp;&nbsp;LOGO&nbsp;&nbsp;&nbsp;
+                     </button>
+                     <a  id="logoPreview" name = "logoPreview" download="${investor.logoName}"  style="cursor:pointer;font-weight:bold;color:#0D4F92;text-decoration: underline;" href="${investor.logoPath}">${investor.logoName}</a>
+                </div>
+               </div>
+            </div>
+<!--             <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;"> -->
+<!--                <div class="form-title"><span>机构介绍</span></div> -->
+<!--             </div> -->
+            
+             
+<!--             <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;"> -->
+<!--               <div class="form-title"><span>注册申请表</span></div> -->
+<!--             </div>    -->
+            
+<!--              <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;"> -->
+<!--               <div class="form-title"><span>征信授权书</span></div> -->
+<!--             </div>    -->
+            <div class="layui-form-item">
+                 <div class="layui-input-block buttonWrap" style="margin-left: -5%;">
+                    <button class="layui-btn upId" id="upId"  type="button">&nbsp;&nbsp;上&nbsp;一&nbsp;步&nbsp;&nbsp;</button>
+                    <button class="layui-btn submitBtn" lay-submit lay-filter="investor">&nbsp;&nbsp;提&nbsp;交&nbsp;&nbsp;</button>
+                </div>
+            </div> 
+        </form>
+     </div>
+    </div> 
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script>
+    $(function (){
+    	 var oldregisterAutographpath='${investor.registerAutographPath}';
+    	 var licensePathVal = '${investor.licensePath}';
+    	 var investorId = '${investor.investorId}';
+    	 var creditAuthorizationPath='${investor.creditAuthorizationPath}';
+         var logopath ='${investor.logoPath}';
+     	 var registerAutographPath = '${investor.registerAutographPath}';
+     	 var audiStatus = '${investor.auditStatus}';
+     	 var baseFlag ='${investor.baseFlag}';
+        layer.photos({
+            photos: '#layer-photos'
+            , anim: 0 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+        });
+        $(".upId").on("click",function () {
+        	window.parent.update_page("112");
+	        	var index = parent.layer.getFrameIndex(window.name);
+	        	parent.layer.close(index);
+        });
+        //调用富文本编辑器控件
+        var layedit = layui.layedit;
+        layedit.build('demandDetails'); //建立编辑器
+        // 上传文件控件
+        var upload = layui.upload;
+        //执行实例 上传营业执照
+        var uploadInst = upload.render({
+                   elem: '#licenseUploadBtn' //绑定元素
+//                    , exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf'
+        			,data : {"fileType" : 'yyzz'}
+                   , accept: 'file' //普通文件
+                   , size: 1024 * 128  //设置文件上传的大小最大为128M
+       			,url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+                   , done: function (data) {
+                   	//上传完毕回调
+                   	if(data.code == 0){
+                           $('#imgHidden').attr('value',data.url);
+                           $('#fileName').attr('value',data.name);
+                           $('#preview').text(data.name);
+                           $("#preview").attr("href",data.url);
+                           $('#preview').attr('download',data.name);
+                       }
+                   }
+                   , error: function (data) {
+                   	alert(data);
+                       //请求异常回调
+                   }
+          });
+        
+       
+        //上传LOGO registerUploadBtn
+        var logoUpload = upload.render({
+        	elem: '#logoUploadBtn' //绑定元素
+     			,data : {"fileType" : 'jglg'}
+    			,url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+                , done: function (data) {
+                	//上传完毕回调
+                	if(data.code == 0){
+                        $('#logoHidden').attr('value',data.url);
+                        $('#logoName').attr('value',data.name);
+                        $('#logoPreview').text(data.name);
+                        $("#logoPreview").attr("href",data.url);
+                        $('#logoPreview').attr('download',data.name);
+                    }
+                }
+                , error: function (data) {
+                	alert(data);
+                    //请求异常回调
+                }
+        });
+      //指定允许上传的文件类型 上传征信授权书
+       var  creditAuthUpload=upload.render({
+            elem: '#creditAuthUploadFile'
+//             , exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf'
+            ,data : {"fileType" : 'zxsqs'}
+            , url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+            , accept: 'file' //普通文件
+            , auto: false
+            , size: 1024 * 128  //设置文件上传的大小最大为128M
+            , before: function () {
+                $("#downloadFile").text("文件上传中请稍候…………");
+                document.getElementById("downloadFile").style.color = '#FF6838';
+            }
+            ,choose: function(obj){
+                //将每次选择的文件追加到文件队列
+                var files = obj.pushFile();
+                //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+                obj.preview(function(index, file, result){
+                  if(file.size == 0){
+                	  $("#downloadFile").text("请上传非空文件！");
+                	  document.getElementById("downloadFile").style.color = '#FF6838';
+                  }else{
+                	  obj.upload(index, file);
+                  }
+                });
+              }
+            , done: function (res) {
+                if (res.code == 0) {
+                	layer.msg(res.name + "上传成功了");
+                    document.getElementById("downloadFile").style.color = '#0D4F92';
+                    $("#fileupHidden").attr("value", res.url);
+                    $("#creditAuthorizationName").attr("value", res.name);
+                    $("#downloadFile").text(res.name)
+                    $("#downloadFile").attr("href",res.url);
+                    $('#downloadFile').attr('download',res.name);
+                }else{
+                	$("#downloadFile").text("请上传非空文件！");
+                }
+            }
+        });
+        //上传 注册申请表
+        var logoUpload = upload.render({
+        	elem: '#registerUploadBtn'
+//                 , exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf'
+                ,data : {"fileType" : 'bsyx'}
+                , url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+                , accept: 'file' //普通文件
+                , auto: false
+                , size: 1024 * 128  //设置文件上传的大小最大为128M
+                , before: function () {
+                    $("#registerPreview").text("文件上传中请稍候…………");
+                    document.getElementById("registerPreview").style.color = '#FF6838';
+                }
+                ,choose: function(obj){
+                	//将每次选择的文件追加到文件队列
+                    var files = obj.pushFile();
+                    //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+                    obj.preview(function(index, file, result){
+                      if(file.size == 0){
+                    	  $("#registerPreview").text("请上传非空文件！");
+                    	  document.getElementById("registerPreview").style.color = '#FF6838';
+                      }else{
+                    	  obj.upload(index, file);
+                      }
+                    });
+                  }
+                , done: function (res) {
+                    if (res.code == 0) {
+                    	layer.msg(res.name + "上传成功了");
+                        document.getElementById("registerPreview").style.color = '#0D4F92';
+                        $('#registerAutographHidden').attr('value',res.url);
+                        $('#registerAutographName').attr('value',res.name);
+                        $('#registerPreview').text(res.name);
+                        $("#registerPreview").attr("href",res.url);
+                        $('#registerPreview').attr('download',res.name);
+                    }else{
+                    	$("#registerPreview").text("请上传非空文件！");
+                    }
+                }
+        });
+        
+        
+        
+        
+        
+        //提交
+		layui.use('form', function(){
+			  var form = layui.form;
+			  var lock=true;
+			//监听提交
+			  form.on('submit(export)', function(data){
+				  var baseFlag =getInvestorFlag(investorId);
+				 var perFlag = getInvestorPerFlag(investorId);
+					  if(baseFlag=="0"){
+						  layer.confirm('基本信息未录入,请录入基本信息。',{
+	   			            btn:['确定','取消']
+		     			        },function(index){
+		     			        	window.parent.update_page("111");
+		     			        	layer.close(index);
+		     			        },function(index){
+		     			        	    
+		     			        })
+					  }else if(perFlag=="0"){
+							  layer.confirm('业绩信息未录入,请录入业绩信息。',{
+		   			            btn:['确定','取消']
+			     			        },function(index){
+			     			        	window.parent.update_page("112");
+			     			        	layer.close(index);
+			     			        },function(index){
+			     			        	    
+			     			        })
+					  }else{
+						  document.getElementById("form1").action="/SRRPBusinesWeb/investor/exportInvestorInfor";
+						  document.getElementById("form1").submit();
+					  }
+			  })
+			  form.on('submit(exportWarrant)', function(data){
+				  var baseFlag =getInvestorFlag(investorId);
+				  var perFlag = getInvestorPerFlag(investorId);
+				  if(baseFlag=="0"){
+					  layer.confirm('授权信息未录入,请录入基本信息。',{
+   			            btn:['确定','取消']
+	     			        },function(index){
+	     			        	window.parent.update_page("111");
+	     			        	layer.close(index);
+	     			        },function(index){
+	     			        	    
+	     			        })
+				  }else if(perFlag=="0"){
+					  layer.confirm('业绩信息未录入,请录入业绩信息。',{
+	   			            btn:['确定','取消']
+		     			        },function(index){
+		     			        	window.parent.update_page("112");
+		     			        	layer.close(index);
+		     			        },function(index){
+		     			        	    
+		     			        })
+				  }else{
+					  document.getElementById("form1").action="/SRRPBusinesWeb/investor/exportWarrantInfor";
+					  document.getElementById("form1").submit();
+				  }
+			  })
+			  
+			  form.on('submit(investor)', function(data){
+					 var baseFlag =getInvestorFlag(investorId);
+					 var perFlag = getInvestorPerFlag(investorId);
+					 var registerAutographPath = $("#registerAutographHidden").val();
+					 var creditAuthorizationPath = $("#fileupHidden").val();
+					 var imgHidden = $("#imgHidden").val();
+					 if(audiStatus!='4' && audiStatus!="1" && audiStatus!="2"){
+						 if(baseFlag=="0"){
+							 parent.layer.alert("请检查基本信息是否录入!");
+							 return false;
+						 }
+						 if(perFlag=="0"){ 
+							 parent.layer.alert("请检查是否录入业绩信息!");
+							 return false;
+						 } 
+						 if(imgHidden==null || imgHidden=='' || imgHidden=="undifiend"){
+							 parent.layer.alert("请上传营业执照。");
+							 return false;
+						 }
+							 if(oldregisterAutographpath==''||oldregisterAutographpath=='null'||oldregisterAutographpath=='undifiend'){
+								 if(registerAutographPath==null || registerAutographPath=='' || registerAutographPath=="undifiend"){
+									 parent.layer.alert("请上传注册申请表。");
+									 return false;
+								 } 
+						 }else{
+							 if(baseFlag=="1" || perFlag=="1"){
+							 if(registerAutographPath==oldregisterAutographpath){
+								 parent.layer.alert("请重新导出并上传注册申请表。");
+								 return false;
+							 }
+							 }
+						 }
+						  if(creditAuthorizationPath==null || creditAuthorizationPath=='' || creditAuthorizationPath=="undifiend"){
+							 parent.layer.alert("请上传授权书。");
+							 return false;
+						 }
+								 
+							 parent.layer.confirm('确认提交？',{
+						            btn:['确定','取消']
+			   			        },function(index){
+			   			        	$.ajax({
+			   						   type : "post",
+			   							  url : "/SRRPBusinesWeb/investor/imageEdit",
+			   						   data : {"investorData" : JSON.stringify(data.field)},
+			   						success : function(data) {
+			   							data = JSON.parse(data);
+			   		                   var flag = update_successprocess(data);
+			   		                    if (flag) { 
+				   		                     if(baseFlag=="1" || perFlag=="1" ){
+				   		                    	parent.layer.confirm('信息已提交，正在审核，请耐心等待。',{
+										            btn:['确定']
+							   			        },function(index){
+							   			        	window.parent.update_page("114");
+					   		   			        	parent.layer.close(index);
+					   		   			            parent.location.reload();
+							   			        });
+				   		                     }else{
+				   		                    	parent.layer.confirm('信息已提交!',{
+										            btn:['确定']
+							   			        },function(index){
+							   			        	window.parent.update_page("114");
+					   		   			        	parent.layer.close(index);
+					   		   			            parent.location.reload();
+							   			        });
+				   		                     }
+			   		                     
+			   		                        }else{
+			   		                    	  layer.alert('提交失败', {
+			   		                              title: '最终的提交信息'
+			   		                          }) 
+			   		                          
+			   		                    }
+			   		   			      return false;
+			   						}
+			   				     });
+			   			        },function(index){
+			   			        	
+			   			        })
+					 }else{
+						 parent.layer.alert('机构信息正在审核中，无法进行编辑。');
+					 }
+					  return false;
+			 });
+	  });
+	  function getInvestorFlag(investorId) {
+			 var flag;
+			 $.ajax({
+				   type : "post",
+				  async : false,
+					url : "/SRRPBusinesWeb/investor/selectInvestorFlagById",
+				   data : {"investorId" : investorId},
+				success : function(data) {
+					flag= JSON.parse(data);    
+				          }
+			        });
+			 return flag;
+		 }
+	  function getInvestorPerFlag(investorId) {
+			 var flag;
+			 $.ajax({
+				   type : "post",
+				  async : false,
+					url : "/SRRPBusinesWeb/investor/selectInvestorPerFlagById",
+				   data : {"investorId" : investorId},
+				success : function(data) {
+					flag= JSON.parse(data);    
+				          }
+			        });
+			 return flag;
+		 }
+		//后端程序通过Jquery+Ajax将结果返回值提供给用户。
+        function update_successprocess(data) {
+            if (data.code == "00000") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    });
+</script>
+</body>
+</html>

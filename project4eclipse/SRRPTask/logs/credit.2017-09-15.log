@@ -1,0 +1,526 @@
+09:53:31.243 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+09:53:34.425 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 09:53:34 CST 2017]; root of context hierarchy
+09:53:35.534 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+09:53:36.152 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+09:53:36.674 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+09:53:36.900 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+09:53:36.905 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+09:53:36.908 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+09:53:36.909 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+09:53:36.933 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+09:53:37.123 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+09:53:37.175 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+09:53:37.422 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+09:53:37.428 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+09:53:37.543 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+09:53:38.718 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+09:53:39.382 [main] ERROR o.h.hql.internal.ast.ErrorCounter - line 1:52: unexpected token: amount
+09:53:39.392 [main] ERROR o.h.hql.internal.ast.ErrorCounter - line 1:52: unexpected token: amount
+antlr.NoViableAltException: unexpected token: amount
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.primaryExpression(HqlBaseParser.java:876) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.atom(HqlBaseParser.java:3472) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.unaryExpression(HqlBaseParser.java:3250) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.multiplyExpression(HqlBaseParser.java:3122) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.additiveExpression(HqlBaseParser.java:2828) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.concatenation(HqlBaseParser.java:568) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.relationalExpression(HqlBaseParser.java:2595) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.equalityExpression(HqlBaseParser.java:2456) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.negatedExpression(HqlBaseParser.java:2420) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.logicalAndExpression(HqlBaseParser.java:2336) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.logicalOrExpression(HqlBaseParser.java:2301) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.expression(HqlBaseParser.java:2011) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.aliasedExpression(HqlBaseParser.java:2254) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectedPropertiesList(HqlBaseParser.java:1391) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectClause(HqlBaseParser.java:1294) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectFrom(HqlBaseParser.java:1031) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.queryRule(HqlBaseParser.java:701) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectStatement(HqlBaseParser.java:294) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.statement(HqlBaseParser.java:157) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.parse(QueryTranslatorImpl.java:267) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.doCompile(QueryTranslatorImpl.java:181) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.compile(QueryTranslatorImpl.java:137) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:105) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:80) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.engine.query.spi.QueryPlanCache.getHQLQueryPlan(QueryPlanCache.java:168) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.internal.AbstractSessionImpl.getHQLQueryPlan(AbstractSessionImpl.java:221) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:199) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:1778) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.ejb.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:301) [hibernate-entitymanager-4.2.5.Final.jar:4.2.5.Final]
+	at com.icfcc.SRRPDao.jpa.repository.enterprise.impl.ReportBeanEnterpriseDaoImpl.findStatisticResult(ReportBeanEnterpriseDaoImpl.java:38) [classes/:na]
+	at com.icfcc.SRRPDao.ReportBeanEnterpriseDaoTest.testDaoFindStatistic(ReportBeanEnterpriseDaoTest.java:28) [test-classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_51]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_51]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_51]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_51]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47) [junit-4.11.jar:na]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.11.jar:na]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44) [junit-4.11.jar:na]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:74) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:83) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:72) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:88) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:na]
+09:53:39.396 [main] WARN  o.h.hql.internal.ast.HqlParser - HHH000203: processEqualityExpression() : No expression to process!
+09:53:39.396 [main] ERROR o.h.hql.internal.ast.ErrorCounter - line 1:72: unexpected token: rankCount
+09:53:39.397 [main] ERROR o.h.hql.internal.ast.ErrorCounter - line 1:72: unexpected token: rankCount
+antlr.NoViableAltException: unexpected token: rankCount
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.primaryExpression(HqlBaseParser.java:876) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.atom(HqlBaseParser.java:3472) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.unaryExpression(HqlBaseParser.java:3250) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.multiplyExpression(HqlBaseParser.java:3122) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.additiveExpression(HqlBaseParser.java:2828) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.concatenation(HqlBaseParser.java:568) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.relationalExpression(HqlBaseParser.java:2595) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.equalityExpression(HqlBaseParser.java:2456) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.negatedExpression(HqlBaseParser.java:2420) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.logicalAndExpression(HqlBaseParser.java:2336) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.logicalOrExpression(HqlBaseParser.java:2301) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.expression(HqlBaseParser.java:2011) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.aliasedExpression(HqlBaseParser.java:2254) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectedPropertiesList(HqlBaseParser.java:1391) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectClause(HqlBaseParser.java:1294) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectFrom(HqlBaseParser.java:1031) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.queryRule(HqlBaseParser.java:701) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectStatement(HqlBaseParser.java:294) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.statement(HqlBaseParser.java:157) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.parse(QueryTranslatorImpl.java:267) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.doCompile(QueryTranslatorImpl.java:181) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.compile(QueryTranslatorImpl.java:137) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:105) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:80) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.engine.query.spi.QueryPlanCache.getHQLQueryPlan(QueryPlanCache.java:168) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.internal.AbstractSessionImpl.getHQLQueryPlan(AbstractSessionImpl.java:221) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:199) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:1778) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.ejb.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:301) [hibernate-entitymanager-4.2.5.Final.jar:4.2.5.Final]
+	at com.icfcc.SRRPDao.jpa.repository.enterprise.impl.ReportBeanEnterpriseDaoImpl.findStatisticResult(ReportBeanEnterpriseDaoImpl.java:38) [classes/:na]
+	at com.icfcc.SRRPDao.ReportBeanEnterpriseDaoTest.testDaoFindStatistic(ReportBeanEnterpriseDaoTest.java:28) [test-classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_51]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_51]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_51]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_51]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47) [junit-4.11.jar:na]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.11.jar:na]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44) [junit-4.11.jar:na]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:74) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:83) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:72) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:88) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:na]
+09:53:39.397 [main] WARN  o.h.hql.internal.ast.HqlParser - HHH000203: processEqualityExpression() : No expression to process!
+09:53:39.425 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 09:53:34 CST 2017]; root of context hierarchy
+09:53:39.430 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+09:53:39.434 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+09:55:15.516 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+09:55:16.180 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 09:55:16 CST 2017]; root of context hierarchy
+09:55:16.951 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+09:55:17.183 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+09:55:17.427 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+09:55:17.529 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+09:55:17.533 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+09:55:17.534 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+09:55:17.536 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+09:55:17.551 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+09:55:17.636 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+09:55:17.666 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+09:55:17.853 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+09:55:17.857 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+09:55:17.933 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+09:55:18.303 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+09:55:18.718 [main] ERROR o.h.hql.internal.ast.ErrorCounter - line 1:52: unexpected token: t
+09:55:18.722 [main] ERROR o.h.hql.internal.ast.ErrorCounter - line 1:52: unexpected token: t
+antlr.NoViableAltException: unexpected token: t
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.primaryExpression(HqlBaseParser.java:876) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.atom(HqlBaseParser.java:3472) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.unaryExpression(HqlBaseParser.java:3250) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.multiplyExpression(HqlBaseParser.java:3122) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.additiveExpression(HqlBaseParser.java:2828) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.concatenation(HqlBaseParser.java:568) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.relationalExpression(HqlBaseParser.java:2595) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.equalityExpression(HqlBaseParser.java:2456) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.negatedExpression(HqlBaseParser.java:2420) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.logicalAndExpression(HqlBaseParser.java:2336) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.logicalOrExpression(HqlBaseParser.java:2301) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.expression(HqlBaseParser.java:2011) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.aliasedExpression(HqlBaseParser.java:2254) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectedPropertiesList(HqlBaseParser.java:1391) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectClause(HqlBaseParser.java:1294) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectFrom(HqlBaseParser.java:1031) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.queryRule(HqlBaseParser.java:701) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectStatement(HqlBaseParser.java:294) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.statement(HqlBaseParser.java:157) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.parse(QueryTranslatorImpl.java:267) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.doCompile(QueryTranslatorImpl.java:181) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.compile(QueryTranslatorImpl.java:137) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:105) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:80) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.engine.query.spi.QueryPlanCache.getHQLQueryPlan(QueryPlanCache.java:168) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.internal.AbstractSessionImpl.getHQLQueryPlan(AbstractSessionImpl.java:221) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:199) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:1778) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.ejb.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:301) [hibernate-entitymanager-4.2.5.Final.jar:4.2.5.Final]
+	at com.icfcc.SRRPDao.jpa.repository.enterprise.impl.ReportBeanEnterpriseDaoImpl.findStatisticResult(ReportBeanEnterpriseDaoImpl.java:38) [classes/:na]
+	at com.icfcc.SRRPDao.ReportBeanEnterpriseDaoTest.testDaoFindStatistic(ReportBeanEnterpriseDaoTest.java:28) [test-classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_51]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_51]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_51]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_51]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47) [junit-4.11.jar:na]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.11.jar:na]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44) [junit-4.11.jar:na]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:74) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:83) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:72) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:88) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:na]
+09:55:18.723 [main] ERROR o.h.hql.internal.ast.ErrorCounter - line 1:74: unexpected token: t
+09:55:18.723 [main] ERROR o.h.hql.internal.ast.ErrorCounter - line 1:74: unexpected token: t
+antlr.NoViableAltException: unexpected token: t
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.primaryExpression(HqlBaseParser.java:876) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.atom(HqlBaseParser.java:3472) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.unaryExpression(HqlBaseParser.java:3250) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.multiplyExpression(HqlBaseParser.java:3122) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.additiveExpression(HqlBaseParser.java:2828) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.concatenation(HqlBaseParser.java:568) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.relationalExpression(HqlBaseParser.java:2595) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.equalityExpression(HqlBaseParser.java:2456) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.negatedExpression(HqlBaseParser.java:2420) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.logicalAndExpression(HqlBaseParser.java:2336) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.logicalOrExpression(HqlBaseParser.java:2301) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.expression(HqlBaseParser.java:2011) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.aliasedExpression(HqlBaseParser.java:2254) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectedPropertiesList(HqlBaseParser.java:1391) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectClause(HqlBaseParser.java:1294) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectFrom(HqlBaseParser.java:1031) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.queryRule(HqlBaseParser.java:701) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.selectStatement(HqlBaseParser.java:294) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.antlr.HqlBaseParser.statement(HqlBaseParser.java:157) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.parse(QueryTranslatorImpl.java:267) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.doCompile(QueryTranslatorImpl.java:181) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.compile(QueryTranslatorImpl.java:137) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:105) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:80) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.engine.query.spi.QueryPlanCache.getHQLQueryPlan(QueryPlanCache.java:168) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.internal.AbstractSessionImpl.getHQLQueryPlan(AbstractSessionImpl.java:221) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:199) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.internal.SessionImpl.createQuery(SessionImpl.java:1778) [hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.ejb.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:301) [hibernate-entitymanager-4.2.5.Final.jar:4.2.5.Final]
+	at com.icfcc.SRRPDao.jpa.repository.enterprise.impl.ReportBeanEnterpriseDaoImpl.findStatisticResult(ReportBeanEnterpriseDaoImpl.java:38) [classes/:na]
+	at com.icfcc.SRRPDao.ReportBeanEnterpriseDaoTest.testDaoFindStatistic(ReportBeanEnterpriseDaoTest.java:28) [test-classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_51]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_51]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_51]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_51]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47) [junit-4.11.jar:na]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.11.jar:na]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44) [junit-4.11.jar:na]
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:74) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:83) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:72) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:88) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:na]
+09:55:18.731 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 09:55:16 CST 2017]; root of context hierarchy
+09:55:18.735 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+09:55:18.739 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+09:56:20.825 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+09:56:21.519 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 09:56:21 CST 2017]; root of context hierarchy
+09:56:21.861 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+09:56:21.988 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+09:56:22.242 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+09:56:22.349 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+09:56:22.353 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+09:56:22.355 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+09:56:22.356 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+09:56:22.371 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+09:56:22.462 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+09:56:22.494 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+09:56:22.682 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+09:56:22.686 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+09:56:22.770 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+09:56:23.089 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+09:56:23.480 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 09:56:21 CST 2017]; root of context hierarchy
+09:56:23.484 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+09:56:23.488 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+09:58:53.908 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+09:58:54.539 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@102f94e: startup date [Fri Sep 15 09:58:54 CST 2017]; root of context hierarchy
+09:58:54.945 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+09:58:55.103 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+09:58:55.392 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+09:58:55.519 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+09:58:55.524 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+09:58:55.526 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+09:58:55.528 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+09:58:55.550 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+09:58:55.660 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+09:58:55.694 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+09:58:55.892 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+09:58:55.897 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+09:58:55.994 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+09:58:56.374 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+09:58:56.893 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@102f94e: startup date [Fri Sep 15 09:58:54 CST 2017]; root of context hierarchy
+09:58:56.898 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+09:58:56.907 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+09:59:20.022 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+09:59:20.657 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@102f94e: startup date [Fri Sep 15 09:59:20 CST 2017]; root of context hierarchy
+09:59:21.071 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+09:59:21.225 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+09:59:21.512 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+09:59:21.639 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+09:59:21.643 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+09:59:21.645 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+09:59:21.647 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+09:59:21.670 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+09:59:21.787 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+09:59:21.824 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+09:59:22.017 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+09:59:22.022 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+09:59:22.124 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+09:59:22.508 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+09:59:23.097 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1054, SQLState: 42S22
+09:59:23.097 [main] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Unknown column 'reportbean0_.timd_id' in 'field list'
+09:59:23.123 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@102f94e: startup date [Fri Sep 15 09:59:20 CST 2017]; root of context hierarchy
+09:59:23.129 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+09:59:23.131 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+10:00:56.125 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+10:00:56.801 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@102f94e: startup date [Fri Sep 15 10:00:56 CST 2017]; root of context hierarchy
+10:00:57.199 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+10:00:57.368 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+10:00:57.666 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+10:00:57.790 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+10:00:57.795 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+10:00:57.797 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+10:00:57.798 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+10:00:57.821 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+10:00:57.927 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+10:00:57.961 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+10:00:58.154 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+10:00:58.158 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+10:00:58.257 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+10:00:58.645 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+10:04:27.024 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+10:04:27.738 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@102f94e: startup date [Fri Sep 15 10:04:27 CST 2017]; root of context hierarchy
+10:04:28.146 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+10:04:28.300 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+10:04:28.590 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+10:04:28.717 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+10:04:28.725 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+10:04:28.727 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+10:04:28.728 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+10:04:28.747 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+10:04:28.856 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+10:04:28.889 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+10:04:29.079 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+10:04:29.084 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+10:04:29.182 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+10:04:29.540 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+10:11:10.684 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+10:11:11.360 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 10:11:11 CST 2017]; root of context hierarchy
+10:11:11.701 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+10:11:11.848 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+10:11:32.959 [Druid-ConnectionPool-Create-26709264] ERROR c.alibaba.druid.pool.DruidDataSource - create connection error, url: jdbc:mysql://172.16.110.197:3306/stockrights?useUnicode=true&characterEncoding=utf-8, errorCode 0, state 08S01
+com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0_51]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0_51]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0_51]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422) ~[na:1.8.0_51]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:1117) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:350) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2393) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2430) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2215) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:813) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47) ~[mysql-connector-java-5.1.21.jar:na]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0_51]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0_51]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0_51]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422) ~[na:1.8.0_51]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:399) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:334) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:148) ~[druid-1.0.19.jar:1.0.19]
+	at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:211) ~[druid-1.0.19.jar:1.0.19]
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:142) ~[druid-1.0.19.jar:1.0.19]
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1410) ~[druid-1.0.19.jar:1.0.19]
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1464) ~[druid-1.0.19.jar:1.0.19]
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:1995) ~[druid-1.0.19.jar:1.0.19]
+Caused by: java.net.ConnectException: Connection timed out: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method) ~[na:1.8.0_51]
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79) ~[na:1.8.0_51]
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345) ~[na:1.8.0_51]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206) ~[na:1.8.0_51]
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188) ~[na:1.8.0_51]
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172) ~[na:1.8.0_51]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392) ~[na:1.8.0_51]
+	at java.net.Socket.connect(Socket.java:589) ~[na:1.8.0_51]
+	at java.net.Socket.connect(Socket.java:538) ~[na:1.8.0_51]
+	at java.net.Socket.<init>(Socket.java:434) ~[na:1.8.0_51]
+	at java.net.Socket.<init>(Socket.java:244) ~[na:1.8.0_51]
+	at com.mysql.jdbc.StandardSocketFactory.connect(StandardSocketFactory.java:257) ~[mysql-connector-java-5.1.21.jar:na]
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:300) ~[mysql-connector-java-5.1.21.jar:na]
+	... 18 common frames omitted
+10:11:36.130 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+10:11:36.236 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+10:11:36.240 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+10:11:36.242 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+10:11:36.243 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+10:11:36.262 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+10:11:36.354 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+10:11:36.385 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+10:11:36.564 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+10:11:36.568 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+10:11:36.645 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+10:11:36.956 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+10:11:37.455 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 10:11:11 CST 2017]; root of context hierarchy
+10:11:37.460 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+10:11:37.461 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+10:11:51.515 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+10:11:52.152 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 10:11:52 CST 2017]; root of context hierarchy
+10:11:52.480 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+10:11:52.626 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+10:11:52.875 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+10:11:52.989 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+10:11:52.992 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+10:11:52.994 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+10:11:52.995 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+10:11:53.011 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+10:11:53.106 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+10:11:53.139 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+10:11:53.320 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+10:11:53.324 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+10:11:53.402 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+10:11:53.730 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+10:11:54.152 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 10:11:52 CST 2017]; root of context hierarchy
+10:11:54.155 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+10:11:54.156 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+10:13:02.374 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+10:13:02.955 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 10:13:02 CST 2017]; root of context hierarchy
+10:13:03.285 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+10:13:03.435 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+10:13:03.689 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+10:13:03.790 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+10:13:03.794 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+10:13:03.796 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+10:13:03.797 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+10:13:03.813 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+10:13:03.901 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+10:13:03.932 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+10:13:04.110 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+10:13:04.113 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+10:13:04.189 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+10:13:04.497 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+10:13:04.926 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 10:13:02 CST 2017]; root of context hierarchy
+10:13:04.929 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+10:13:04.931 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+11:42:54.326 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+11:42:55.039 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 11:42:55 CST 2017]; root of context hierarchy
+11:42:55.371 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+11:42:55.496 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+11:42:55.737 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+11:42:55.849 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+11:42:55.853 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+11:42:55.854 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+11:42:55.855 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+11:42:55.871 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+11:42:55.966 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+11:42:55.995 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+11:42:56.179 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+11:42:56.183 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+11:42:56.259 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+11:42:56.598 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+11:42:57.018 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 11:42:55 CST 2017]; root of context hierarchy
+11:42:57.021 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+11:42:57.022 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+13:27:57.306 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+13:28:03.192 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@b7f003: startup date [Fri Sep 15 13:28:03 CST 2017]; root of context hierarchy
+13:28:06.825 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+13:28:11.359 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+13:28:13.170 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'

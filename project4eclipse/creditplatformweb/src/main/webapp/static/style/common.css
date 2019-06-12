@@ -1,0 +1,290 @@
+
+body {
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+    width:100%;
+    min_width:1028px;
+}
+
+/*闁稿浚鍓欓崣顡嶦ADER*/
+.logo {
+    width: 1000px;
+    margin: 25px auto;
+}
+
+.logoLeft a {
+    background: url(../image/login/logo.png) no-repeat 20px center;
+    display: inline-block;
+    width: 300px;
+    cursor: pointer;
+    padding-left: 300px;
+
+}
+
+.logoLeft a p {
+    height: 16px;
+    line-height: 16px;
+    color: #333;
+    margin: 0;
+    padding-left: 10px;
+/*     border-left: 1px solid #cfcfcf; */
+}
+
+.logoRight {
+    float: right;
+}
+
+.logoRight a {
+    display: inline-block;
+    padding: 8px 20px;
+    margin-left: 10px;
+    color: #0453AF;
+    border: 1px solid #D1E2F4;
+    background: #EDF3F8;
+}
+
+.logoRight a:hover {
+    color: #EDF3F8;
+    border: 1px solid #D1E2F4;
+    background: #0453AF;
+}
+
+.header {
+    background-color: #0D4F92;
+}
+
+.header .nav {
+    width: 1000px;
+    width: 1018px \9;
+    margin: 0 auto;
+}
+
+.header .nav li {
+    float: left;
+    font-size: 18px;
+    height: 58px;
+    line-height: 58px;
+}
+
+.header .nav li a {
+    color: #fff;
+    padding: 0 36px;
+}
+
+.header .nav li a:active {
+    color: #fff;
+}
+
+.header .nav li:hover {
+    background-color: #083671;
+}
+
+.header .nav li.active {
+    background-color: #083671;
+}
+
+/*闁稿浚鍓欓崣顡嶦ADER END*/
+
+/*闁稿浚鍓欓崣顡孫OTER*/
+.footer {
+    border-top: 1px solid #DFE1E5;
+    /*position: fixed;*/
+    /*width: 100%;*/
+    /*bottom: 0;*/
+}
+
+.footer .contentAndFocus {
+    width: 1000px;
+    margin: 0 auto;
+    color: #333;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.footer .footLeft p {
+    font-size: 24px;
+    margin: 8px auto;
+}
+
+.footer .footLeft {
+    float: left;
+}
+
+.footer .footRight {
+    float: right;
+    text-align: right;
+    margin-top: 10px;
+}
+
+.footer .footRight .focusUs a {
+    padding: 18px;
+    background: no-repeat center center;
+    margin-right: 10px;
+    position: relative;
+}
+
+.footer .footRight .focusUs a div {
+    display: none;
+    width: 120px;
+    height: 150px;
+    border: 1px solid #DFE1E5;
+    position: absolute;
+    bottom: 60px;
+    left: -40px;
+    text-align: center;
+}
+
+.footer .footRight .focusUs a div p {
+    margin: 0px;
+    padding-top: 110px;
+    line-height: 16px;
+}
+
+.footer .footRight .focusUs span {
+    margin-right: 25px;
+}
+
+/*.footer .footRight .focusUs #wechat {*/
+/*background-image: url(../image/login/wechat.jpg);*/
+/*}*/
+
+/*.footer .footRight .focusUs #wechat div {*/
+/*background: #fff url(../image/login/wechat.png) no-repeat center 10px;*/
+/*}*/
+
+/*.footer .footRight .focusUs #weibo {*/
+/*background-image: url(../image/login/weibo.jpg);*/
+/*}*/
+
+/*.footer .footRight .focusUs #weibo div {*/
+/*background: #fff url(../image/login/weibo.png) no-repeat center 10px;*/
+/*}*/
+.footer .footRight .focusUs #wechat {
+    background-size: 36px 36px;
+    background-image: url(../image/login/wechat-logo.png);
+}
+
+.footer .footRight .focusUs #wechat div {
+    background: #fff url(../image/login/wechat.png) no-repeat center 10px;
+}
+
+.footer .footRight .focusUs #weibo {
+    background-size: 36px 36px;
+    background-image: url(../image/login/weibo-logo.png);
+}
+
+.footer .footRight .focusUs #weibo div {
+    background: #fff url(../image/login/weibo.png) no-repeat center 10px;
+}
+
+.footer .footRight .footNav {
+    margin-top: 25px;
+}
+
+.footer .footRight .footNav li {
+    float: left;
+}
+
+.footer .footRight .footNav li a {
+    color: #C5C3C3;
+    margin-left: 30px;
+}
+
+.footer .footRight .footNav li a:hover {
+    color: #0D4F92;
+}
+
+.copyright {
+    background-color: #484849;
+}
+
+.copyright p {
+    width: 1000px;
+    margin: 0 auto;
+    color: #E2E2E3;
+    /*padding-left: 10px;*/
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+}
+
+/*闁稿浚鍓欓崣顡孫OTER END*/
+/*濞戞挻鑹炬慨鐔哥▔鐠佸磭绉奸柤鍐叉湰濞呮瑥顕ｉ敓鑺ユ叏閿燂拷*/
+.main-background {
+    background: #EEF3F9;
+}
+
+/*濞戞挻鑹炬慨鐔哥▔鐠佸磭绉奸柤鍐叉湰濞呮瑧绱掗幘瀛樺皢*/
+/*閺夆晜鏌ㄥú鏍箰婢舵劖灏﹂柡宥呭槻缁扁�愁嚕閿熻姤鎱ㄩ敓锟�*/
+.return-area {
+    clear: both;
+    overflow: hidden;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.return-btn {
+    background: #00b268;
+    border: 1px solid #00b268;
+    border-radius: 10px;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    font-size: 14px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    width: 87px;
+}
+
+.return-btn:hover {
+    border: 1px solid #bbc2c6;
+    color: #FFFFFF;
+    background: #bbc2c6;
+}
+
+/*閺夆晜鏌ㄥú鏍箰婢舵劖灏﹂柡宥呭槻缁憋紕绱掗幘瀛樺皢*/
+/*鐟滅増鎸告晶鐘虫媴瀹ュ洨鏋傞柡宥呭槻缁扁�愁嚕閿熻姤鎱ㄩ敓锟�*/
+.current-position {
+    font-size: 14px;
+    font-weight: bold;
+    display: inline;
+    /*background: #f3f3f3; !*#9d192b;*!*/
+    line-height: 30px;
+    color: #000000;
+}
+
+/*鐟滅増鎸告晶鐘虫媴瀹ュ洨鏋傜紓浣规尰濞硷拷*/
+
+/*闁稿繐宕ˇ璺ㄤ焊閹寸偞钂嬮柡浣哄瀹撲線寮藉畡鎵鐎殿噯鎷峰┑顕嗘嫹*/
+.center-dotted {
+    margin-top: -3px;
+    border-top: 1px solid #BDC4CA;
+    /*border-bottom: 1px solid #BDC4CA;*/
+    width: 100%;
+    position: relative;
+    height: 30px;
+}
+
+.center-dotted-bottom {
+    border-bottom: 1px solid #BDC4CA;
+    width: 100%;
+    position: relative;
+    height: 30px;
+}
+
+.center-dotted span {
+    background: #FFFFCC;
+    color: #03081e;
+    /*left: 50%;*/
+    /*margin-left: -100px;*/
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold; /*閻庢稒銇炵紞瀣礉閻樼數鐓�*/
+    line-height: 30px;
+}
+
+/*闁稿繐宕ˇ璺ㄤ焊閹寸偞钂嬮柡浣哄瀹撲線寮藉畡鎵缂備焦鎸诲锟�*/

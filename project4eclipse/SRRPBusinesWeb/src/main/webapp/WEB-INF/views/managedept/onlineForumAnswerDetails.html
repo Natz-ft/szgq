@@ -1,0 +1,206 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>投资机构详情</title>
+<script src="../static/script/jquery-1.4.4.min.js"
+	type="text/javascript"></script>
+<script src="../static/script/autoload.js" type="text/javascript"></script>
+<script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+<script src="../static/script/layui/layui.js"></script>
+<script src="../static/script/layui/layui.all.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/style/page/details.css">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<style>
+.onlineForumdetails {
+	width: 60%;
+	margin-left: 50px;
+}
+
+.onlineForumdetails-normal {
+	width: 48%;
+	color: #0D4F92;
+	float: left;
+	line-height: 34px;
+}
+
+.onlineForumdetails-special {
+	width: 80%;
+	color: #0D4F92;
+	float: left;
+	line-height: 34px;
+}
+
+/*标题*/
+.onlineForumdetails-special-star {
+	width: 1%;
+	color: #FF0000;
+	float: left;
+	line-height: 34px;
+}
+/*标题*/
+.onlineForumdetails-special-title {
+	width: 71px;
+	color: #0D4F92;
+	float: left;
+	line-height: 34px;
+}
+/*内容*/
+.onlineForumdetails-special-content {
+	width: 80%;
+	color: #333;
+	float: left;
+	line-height: 34px;
+	
+	
+}
+
+.onlineForumdetails span {
+	color: #333;
+}
+</style>
+</head>
+<body>
+	<!--头部logo以及登录注册开始-->
+	<div class="boxWrap">
+		<p class="boxTitle"><span>${online.messagetheme}</span></p>
+		<div class="boxContent">
+		<form class="layui-form" action="">
+			<input type="hidden" name="id" value="${online.id }"> <input
+				type="hidden" name="contacts" value="${online.contacts }"> <input
+				type="hidden" name="contactnumber" value="${online.contactnumber }">
+			<input type="hidden" name="email" value="${online.email }"> <input
+				type="hidden" name="messagedate" value="${online.messagedate }">
+			<input type="hidden" name="messagetheme"
+				value="${online.messagetheme }"> <input type="hidden"
+				name="messagedescribe" value="${online.messagedescribe }">
+				
+			 <div class="detailsCon" style="margin-top: 10px;">
+			  <div class="detailsTxt clearfix">
+				<p class="onlineForumdetails-normal">
+					联系人：<span>${online.contacts}</span>
+				</p>
+				<p class="onlineForumdetails-normal">
+					联系电话：<span>${online.contactnumber}</span>
+				</p>
+				
+				<p class="onlineForumdetails-normal">
+					邮箱地址：<span>${online.email}</span>
+				</p>
+				<p class="onlineForumdetails-normal">
+					留言日期：<span>${online.messagedateStr}</span>
+				</p>
+				<p class="onlineForumdetails-normal">
+					企业/机构名称：<span>${online.name}</span>
+				</p>
+				<p class="onlineForumdetails-normal">
+					企业/机构证件号：<span>${online.certno}</span>
+				</p>
+				<div class="onlineForumdetails-special">
+					<div class="onlineForumdetails-special-title">留言主题：</div>
+					<div class="onlineForumdetails-special-content">${online.messagetheme}</div>
+				</div>
+				<div class="onlineForumdetails-special">
+					<div class="onlineForumdetails-special-title">问题描述：</div>
+					<div class="onlineForumdetails-special-content"><pre>${online.messagedescribe}</pre></div>
+				</div>
+				<div class="onlineForumdetails-special">
+					<div class="onlineForumdetails-special-title">回复内容：</div>
+					<div class="onlineForumdetails-special-content" style="margin-top:10px;">
+						<textarea name="answerdescribe" id="LAY_demo_editor" style="height:150px;"
+							placeholder="请输入内容" class="layui-textarea"
+							 lay-verify="answerdescribe"></textarea>
+					</div>
+				</div>
+			</div>
+           </div>
+			<div class="buttonWrap">
+			 <button class="layui-btn submit" lay-submit lay-filter="formOnline">&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;交&nbsp;&nbsp;</button>
+<!-- 				<button class="layui-btn submit" lay-submit lay-filter="formOnline">&nbsp;&nbsp;发&nbsp;&nbsp;&nbsp;送&nbsp;&nbsp;</button> -->
+				<button class="layui-btn closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>
+			</div>
+		</form>
+		</div>
+	</div>
+
+	<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+	<script rel="stylesheet" href="../static/script/layui/css/layui.js"
+		charset="utf-8"></script>
+	<script>
+		layui.use('form', function() {
+			var form = layui.form;// 表单控件
+			var layedit = layui.layedit;
+			var index = layedit.build('LAY_demo_editor',{height:150,
+				 tool: ['left' //左对齐
+				        ,'center' //居中对齐
+				        ,'right' //右对齐]
+			]
+		     });
+			//自定义验证规则  
+			form.verify({
+				answerdescribe : function(value, item) { //value：表单的值、item：表单的DOM对象
+					var contentText= layedit.getText(index);
+					if (contentText==""||contentText==null||contentText==undefined) {
+						return '回复内容不能为空！';
+					}else if (contentText.length > 300) {
+						return '不得超过300个文字！';
+					} else {
+						//监听提交  
+						form.on('submit(formOnline)', function(data) {
+							var onlineata = data.field;
+							var content= layedit.getContent(index);
+							onlineata["answerdescribe"]=content;
+							var contentText= layedit.getText(index);
+							onlineata["answerdescribeText"]=contentText;
+							update_submit(onlineata)
+							return false;
+						});
+					}
+				}
+			});
+			//发送在线提问
+			function update_submit(data) {
+				$.ajax({
+					type : "post",
+					url : "/SRRPBusinesWeb/onlineForum/update",
+					data : {
+						"onlineForum" : JSON.stringify(data)
+					},// 你的formid
+					success : function(data) {
+						data = JSON.parse(data);
+						var flag = update_successprocess(data);
+						if (flag) {
+							layer.alert('发送成功', function() {
+								parent.location.reload();
+							});
+						} else {
+							layer.alert('发送失败', {
+								title : '最终的提交信息'
+							})
+							return false;
+						}
+					}
+				});
+			}
+			//后端程序通过Jquery+Ajax将结果返回值提供给用户。
+			function update_successprocess(data) {
+				if (data.code == "00000") {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			//点击进行关闭操作
+	        $(".closeBtn").on("click", function () {
+	            var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+	            parent.layer.close(index); //关闭layer(关闭当前窗口)
+	        });
+		})
+	</script>
+</body>
+</html>

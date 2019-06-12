@@ -1,0 +1,295 @@
+/* CSS Document */
+body {
+	margin: 0px;
+}
+
+body,p,div,table,td {
+	font-size: 12px;
+	font-family: Tahoma,ËÎÌå;
+	color: #075587;
+}
+
+form {
+	padding: 0px;
+	margin: 0px;
+}
+
+body {
+	scrollbar-arrow-color: #6688AA;
+	scrollbar-3dlight-color: #AACCDD;
+	scrollbar-shadow-color: #99BBCC;
+	scrollbar-face-color: #DDEEFF;
+	scrollbar-darkshadow-color: #DDEEFF;
+	scrollbar-highlight-color: #FFFFFF;
+	scrollbar-track-color: #EEEEEE;
+}
+
+#bodyTable {
+	width:98%;
+	text-align: center;	
+}
+.divData {
+	margin: 5px;
+	border: 1px solid #BFD8E0
+}
+/*åˆ—è¡¨*/
+#listTable {
+	border-collapse: collapse;
+	border: 1px solid #bfd8e0;
+	width: 100%;
+}
+
+#listTable th, #listTable td {
+	border: solid #bfd8e0;
+	line-height: 18px;
+	border-width: 0 1px 1px 0;
+	padding: 2px;
+}
+
+#listTable thead tr {
+	background: url(../image/30.jpg);
+	font-weight: bold;
+	text-align: center;
+	height: 25px;
+}
+
+a:link {
+	color: #0088DD;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #0088DD;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #ff9c01;
+	text-decoration: none;
+}
+
+#dialogBottom {  
+    position:fixed;  
+    left:0px;  
+    bottom:0;  
+    _position:absolute;  
+    _top:expression(document.documentElement.clientHeight + document.documentElement.scrollTop - this.offsetHeight);  
+    background-color: #F6F6F6;
+	border-top-color: #DADEE5;
+	border-top-width:2px;
+	border-top-style:solid;
+	text-align: center;
+	padding:8px;
+	width: 100%;
+}
+
+.button2 {
+	width: 58px;
+	height: 22;
+	line-height: 22px;
+	background: url(../image/29.jpg) no-repeat; 
+	cursor: pointer;
+	display: inline-block;
+	border: none;
+	color: #085485;
+	font-weight: bold;
+}
+
+.button4 {
+	width: 100px;
+	height: 22;
+	line-height: 22px;
+	background: url(../image/001.jpg) no-repeat;
+	cursor: pointer;
+	display: inline-block;
+	border: none;
+	color: #085485;
+	font-weight: bold;
+	
+}
+
+
+##################################################################################################
+
+fieldset {
+	padding: 5px;
+	margin-top: 5px;
+	border: 1px solid #39a7e1;
+	background: #fff;
+}
+
+fieldset legend {
+	font-weight: bold;
+	color: #5cbff3;
+}
+
+.tdInput input {
+	width: 100%;
+}
+
+.tdInput textarea {
+	width: 100%;
+	overflow: auto;
+}
+
+.tdInput select {
+	width: 100%;
+}
+
+.tdNormal {
+	padding: 7px;
+	/*height:40px;*/
+	background-color: #eFF7FF;
+}
+
+.tdNormal input {
+	width: 100%;
+	border: 0px;
+	background-color: transparent;
+}
+
+.tdNormal textarea {
+	width: 100%;
+	border: 0px;
+	overflow: auto;
+	background-color: transparent;
+}
+
+.td_content {
+	font-size: 12px;
+	line-height: 20px;
+	vertical-align: top;
+	width: 33%;
+	color: #FF9900;
+	padding-left: 8px;
+}
+
+.td_content2 {
+	font-size: 12px;
+	line-height: 20px;
+	vertical-align: middle;
+	width: 33%;
+	color: #5f6465;
+	padding-left: 8px;
+}
+
+.td_content3 {
+	font-size: 12px;
+	line-height: 20px;
+	vertical-align: left;
+	width: 23%;
+	color: #5f6465;
+	padding-left: 8px;
+	text-align: left;
+}
+
+.td_title2 {
+	font-weight: bold;
+	font-size: 12px;
+	line-height: 20px;
+	text-align: right;
+	color: #39a7e1;
+	width: 17%;
+	border: 0px solid #eeeeee;
+}
+
+.datagrid{
+	background:url(image/30.jpg) repeat-x;
+	color:#075587;
+}
+.datagrid td{
+	height:27px;
+	line-height:27px;
+}
+.b{
+   border-bottom:1px solid #c5dbe2;
+   border-right:1px solid #c5dbe2;
+}
+.bb{
+   border-bottom:1px solid #c5dbe2;
+}
+.bbb{
+   border-right:1px solid #c5dbe2;
+}
+
+.switchBar_Container td {
+	white-space: nowrap;
+}
+
+.switchBar_Cur_bg {
+	width: 8px;
+	background: url(../image/38.jpg);
+}
+
+.switchBar_Nor_bg {
+	width: 8px;
+	background: url(../image/46.jpg);
+}
+
+.switchBar_Normal {
+	background: url(../image/41.jpg);
+}
+
+.switchBar_Current {
+	background: url(../image/39.jpg);
+}
+
+.switchBar_Cur_Nor {
+	width: 26px;
+	background: url(../image/40.jpg);
+}
+.switchBar_Cur_Nor1 {
+	width: 26px;
+	background: url(../image/45.jpg);
+}
+.switchBar_Nor_Cur {
+	width: 26px;
+	background: url(../image/44.jpg);
+}
+
+.switchBar_Nor_Nor {
+	width: 26px;
+	background: url(../image/42.jpg);
+}
+
+.switchBar_Cur_ed {
+	width: 30px;
+	background: url(../image/45.jpg);
+}
+
+.switchBar_Nor_ed {
+	width: 30px;
+	background: url(../image/43.jpg);
+}
+
+.switchBar_Normal a {
+	color: #afdcfb;
+}
+
+
+.switchBar_EndOfBar {
+	float: right;
+}
+
+.DlgBody {
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+}
+.divNav {
+	background: url(../image/37.jpg) no-repeat #198BC9;
+	color: #085485;
+	font-weight: bold;
+}
+
+.divNav img {
+	vertical-align: middle;
+}
+
+.td_title1 {
+	font-weight: bold;
+	font-size: 12px;
+	line-height: 20px;
+	color: #39a7e1;
+	border: 0px solid #eeeeee;
+}

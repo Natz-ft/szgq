@@ -1,0 +1,2101 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+	<title>补充企业信息</title>
+	<meta name="renderer" content="ie-comp" />  
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+	<script src="../static/script/autoload.js" type="text/javascript"></script>
+	<script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+	<style>
+		.form-input{
+			width: 280px;
+			height: 24px;
+			border: 1px solid #8DBDDC;
+			border-radius: 5px;
+			margin-left: 0px;
+			margin-top:3px;
+			padding-left: 5px;
+		}
+		.add-conpany-file{
+			width: 130px;
+		}
+	.layui-form-select .layui-input {
+         height: 24px;
+     }
+     .layui-input1{
+           width: 460px;
+            height: 22px;
+            border: 1px solid #8DBDDC;
+            border-radius: 3px;
+            margin-top:4px;
+        }
+        .layui-form-radio {
+		    line-height: 20px;
+		    margin: 6px 10px 0 0;
+		    padding-right: 10px;
+		    cursor: pointer;
+		    font-size: 0;
+		    }
+		    .detail-title-name{
+		    margin-left:-10%;
+		    }
+	    .layui-disabled, .layui-disabled:hover {
+		    color: initial !important;
+		    cursor: not-allowed !important;
+		}
+	</style>
+</head>
+<body>
+<div class="boxWrap">
+<div class="boxContent">
+	<div class="formWrap">
+	
+	<input type="hidden" id="stockFlag"  value="00">
+		<form class="layui-form"  id="enterPriseForm" method="post">
+		            <div class="detailsCon clearfix " style=" width: auto;padding: 10px;border-bottom: 1px dotted #ccc;">
+					<div class="detail-title-name">
+						<span>基本信息：</span>
+					</div>
+					<div class="layui-form-item" style="height: 35px;">
+							<label class="layui-form-label" style="width: 170px;margin-left: -60px;"><span class="star">*</span>企业名称：</label>
+							<div class="layui-input-block">
+								<input type="text" name="name" id="enterpriseName" value="${companyBasePending.name}" maxlength="50" style="width: 460px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+		   			<div  style="float: left;margin-left: -1%;width: 45%;	">
+						<div class="layui-form-item" style="height: 35px;width: 430px;">
+							<label class="layui-form-label" id="codetypeDiv" style="width: 170px;margin-left: -50px;"><span class="star">*</span>证件类型：</label>
+							<div class="layui-input-block"   style="margin-left:120px" >
+                                 <input type="radio" name="codetype" value='${ddCodeType[1].dicCode}'  title="${ddCodeType[1].dicName}"  <c:if test ="${ddCodeType[1].dicCode eq companyBasePending.codetype}">checked</c:if>>
+		                         <input type="radio" name="codetype" value='${ddCodeType[0].dicCode}'  title="${ddCodeType[0].dicName}" <c:if test ="${ddCodeType[0].dicCode eq companyBasePending.codetype}">checked</c:if>>
+							</div>
+						</div>
+
+						<div class="layui-form-item" style="height: 35px;width: 430px;">
+							<label class="layui-form-label" style="width: 170px;margin-left: -50px;"><span class="star">*</span>注册资本(万)：</label>
+							<div class="layui-input-inline">
+								<div class="layui-input-block">	
+									<input  type="text" name="regcapital" id="regcapital" value="<fmt:formatNumber value="${companyBasePending.regcapital}"  pattern="####.##" />" <c:if test="${fn:contains(companyBasePending.sources,'01')}">class="layui-input layui-disabled " readonly="" onmouseover="this.title='注册资本为工商信息，不可修改'"</c:if>  maxlength="8" style="width: 100px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left:-110px; margin-top:6px; padding-left: 5px;" autocomplete="off" class="layui-input">
+								</div>
+								<div class="layui-input-inline formEleSpliceUnit form-select" style="margin-left:105px;margin-top:-36px; height: 24px; width: 72px; border: 1px solid #8DBDDC; border-radius: 3px;">
+	                                <select name="regCurrency" id="regCurrency" <c:if test="${fn:contains(companyBasePending.sources,'01')}">disabled onmouseover="this.title='注册资本为工商信息，不可修改'"</c:if>>
+	                                    <option value="" >请选择</option>
+	                                    <option value="01" <c:if test ="${'01' eq companyBasePending.regCurrency}">selected</c:if>>CNY</option>
+	                                    <option value="02" <c:if test ="${'02' eq companyBasePending.regCurrency}">selected</c:if>>USD</option>
+	                                </select>
+	                            </div>
+						    </div>
+						</div>
+						
+						<div class="layui-form-item" style="height: 35px;">
+							<label class="layui-form-label" style="width: 170px;margin-left: -50px;"><span class="star">*</span>注册地址：</label>
+							<div class="layui-input-block">
+								<input type="text" name="registArea" id="registArea" <c:if test="${fn:contains(companyBasePending.sources,'03')}"> class="layui-input layui-disabled " readonly="" onmouseover="this.title='注册地址为工商信息，不可修改'"</c:if> value="${companyBasePending.registArea}"  maxlength="20"  style="width: 180px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						
+						
+						<div class="layui-form-item" style="height: 35px;" id="industryIdDiv">
+							<label class="layui-form-label" style="width: 170px;margin-left: -50px;"><span class="star">*</span>行业分类：</label>
+							 	  <div class="layui-input-inline" id="industryDiv" style="border: 1px solid #8DBDDC;border-radius: 3px; width:30%;">
+									<select  lay-filter="industry"  name="industry" id="industry">
+									        <option value="">请选择一级行业</option>
+									       <c:forEach items="${industryJsonData}" var="dind">
+										<c:if test="${dind.pId=='0'}">
+											<option value="${dind.id}"  <c:if test ="${dind.id eq companyBaseSupplement.industry}">selected</c:if> >${dind.name}</option>
+										</c:if>
+									</c:forEach>
+                               </select>
+    					</div>
+					    <div class="layui-input-inline" style="width: 31%;border: 1px solid #8DBDDC;border-radius: 3px;">
+										    <select id="industry2" name="industry2">
+										</select>
+					    </div>
+						</div>
+						
+						
+						<div class="layui-form-item" style="height: 35px;">
+							<label class="layui-form-label" style="width: 170px;margin-left: -50px;"><span class="star">*</span>法定代表姓名：</label>
+							<div class="layui-input-block">
+								<input type="text" name="legalName" id="legalName" value="${companyBasePending.legalName}" maxlength="20" style="width: 180px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;" autocomplete="off" <c:if test="${fn:contains(companyBasePending.sources,'04')}">class="layui-input layui-disabled" readonly="" onmouseover="this.title='法定代表姓名为工商信息，不可修改'"</c:if>class="layui-input" >
+							</div>
+						</div>
+						<div class="layui-form-item" style="height: 35px;">
+							<label class="layui-form-label" style="width: 170px;margin-left: -50px;"><span class="star">*</span>股权事宜联系人姓名：</label>
+							<div class="layui-input-block">
+								<input type="text" name="stockName" id="stockName" value="${companyBasePending.stockName}" maxlength="20" style="width: 180px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						
+						<div class="layui-form-item" style="height: 35px;">
+							<label class="layui-form-label"  id="iSHiTechParkDiv" style="width: 170px;margin-left: -50px;"><span class="star">*</span>是否获得过股权投资：</label>
+							<div class="layui-input-block"  style="margin-left:120px">
+								<input type="radio" name="iSHiTechPark" value="0" title="是"  <c:if test ="${0 eq companyBaseSupplement.iSHiTechPark}">checked</c:if>>
+								<input type="radio" name="iSHiTechPark" value="1" title="否" <c:if test ="${1 eq companyBaseSupplement.iSHiTechPark}">checked</c:if>>
+							
+							</div>
+						</div>
+						
+					</div>
+					<div  style="float: left;margin-left: 13%;width: 40%; margin-top: -6px">
+						<div class="layui-form-item"  style="width:450px;margin-left:-80px; height: 35px;">
+							<label class="layui-form-label" style="width: 170px;"><span class="star">*</span>证件号码：</label>
+							<div class="layui-input-block">
+								<input type="text" name="code" id="code" value="${companyBasePending.code}" maxlength="18" style="width: 190px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item"  style="width:450px;margin-left:-80px;height: 35px;">
+							<label class="layui-form-label" style="width: 170px"><span class="star">*</span>注册时间：</label>
+							<div class="layui-input-block">
+							<input type="text" name="redate" <c:if test="${fn:contains(companyBasePending.sources,'02')}"> class="form-input layui-disabled" readonly="" onmouseover="this.title='注册时间为工商信息，不可修改'"</c:if> style="width: 180px"  placeholder="请点击选择日期"
+                                   value="${companyBasePending.redateDicName}" autocomplete="off" class="form-input"
+                                   id="redate" >
+<!-- 								<input type="text" name="redate" value="${companyBasePending.redateDicName}" style="width: 180px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;"  autocomplete="off" class="layui-input"> -->
+							</div>
+						</div>
+					   
+						<div class="layui-form-item" style="width:450px;margin-left:-10px; height: 35px;">
+							<label class="layui-form-label" style="width: 100px;" id="reareaDiv" ><span class="star">*</span>所属区域：</label>
+							<div style="margin-left:100px; width: 120px; height: 24px;border: 1px solid #8DBDDC; border-radius: 3px;">
+	                            <select name="rearea" id="rearea"  lay-search="" lay-filter="selectFilter">
+									<option value="" selected></option>
+									<c:forEach items="${ddAreaType}" var="area">
+										<option value="${area.dicCode}" <c:if test ="${area.dicCode eq companyBasePending.rearea}">selected</c:if>>${area.dicName}</option>
+									</c:forEach>
+								</select>
+                            </div>
+						</div>
+						
+						<div class="layui-form-item" style="width:450px;margin-left:-80px; height: 35px;">
+							<label class="layui-form-label" style="width: 170px;"><span class="star">*</span>实收资本(万)：</label>
+							<div>
+							<div class="layui-input-block">	
+								<input type="text" name="paidincapital" id="paidincapital"  value="<fmt:formatNumber value="${companyBaseSupplement.paidincapital}" pattern="####.##"/>"  maxlength="8" style="width: 100px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;"  autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-input-inline formEleSpliceUnit form-select" style="margin-left:275px;margin-top:-36px; height: 24px; width: 72px; border: 1px solid #8DBDDC; border-radius: 3px;">
+	                                <select name="currency" >
+	                                    <option value="" >请选择</option>
+	                                    <option value="01" <c:if test ="${'01' eq companyBaseSupplement.currency}">selected</c:if>>CNY</option>
+	                                    <option value="02" <c:if test ="${'02' eq companyBaseSupplement.currency}">selected</c:if>>USD</option>
+	                                </select>
+	                         </div>
+							</div>
+						</div>
+						
+						
+						<div class="layui-form-item"  style="width:450px;margin-left:-80px; height: 35px;">
+						
+							<label class="layui-form-label" style="width: 170px;"><span class="star">*</span>法定代表手机号：</label>
+							<div class="layui-input-block">
+								<input type="text" name="legalCal" id="legalCal" value="${companyBasePending.legalCal}" maxlength="11" style="width: 180px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item"  style="width:450px;margin-left:-80px;height: 35px;">
+							<label class="layui-form-label" style="width: 170px;"><span class="star">*</span>股权事宜联系人手机号：</label>
+							<div class="layui-input-block">
+								<input type="text" name="stockCal" id="stockCal" value="${companyBasePending.stockCal}" maxlength="11" style="width: 180px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						
+						<div class="layui-form-item" style="width:450px;margin-left:-27px;height: 35px;">
+							<label class="layui-form-label" id="iSEgggeneratorDiv" style="width: 170px;margin-left: -50px;"><span class="star">*</span>是否有股权融资意向：</label>
+							<div class="layui-input-block"  style="margin-left:120px;">
+							    <input type="radio" name="iSEgggenerator" value="0" title="是"  checked>
+								<input type="radio" name="iSEgggenerator" value="1" title="暂不确定"  <c:if test ="${1 eq companyBaseSupplement.iSEgggenerator}">checked</c:if>>
+							</div>
+						</div>
+				 </div>
+				 <input type="hidden" name="stockAddFlag" id="stockAddFlag"  value="00">
+				 <input type="hidden" name="objAddFlag" id="objAddFlag"  value="00">
+				<input type="hidden" name="stockDelFlag" id="delFlag"  value="00">
+				<input type="hidden" name="objDelFlag" id="objdelFlag"  value="00">
+				<input type="hidden" name="platformFlag" id="platformFlag"  value=${companyBasePending.platformFlag}>
+				 		<!--=-=-=-=-=-=--=-=-=-=-=-=-=导出信息-=-=--=-=-=-=-=-=-=-=-=-=-  -->
+				</div>
+		  <div class="detailsCon clearfix " style=" width: auto;padding: 10px;border-bottom: 1px dotted #ccc;">		
+		 <div class="layui-form-item" ><div class="detail-title-name"><span>影像信息：</span></div></div>   
+         <div class="layui-form-item" style="margin-left:-50px">
+         <label class="layui-form-label" style="margin-left:65px"><c:if test="${'0201' != userType}"><span class="star">*</span></c:if>导出信息：</label>
+					<div class="layui-input-block">
+<!-- 		                 <button type="button"  class="layui-btn layui-btn-small uploadButton" id="downLoadPdf"  lay-submit lay-filter="export" ><i class="layui-icon">&#xe61e;</i>导出注册申请表</button> -->
+		                 <button type="button"  class="layui-btn layui-btn-small uploadButton" id="downLoadPdf"  lay-submit lay-filter="exportWarrant" "><i class="layui-icon">&#xe61e;</i>导出授权书</button>
+		                 <span style="font-size: 10px;color: #FF6838;">注：信息录入完成后，可导出授权书，授权书加盖企业公章后再进行上传。</span>
+		            </div>		 	
+		  </div>
+           <div style="margin-left:-39px;">
+                 <div class="layui-form-item" style="margin-left: 55px;">
+                      <label class="layui-form-label"><c:if test="${'0201' != userType}"><span class="star">*</span></c:if>营业执照：</label>
+                      <div class="layui-input-block clearfix" style="width: 300%;">
+                         <c:choose>
+								<c:when test="${companyBasePending.linceFlag eq '1'}" >
+                                  	 <input type="hidden" id="imgHidden" name="licensePath" value='${companyBasePending.licensePath}' autocomplete="off" class="layui-input">
+                                     <input type="hidden" id="fileName" name="licenseName" value="${companyBasePending.licenseName}">
+		                             <button type="button" class="layui-btn layui-btn-small uploadButton" id="licenseUploadBtn" style="margin-left:-10px;">
+		                               <i class="layui-icon">&#xe67c;</i>上传营业执照&nbsp;&nbsp;
+		                             </button>
+		                        	 <a  id="preview" name = "preview" download="${companyBasePending.licenseName}"  
+		                        	 onclick ="downWarrantImage();return false;"href ="#">${companyBasePending.licenseName}</a>
+								</c:when>
+								<c:otherwise>
+                                   <input type="hidden" id="imgHidden" name="licensePath" value='${companyBasePending.licensePath}' autocomplete="off" class="layui-input">
+                                   <input type="hidden" id="fileName" name="licenseName" value="${companyBasePending.licenseName}">
+                             <button type="button" class="layui-btn layui-btn-small uploadButton" id="licenseUploadBtn" style="margin-left:-10px;">
+                               <i class="layui-icon">&#xe67c;</i>上传营业执照&nbsp;&nbsp;
+                            </button>
+                        <a  id="preview" name = "preview" download="${companyBasePending.licenseName}"  href="${companyBasePending.licensePath}">${companyBasePending.licenseName}</a>
+                   	</c:otherwise>
+							</c:choose>
+                    </div>
+                </div>
+           </div>
+           <input type="hidden" id="sources" name="sources" value="${companyBasePending.sources}">
+        <div style="margin-left:-36px;">
+		    <div class="layui-form-item" style="margin-left: 55px;">
+                  <label class="layui-form-label"><c:if test="${'0201' != userType}"><span class="star">*</span></c:if>授权书：</label>
+                  <c:choose>
+								<c:when test="${companyBasePending.authFlag eq '1'}"  >
+                                  	<!--征信接口返回授权书文件，则不可修改 -->
+									<button type="button" disabled="disabled"
+										class="layui-btn layui-btn-small layui-disabled">
+										<i class="layui-icon">&#xe67c;</i>上传授权书
+									</button>
+									<a class="creditAuthorizationFile1" download="${companyBasePending.creditAuthorizationName}"
+										onclick="downWarrantPDF();return false;"  href="#">${companyBasePending.creditAuthorizationName}</a>
+								</c:when>
+								<c:otherwise>
+									<input type="hidden" id="creditupHidden"
+										name="creditAuthorizationPath"
+										value='${companyBasePending.creditAuthorizationPath}'
+										autocomplete="off" class="layui-input">
+									<input type="hidden" id="creditAuthorizationName"
+										name="creditAuthorizationName"
+										value="${companyBasePending.creditAuthorizationName}">
+									<button type="button" 
+										class="layui-btn layui-btn-small uploadButton "
+										id="creditAuthUploadFile">
+										<i class="layui-icon">&#xe67c;</i>上传授权书
+									</button>
+									<a id="creditAuthorizationFile" style="color: black"
+										download="${companyBasePending.creditAuthorizationName}"
+										href="${companyBasePending.creditAuthorizationPath}">${companyBasePending.creditAuthorizationName}
+									</a>
+									<span style="font-size: 10px; color: #FF6838;">注：请上传加盖好公章的授权书影印件。</span>
+								</c:otherwise>
+							</c:choose>
+             </div>      
+         </div>
+		<!--   <form class="layui-form" > -->
+			<div class="layui-form-item heightAuto">
+			        <div class="detail-title-name">
+						<span>股东信息：</span>
+					</div>
+		<c:if test="${fn:contains(companyBasePending.sources,'isNo')}">
+				<div class="detailsCon clearfix">
+				
+					<div  style="float: left;margin-left: 10%;width: 40%;">
+						<div class="layui-form-item" style="height: 35px;">
+							<label class="layui-form-label" style="width: 100px;"><span class="star">*</span>股东姓名：</label>
+							<div class="layui-input-block">
+								<input type="text" name="holderName" id="holderName" style="width: 180px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item" style="height: 35px;">
+							<label class="layui-form-label" style="width: 100px;"><span class="star">*</span>出资额度(万)：</label>
+							<div class="layui-input-block">
+								<input type="text" name="contribution" id="contribution"  maxlength=8  style="width: 100px;height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-input-inline formEleSpliceUnit form-select" style="margin-left:220px;margin-top:-36px; height: 24px; width: 72px; border: 1px solid #8DBDDC; border-radius: 3px;">
+	                                <select name="cCurrency" id="cCurrency">
+	                                    <option value="" >请选择</option>
+	                                    <option value="01" >CNY</option>
+	                                    <option value="02" >USD</option>
+	                                </select>
+	                         </div>
+							<div  style="margin-top:-30px;margin-left:300px;">
+								<span>万</span>
+							</div>
+						</div>
+					</div>
+					<div  style="float: left;margin-left: 10%;width: 40%;">
+						<div class="layui-form-item"  style="width:450px;margin-left:-80px; height: 38px;">
+							<label class="layui-form-label" style="width: 170px;"><span class="star">*</span>股东类型：</label>
+							<div style=" margin-left:170px;width: 180px;height: 24px;border: 1px solid #8DBDDC; border-radius: 3px;">
+								<select name="holderType" id="holderType" >
+								 <option value="" >请选择</option>
+									<c:forEach items="${ddStockholderType}" var="dstotype">
+										<option value="${dstotype.dicCode}" >${dstotype.dicName}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+						<div class="layui-form-item"  style="width:450px;margin-left:-80px;height: 38px;">
+							<label class="layui-form-label" style="width: 170px;"><span class="star">*</span>出资比例：</label>
+							<div class="layui-input-block">
+								<input type="text" id="ratio" name="ratio" maxlength=5 style="width: 180px;height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;" autocomplete="off" class="layui-input">
+							</div>
+							<div  style="margin-top:-30px;margin-left:350px;">
+								<span>%</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="layui-form-item heightAuto">
+						<div class="layui-input-block buttonWrap">
+							<button class="layui-btn" id="stockholderBtn"  lay-filter="stockholderForm" type="button"><i class="layui-icon">&#xe608;</i>增加</button>
+						</div>
+					</div>
+				</div>
+				</c:if>
+			</div>
+			<div  style=" width: auto;padding: 10px;">
+					   <div>
+						<div style="width:1100px;margin: 0 auto;">
+							<div>
+						         <table align="center" id="stockholderGrid" lay-filter="stockhoderFilter"></table>
+							</div>
+						</div>
+					  </div>
+			 </div>
+	<!-- 	</form> -->
+	     <c:if test="${companyBasePending.sources !='isNo'}">
+	           <div class="detail-title-name">
+					 <span>异议信息：</span>
+				</div>
+	        <div class="layui-form-item" style="height: 35px;margin-left: 5.5%">
+					 <label class="layui-form-label"  id="objectionIsDiv" style="width: 170px;margin-left: -50px;">对工商信息有异议：</label>
+					 <div class="layui-input-block"  style="margin-left:120px">
+						  <input type="radio" name="objectionIs" lay-filter="objectionIsFil" value="0" title="是" <c:if test ="${0 eq companyBasePending.objectionIs}">checked</c:if>>
+						  <input type="radio" name="objectionIs" lay-filter="objectionIsFil" value="1" title="否" <c:if test ="${1 eq companyBasePending.objectionIs}">checked</c:if>>
+					 </div>
+			 </div>
+				<div id="objectionshowDiv" class="detailsCon clearfix" style="display: none;">
+<!-- 					<div class="detail-title-name"> -->
+<!-- 						<span>异议信息：</span> -->
+<!-- 					</div> -->
+							<div class="layui-form-item">
+								<label class="layui-form-label" style="width: 170px;"><span class="star">*</span>异议类型：</label>
+								<div style=" margin-left:170px;width: 180px;height: 24px;border: 1px solid #8DBDDC; border-radius: 3px;">
+									<select name="objectionType" id="objectionType" >
+									 <option value="" >请选择</option>
+										<c:forEach items="${cate}" var="cate">
+											<option value="${cate.key}" >${cate.value}</option>
+										</c:forEach>
+									</select>
+								</div>
+						     </div>
+						<div class="layui-form-item heightAuto" style="margin-top: -2%;">
+							<label class="layui-form-label" style="float: left;width: 170px;"><span class="star">*</span>异议内容：</label>
+							<div class="layui-input-block" >
+			                    <textarea id="objection" name="objection" maxlength="500" style="width:70%;height:100px;border: 1px solid #8DBDDC;border-radius: 5px;"></textarea>
+							</div>
+				       </div>
+						<div class="layui-form-item">
+		                      <label class="layui-form-label" style="width: 170px;">证明材料：</label>
+		                      <div class="layui-input-block clearfix">
+		                      <input type="hidden" id="objectionfilePath" name="objectionfilePath"autocomplete="off" class="layui-input">
+                              <input type="hidden" id="objectionFileName" name="objectionFileName" >   
+		                             <button type="button" class="layui-btn layui-btn-small uploadButton" id="objectionUploadBtn">
+		                               <i class="layui-icon">&#xe67c;</i>上传附件
+		                            </button>
+		                        <a  id="objectionUploadFile"lay-verify name = "objectionUploadFile" download=""  href=""></a>
+		                    </div>
+		                </div>
+					<div class="layui-form-item heightAuto">
+						<div class="layui-input-block buttonWrap" style="margin-top: -1%;">
+							<button class="layui-btn objectionBtn" ><i class="layui-icon">&#xe608;</i>增加</button>
+						</div>
+					</div>
+					<div  style=" width: auto;padding: 10px;border-bottom: 1px dotted #ccc;margin-top: -1%;">
+						<div>
+							<div style="width:1085px;margin: 0 auto;">
+								<div>
+									<table align="center" id="objectionGrid" lay-filter="objectionFilter"></table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+		</c:if>
+			<div class="layui-form-item">
+				<div class="layui-input-block buttonWrap">
+					<button class="layui-btn submitBtn" lay-submit lay-filter="rateForm">&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;交&nbsp;&nbsp;</button>
+					<button type="button " lay-close class="layui-btn layui-btn-primary closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>
+				</div>
+			</div>
+		</div>	
+		</form>
+	    
+		<!---------------------------------------------------------------------------------------  -->
+		
+		
+		
+		<form class="layui-form" >
+			<div class="layui-form-item heightAuto">
+				<div class="detailsCon clearfix " >
+					<div class="detail-title-name">
+						<span>团队成员：</span>
+					</div>
+					<div  style="float: left;margin-left: 10%;width: 40%;">
+						<div class="layui-form-item" style="height: 35px;">
+							<label class="layui-form-label" style="width: 100px;"><span class="star"></span>成员姓名：</label>
+							<div class="layui-input-block">
+								<input type="text" id="memberName" name="memberName" style="width: 180px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+					</div>
+					<div  style="float: left;margin-left: 10%;width: 40%;">
+						<div class="layui-form-item"  style="width:450px;margin-left:-100px; height: 38px;">
+							<label class="layui-form-label" style="width: 170px;"><span class="star"></span>成员职务：</label>
+							<div class="layui-input-block">
+								<input type="text" id="port" name="port" style="width: 180px; height: 24px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+					</div>
+                   <div style="float: left;margin-left: 10%;width: 100%;">
+						<label class="layui-form-label" style="float: left;margin-left: 3px;"><span class="star"></span>资历介绍：</label>
+						<div class="layui-input-block" >
+		                    <textarea id="introduction" name="introduction" maxlength="500" style="width:70%;height:100px;border: 1px solid #8DBDDC;border-radius: 5px;"></textarea>
+						</div>
+			       </div>
+					<div class="layui-form-item heightAuto">
+						<div class="layui-input-block buttonWrap">
+							<button class="layui-btn"  lay-submit lay-filter="membersForm"><i class="layui-icon">&#xe608;</i>增加</button>
+						</div>
+					</div>
+					<div  style=" width: auto;padding: 10px;border-bottom: 1px dotted #ccc;">
+					   <div>
+						<div style="width:1100px;margin: 0 auto;">
+							<div>
+						         <table align="center" id="membersGrid" lay-filter="membersFilter"></table>
+							</div>
+						</div>
+					  </div>
+				    </div>
+				</div>
+			</div>
+		</form>
+		<form class="layui-form" >
+			<div class="layui-form-item heightAuto">
+				<div class="detailsCon clearfix">
+					<div class="detail-title-name">
+						<span>主要技术、产品：</span>
+					</div>
+					
+					<div   style="float: left;margin-left: 10%;width: 40%;">
+						<div class="layui-form-item" style="height: 35px;">
+							<label class="layui-form-label" style="width: 170px;margin-left: -50px;"><span class="star"></span>技术产品名称：</label>
+							<div class="layui-input-block">
+								<input type="text" id="name" name="name" autocomplete="off" maxlength="20" class="layui-input" style="height: 24px;width: 200px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;">
+							</div>
+						</div>
+						<div class="layui-form-item" style="height: 35px;">
+							<label class="layui-form-label" style="width: 170px;margin-left: -50px;"><span class="star"></span>是否拥有专利或著作权：</label>
+							<div class="layui-input-block"  style="margin-left:120px">
+								<input type="radio" name="nativelead" id="nativelead1"  value="0" title="是"  >
+								<input type="radio" name="nativelead" id="nativelead2" value="1" title="否" >
+							</div>
+						</div>
+					</div>
+					<div   style="float: left;margin-left: 6%;width: 43%;" >
+						<div class="layui-form-item" style="width:110%;margin-left:-30%;height: 35px;">
+							<label class="layui-form-label" style="width: 200px;"><span class="star"></span>产品去年收入(万)：</label>
+							<div class="layui-input-block">
+								<input type="text" id="incomeRatio" name="incomeRatio" maxlength="15" style="height: 24px;width: 170px;border: 1px solid #8DBDDC;border-radius: 5px; margin-left: 6px; margin-top:6px; padding-left: 5px;"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item" style="width:93%;margin-left:-30%;height: 35px;">
+							<label class="layui-form-label " style="width: 200px;"><span class="star"></span>是否获得过奖项或政府评价等：</label>
+							<div class="layui-input-block"  style="margin-left:120px" >
+								<input type="radio" name="nationallead" id="nationallead1" value="0" title="是" >
+								<input type="radio" name="nationallead" id="nationallead2" value="1" title="否" >
+							</div>
+						</div>
+					</div>
+						<div class="layui-form-item"style="margin-left: 12.2%">
+		                      <label class="layui-form-label"><span class="star"></span>证明材料：</label>
+		                      <div class="layui-input-block clearfix">
+		                      <input type="hidden" id="productFileUrl" name="productFileUrl"autocomplete="off" class="layui-input">
+                              <input type="hidden" id="productFileName" name="productFileName" >   
+                              <input type="hidden" id="productNum" name="productNum" value="${productNum}">
+		                             <button type="button" class="layui-btn layui-btn-small uploadButton" id="productUploadBtn">
+		                               <i class="layui-icon">&#xe67c;</i>上传附件
+		                            </button>
+		                        <a  id="productUploadFile"lay-verify name = "productUploadFile" download=""  href=""></a>
+		                    </div>
+		                </div>
+					<div class="layui-form-item heightAuto">
+						<div class="layui-input-block buttonWrap">
+							<button class="layui-btn" lay-submit lay-filter="productForm"><i class="layui-icon">&#xe608;</i>增加</button>
+						</div>
+					</div>
+					<div  style=" width: auto;padding: 10px;border-bottom: 1px dotted #ccc;">
+						<div>
+							<div style="width:1085px;margin: 0 auto;">
+								<div>
+									<table align="center" id="ProductGrid" lay-filter="productFilter"></table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</form>
+				<div class="layui-form-item heightAuto">
+				<div class="detailsCon clearfix" style="margin: auto;">
+						<div class="detail-title-name">
+							<span>审核记录:</span>
+						</div>
+						<div style="margin-left:5px; auto;padding: 10px;border-bottom: 1px dotted #ccc;"  class="detailsTxt detailsGrid" >
+						     <table align="center" id="companyAuditGrid" lay-filter="companyAuditGrid"></table>
+						</div>
+				</div>
+				</div>
+	    </div>
+     </div>
+</div>
+<script src="../static/script/autoLoadScript.js"
+		type="text/javascript">
+</script>
+<script>
+    $(function() {
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var holderData = ${companyStockholderList};
+        table.render({
+            id : 'stockholderGrid',
+            elem : '#stockholderGrid', //指定原始表格元素选择器（推荐id选择器）
+            width : 833	
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5,
+            data : holderData,
+            cols : [ [ //标题栏
+                {
+                    field : 'holderName',
+                    title : '股东姓名',
+                    align:'center',
+                    width : 285
+                }, {
+                    field : 'holderTypeDicname',
+                    title : '股东类型',
+                    align:'center',
+                    width : 142
+                }, {
+                    field : 'contributionStr',
+                    title : '出资额（万）',
+                    align:'center',
+                    width : 150
+                }, {
+                    field : 'ratioName',
+                    title : '出资比例（%）',
+                    align:'center',
+                    width : 150,
+                    sort: true
+                }, {
+                    field : '',
+                    title : '操作',
+                    align:'center',
+                    width : 100,
+                    toolbar : '#stockholderBar'
+                }
+            ] ]
+        });
+    });
+</script>
+<script>
+    $(function() {
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var productData = ${companyProductList};
+        table.render({
+            id : 'ProductGrid',
+            elem : '#ProductGrid', //指定原始表格元素选择器（推荐id选择器）
+            width : 833
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5,
+            data : productData,
+            cols : [ [ //标题栏
+                {
+                    field : 'productName',
+                    title : '技术产品名称',
+                    align:'center',
+                    width : 130
+                }, {
+                    field : 'incomeRatio',
+                    title : '产品去年收入(万)',
+                    align:'center',
+                    width : 136,
+                    sort: true
+                }, {
+                    field : 'nativeleadDicname',
+                    title : '拥有专利或著作权',
+                    align:'center',
+                    width : 125
+                }, {
+                    field : 'nationalleadDicname',
+                    title : '获得过奖项或政府评价',
+                    align:'center',
+                    width : 150
+                }, {
+//                     field : 'productFileName',
+                     title : '产品证明材料',
+                    align:'center',
+                    width : 204,
+                    toolbar : '#productFileDownload'
+                }, {
+                    field : '',
+                    title : '操作',
+                    align:'center',
+                    width :80,
+                    toolbar : '#productBar'
+                } ] ]
+        });
+    });
+</script>
+<script>
+    $(function() {
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var attachmentData = ${companyAttachmentList};
+        table.render({
+            id : 'attachmentGrid',
+            elem : '#attachmentGrid', //指定原始表格元素选择器（推荐id选择器）
+            width : 833
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5,
+            data : attachmentData,
+            cols : [ [ //标题栏
+                {//fileName
+                    title : '文件名',
+                    align:'center',
+                    width : 556,
+                    toolbar : '#BarofDownload'
+                },
+                {
+                    field : 'fileTypeName',
+                    title : '文件类型',
+                    align:'center',
+                    width : 178
+                },
+                {
+                    field : 'createTime',
+                    title : '上传时间',
+                    align:'center',
+                    width : 136,
+                    sort: true
+                }, {
+                    field : '',
+                    title : '操作',
+                    align:'center',
+                    width : 100,
+                    toolbar : '#attachmentBar'
+                }
+            ] ]
+        });
+    });
+</script>
+
+<script>
+    $(function() {
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var membersData = ${companyMemberList};
+        table.render({
+            id : 'membersGrid',
+            elem : '#membersGrid', //指定原始表格元素选择器（推荐id选择器）
+            width : 833
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5,
+            data : membersData,
+            cols : [ [ //标题栏
+                {//fileName
+                	field : 'memberName',
+                    title : '成员姓名',
+                    align:'center',
+                    width : 100,
+                },
+                {
+                    field : 'port',
+                    title : '成员职务',
+                    align:'center',
+                    width : 128
+                },
+                {
+                    field : 'introduction',
+                    title : '资历介绍',
+                    align:'center',
+                    width : 500,
+//                     sort: true
+                }, {
+                    field : '',
+                    title : '操作',
+                    align:'center',
+                    width : 100,
+                    toolbar : '#membersBar'
+                }
+            ] ]
+        });
+    });
+</script>
+<script>
+    $(function() {
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var objectionData = ${companyObjections};
+        table.render({
+            id : 'objectionGrid',
+            elem : '#objectionGrid', //指定原始表格元素选择器（推荐id选择器）
+            width : 833
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5,
+            data : objectionData,
+            cols : [ [ //标题栏
+                {//fileName
+                	field : 'objectionTypeStr',
+                    title : '异议类型',
+                    align:'center',
+                    width : 100,
+                },
+                {
+                    field : 'objection',
+                    title : '异议内容',
+                    align:'center',
+                    width : 488
+                },
+                {
+                    field : '',
+                    title : '证明材料',
+                    align:'center',
+                    width : 183,
+                    toolbar : '#objectionFileDownload'
+                }, {
+                    field : '',
+                    title : '操作',
+                    align:'center',
+                    width : 56,
+                    toolbar : '#objectionsBar'
+                }
+            ] ]
+        });
+    });
+</script>
+<script>
+    $(function() {
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var gridData = ${companyAuditResultList};
+        table.render({
+            id: 'companyAuditGrid',
+            elem: '#companyAuditGrid', //指定原始表格元素选择器（推荐id选择器）
+            width: 833
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5,
+            data: gridData,
+            cols: [[ //标题栏
+                {
+                    field: 'username',
+                    title: '审核人',
+                    align: 'center',
+                    width: 100
+                }, {
+                    field: 'auditTimeStr',
+                    title: '审核时间',
+                    align: 'center',
+                    width: 100
+                }, {
+                    field: 'auditStatusStr',
+                    title: '审核结果',
+                    align: 'center',
+                    width: 250
+                }, {
+                    field: 'auditContent',
+                    title: '审核意见',
+                    align: 'center',
+                    width: 378
+                }]]
+        });
+    });
+</script>
+<script>
+    var table = layui.table;
+    $(function () {
+    	var  flag ='${companyBasePending.sources}';
+    	var list ='${companyStockholderList}';
+    	 var auditStatus='${companyBase.auditStatus}';
+    	 var stockFlag='05';//股东信息的判断标志   //如果字符串中包含05，证明为工商的数据，则将不能删除
+    	 var sources='${companyBasePending.sources}';
+    	 if(auditStatus=="00"||auditStatus=="03"||auditStatus=="23"){
+    		 $("#creditAuthUploadFile").removeAttr("disabled");
+    	   }else{
+    		   if('${companyBasePending.creditAuthorizationName}'!=''){
+    			   $("#creditAuthUploadFile").attr("disabled", "disabled");
+    		   }else{
+    			   $("#creditAuthUploadFile").removeAttr("disabled");
+    		   }
+    		  
+    	   }
+        //删除股东信息操作
+        table.on('tool(stockhoderFilter)', function (obj) {
+            var data = obj.data;
+            var holderId=obj.data.holderId;
+            if(sources.search(stockFlag)!=-1){
+            	layer.alert('股东信息来源为工商数据，请勿进行删除！', {icon: 5,btnAlign: 'c',shade: 0}); 
+    			 return false;
+            }
+            if(obj.event==='deleteStockholder'){
+                if(auditStatus!='00'&&auditStatus!='03'&&auditStatus!='05'&&auditStatus!='06'&&auditStatus!='22'&&auditStatus!='23'){
+             	layer.alert('信息正在审核中请勿修改', {icon: 5,btnAlign: 'c',shade: 0}); 
+     			 return false;
+               }
+            layer.confirm('确定要删除股东信息吗？', function(index){
+            	var delRatio=obj.data.ratio;
+            	countRatio=countRatio-delRatio;
+                obj.del();
+                document.getElementById("stockFlag").value="01";
+                document.getElementById("delFlag").value="01";
+                layer.close(index);
+              });
+            }
+        });
+      //删除团队成员信息操作
+        table.on('tool(membersFilter)', function (obj) {
+            var data = obj.data;
+            var memberId=obj.data.memberId;
+
+            if(obj.event==='deleteMember'){
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    url: "/SRRPBusinesWeb/enterprise/deleteMember",
+                    data:{memberId:memberId},
+                    success: function () {
+                    	layer.alert('团队成员删除成功！', {icon: 1}); 
+                    	obj.del();
+                    	document.getElementById('ProductGrid').focus();
+                        
+                    }
+                });
+            }
+//             return false;
+        });
+        
+        table.on('tool(objectionFilter)', function (obj) {
+            var objId=obj.data.objId;
+            if(auditStatus!='00'&&auditStatus!='03'&&auditStatus!='05'&&auditStatus!='06'&&auditStatus!='22'&&auditStatus!='23'){
+             	layer.alert('信息正在审核中请勿修改', {icon: 5}); 
+     			 return false;
+           }
+            if(obj.event==='deleteObjection'){
+            	layer.confirm('确定要删除此条异议信息吗？', function(index){
+                	var delRatio=obj.data.ratio;
+                    obj.del();
+                    document.getElementById("objdelFlag").value="01";
+                    layer.close(index);
+                  });
+            }
+//             return false;
+        });
+        //删除技术产品信息操作
+        table.on('tool(productFilter)', function (obj) {
+            var data = obj.data;
+            var productId=obj.data.productId;
+            if(obj.event==='deleteProduct'){
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    url: "/SRRPBusinesWeb/enterprise/deleteProduct",
+                    data:{productId:productId},
+                    success: function () {
+                    	layer.alert('主要技术产品删除成功！', {icon: 1}); 
+                    	obj.del();
+                    	
+                        document.getElementById('membersGrid').focus();
+                    }
+                });
+            }
+            return false;
+        });
+        //删除相关附件操作
+        table.on('tool(attachmentFilter)', function (obj) {
+            var data = obj.data;
+            var createrId=obj.data.createrId;
+            var fileName =obj.data.fileName;
+            if(obj.event==='deleteAttachment'){
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    url: "/SRRPBusinesWeb/enterprise/deleteAttachment",
+                    data:{createrId:createrId},
+                    success: function () {
+                        layer.open({
+                            title: '友好提示',
+                            type: 1,
+                            content: '<div style="padding: 10px 80px;">文件删除成功！</div>',
+                            btn: '关闭',
+                            btnAlign: 'c', //按钮居中
+                            shade: 0,//不显示遮罩
+                            yes: function () {
+                            	window.location.reload();
+                                document.getElementById('attachmentGrid').focus();
+                            }
+                        });
+                    }
+                });
+            }
+
+        });
+    });
+
+</script>
+<!-- 机构股东信息的管理操作-->
+<script type="text/html" id="stockholderBar">
+	<a lay-event="deleteStockholder" class="layui-btn layui-btn-mini">删除</a>
+</script>
+<!-- 主要技术产品信息的管理操作 -->
+<script type="text/html" id="productBar">
+	<a lay-event="deleteProduct" class="layui-btn layui-btn-mini">删除</a>
+</script>
+<!-- 团队成员的管理操作 -->
+<script type="text/html" id="membersBar">
+	<a lay-event="deleteMember" class="layui-btn layui-btn-mini">删除</a>
+</script>
+<!-- 相关附件的管理操作 -->
+<script type="text/html" id="attachmentBar">
+	<a lay-event="deleteAttachment" class="layui-btn layui-btn-mini">删除</a>
+</script>
+<script type="text/html" id="objectionsBar">
+	<a lay-event="deleteObjection" class="layui-btn layui-btn-mini">删除</a>
+</script>
+<!-- 主要技术产品证明材料的下载 -->
+<script type="text/html" id="productFileDownload">
+    <a href="{{d.productFileUrl}}" download="{{d.productFileName}}" style="color:#0D4F92;cursor: pointer;">{{d.productFileName}}</a>
+</script>
+<script type="text/html" id="objectionFileDownload">
+    <a href="{{d.objectionfilePath}}" download="{{d.objectionFileName}}" style="color:#0D4F92;cursor: pointer;">{{d.objectionFileName}}</a>
+</script>
+<!-- 相关附件的下载 -->
+<script type="text/html" id="BarofDownload">
+    <a href="{{d.filepath}}" download="{{d.fileName}}" style="color:#0D4F92;cursor: pointer;">{{d.fileName}}</a>
+</script>
+<script>
+var form = layui.form;
+var objectionIs ='${companyBasePending.objectionIs}';
+var objdivV = document.getElementById("objectionshowDiv");
+if('${companyBasePending.sources}' !='isNo'){
+	if(objectionIs=='0'){
+		objdivV.style.display = 'inline'; //展示异议表单
+	} else {
+		objdivV.style.display = 'none'; //展示异议表单
+	}
+}
+var oldcompanyBase="";
+Ischange(oldcompanyBase);
+var countRatio = ${countRatio};
+var newcountRatio;
+    $(function() {
+        layui.use('form',function(data) {
+            var form = layui.form;//监听提交
+            form.on('radio(objectionIsFil)',function (data) {
+            	var id = $( "input[name='objectionIs']:checked").val();
+            	var objdivV = document.getElementById("objectionshowDiv");
+                 if (id == '0') { //如果没有异议
+                     if (objdivV.style.display == "none") {
+                    	 objdivV.style.display = 'inline'; //展示异议表单
+                     }
+                 }else { //如果有异议
+                     if (objdivV.style.display == "inline") {
+                    	 objdivV.style.display = 'none'; //隐藏异议表单
+                     }
+                  }        
+            });
+          //监听提交
+			  form.on('submit(export)', function(data){
+				  var flag= checkedBase(data);//调用基本信息的校验方法
+	                   if(flag==false){
+	                	   return false
+	                   }
+					  document.getElementById("enterPriseForm").action="/SRRPBusinesWeb/enterprise/exportEnterpriseInfor";
+					  document.getElementById("enterPriseForm").submit();
+			  })
+		 form.on('submit(exportWarrant)', function(data){
+						 var flag= checkedBase(data);//调用基本信息的校验方法
+			             if(flag==false){
+			          	   return false
+			             }
+					document.getElementById("enterPriseForm").action="/SRRPBusinesWeb/enterprise/exportWarrantInfor";
+					document.getElementById("enterPriseForm").submit();
+			  })
+            var lock=true;
+			//自定义验证规则
+		       var stockholderData =${companyStockholderList};
+		       var auditStatus='${companyBase.auditStatus}';
+		        form.on('submit(rateForm)',function(data) {
+		            if(auditStatus!='00'&&auditStatus!='03'&&auditStatus!='05'&&auditStatus!='06'&&auditStatus!='22'&&auditStatus!='23'){
+			             	layer.alert('信息正在审核中请勿修改', {icon: 5}); 
+			     			 return false;
+			           }
+		        	 var oldData =  table.cache["stockholderGrid"];
+		        	 //这几行代码是去掉删除数据后留下的地址空间
+		        	 for(var i = 0;i<oldData.length;i++){
+			        	    if(oldData[i]==''||oldData[i]==null||typeof(oldData[i])==undefined){
+			        	    	oldData.splice(i,1);
+			        	        i=i-1;
+			        	    }
+			        	}
+		        	var oldData =  table.cache["stockholderGrid"]; //获取股东信息表
+		        	var objectionData=table.cache["objectionGrid"];//获取异议信息表
+		        	if('${companyBasePending.sources}' !='isNo'){
+			        	for(var i = 0;i<objectionData.length;i++){
+			        	    if(objectionData[i]==''||objectionData[i]==null||typeof(objectionData[i])==undefined){
+			        	    	objectionData.splice(i,1);
+			        	        i=i-1;
+			        	    }
+			        	}
+		        	}
+		        	var stockFlag=document.getElementById("stockFlag").value;
+		        	var flag= checkedBase(data);//调用基本信息的校验方法
+	                   if(flag==false){
+	                	   return false
+	                   }
+		        	var fileName=$('#fileName').val();
+		        	var creditAuthorizationName=$('#creditAuthorizationName').val();
+		        	var registerAutographName=$('#registerAutographName').val();
+		        	var userType='${userType}';
+		        	if(userType!='0201'){
+		        		if(fileName==''||fileName==undefined||fileName==null){
+		                	   layer.msg('请上传营业执照', {icon: 5});
+		                	$("#preview").focus();
+							return false;
+					  }
+			        	if(creditAuthorizationName==''||creditAuthorizationName==undefined||creditAuthorizationName==null){
+		                	   layer.msg('请上传授权书', {icon: 5});
+		                	$("#creditAuthorizationFile").focus();
+							return false;
+					  }	
+		        	}else{
+		        		var change=false;
+		        		change=Ischange(oldcompanyBase);
+		        		if(change){
+		        			if(fileName==''||fileName==undefined||fileName==null){
+			                	   layer.msg('您修改的内容需审核,请重新上传营业执照', {icon: 5});
+			                	$("#preview").focus();
+								return false;
+						  }
+		        		}
+		        	}
+		        	if('${companyBasePending.sources}' !='isNo' && data.field.objectionIs=='0'){
+		        		if(JSON.stringify(objectionData)=='[]'){
+		        			 layer.confirm('请添加异议信息', function(index){
+					                layer.close(index);
+					              });
+							    return false;
+		        		}
+		        	}
+		        	if(JSON.stringify(oldData)=='[]'||JSON.stringify(oldData)=='[[]]'){
+					    layer.confirm('请先增加股东信息', function(index){
+			                layer.close(index);
+			              });
+					    return false;
+					}
+		        	var updata= JSON.stringify(data.field);
+		        	var upoldData=JSON.stringify(oldData);
+		        	var objectionData=JSON.stringify(objectionData);
+		        	 var i ;
+	                $.ajax({
+	                    type : "post",
+	                    async : true,
+	                    url : "/SRRPBusinesWeb/enterprise/updateEnterpriseDetailSupplement",
+	                    beforeSend: function () {//加载前
+	                       	 i = ityzl_SHOW_LOAD_LAYER();
+	                        },
+	                        complete: function () {//加载后
+	                       	 ityzl_CLOSE_LOAD_LAYER(i);
+	                        },
+	                    data : {"companyBasePending" :updata,"companyStockholder":upoldData,"stockFlag":stockFlag,"objection":objectionData},
+	                    success : function(data) {
+	                    	var data=JSON.parse(data)
+	                    	var flag =data.changeFlag;
+	                    	if(flag==false){
+	                    		layer.open({
+		                            title: '友好提示',
+		                            type: 1,
+		                            content: '<div style="padding: 10px 80px;">信息已提交。</div>',
+		                            btn: '关闭',
+		                            btnAlign: 'c', //按钮居中
+		                            shade: 0,//不显示遮罩
+		                            yes: function () {
+		                            	window.location.reload();
+//	 	                            	layer.closeAll();
+		                            }
+		                        });
+	                    	}else{
+	                    		layer.open({
+		                            title: '友好提示',
+		                            type: 1,
+		                            content: '<div style="padding: 10px 80px;">信息已提交，正在审核，请耐心等待。</div>',
+		                            btn: '关闭',
+		                            btnAlign: 'c', //按钮居中
+		                            shade: 0,//不显示遮罩
+		                            yes: function () {
+		                            	window.location.reload();
+//	 	                            	layer.closeAll();
+		                            }
+		                        });
+	                    	}
+	                    }});
+	                return false;
+	            });
+        });
+         
+            var stockholder_data={};
+		    var auditStatus='${companyBase.auditStatus}';
+		    
+            $("#stockholderBtn").on("click",function(){
+            	var holderName = $("#holderName").attr("id");//股东姓名
+            	stockholder_data[holderName] = $("#holderName").val();
+                var contribution = $("#contribution").attr("id");//出资金额
+                stockholder_data[contribution] = $("#contribution").val();
+                var cCurrency = $("#cCurrency").attr("id");//出资币种
+                stockholder_data[cCurrency] = $("#cCurrency").val();
+                var holderType = $("#holderType").attr("id");//股东类型
+                stockholder_data[holderType] = $("#holderType").val();
+                var ratio = $("#ratio").attr("id");//出资比例
+                stockholder_data[ratio] = $("#ratio").val();
+                var addRatio=$("#ratio").val();
+                if(auditStatus!='00'&&auditStatus!='03'&&auditStatus!='06'&&auditStatus!='05'&&auditStatus!='22'&&auditStatus!='23'){
+	             	layer.alert('信息正在审核中请勿修改', {icon: 5}); 
+	     			 return false;
+	           }
+               if(stockholder_data.holderName==''){
+            	   layer.alert('股东姓名不能为空', {icon: 5}); 
+            	   $("#holderName").focus();
+            	   return false;
+               }
+               if(stockholder_data.holderName.length>200){
+           		layer.alert('股东姓名不能超过200个字符', {icon: 5});
+           		$("#holderName").focus();
+            		return false;
+           	    }
+               if(stockholder_data.holderType==''){
+            	   layer.alert('请选择股东类型', {icon: 5});
+            	   $("#holderName").focus();
+            	   return false;
+               }
+               if(stockholder_data.contribution==''){
+            	   layer.alert('出资额度不能为空', {icon: 5});
+            	   $("#contribution").focus();
+            	   return false;
+               }
+               if(stockholder_data.cCurrency==''){
+            	   layer.alert('请选择出资币种', {icon: 5});
+            	   $("#contribution").focus();
+            	   return false;
+               }
+               if(/[^\d.]/g.test(stockholder_data.contribution)){
+            	   layer.alert('出资额度只能是数字', {icon: 5});
+            	   $("#contribution").focus();
+                   return false;
+               }
+               if(stockholder_data.ratio==''){
+            	   layer.alert('出资比例不能为空', {icon: 5});
+            	   $("#ratio").focus();
+            	   return false;
+               }
+               if(!(/^\d+(\.\d{1,2})?$/.test(stockholder_data.ratio))){
+            	   layer.alert('请输入正确的出资比例', {icon: 5});
+            	   $("#ratio").focus();
+                   return false;
+               }
+          	  newcountRatio= countRatio + parseFloat(stockholder_data.ratio);
+          	 if(newcountRatio >100.01){
+          		   layer.alert('总出资比例大于100%，请核对后重新输入', {icon: 5});
+          		 $("#holderName").val('');
+                 $("#contribution").val('');
+                 $("#ratio").val('');
+                 var form = layui.form;
+                 var b = document.getElementById("holderType");
+                 b.options[0].selected = true;
+                 var c = document.getElementById("cCurrency");
+                 c.options[0].selected = true;
+                 form.render('select');
+          		 $("#ratio").focus();
+                   return false;
+               }
+            	//表单提交校验
+                $.ajax({
+                    type : "post",
+                    async : false,
+                    url : "/SRRPBusinesWeb/enterprise/addcompanyStockholder",
+                    data : {"companyStockholder" : JSON.stringify(stockholder_data)},
+                    success : function(data) {
+                    	countRatio=countRatio+parseFloat(addRatio);
+                    	var form = layui.form;
+                    	$("#holderName").val('');
+                        $("#contribution").val('');
+                        $("#ratio").val('');
+                        document.getElementById("stockFlag").value="01";
+                        document.getElementById("stockAddFlag").value="01";
+                        var b = document.getElementById("holderType");
+                        b.options[0].selected = true;
+                        var c = document.getElementById("cCurrency");
+                        c.options[0].selected = true;
+                        form.render('select');
+                    	 var oldData =  table.cache["stockholderGrid"]; 
+            		    oldData.push(JSON.parse(data)); 
+            		    table.reload('stockholderGrid',{  
+            		              data : oldData
+            		          }) 
+                    }
+                });
+            });
+            //添加异议
+            var objection_data={};
+            $(".objectionBtn").on("click",function(){ 
+            	var objectionType = $("#objectionType").attr("id");//异议类型
+            	objection_data[objectionType] = $("#objectionType").val();
+                var objection = $("#objection").attr("id");//异议内容
+                objection_data[objection] = $("#objection").val();
+                var objectionfilePath = $("#objectionfilePath").attr("id");//异议的证明材料路径
+                objection_data[objectionfilePath] = $("#objectionfilePath").val();
+                var objectionFileName = $("#objectionFileName").attr("id");//异议证明材料名
+                objection_data[objectionFileName] = $("#objectionFileName").val();
+                if(auditStatus!='00'&&auditStatus!='03'&&auditStatus!='05'&&auditStatus!='06'&&auditStatus!='22'&&auditStatus!='23'){
+	             	layer.alert('信息正在审核中请勿修改', {icon: 5}); 
+	     			 return false;
+	           }
+                if(objection_data.objectionType==''||objection_data.objectionType==null||$.trim(objection_data.objectionType) ==''){
+	        		layer.alert('请选择异议类型', {icon: 5}); 
+	        		$("#objectionType").focus();
+	                 return false;
+	        	}
+            	if(objection_data.objection==''||objection_data.objection==null||$.trim(objection_data.objection) ==''){
+	        		layer.alert('异议内容不能为空', {icon: 5}); 
+	        		$("#objection").focus();
+	                 return false;
+	        	}
+            	if(objection_data.objection.length>300){
+            		layer.alert('异议内容不能超过300个字符', {icon: 5});
+            		$("#objection").focus();
+            		return false;
+            	}
+            	 $.ajax({
+                     type : "post",
+                     async : false,
+                     url : "/SRRPBusinesWeb/enterprise/addObjection",
+                     data : {"companyObjection" : JSON.stringify(objection_data)},
+                     success : function(data) {
+                     	var c = document.getElementById("objectionType");
+                         c.options[0].selected = true;
+                         form.render('select');
+                         document.getElementById("objAddFlag").value="01";//增加的时候更改增加的标志
+                         $('#objection').val('');
+                         $("#objectionFileName").val('');//技术产品名称
+                         $("#objectionfilePath").val('');//技术产品路径
+                         $("#objectionUploadFile").text('');
+                     	 var oldObjectionData =  table.cache["objectionGrid"]; 
+                     	 oldObjectionData.push(JSON.parse(data)); 
+             		    table.reload('objectionGrid',{  
+             		       data : oldObjectionData
+             		       }); 
+                     }
+                 });
+            	 return false;
+            });
+        layui.use('form',function(data) {
+            var form = layui.form;//监听提交
+            var lock = true;      //1.定义一个锁
+            form.on('submit(productForm)',function(data){
+            	var oldProductData =  table.cache["ProductGrid"];
+            	 for(var i = 0;i<oldProductData.length;i++){
+		        	    if(oldProductData[i]==''||oldProductData[i]==null||typeof(oldProductData[i])==undefined){
+		        	    	oldProductData.splice(i,1);
+		        	        i=i-1;
+		        	    }
+		        	}
+            	if(oldProductData.length>=3){
+	        		layer.alert('主要技术产品信息最多只能上传3条', {icon: 5}); 
+	        		$("#name").val('');//技术产品名
+                    $("#incomeRatio").val('');//技术产品收入
+                    $("#productUploadFile").text('');//技术产品收入
+                    $("#nativelead1").attr("checked",false);
+                    $("#nationallead1").attr("checked",false);
+                    $("#nativelead2").attr("checked",false);
+                    $("#nationallead2").attr("checked",false);
+                    form.render('radio');
+	        		$("#name").focus();
+	                 return false;
+	        	}
+            	if(data.field.name==''||data.field.name==null||$.trim(data.field.name) ==''){
+	        		layer.alert('主要技术产品名称不能为空', {icon: 5}); 
+	        		$("#name").focus();
+	                 return false;
+	        	}
+            	if(data.field.name.length>50){
+            		layer.alert('主要技术产品名不能超过50个字符', {icon: 5});
+            		$("#name").focus();
+            		return false;
+            	}
+	        	if(data.field.incomeRatio==''||data.field.incomeRatio==null){
+	        		layer.alert('产品去年收入不能为空', {icon: 5}); 
+	        		$("#incomeRatio").focus();
+	                 return false;
+	        	}
+	        	if(!(/^\d+(\.\d{1,2})?$/.test(data.field.incomeRatio))){
+	        		layer.alert('产品去年收入为最多包含两位有效小数的数字', {icon: 5}); 
+	        		$("#incomeRatio").focus();
+	                 return false;
+	        	}
+	        	if(data.field.nativelead==''||data.field.nativelead==null){
+	        		layer.alert('请选择是否拥有专利或著作权', {icon: 5}); 
+	        		$("#name").focus();
+	                 return false;
+	        	}
+	        	if(data.field.nationallead==''||data.field.nationallead==null){
+	        		layer.alert('请选择是否获得过奖项或者政府评价', {icon: 5}); 
+	        		$("#name").focus();
+	                 return false;
+	        	}
+	        	if((data.field.nationallead == '0') || (data.field.nativelead == '0') ){
+	        		if(data.field.productFileName==''||data.field.productFileName==null){
+		        		layer.alert('请选择上传技术产品证明材料', {icon: 5}); 
+		        		$("#productFileName").focus();
+		                 return false;
+		        	}
+	        	}
+                $.ajax({
+                    type : "post",
+                    async : false,
+                    url : "/SRRPBusinesWeb/enterprise/addcompanyProduct",
+                    data : {"companyProduct" : JSON.stringify(data.field)},
+                    success : function(data) {
+                    	layer.alert('添加主要技术产品成功！', {icon: 1}); 
+                    	$("#name").val('');//技术产品名
+                        $("#incomeRatio").val('');//技术产品收入
+                        $("#productUploadFile").text('');//技术产品展示
+                        $("#productFileName").val('');//技术产品名称
+                        $("#productFileUrl").val('');//技术产品路径
+                        $("#nativelead1").attr("checked",false);
+                        $("#nationallead1").attr("checked",false);
+                        $("#nativelead2").attr("checked",false);
+                        $("#nationallead2").attr("checked",false);
+                        form.render('radio');
+                    	 var oldProductData =  table.cache["ProductGrid"]; 
+                    	 oldProductData.push(JSON.parse(data)); 
+            		    table.reload('ProductGrid',{  
+            		              data : oldProductData
+            		          }) ;
+                    }
+                });
+                return false;
+            });
+        });
+        layui.use('form',function(data) {
+            var form = layui.form;//监听提交
+            var lock = true;      //1.定义一个锁
+            form.on('submit(membersForm)',function(data){
+            	if(data.field.memberName==''||data.field.memberName==null||$.trim(data.field.memberName) ==''){
+	        		layer.alert('成员姓名不能为空', {icon: 5}); 
+	        		$("#memberName").focus();
+	                 return false;
+	        	}
+            	if(data.field.memberName.length>25){
+            		layer.alert('成员姓名不能超过25个字符', {icon: 5});
+            		$("#memberName").focus();
+            		return false;
+            	}
+            	if(data.field.port==''||data.field.port==null||$.trim(data.field.port) ==''){
+	        		layer.alert('成员职务不能为空', {icon: 5}); 
+	        		$("#port").focus();
+	                 return false;
+	        	}
+            	if(data.field.port.length>25){
+            		layer.alert('成员职务不能超过25个字符', {icon: 5});
+            		$("#port").focus();
+            		return false;
+            	}
+            	if(data.field.port.introduction>500){
+            		layer.alert('成员资历不能超过500个字符', {icon: 5});
+            		$("#introduction").focus();
+            		return false;
+            	}
+                $.ajax({
+                    type : "post",
+                    async : false,
+                    url : "/SRRPBusinesWeb/enterprise/addCompanyMember",
+                    data : {"companyMember" : JSON.stringify(data.field)},
+                    success : function(data) {
+                    	layer.alert('添加团队成员成功！', {icon: 1}); 
+                    	$("#memberName").val('');//股东姓名
+                        $("#port").val('');//出资金额
+                        $('#introduction').val('');
+                    	 var oldMemberData =  table.cache["membersGrid"]; 
+                    	 oldMemberData.push(JSON.parse(data)); 
+            		    table.reload('membersGrid',{  
+            		       data : oldMemberData
+            		       }); 
+                    }
+                });
+                return false;
+            });
+        });
+        //关闭按钮
+        $(".closeBtn").on("click", function() {
+        	 parent.location.reload();
+        })
+        $("#testList").on("click", function() {
+        	  companyFileType = $("#companyFileType").val();
+              fileTypeName = $("#companyFileType").find("option:selected").text();
+        });
+        
+   	 //多文件列表示例
+        var upload = layui.upload;
+        var files;
+        //相关附件文件类型
+        var companyFileType;
+        //相关附件文件类型名称
+        var fileTypeName;
+        var demoListView = $('#demoList')
+            , uploadListIns = upload.render({
+            elem: '#testList'
+            ,data : {"fileType" : "xgfj"}
+            ,url: '/SRRPBusinesWeb/enterprise/uploadCompanyAttachments'
+            , accept: 'file'
+            , multiple: false
+            , auto: false
+            , bindAction: '#testListAction'
+            , choose: function (obj) {
+                files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                //读取本地文件
+                obj.preview(
+                    function (index, file, result) {
+                        var tr = $(['<tr id="upload-' + index + '">'
+                            , '<td>' + file.name + '</td>'
+                            , '<td>' + (file.size / 1024).toFixed(1) + 'kb</td>'
+                            , '<td id='+companyFileType+'>' + fileTypeName + '</td>'
+                            , '<td>等待上传</td>'
+                            , '<td>'
+                            , '<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
+                            , '<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
+                            , '</td>'
+                            , '</tr>'].join(''));
+                        
+                        //单个重传
+                        tr.find('.demo-reload').on('click', function () {
+                            obj.upload(index, file);
+                        });
+                        //删除
+                        tr.find('.demo-delete').on('click', function () {
+                            delete files[index]; //删除对应的文件
+                            tr.remove();
+                        });
+                        demoListView.append(tr);
+                        
+                    });
+            }
+            , done: function (res, index, upload) {
+                if (res.code == 0) { //上传成功
+                    var tr = demoListView.find('tr#upload-' + index)
+                        , tds = tr.children();
+                    tds.eq(3).html('<span style="color: #5FB878;">上传成功</span>');
+                    tds.eq(4).html(''); //清空操作 <button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>
+                    window.location.reload();
+                    document.getElementById('attachmentGrid').focus();
+                  	//执行上传文件信息登记入库操作--start
+                    var fileName=res.name;
+                    var fileUrl=res.url;
+                    var fileType=tds.eq(2).attr("id");
+                    $.ajax({
+                    	type: "post",//请求方式
+                    	url: "/SRRPBusinesWeb/enterprise/registerCompanyAttachments",//url地址
+                    	cache: false,//清楚缓存
+                    	async: false,//同步
+                    	dataType: "json",//传递查询条件格式json
+                    	data: {"fileName": fileName,"fileUrl":fileUrl,"fileType":fileType},//传值：文件名称、路径与类型
+                    	success: function (data) {
+                    	    //执行上传文件信息登记入库操作成功后再执行/删除文件
+                    		delete files[index]; //删除文件队列已经上传成功的文件
+                        },
+                    	failure : function (data){
+                            layer.msg("文件上传失败");
+                    	}
+                    });
+                    //执行文件信息登记入库操作--end
+                    return;
+                }
+                if (res.code == 1) { //上传成功
+                    layer.msg("文件上传重复，请确认后上传");
+                    return;
+                }
+                this.error(index, upload);
+            }
+            , error: function (index, upload) {
+                var tr = demoListView.find('tr#upload-' + index)
+                    , tds = tr.children();
+                tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+                tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+            }
+        });
+        
+        /*==============================================================  */
+        // 上传文件控件
+        var upload = layui.upload;
+        //执行实例 上传营业执照
+        var uploadInst = upload.render({
+            elem: '#licenseUploadBtn' //绑定元素
+            //, exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf'
+ 			,data : {"fileType" : 'xgfj'}
+            , accept: 'file' //普通文件
+            , size: 1024 * 128  //设置文件上传的大小最大为128M
+			,url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+            , done: function (data) {
+            	//上传完毕回调
+            	if(data.code == 0){
+                    $('#imgHidden').attr('value',data.url);
+                    $('#fileName').attr('value',data.name);
+                    $('#preview').text(data.name);
+                    $("#preview").attr("href",data.url);
+                    $('#preview').attr('download',data.name);
+                }
+            }
+            , error: function (data) {
+            	alert(data);
+                //请求异常回调
+            }
+        });
+        //指定允许上传的文件类型 上传征信授权书
+        var  creditAuthUpload=upload.render({
+             elem: '#creditAuthUploadFile'
+             //, exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf'
+             ,data : {"fileType" : 'xgfj'}
+             , url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+             , accept: 'file' //普通文件
+             , auto: false
+             , size: 1024 * 128  //设置文件上传的大小最大为128M
+             , before: function () {
+                 $("#creditAuthorizationFile").text("文件上传中请稍候…………");
+                 document.getElementById("creditAuthorizationFile").style.color = '#FF6838';
+             }
+             ,choose: function(obj){
+                 //将每次选择的文件追加到文件队列
+                 var files = obj.pushFile();
+                 //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+                 obj.preview(function(index, file, result){
+                   if(file.size == 0){
+                 	  $("#creditAuthorizationFile").text("请上传非空文件！");
+                 	  document.getElementById("creditAuthorizationFile").style.color = '#FF6838';
+                   }else{
+                 	  obj.upload(index, file);
+                   }
+                 });
+               }
+             , done: function (res) {
+                 if (res.code == 0) {
+//                  	layer.msg(res.name + "上传成功了");
+                     document.getElementById("creditAuthorizationFile").style.color = 'black';
+                     $("#creditupHidden").attr("value", res.url);
+                     $("#creditAuthorizationName").attr("value", res.name);
+                     $("#creditAuthorizationFile").text(res.name)
+                     $("#creditAuthorizationFile").attr("href",res.url);
+                     $('#creditAuthorizationFile').attr('download',res.name);
+                 }else{
+                 	$("#creditAuthorizationFile").text("请上传非空文件！");
+                 }
+             }
+         });
+      //指定允许上传的文件类型 上传背书影像
+        var  creditAuthUpload=upload.render({
+             elem: '#registerAutographUploadFile'
+            // , exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf'
+             ,data : {"fileType" : 'xgfj'}
+             , url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+             , accept: 'file' //普通文件
+             , auto: false
+             , size: 1024 * 128  //设置文件上传的大小最大为128M
+             , before: function () {
+                 $("#registerAutographdownloadFile").text("文件上传中请稍候…………");
+                 document.getElementById("registerAutographdownloadFile").style.color = '#FF6838';
+             }
+             ,choose: function(obj){
+                 //将每次选择的文件追加到文件队列
+                 var files = obj.pushFile();
+                 //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+                 obj.preview(function(index, file, result){
+                   if(file.size == 0){
+                 	  $("#registerAutographdownloadFile").text("请上传非空文件！");
+                 	  document.getElementById("registerAutographdownloadFile").style.color = '#FF6838';
+                   }else{
+                 	  obj.upload(index, file);
+                   }
+                 });
+               }
+             , done: function (res) {
+                 if (res.code == 0) {
+//                  	layer.msg(res.name + "上传成功了");
+                     document.getElementById("registerAutographdownloadFile").style.color = 'black';
+                     $("#registerAutographHidden").attr("value", res.url);
+                     $("#registerAutographName").attr("value", res.name);
+                     $("#registerAutographdownloadFile").text(res.name)
+                     $("#registerAutographdownloadFile").attr("href",res.url);
+                     $('#registerAutographdownloadFile').attr('download',res.name);
+                 }else{
+                 	$("#registerAutographdownloadFile").text("请上传非空文件！");
+                 }
+             }
+         });
+        //指定允许上传的文件类型 上传商业企划书
+        var  creditAuthUpload=upload.render({
+             elem: '#businessPlanUploadFile'
+             //, exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf'
+             ,data : {"fileType" : 'xgfj'}
+             , url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+             , accept: 'file' //普通文件
+             , auto: false
+             , size: 1024 * 128  //设置文件上传的大小最大为128M
+             , before: function () {
+                 $("#businessPlandownloadFile").text("文件上传中请稍候…………");
+                 document.getElementById("businessPlandownloadFile").style.color = '#FF6838';
+             }
+             ,choose: function(obj){
+                 //将每次选择的文件追加到文件队列
+                 var files = obj.pushFile();
+                 //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+                 obj.preview(function(index, file, result){
+                   if(file.size == 0){
+                 	  $("#businessPlandownloadFile").text("请上传非空文件！");
+                 	  document.getElementById("businessPlandownloadFile").style.color = '#FF6838';
+                   }else{
+                 	  obj.upload(index, file);
+                   }
+                 });
+               }
+             , done: function (res) {
+                 if (res.code == 0) {
+                     document.getElementById("businessPlandownloadFile").style.color = 'black';
+                     $("#BussinessPlanHidden").attr("value", res.url);
+                     $("#BussinessPlanName").attr("value", res.name);
+                     $("#businessPlandownloadFile").text(res.name)
+                     $("#businessPlandownloadFile").attr("href",res.url);
+                     $('#businessPlandownloadFile').attr('download',res.name);
+                 }else{
+                 	$("#businessPlandownloadFile").text("请上传非空文件！");
+                 }
+             }
+         });
+        
+      //指定允许上传的主要技术产品证明材料
+        var  creditAuthUpload=upload.render({
+             elem: '#productUploadBtn'//绑定元素
+             //, exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf'
+             ,data : {"fileType" : 'zmcl'}
+             , url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+             , accept: 'file' //普通文件
+             , auto: false
+             , size: 1024 * 128  //设置文件上传的大小最大为128M
+             , before: function () {
+                 $("#productUploadFile").text("文件上传中请稍候…………");
+                 document.getElementById("productUploadFile").style.color = '#FF6838';
+             }
+             ,choose: function(obj){
+                 //将每次选择的文件追加到文件队列
+                 var files = obj.pushFile();
+                 //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+                 obj.preview(function(index, file, result){
+                   if(file.size == 0){
+                 	  $("#productUploadFile").text("请上传非空文件！");
+                 	  document.getElementById("productUploadFile").style.color = '#FF6838';
+                   }else{
+                 	  obj.upload(index, file);
+                   }
+                 });
+               }
+             , done: function (res) {
+                 if (res.code == 0) {
+                     document.getElementById("productUploadFile").style.color = 'black';
+                     $("#productFileUrl").attr("value", res.url);
+                     $("#productFileName").attr("value", res.name);
+                     $("#productUploadFile").text(res.name)
+                     $("#productUploadFile").attr("href",res.url);
+                     $('#productUploadFile').attr('download',res.name);
+                 }else{
+                 	$("#productUploadFile").text("请上传非空文件！");
+                 }
+             }
+         });
+      
+      
+      //指定允许上传的工商异议信息的上传文件证明材料
+        var  creditAuthUpload=upload.render({
+             elem: '#objectionUploadBtn'//绑定元素
+             //, exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf'
+             ,data : {"fileType" : 'zmcl'}
+             , url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+             , accept: 'file' //普通文件
+             , auto: false
+             , size: 1024 * 128  //设置文件上传的大小最大为128M
+             , before: function () {
+                 $("#objectionfilePath").text("文件上传中请稍候…………");
+                 document.getElementById("objectionfilePath").style.color = '#FF6838';
+             }
+             ,choose: function(obj){
+                 //将每次选择的文件追加到文件队列
+                 var files = obj.pushFile();
+                 //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+                 obj.preview(function(index, file, result){
+                   if(file.size == 0){
+                 	  $("#objectionUploadFile").text("请上传非空文件！");
+                 	  document.getElementById("objectionUploadFile").style.color = '#FF6838';
+                   }else{
+                 	  obj.upload(index, file);
+                   }
+                 });
+               }
+             , done: function (res) {
+                 if (res.code == 0) {
+                     document.getElementById("objectionUploadFile").style.color = 'black';
+                     $("#objectionfilePath").attr("value", res.url);objectionfilePath
+                     $("#objectionFileName").attr("value", res.name);
+                     $("#objectionUploadFile").text(res.name)
+                     $("#objectionUploadFile").attr("href",res.url);
+                     $('#objectionUploadFile').attr('download',res.name);
+                 }else{
+                 	$("#objectionUploadFile").text("请上传非空文件！");
+                 }
+             }
+         });
+        /* ============================================================== */
+    });
+  //调用日期控件
+    var laydate = layui.laydate;
+  var redate=$("#redate").val();
+  var sources='${companyBasePending.sources}';
+  var date='${companyBasePending.redate}';
+  var str=sources.indexOf('03');
+  if(str>=0){
+	  laydate.render({
+	        elem: '#redate' //指定元素
+	       ,min: '2080-10-14'
+	    	   ,btns: ['confirm']
+	    });
+  }else{
+	  laydate.render({
+	        elem: '#redate' //指定元素
+	        	 ,max: 0
+	    });
+  }
+	   
+//相关二级联动的方法
+var zNodes='${industryJsonData}';
+
+function getIndustryChildren(parent){
+	var childrenStr="";
+	var childrenData=JSON.parse(zNodes);
+	var industry2="${companyBaseSupplement.industry2}";
+	for(var i=0;i<childrenData.length;i++){
+        if(childrenData[i].pId==parent){
+        	if(childrenData[i].id==industry2){
+            	childrenStr+='<option value="'+ childrenData[i].id +'" selected>' + childrenData[i].name + '</option>';
+
+        	}else{
+            	childrenStr+='<option value="'+ childrenData[i].id +'" >' + childrenData[i].name + '</option>';
+
+        	}
+        	 
+        }
+    }
+    return childrenStr;
+}
+layui.use(['form','jquery','layer'], function(){
+    var form = layui.form,$=layui.jquery,layer=layui.layer;
+    
+	form.on('select(industry)', function(data){
+		   $("#industry2").html("");
+		   var childrenDataStr="";
+	       var options = $("#industry option:selected").val();
+	       childrenDataStr='<option value="">请选择二级行业</option>';
+	       childrenDataStr+=getIndustryChildren(options);
+	       $("#industry2").append(childrenDataStr);
+	       form.render('select');
+	
+	})
+    })
+$(function(){
+    var form = layui.form,$=layui.jquery,layer=layui.layer;
+	var options="";
+	if("" !="${companyBaseSupplement.industry}"){
+		options="${companyBaseSupplement.industry}";
+		var childrenDataStr="";
+	    childrenDataStr='<option value="">请选择二级行业</option>';
+	    childrenDataStr+=getIndustryChildren(options);
+	    $("#industry2").append(childrenDataStr);
+	    form.render('select');
+	}
+	
+	});
+	function checkedBase(data){
+		var  objRegExp;
+		  var companyFlag="";
+		  var code='${companyBasePending.code}';
+		if(data.field.name==''||data.field.name==null||$.trim(data.field.name)==''){
+    		layer.alert('企业名称不能为空', {icon: 5}); 
+    		$("#enterpriseName").focus();
+             return false;
+    	}
+		 if(data.field.name.length>50){
+        		layer.alert('企业名称不能超过50个字符', {icon: 5});
+        		$("#enterpriseName").focus();
+         		return false;
+        }
+		 if(data.field.codetype==''||data.field.codetype==null){
+	    		layer.alert('请选择证件号码类型', {icon: 5}); 
+	    		$("#codetypeDiv").focus();
+	             return false;
+	    	}
+    	if(data.field.code==''||data.field.code==null||$.trim(data.field.code)=='' ){
+    		layer.alert('证件号码不能为空', {icon: 5}); 
+    		$("#code").focus();
+             return false;
+    	}else{
+    		if(data.field.codetype=='1'){
+       			 objRegExp= /[A-Za-z0-9]{8}-[A-Za-z0-9]/;
+       			 if(!objRegExp.test(data.field.code)){
+                   	 parent.layer.alert("组织机构代码格式不正确", {icon: 5});
+               		 $("#certno").focus();
+           			 return false;
+               	 }
+       	  }else if(data.field.codetype=='2'){
+       			 objRegExp= /[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}/;
+       			 if(!objRegExp.test(data.field.code)){
+                   	 parent.layer.alert("统一社会信用代码格式不正确", {icon: 5});
+               		 $("#certno").focus();
+           			 return false;
+               	 }
+    	}
+    		 if(data.field.code != code){
+        		 $.ajax({
+					   type : "post",
+					  async : false,
+						url : "/SRRPBusinesWeb/newCompany/ajaxValidatorCertNo",
+					   data : {"code" : data.field.code},
+					success : function(data) {
+						data = JSON.parse(data);
+						companyFlag=data.code;
+					}
+				 });
+        		 console.log(companyFlag);
+        		 if (companyFlag == '00001') {
+			        	parent.layer.alert("证件码已在股权平台注册,请重新输入", {icon: 5});
+                		 $("#certno").focus();
+	        			 return false;
+						
+			       	}else if(companyFlag == '00002') {
+			       		parent.layer.alert("此证件码已在综合金服服务平台注册,请重新输入", {icon: 5});
+                		 $("#certno").focus();
+	        			 return false;
+			       	} 
+        	 }   
+        	  
+           }
+    	if(data.field.regcapital==''||data.field.regcapital==null){
+    		layer.alert('注册资本不能为空', {icon: 5}); 
+    		$("#regcapital").focus();
+             return false;
+    	}
+    	if(!(/^\d+(\.\d{1,2})?$/.test(data.field.regcapital))){
+             layer.alert('注册资本为最多包含两位有效小数的数字', {icon: 5}); 
+        		$("#regcapital").focus();
+                 return false;
+         }
+    	if(data.field.regCurrency==''||data.field.regCurrency==null){
+    		layer.alert('请选择注册资本币种类型', {icon: 5}); 
+    		$("#regcapital").focus();
+             return false;
+    	}
+    	if(data.field.redate==''||data.field.redate==null){
+    		layer.alert('请选择注册时间', {icon: 5}); 
+    		$("#redate").focus();
+             return false;
+    	}
+    	if(data.field.registArea==''||data.field.registArea==null||$.trim(data.field.registArea)==''){
+    		layer.alert('注册地址不能为空', {icon: 5}); 
+    		$("#registArea").focus();
+             return false;
+    	}
+    	if(data.field.code.registArea>255){
+    		layer.alert('注册地址不能超过255个字符', {icon: 5});
+    		$("#registArea").focus();
+     		return false;
+        }
+    	if(data.field.rearea==''||data.field.rearea==null){
+    		layer.alert('请选择所属区域', {icon: 5}); 
+    		$("#paidincapital").focus();
+             return false;
+    	}
+    	if(data.field.industry==''||data.field.industry==null){
+    		layer.alert('请选择行业类型', {icon: 5}); 
+    		$("#paidincapital").focus();
+             return false;
+    	}
+    	if(data.field.paidincapital==''||data.field.paidincapital==null){
+    		layer.alert('实收资本不能为空', {icon: 5}); 
+    		$("#paidincapital").focus();
+             return false;
+    	}
+    	if(!(/^\d+(\.\d{1,2})?$/.test(data.field.paidincapital))){
+             layer.alert('实收资本为最多包含两位有效小数的数字', {icon: 5}); 
+        		$("#paidincapital").focus();
+                 return false;
+         }
+    	if(data.field.currency==''||data.field.currency==null){
+    		layer.alert('请选择实收资本币种类型', {icon: 5}); 
+    		$("#paidincapital").focus();
+             return false;
+    	}
+    	if(data.field.legalName==''||data.field.legalName==null||$.trim(data.field.legalName)==''){
+    		layer.alert('法定代表姓名不能为空', {icon: 5}); 
+    		$("#legalName").focus();
+             return false;
+    	}
+    	if(data.field.legalName.length>100){
+    		layer.alert('法定代表姓名不能超过100个字符', {icon: 5}); 
+    		$("#legalName").focus();
+             return false;
+    	}
+    	if(data.field.legalCal==''||data.field.legalCal==null){
+    		layer.alert('法定代表手机号不能为空', {icon: 5}); 
+    		$("#legalCal").focus();
+             return false;
+    	}
+    	if(data.field.stockCal.length!=11){
+    		layer.alert('请输入正确的11位电话号码', {icon: 5}); 
+    		$("#legalCal").focus();
+             return false;
+    	}
+    	if(!(/^1[3|5|7|8][0-9]\d{4,8}$/.test(data.field.legalCal))){
+             layer.alert('请输入正确的法定代表人手机号', {icon: 5}); 
+        		$("#legalCal").focus();
+                 return false;
+         }
+    	if(data.field.stockName==''||data.field.stockName==null||$.trim(data.field.stockName)==''){
+    		layer.alert('股权联系人姓名不能为空', {icon: 5}); 
+    		$("#stockName").focus();
+             return false;
+    	}
+    	if(data.field.stockName.length>10){
+    		layer.alert('股权联系人姓名不能超过10个字符', {icon: 5}); 
+    		$("#stockName").focus();
+             return false;
+    	}
+    	if(data.field.stockCal==''||data.field.stockCal==null){
+    		layer.alert('股权联系人手机号不能为空', {icon: 5}); 
+    		$("#stockCal").focus();
+             return false;
+    	}
+    	if(data.field.stockCal.length!=11){
+    		layer.alert('请输入正确的11位电话号码', {icon: 5}); 
+    		$("#stockCal").focus();
+             return false;
+    	}
+    	if(!(/^1[3|5|7|8][0-9]\d{4,8}$/.test(data.field.stockCal))){
+             layer.alert('请输入正确的股权联系人手机号', {icon: 5}); 
+        		$("#stockCal").focus();
+                 return false;
+         }
+    	if(data.field.iSHiTechPark==''||data.field.iSHiTechPark==null){
+    		layer.alert('请选择是否获得过股权投资', {icon: 5}); 
+    		$("#iSHiTechParkDiv").focus();
+             return false;
+    	}
+    	if(data.field.iSEgggenerator==''||data.field.iSEgggenerator==null){
+    		layer.alert('请选择是否有投资意向', {icon: 5}); 
+    		$("#iSEgggeneratorDiv").focus();
+             return false;
+    	}
+    	if(data.field.objection!=''&& data.field.objection !=null){
+    		if(data.field.objection.length>300){
+        		layer.alert('异议备注长度不能超过300个字符长度', {icon: 5}); 
+        		$("#objection").focus();
+                 return false;
+        	}
+    	}
+    	
+    	return true;
+	}
+	function Ischange(){
+		var change=false;
+		if('${companyBase.auditStatus}'=='22'){
+		var enterpriseName  = $("#enterpriseName").val();//页面中的企业名称
+		if('${companyBase.name}'!=enterpriseName){
+			change=true;
+		}
+		var regcapital = $("#regcapital").val();
+		if(('${companyBase.regcapital}'*100) !=(regcapital*100)){
+			change=true;
+		}
+		var registArea = $("#registArea").val();
+		if('${companyBase.registArea}'!=registArea){
+			change=true;
+		}
+		var regCurrency  = $("#regCurrency").val();
+		if('${companyBase.regCurrency}'!=regCurrency){
+			change=true;
+		}
+		var legalName = $("#legalName").val();
+		if('${companyBase.legalName}'!=legalName){
+			change=true;
+		}
+		var code = $("#code").val();
+		if('${companyBase.code}'!=code){
+			change=true;
+		}
+		
+		var rearea = $("#rearea").val();
+		if('${companyBase.rearea}'!=rearea){
+			change=true;
+		}
+		var redate = $("#redate").val();
+		if('${companyBase.redate}'!=redate){
+			change=true;
+		}
+		}
+		return change;
+	}
+	function downWarrantPDF() {//导出授权书
+    	var enterpriseId= "${companyBasePending.enterpriseId}";
+		var  creditAuthorizationName ='${companyBasePending.creditAuthorizationName}';
+		parent.location.href = "/SRRPBusinesWeb/enterprise/downWarrantInfor?type="+"01"+ "&name="+ creditAuthorizationName+"&enterpriseId="+enterpriseId;
+	}
+	function downWarrantImage() {//导出授权书
+		var  licenseName ='${companyBasePending.licenseName}';
+    	var enterpriseId= "${companyBasePending.enterpriseId}";
+		parent.location.href = "/SRRPBusinesWeb/enterprise/downWarrantInfor?type="+"02"+ "&name="+ licenseName+"&enterpriseId="+enterpriseId;
+	}
+	function ityzl_SHOW_LOAD_LAYER(){
+		return  layer.load(1, {shade: [0.6, '#f5f5f5']}) ;
+
+	}
+	function ityzl_CLOSE_LOAD_LAYER(index){
+		layer.close(index);
+	}
+</script>
+</body>
+</html>

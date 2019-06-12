@@ -1,0 +1,62 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>投资机构详情</title>
+<script src="../static/script/autoload.js" type="text/javascript"></script>
+<script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="../static/style/page/details.css">
+</head>
+<body>
+	
+        <!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <p class="boxTitle"><span>${online.messagetheme}</span></p>
+    <div class="boxContent">
+        <div class="detailsCon" style="margin-top: 10px;">
+            <div class="detailsTxt clearfix">
+                	<p>联系人：<span>${online.contacts}</span></p>
+		            <p>联系电话：<span>${online.contactnumber}</span></p>
+		           
+		            <p>邮箱地址：<span>${online.email}</span></p>
+		            <p>留言日期：<span>${online.messagedateStr}</span></p>
+		             <p >
+					企业/机构名称：<span>${online.name}</span>
+				</p>
+				<p >
+					企业/机构证件号：<span>${online.certno}</span>
+				</p>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>留言内容</span></div>
+            <div class="detailsTxt clearfix aloneDiv">
+                <p><pre>${online.messagedescribe}</pre></p>
+            </div>
+        </div> 
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>回复内容</span></div>
+            <div class="detailsTxt clearfix aloneDiv">
+                <p>${online.answerdescribe}</p>
+            </div>
+        </div>          
+    </div>
+         <div class="buttonWrap">
+            <!--<button class="layui-btn closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>-->
+            <button class="layui-btn closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>
+        </div>
+    </div> 
+   <script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+	<script rel="stylesheet" href="../static/script/layui/css/layui.js" charset="utf-8"></script>
+	<script>
+	 $(function () {
+		  
+			$(".closeBtn").on("click", function() {
+				parent.layer.closeAll();
+			});
+	    })
+
+	</script>
+</body>
+</html>

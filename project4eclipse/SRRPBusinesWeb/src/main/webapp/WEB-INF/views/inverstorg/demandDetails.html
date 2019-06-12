@@ -1,0 +1,287 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>详情</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/details.css">
+	<style>
+	.detailsTxt p {
+    width: 48%;
+    color: #0D4F92;
+    float: left;
+    margin-right: 2%;
+    line-height: 34px;
+     }
+	</style>
+</head>
+<body>
+<input type="hidden" id="infoId" value='${finacingDemandInfo.infoId}'>
+<input type="hidden" id="statusInfo" value='${statusInfo}'>
+<input type="hidden" id="eventId" value="${finacingEvent.eventId}">
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <p class="boxTitle"><span>${finacingDemandInfo.projectNameShow}</span></p>
+    <div class="boxContent">
+    <div class="detailsCon" style="margin-top: 20px;">
+        <div class="detail-title-name"><span>基本信息</span></div>
+        <div class="detailsTxt clearfix">
+            <p>企业名称：<span>${companyBase.enterpriseNameShow}</span></p>
+            <p>行业：<span>${companyBaseSupplement.industryStr}</span></p>
+            <p>所属区域：<span>${companyBase.reareaDicname}</span></p>
+            <p>发布日期：<span><fmt:formatDate value='${finacingDemandInfo.operdate}' pattern="yyyy-MM-dd"/></span></p>
+            <p>融资金额(万)：<span>${finacingDemandInfo.amountShow}  ${finacingDemandInfo.currencyDicname}</span></p>
+<!--             <p>有效关注日期：<span><fmt:formatDate value='${finacingDemandInfo.followTime}' pattern="yyyy-MM-dd"/></span></p> -->
+            <p>融资轮次：<span>${finacingDemandInfo.finacingTurnDicname}</span></p>
+            <p>出让股权：<span>${finacingDemandInfo.sellScale}</span></p>
+            <p>是否公开：<span>${finacingDemandInfo.openDicname}</span></p>
+            <p>接受多个机构投资：<span>${finacingDemandInfo.multiDicname}</span></p>
+            <p>联系人姓名：<span>${finacingDemandInfo.relName}</span></p>
+            <p>联系人手机号：<span>${finacingDemandInfo.relPhone}</span></p>
+        </div>
+    </div>
+    <div class="detailsCon clearfix">
+        <div class="detail-title-name"><span>需求详情</span></div>
+        <div class="detailsTxt clearfix aloneDiv">
+            <p><pre><p style="font-family: Microsoft YaHei;color:#333;font-size: 14px; display:inline;">${finacingDemandInfo.description}</p>&nbsp;&nbsp;</pre></p>
+        </div>
+    </div>
+    <div class="detailsCon clearfix">
+        <div class="detail-title-name"><span>商业企划书</span></div>
+        <div class="detailsTxt clearfix aloneDiv">
+            <p><span><a href='${companyBusinessplan.fileinfo}' download='${companyBusinessplan.fileName}' >${companyBusinessplan.fileName}</a></span></p>
+        </div>
+    </div>
+    <c:if test='${!empty investor.name && !empty finacingEvent.finacingStatusDicname}'>
+     <div class="detailsCon clearfix">
+        <div class="detail-title-name"><span>项目进度</span></div>
+        <div class="detailsTxt clearfix aloneDiv">
+           <p>投资方：
+           <c:choose>
+	           <c:when test="${investor.name == nikename}"><a id="investor" style="color:#0D4F92;cursor: pointer;">${nikename}</a></c:when>
+	           <c:otherwise>${nikename}</c:otherwise>
+           </c:choose>
+            &nbsp;&nbsp;当前进度：<span id="statusId"></span> &nbsp;&nbsp;此项目当前进度：<span id="finacingId"></span></p>
+        </div>
+      </div>
+    </c:if>
+    <div class="buttonWrap">
+        <c:if test='${showflag=="0"}'>
+          <button class="layui-btn focusBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;注&nbsp;&nbsp;</button>
+        </c:if>
+        <button class="layui-btn closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>
+    </div>
+    </div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script>
+    $(function () {
+    	var operType = 'focus';
+    	var eventId = $("#eventId").val();
+    	var statusInfo = $("#statusInfo").val();
+    	var infoId = $("#infoId").val();
+    	//判断融资状态是否为发布状态
+    	var finacingStatusStr = '${finacingEvent.finacingStatusDicname}';
+    	var finacingStr = '${finacingDemandInfo.statusDicname}';
+    	if(finacingStatusStr=='发布'){
+    		$("#statusId").text("待关注");
+    	}
+    	if(finacingStatusStr!='发布' && finacingStatusStr!=null && finacingStatusStr!=''){
+    		$("#statusId").text(finacingStatusStr);
+    	}
+    	if(finacingStr=='发布'){
+    		$("#finacingId").text("待关注");
+    	}
+    	if(finacingStr!='发布' && finacingStr!=null && finacingStr!=''){
+    		$("#finacingId").text(finacingStr);
+    	}
+    	//点击投资机构进行投资机构查询
+    	$("#investor").on("click",function(){
+    		parent.layer.open({
+                title: '投资机构信息详情',
+                content: "/SRRPBusinesWeb/investor/findDetailByInvestor?investorId=${investor.investorId}",
+                area: ['100%', '100%'],
+                offset: ['0%', '0%'],
+                type:2,
+            });
+    	});
+    	//点击关注这条数据进入首页待办事项操作
+    	$(".focusBtn").on("click",function(){
+    		var index = parent.layer.getFrameIndex(window.name);
+    		var tmpEventId=eventId;
+    		if(eventId ==null || eventId =="" || eventId == undefined){
+    			tmpEventId = '';
+			}
+    		$.ajax({
+                type: "post",
+                async: true,
+                url: "/SRRPBusinesWeb/homeTodo/countFocus",
+                data: {},//没有参数
+               success: function (obj) {
+            	   var count = JSON.parse(obj);
+            	   if(count >=10){
+            		   layer.confirm('您最多可同时关注10条融资需求');
+            	   }else{
+            	   
+            	   
+            	   		//对操作者的类型判断
+				           	$.ajax({
+							   type : "post",
+							  async : false,
+							    url : "/SRRPBusinesWeb/homeTodo/chechedUserLevel",
+							success : function(obj) {
+								var result = JSON.parse(obj);
+								   if(result.userLevel=='0'){//如果结果为0，则是投资机构，需要提示
+									   	layer.confirm('您旗下有3只基金用户。<br>是否直接使用基金管理人进行用户直投？', {
+											  btn: ['使用基金账户', '确认直投'] //可以无限个按钮
+											  ,area: ['300px', '180px']
+											}, function(index, layero){		//基金账户，退出登录
+											  window.top.location.href='/creditplatformweb/logout';
+											}, function(index){				//确认直投
+											  layer.confirm('确认关注么?', function (index) {
+												$.ajax({
+								                    type: "post",
+								                    async: true,
+								                    url: "/SRRPBusinesWeb/homeTodo/checkStatus",
+								                    data: {"infoId": infoId,"statusInfo":statusInfo},
+								                   success: function (obj) {
+								                	   if(obj=="success"){
+								                		   $.ajax({
+								           	                type: "post",
+								           	                async: false,
+								           	                url: "/SRRPBusinesWeb/homeTodo/delInfo",
+								           	                data : {"eventId" : tmpEventId ,"status":statusInfo,"infoId" : infoId,"operType" : operType},// 查询条件
+								           	                success: function () {
+								           	                  layer.close(index);
+								           	  				  parent.location.href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=talks";
+								           	  		    	  window.parent.parent.document.getElementById('leftFrame').contentWindow.menu_handle();//需要调用的方法;	
+								           	  		    	  parent.layer.close(index);
+								           	                 }
+								           	              });
+								                	   }else if(obj=="error"){
+								                		   layer.close(index);
+								                		   window.location.href="/SRRPBusinesWeb/finacingDemand/finacingController";
+								                	   }else{
+								                		   layer.close(index);
+								                		   window.location.href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=focus";
+								                	   } 
+								                   }
+								               });
+								            });
+										});
+								   
+								   
+									  /* layer.confirm('是否直接使用基金管理人进行用户直投？',function (index) {
+										 layer.confirm('确认关注么？', function (index) {
+			                       			$.ajax({
+			                                    type: "post",
+			                                    async: true,
+			                                    url: "/SRRPBusinesWeb/homeTodo/checkStatus",
+			                                    data: {"infoId": infoId},
+			                                   success: function (obj) {
+			                                	   if(obj=="success"){
+			                                		   $.ajax({
+			                                               type: "post",
+			                                               async: false,
+			                                               url: "/SRRPBusinesWeb/homeTodo/delInfo",
+			                                               data: {"eventId": eventId, "status": status, "infoId": infoId,"operType":operType},// 查询条件
+			                                               success: function () {
+			                                               	layer.close(index);//向服务端发送删除指令
+			                                                   location.href = "/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=talks";
+			                                               }
+			                                           }); 
+			                                	   }else{
+			                                		   layer.close(index);
+			                                		   window.location.href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=focus";
+			                                	    } 
+			                                   }
+			                               }); 
+			            				});
+									  }); */
+							      }else{
+							    	 layer.confirm('确认关注么?', function (index) {
+										$.ajax({
+						                    type: "post",
+						                    async: true,
+						                    url: "/SRRPBusinesWeb/homeTodo/checkStatus",
+						                    data: {"infoId": infoId,"statusInfo":statusInfo},
+						                   success: function (obj) {
+						                	   if(obj=="success"){
+						                		   $.ajax({
+						           	                type: "post",
+						           	                async: false,
+						           	                url: "/SRRPBusinesWeb/homeTodo/delInfo",
+						           	                data : {"eventId" : tmpEventId ,"status":statusInfo,"infoId" : infoId,"operType" : operType},// 查询条件
+						           	                success: function () {
+						           	                  layer.close(index);
+						           	  				  parent.location.href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=talks";
+						           	  		    	  window.parent.parent.document.getElementById('leftFrame').contentWindow.menu_handle();//需要调用的方法;	
+						           	  		    	  parent.layer.close(index);
+						           	                 }
+						           	              });
+						                	   }else if(obj=="error"){
+						                		   layer.close(index);
+						                		   window.location.href="/SRRPBusinesWeb/finacingDemand/finacingController";
+						                	   }else{
+						                		   layer.close(index);
+						                		   window.location.href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=focus";
+						                	   } 
+						                   }
+						               });
+						            });
+		            				
+							      }
+							    }
+						     });
+            	   
+            	   
+            	   
+					/* layer.confirm('确认关注么?', function (index) {
+						$.ajax({
+		                    type: "post",
+		                    async: true,
+		                    url: "/SRRPBusinesWeb/homeTodo/checkStatus",
+		                    data: {"infoId": infoId,"statusInfo":statusInfo},
+		                   success: function (obj) {
+		                	   if(obj=="success"){
+		                		   $.ajax({
+		           	                type: "post",
+		           	                async: false,
+		           	                url: "/SRRPBusinesWeb/homeTodo/delInfo",
+		           	                data : {"eventId" : tmpEventId ,"status":statusInfo,"infoId" : infoId,"operType" : operType},// 查询条件
+		           	                success: function () {
+		           	                  layer.close(index);
+		           	  				  parent.location.href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=talks";
+		           	  		    	  window.parent.parent.document.getElementById('leftFrame').contentWindow.menu_handle();//需要调用的方法;	
+		           	  		    	  parent.layer.close(index);
+		           	                 }
+		           	              });
+		                	   }else if(obj=="error"){
+		                		   layer.close(index);
+		                		   window.location.href="/SRRPBusinesWeb/finacingDemand/finacingController";
+		                	   }else{
+		                		   layer.close(index);
+		                		   window.location.href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=focus";
+		                	   } 
+		                   }
+		               });
+		            }); */
+    	       	}
+               }
+    	    });
+    	});
+        //点击进行关闭操作
+        $(".closeBtn").on("click", function () {
+        	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+			parent.layer.close(index); //关闭layer(关闭当前窗口)
+        });
+    });
+</script>
+</body>
+</html>

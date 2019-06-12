@@ -1,0 +1,644 @@
+@charset "utf-8";
+/* CSS Document */
+.popupclear {
+	font: 0px/0px sans-serif;
+	clear: both;
+	display: block;
+}
+.popupbg {
+	z-index: 98;
+	height: 100%; width:100%;
+	background-color:#373737;
+	/*第二种背颜色
+	 background-color:#dbf4ff;*/
+	position:absolute;
+	top:0px;
+	left:0px;
+	filter: alpha(opacity=30);
+	-moz-opacity: 0.3;
+	-khtml-opacity: 0.3;
+	opacity: 0.3;
+
+}
+.basepopopdiv {
+	/*background-color: #fff;*/
+	z-index: 999;
+	position:absolute;
+	margin: 0 auto;
+	left: 30%;
+	top: 10%;
+	overflow: hidden;
+}
+
+.popuptop {
+	height: 44px;
+}
+.popuptitle {
+	line-height: 44px;
+	color: #1480cc;
+	font-size: 18px;
+	font-family: Microsoft YaHei;
+	width: 200px;
+	height: 44px;
+	padding-left: 25px;
+	float: left;
+}
+.popupclose {
+	background: url(../images/popup/close.jpg);
+	width: 46px;
+	height: 44px;
+	float: right;
+	cursor: pointer;
+}
+
+.thesumbit130x40{ background:url(../images/popup/bg130X40.jpg) no-repeat; width:131px; height:40px;
+	color: #FFF;
+	font-size: 18px;
+	font-family: Microsoft YaHei; line-height:40px; text-align:center; margin:0 auto; cursor:pointer;
+	
+}
+.thesumbit123x33{ background:url(../images/popup/bg123x33.jpg) no-repeat; width:115px; height:33px;
+	color: #FFF;
+	font-size: 14px;
+	font-family: Microsoft YaHei; line-height:33px; text-align:center; margin:0 auto; cursor:pointer;
+	
+}
+.thesumbit35x35{ background:url(../images/popup/bg35x35.jpg) no-repeat; width:35px; height:35px;
+	color: #FFF;
+	font-size: 24px;
+	font-family: Microsoft YaHei; line-height:35px; text-align:center; margin:0 auto; cursor:pointer;
+	
+}
+.checked{ background:url(../images/popup/checked.jpg) no-repeat  left  center ; color:#5c5c5c;
+	font-size: 18px;
+	font-family: Microsoft YaHei; line-height:35px; padding-left:20px;
+	
+}
+.unchecked{ background:url(../images/popup/unchecked.jpg) no-repeat  left  center; color:#5c5c5c;
+	font-size: 18px;
+	font-family: Microsoft YaHei; line-height:35px;  padding-left:20px;
+	
+}
+
+.radio0{ background:url(../images/popup/radio0.jpg) no-repeat  left  center ; color:#5c5c5c;
+	font-size: 18px;
+	font-family: Microsoft YaHei; line-height:35px; padding-left:20px;
+	
+}
+.radio1{ background:url(../images/popup/radio1.jpg) no-repeat  left  center; color:#5c5c5c;
+	font-size: 18px;
+	font-family: Microsoft YaHei; line-height:35px;  padding-left:20px;
+	
+}
+
+
+.popupbody {
+	margin: 1px 5px 5px 5px;
+	background-color: #e8e8e8;
+}
+.popupbody li {
+	padding-left: 10px;
+	background-color: #FFF;
+	float: left;
+	height: 10px;
+	margin-bottom: 1px;
+	margin-left: 1px;
+	font-size: 12px;
+	font-family: Mircosoft YaHei;
+}
+.popupbody td {
+	text-align: center;
+	height: 36px;
+	background-color: #FFF;
+	margin-bottom: 1px;
+	margin-left: 1px;
+	font-size: 12px;
+	font-family: Mircosoft YaHei;
+}
+.popupbody .th td {
+	font-weight: bold;
+	color: #949494;
+	background-color: #f5f5f5;
+	margin-bottom: 1px;
+	margin-left: 1px;
+	font-size: 14px;
+	font-family: Mircosoft YaHei;
+}
+.popupbody .lileft {
+}
+.popupbody .liright {
+	margin-right: 0px;
+}
+.popupbody .lastlileft {
+	margin-bottom: 0px;
+}
+.popupbody .lastliright {
+	margin-bottom: 0px;
+}
+/*受赠详情*/
+.popup255-162 {
+	width: 317px;
+	height: 210px;
+}
+.popup255-162 .pbody {
+	height: 160px;
+}
+.popup255-162 li {
+	line-height: 48px;
+	height: 48px;
+}
+.popup255-162 .lileft {
+	width: 85px;
+}
+.popup255-162 .liright {
+	width: 200px;
+	margin-right: 0px;
+}
+.popup255-162 .lastlileft {
+	line-height: 110px;
+	height: 110px;
+	width: 85px;
+	margin-bottom: 0px;
+}
+.popup255-162 .lastliright {
+	line-height: 110px;
+	height: 110px;
+	width: 200px;
+	margin-bottom: 0px;
+}
+/*购买详情*/
+.popup357-381 {
+/* 	width: 1040px;
+height: 420px; */
+}
+.popup357-381 .pbody {
+	height: 331px;
+}
+.popup357-381 li {
+	line-height: 36px;
+	margin-right: 0px;
+	height: 36px;
+}
+.popup357-381 .lileft {
+	width: 90px;
+}
+.popup357-381 .liright {
+	width: 235px;
+}
+.popup357-381 .lastlileft {
+	width: 90px;
+	margin-bottom: 0px;
+}
+.popup357-381 .lastliright {
+	width: 235px;
+	margin-bottom: 0px;
+}
+/*充入手机详情*/
+.popupsjcrxq {
+	right: 120px;
+	width: 725px;
+}
+popupsjcrxq .pbody {
+	right: 120px;
+/*height: 331px;*/
+}
+/*红包详情*/
+.popuphbxq {
+	width: 725px;
+	right: 120px;
+}
+/*赠送详情*/
+.popupzsxq {
+	width: 725px;
+	right: 120px;
+}
+/*红包分享*/
+.popuphbfx {
+	height: 210px;
+	right: 120px;
+}
+.popuphbfx .pbody {
+	padding: 7px;
+	height: 140px;
+	background-color: #FFF;
+}
+.purl {
+	padding-top: 25px;
+}
+.purl input {
+	vertical-align: middle;
+}
+.purl .purlinput {
+	height: 31px;
+	width: 190px;
+	background: url(../images/popup/inputbg.jpg);
+	border: none;
+	margin-left: 1px;
+}
+.phbfoot {
+	width:247px;
+	background: url(../images/popup/hbfootbg.jpg) no-repeat;
+	height: 87px;
+	vertical-align: bottom;
+	float:left;
+}
+.phbfoot img {
+	position: absolute;
+	bottom: 10px;
+}
+.phbfoot_01{
+	width:247px;
+	background: url(../images/popup/hbfootbg_01.jpg) no-repeat;
+	height: 87px;
+	vertical-align: bottom;
+	float: left;
+}
+.phbfoot_01 img {
+	position: absolute;
+	bottom: 10px;
+}
+/*选择好友*/
+.popupselectfriend {
+	width: 515px;
+}
+.popupselectfriend .pbody {
+	padding: 10px;
+	background-color: #FFF;
+}
+.pselectplat div {
+	float: left;
+	width: 210px;
+	height: 170px;
+}
+.pselectplat .pselectplatcenter {
+	width: 84px;
+}
+.pselectplatcenter p {
+	text-align: center;
+	background: url(../images/popup/selectfriendsminbtn2.jpg);
+	width: 66px;
+	height: 27px;
+	line-height: 27px;
+	color: #FFF;
+	font-size: 14px;
+	font-family: Microsoft YaHei;
+	margin: 0px 10px;
+	cursor: pointer;
+}
+.pselectplatcenter .pselectplatcenteralive {
+	background: url(../images/popup/selectfriendsminbtn1.jpg);
+}
+.pselectplatcenter .pselectspace {
+	margin: 5px 10px;
+}
+.pselectplat ul {
+	border: solid 1px #d9d9d9;
+	font-size: 12px;
+	font-family: Mircosoft YaHei;
+	padding: 5px 0px;
+	height: 130px;
+}
+.pselectplat li {
+	float: none;
+	height: 22px;
+	line-height: 22px;
+}
+.pselectplat .liselect {
+	background-color: #d6e9ff;
+}
+.pselectplat .pselecttitle {
+	color: #5c5c5c;
+	font-size: 14px;
+	font-family: Microsoft YaHei;
+	text-align: center;
+	float: none;
+	height: 15px;
+	margin: 10px 0px;
+}
+.pselectsubmit {
+	padding-top: 30px;
+	text-align: center;
+}
+/*发送转赠详情*/
+.popupfszzxq {
+	width: 534px;
+}
+.popupfszzxq .pbody {
+	padding-top : 20px;
+	background-color: #FFF;
+}
+.popupfszzxq ul {
+	background-color: #e8e8e8;
+}
+.popupfszzxq li {
+	margin-left: 0px;
+	text-align: center;
+	line-height: 35px;
+	height: 35px;
+}
+.popupfszzxq .pli1 {
+	width: 150px;
+}
+.popupfszzxq .pli2 {
+	width: 192px;
+}
+/*新增好友*/
+/*发送转赠详情*/
+.popupaddfriend {
+	width: 534px;
+}
+.popupaddfriend .pbody {
+	padding-top : 40px;
+	background-color: #FFF;
+}
+.popupaddfriend li {
+	color: #5c5c5c;
+	font-size: 14px;
+	font-family: Microsoft YaHei;
+	margin: 0px;
+	line-height: 40px;
+	height: 40px;
+}
+.popupaddfriend .pli1 {
+	width: 140px;
+	text-align: right;
+}
+.popupaddfriend .pli2 {
+	width: 364px;
+}
+.popupaddfriend .pli2 input,.popupaddfriendpli2span {
+	width: 260px;
+	height: 30px;
+	border: 1px solid #d9d9d9;
+	background: none;
+}
+/* .popupaddfriend span {
+	background: url(../images/popup/selectarrow.jpg) no-repeat right center;
+	overflow: hidden;
+	position: absolute;
+	border: 1px solid #d9d9d9;
+} */
+.popupaddfriend .pli2 select {
+	/* width: 280px;
+	height: 30px;
+	border: none;
+	background: none; */
+	width: 260px;height:30px; line-height:30px;
+}
+.popupaddfriend .pli2 option {
+	width: 240px;
+	position: absolute;
+}
+.popupaddfriendsubmit {
+	padding: 30px 0px;
+	text-align: center;
+}
+.popupaddfriendsubmit input {
+	margin: 0px 10px;
+}
+/*邀请好友*/
+.popupinvitefriend {
+	width: 462px;
+}
+.popupinvitefriend .pbody {
+	padding-top : 20px;
+	background-color: #FFF;
+}
+.popupinvitefriend li {
+	color: #5c5c5c;
+	font-size: 14px;
+	font-family: Microsoft YaHei;
+	margin: 0px;
+	line-height: 50px;
+	height: 50px;
+}
+.popupinvitefriend .pli1 {
+	width: 90px;
+	text-align: right;
+}
+.popupinvitefriend .pli2 {
+	width: 342px;
+}
+/* .popupinvitefriend .pli2 span {
+	font-size: 12px;
+	color: #1480cc;
+	padding-left: 5px;
+	cursor: pointer;
+} */
+.popupinvitefriend .pli3 {
+	width: 410px;
+	height: 80px;
+	padding: 5px 0px 0px 25px;
+}
+.popupinvitefriend .pli3 textarea {
+	width: 366px;
+	height: 80px;
+	border: 1px solid #d9d9d9;
+	background: none;
+}
+.popupinvitefriend .pli2 input {
+	width: 280px;
+	height: 30px;
+	border: 1px solid #d9d9d9;
+	background: none;
+	vertical-align: middle;
+}
+/*支付进程*/
+.popuppayprogress {
+	width: 473px;
+}
+.popuppayprogress .pbody {
+	padding-top : 30px;
+	background-color: #FFF;
+}
+.popuppayprogress li {
+	float: none;
+	color: #5c5c5c;
+	font-size: 18px;
+	font-family: Microsoft YaHei;
+	margin: 0px;
+	line-height: 30px;
+	height: 30px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.popuppayprogress input {
+	margin: 10px 30px 0px 30px;
+}
+/*编辑群组*/
+.popupeditgroup {
+	width: 534px;
+}
+.popupeditgroup .pbody {
+	padding-top : 40px;
+	background-color: #FFF;
+}
+.popupeditgroup li {
+	color: #5c5c5c;
+	font-size: 14px;
+	font-family: Microsoft YaHei;
+	margin: 0px;
+	line-height: 40px;
+	height: 40px;
+}
+.popupeditgroup .pli1 {
+	width: 70px;
+	text-align: right;
+}
+.popupeditgroup .pli2 {
+	width: 160px;
+}
+.popupeditgroup .pli2 input/* , span */ {
+	width: 150px;
+	height: 30px;
+	/* border: 1px solid #d9d9d9; */
+	background: none;
+}
+/* .popupeditgroup span {
+	background: url(/images/popup/selectarrow.jpg) no-repeat right center;
+	overflow: hidden;
+	position: absolute;
+	border: 1px solid #d9d9d9;
+} */
+.popupeditgroup .pli2 select {
+	width: 160px;
+	height: 30px;
+	/* border: none; */
+	background: none;
+}
+.popupeditgroup .pli2 option {
+	width: 140px;
+	position: absolute;
+}
+/*修改群组名称*/
+.popupeditgroup .pbody {
+	padding-top : 30px;
+	background-color: #FFF;
+}
+.popupeditgroup .purl {
+	text-align: center;
+	padding:0px;
+}
+.popupeditgroup .purl input {
+	width: 320px;
+	height: 30px;
+	border: 1px solid #d9d9d9;
+	background: none;
+}
+/*输入支付密码*/
+.popupinputpsw {
+	width: 462px;
+}
+.popupinputpsw .pbody {
+	padding-top : 40px;
+	background-color: #FFF;
+}
+.popupinputpsw .purl {
+	text-align: center;
+	padding: 0px;
+}
+.popupinputpsw .purl input {
+	width: 320px;
+	height: 30px;
+	border: 1px solid #d9d9d9;
+	background: url(../images/popup/eye.jpg) no-repeat right center;
+	background-color: #f5f9fa;
+}
+/*线上营销发红包*/
+.popupxsyxfhb {
+	width: 425px;
+}
+.popupxsyxfhb .pbody {
+	padding-top : 10px;
+	background-color: #fbfbfb;
+}
+.popupxsyxfhb li{ height:50px; line-height:50px;font-family: Microsoft YaHei;	font-size: 14px;}
+.popupxsyxfhb .plititle {
+	width: 300px;
+	color: #5c5c5c;
+	font-size: 18px;
+}
+.popupxsyxfhb .pli1 {
+	width: 100px;
+	text-align:right;
+}
+.popupxsyxfhb .pli2 {
+	width: 290px;
+}
+.popupxsyxfhb ul input {
+	width: 270px;
+	height: 25px;
+	border: 1px solid #d9d9d9;
+	background: none;
+	vertical-align:middle;
+}
+.popupxsyxfhb .popupaddfriendsubmit{ padding:5px 0px 25px 0px; text-align:center;}
+/*316_充值详情*/
+.popupczxq316 {
+	width:401px;
+}
+.popupczxq316 .pbody {
+	padding : 20px 0px;
+	background-color: #fbfbfb;
+}
+.popupczxq316 table{ margin:0px 10px; background-color:#d9d9d9;}
+.popupczxq316 tr{ height:30px; line-height:30px;}
+
+.popupczxq316 .left{ width:100px; padding-right:60px; text-align:right;}
+/*实体消费发红包_有公众账号*/
+.popupstxffhb {
+	width:715px;
+}
+.popupstxffhb .pbody {
+	padding-top : 30px;
+	background-color: #fbfbfb;
+}
+.popupstxffhb .level2title{ width:190px; margin-left:20px; float: left;}
+.popupstxffhb .level3title{ width:230px; margin-left:30px; float: left;}
+.stxffhbbg{ width:670px; height:340px; background:url(../images/popup/xk01.jpg) no-repeat;
+margin:0px 18px 0px 18px; padding-top:35px;
+	}
+.stxffhbfont{font-family: Microsoft YaHei;	font-size: 18px; color:#2e6365; display:inline;}
+.popupstxffhb li{ width:190px; margin-left:20px;  margin-top:30px; height:90px; background:url(../images/popup/bg35x35.jpg) no-repeat;}
+.popupstxffhb .stxffhbfontleft{ float:left; height:93px; width:45px;font-family: Microsoft YaHei;	font-size: 24px; color:#FFF;}
+.popupstxffhb .stxffhbfontright{float:left; margin-bottom:10px;}
+.popupstxffhb .popupaddfriendsubmit{ padding-top:0px; }
+	
+.stxffhbbg2{ width:670px; height:350px; background:url(../images/popup/xk02.jpg) no-repeat;
+margin:0px 18px 0px 18px; padding-top:30px;
+	}
+.stxffhbbg2 li{ width:150px; margin-left:0px; margin-top:20px;  height:150px; background:url(../images/popup/bg35x35.jpg) no-repeat;}
+.stxffhbbg2 .stxffhbfontleft{ float:left; height:93px; width:30px;font-family: Microsoft YaHei;font-size: 24px; color:#FFF;}
+.stxffhbbg2 .stxffhbfontright{float:left; width:120px;}
+.stxffhbbg2 .stxffhbfontright2{float:left; width:300px; padding-top:5px; padding-bottom:5px;}
+.stxffhbbg2 .lastli{margin:30px 0px 10px 30px; height:35px; width:450px; }
+/*站内任务发红包*/
+.popuptaskgift {
+	width:715px;
+		color: #5c5c5c;
+	font-size: 14px;
+	font-family: Microsoft YaHei;
+	line-height:30px;
+}
+.popuptaskgift .pbody {
+	padding : 20px 20px 20px 20px;
+	background-color: #fbfbfb;
+}	
+.popuptaskgift .popupaddfriendsubmit{ padding-bottom:0px; padding-top:10px;}
+.popuptaskgift li{ height:35px; width:100px;background-color: #fbfbfb; padding-left:20px;font-size: 16px;font-family: Microsoft YaHei; cursor:pointer;}
+	
+.popuptaskgift .pbody2{ width:600px; border: solid 1px #d9d9d9; margin-top:45px; margin-bottom:10px; padding:12px;}
+.popuptaskgift .pbody2 .line1{height:40px; width:315px; line-height:40px; float:left}
+.popuptaskgift .pbody2 .line1 input {
+	margin-left:5px;
+	width: 260px;
+	height: 40px;
+	border: 1px solid #d9d9d9;
+	background: none;
+}
+.popuptaskgift .pbody2 ul{ display:inline;height:40px; }
+.popuptaskgift .pbody2 li{ width:65px;}
+.popuptaskgift .pbody2 .sets { margin-top:15px; width:80px; float:left;}
+
+.popuptaskgift .pbody2 .sets  li{ float:none; width:150px;	font-size: 14px; height:25px; line-height:25px; padding:0px;}
+.popuptaskgift .pbody2 .sets  li img{ margin-left:-15px;}

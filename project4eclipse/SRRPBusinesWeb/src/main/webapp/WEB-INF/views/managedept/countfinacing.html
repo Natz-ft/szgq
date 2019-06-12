@@ -1,0 +1,493 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+    <title>融资统计</title>
+      <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+	  <script src="../static/script/autoload.js" type="text/javascript"></script>
+	  <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+	  <script src="../static/script/jquery-1.9.1.min.js" type="text/javascript"></script>
+	  <script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+      <script src="../static/script/echarts/echarts.js" type="text/javascript"></script>
+    
+    <!--月度融资统计地图数据获取-->
+   <script type="text/javascript">
+  //历史总量数据
+    function getHistoryCountData() {
+        layui.use(['laypage', 'layer'], function () {
+            var laypage = layui.laypage, layer = layui.layer;
+            var listdata = queryhistorydata.count;
+            laypage.render({
+                jump: function (obj, first) {
+                    //模拟渲染
+                    document.getElementById('history_count_form_id').innerHTML = function () {
+                    	var arr = [], thisData = listdata.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+                        layui.each(listdata, function (index, item) {
+                            arr.push('<table><tbody>');
+                            arr.push('<tr>');
+                            arr.push('<td class="rank-menu-history-first-data">' + item.post_finance + '</td>');
+                            arr.push('<td class="rank-menu-history-first-data">' + item.solve_finance + '</td>');
+                            arr.push('<td class="rank-menu-history-first-data">' + item.org_count + '</td>');
+                            arr.push('<td class="rank-menu-history-first-data">' + item.company_count + '</td>');
+                            arr.push('</tr>');
+                            arr.push('</table></tbody>');
+                        });
+                        return arr.join('');
+                    }();
+                }
+            });
+        });
+    }
+    var queryhistorydata;//获取查询数据
+    var query_date;//查询时间
+    function historyDataInit(query_date) {
+        $.ajax({
+            type: "post",//请求方式
+            url: "getResulthistory",//url地址
+            cache: false,//清楚缓存
+            async: false,//同步
+            dataType: "json",//传递查询条件格式json
+            data: {"query_date": query_date},//查询条件(序列化对象)
+            success: function (data) {
+                queryhistorydata = data;
+                getHistoryCountData();
+            }
+        });
+    }
+
+    $(function () {
+        historyDataInit("");//默认时间查询数据
+    });
+  //点选查询时间查询
+    function history_query_fun() {
+        query_date = $("#history_query_id").val();
+        historyDataInit(query_date);
+        historyMapInit(query_date);
+    }
+    </script>
+    <!--历史数据获取-->
+   <script type="text/javascript">
+   
+   var myChart;
+
+   function historyMapInit(query_date) {
+       //防止出现“There is a chart instance already initialized on the dom.”的警告
+       //在使用echarts发现需要及时对新建的myChart实例进行销毁,否则会出现上述警告
+       if (myChart != null && myChart != "" && myChart != undefined) {
+           myChart.dispose();
+       }
+       //ajax获取数据
+       var statistics_month_data;
+       // var monthTotal;
+       $.ajax({
+           type: "post",//请求方式
+           url: "getmonthtotle",//url地址
+           cache: false,//缓存
+           async: false,
+           dataType: "json",//传递查询条件格式json
+           data: {"query_date": query_date},//查询条件(序列化对象)
+           success: function (data) {
+               statistics_month_data = data;
+           }
+       });
+       $.get('getSuzhouJson', function (data) {
+           // 基于准备好的dom，初始化echarts图表
+           //json方式
+           data = JSON.parse(data);
+           echarts.registerMap('suzhou', data);
+           myChart = echarts.init(document.getElementById('result_monthtotle_maps_id'));
+           // myChart.dispose();
+           // monthTotal = statistics_month_data.count;//此处修改属性
+
+
+           monthOption = {
+               // hover提示层
+               tooltip: {
+                   // 显示策略，可选为：true（显示） | false（隐藏）
+                   show: true,
+                   //展示图例--多条提示标题
+                   trigger: 'item',
+                   formatter: function (params) {
+                       var res = params.name + '<br/>';
+                       var myseries = monthOption.series;
+                       for (var i = 0; i < myseries.length; i++) {
+                           for (var j = 0; j < myseries[i].data.length; j++) {
+                               if (myseries[i].data[j].name == params.name) {
+                                   res += myseries[i].name + ' : ' + myseries[i].data[j].value + '</br>';
+                               }
+                           }
+                       }
+                       return res;
+                   },
+                   // tooltip主体内容显示策略，只需tooltip触发事件或显示axisPointer而不需要显示内容时可配置该项为false
+                   showContent: true,
+                   // 显示延迟，添加显示延迟可以避免频繁切换，特别是在详情内容需要异步获取的场景，单位ms
+                   showDelay: 0,
+                   // 隐藏延迟，单位ms
+                   hideDelay: 0,
+                   // 动画变换时长，单位s，如果你希望tooltip的跟随实时响应，showDelay设置为0是关键，同时transitionDuration设0也会有交互体验上的差别。
+                   transitionDuration: 0,
+                   // 鼠标是否可进入详情气泡中，默认为false，如需详情内交互，如添加链接，按钮，可设置为true。
+                   //enterable: false,
+                   // 提示背景颜色，默认为透明度为0.7的黑色
+                   backgroundColor: 'rgba(0,0,0,0.5)',
+                   // 提示边框颜色
+                   borderColor: '#333',
+                   // 提示边框圆角，单位px，默认为4
+                   borderRadius: 10,
+                   // 提示边框线宽，单位px，默认为0（无边框）
+                   borderWidth: 2,
+                   // 提示内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距，同css
+                   padding: [15, 15, 15, 15],
+                   // 坐标轴指示器
+                   // 文本样式，默认为白色字体
+                   textStyle: {
+                       // 颜色
+                       color: '#eef',
+                       // 水平对齐方式，可选为：'left' | 'right' | 'center'
+                       align: 'left',
+                       // 垂直对齐方式，可选为：'top' | 'bottom' | 'middle'
+                       baseline: 'bottom',
+                       // 字体系列
+                       fontFamily: 'Arial, Microsoft YaHei, sans-serif',
+                       // 字号 ，单位px
+                       fontSize: 20,
+                       // 样式，可选为：'normal' | 'italic' | 'oblique'
+                       fontStyle: 'normal',
+                       // 粗细，可选为：'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 |... | 900
+                       fontWeight: 'normal'
+                   }
+               },
+               //显示三个小标题
+               geo: {
+                   map: 'suzhou',
+                   zoom: 0.8,
+                   top: 10,
+                   label: {
+                       emphasis: {
+                           show: true,
+                       }
+                   },
+                   itemStyle: {
+                       normal: {
+                           areaColor: '#323c48',
+                           borderColor: '#fff'
+                       },
+                       emphasis: {
+                           areaColor: '#2a333d',
+                           borderColor: '#fff'
+                       }
+                   }
+               },
+               series: [
+                   {
+                       // 图表类型，必要参数！如为空或不支持类型，则该系列数据不被显示。可选为：
+                       // 'line'（折线图） | 'bar'（柱状图） | 'scatter'（散点图） | 'k'（K线图）
+                       // 'pie'（饼图） | 'radar'（雷达图） | 'chord'（和弦图） | 'force'（力导向布局图） | 'map'（地图）
+                       type: 'map',
+                       // 系列名称
+                       name: '机构数',
+                       zoom: 0.8,
+                       // 地图类型，支持world，suzhou及全国34个省市自治区
+                       mapType: 'suzhou',
+                       // 是否开启滚轮缩放和拖拽漫游,默认为false（关闭），其他有效输入为true（开启），'scale'（仅开启滚轮缩放），'move'（仅开启拖拽漫游）
+                       top: 10,
+                       roam: false,
+                       // 图形样式
+                       itemStyle: {
+                           // 默认状态下地图的文字
+                           normal: {label: {show: true, position: "bottom"}},
+                           // 鼠标放到地图上面显示文字
+                           emphasis: {label: {show: true}}
+                       },
+                       data: [
+                           //此处修改属性
+                           {
+                               name: '吴中区', value: statistics_month_data.data[0].area_320506,
+                               itemStyle: {//指定颜色
+                                   normal: {
+                                       borderWidth: 2,
+                                       borderColor: '#ffffff',
+                                       color: '#32cd32',
+                                       label: {
+                                           show: true,
+                                           textStyle: {
+                                               color: '#218D97',
+                                               fontSize: 15
+                                           }
+                                       }
+                                   },
+                               }
+                           },
+                           {
+                               name: '相城区', value: statistics_month_data.data[0].area_320507,
+                               itemStyle: {//指定颜色
+                                   normal: {
+                                       borderWidth: 2,
+                                       borderColor: '#ffffff',
+                                       color: '#00C187',
+                                       label: {
+                                           show: true,
+                                           textStyle: {
+                                               color: '#008154',
+                                               fontSize: 15
+                                           }
+                                       }
+                                   },
+                               }
+                           },
+                           {
+                               name: '姑苏区', value: statistics_month_data.data[0].area_320599,
+                               itemStyle: {//指定颜色
+                                   normal: {
+                                       borderWidth: 2,
+                                       borderColor: '#ffffff',
+                                       color: '#FF5B56',
+                                       label: {
+                                           show: true,
+                                           textStyle: {
+                                               color: '#E30002',
+                                               fontSize: 15
+                                           }
+                                       }
+                                   },
+                               }
+                           },
+                           {
+                               name: '工业园区', value: statistics_month_data.data[0].area_320508,
+                               itemStyle: {//指定颜色
+                                   normal: {
+                                       borderWidth: 2,
+                                       borderColor: '#ffffff',
+                                       color: '#FFC900',
+                                       label: {
+                                           show: true,
+                                           textStyle: {
+                                               color: '#DB5D00',
+                                               fontSize: 15
+                                           }
+                                       }
+                                   },
+                               }
+                           },
+                           {
+                               name: '高新区', value: statistics_month_data.data[0].area_320505,
+                               itemStyle: {//指定颜色
+                                   normal: {
+                                       borderWidth: 2,
+                                       borderColor: '#ffffff',
+                                       color: '#AE86DA',
+                                       label: {
+                                           show: true,
+                                           textStyle: {
+                                               color: '#7C56AE',
+                                               fontSize: 15
+                                           }
+                                       }
+                                   },
+                               }
+                           },
+                           {
+                               name: '吴江区', value: statistics_month_data.data[0].area_320584,
+                               itemStyle: {//指定颜色
+                                   normal: {
+                                       borderWidth: 2,
+                                       borderColor: '#ffffff',
+                                       color: '#00C187',
+                                       label: {
+                                           show: true,
+                                           textStyle: {
+                                               color: '#006D47',
+                                               fontSize: 15
+                                           }
+                                       }
+                                   },
+                               }
+                           },
+                           {
+                               name: '张家港市', value: statistics_month_data.data[0].area_320582,
+                               itemStyle: {//指定颜色
+                                   normal: {
+                                       borderWidth: 2,
+                                       borderColor: '#ffffff',
+                                       color: '#AE86DA',
+                                       label: {
+                                           show: true,
+                                           textStyle: {
+                                               color: '#6B459D',
+                                               fontSize: 15
+                                           }
+                                       }
+                                   },
+                               }
+                           },
+                           {
+                               name: '常熟市', value: statistics_month_data.data[0].area_320581,
+                               itemStyle: {//指定颜色
+                                   normal: {
+                                       borderWidth: 2,
+                                       borderColor: '#ffffff',
+                                       color: '#44DBE3',
+                                       label: {
+                                           show: true,
+                                           textStyle: {
+                                               color: '#00767B',
+                                               fontSize: 15
+                                           }
+                                       }
+                                   },
+                               }
+                           },
+                           {
+                               name: '太仓市', value: statistics_month_data.data[0].area_320585,
+                               itemStyle: {//指定颜色
+                                   normal: {
+                                       borderWidth: 2,
+                                       borderColor: '#ffffff',
+                                       color: '#FF5B56',
+                                       label: {
+                                           show: true,
+                                           textStyle: {
+                                               color: '#D80000',
+                                               fontSize: 15
+                                           }
+                                       }
+                                   },
+                               }
+                           },
+                           {
+                               name: '昆山市', value: statistics_month_data.data[0].area_320583,
+                               itemStyle: {//指定颜色
+                                   normal: {
+                                       borderWidth: 2,
+                                       borderColor: '#ffffff',
+                                       color: '#AE86DA',
+                                       label: {
+                                           show: true,
+                                           textStyle: {
+                                               color: '#6C47A1',
+                                               fontSize: 15
+                                           }
+                                       }
+                                   },
+                               }
+                           }
+                       ]
+                   }
+               ]
+
+           };
+           myChart.setOption(monthOption);
+       });
+   }
+   </script>
+
+    
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <p class="boxTitle"><span>融资统计</span></p>
+    <div class="boxContent">
+        <div class="queryTerms">
+            <div class="termsWrap clearfix">
+                <div class="termsType">
+                    <span>投资月份：</span>
+                </div>
+                <div class="termsList" >
+                    <input id="history_query_id" type="text" class="Wdate"
+                           style="border:1px solid #8DBDDC;border-radius:3px;width:200px;height: 22px;font-size: 14px;"
+                           onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM'})"/>
+                    <a href="javascript:history_query_fun();" class="select-botton">查询</a>
+                </div>
+            </div>
+        </div>
+        <!--总记录-->
+        <div class="rank-menu-history-first-div">
+            <table>
+                <thead>
+                <tr>
+                    <th class="rank-menu-history-first-title">平台发布融资总额(百万)</th>
+                    <th class="rank-menu-history-first-title">平台解决融资总额(百万)</th>
+                    <th class="rank-menu-history-first-title">平台机构数</th>
+                    <th class="rank-menu-history-first-title">平台企业数</th>
+                </tr>
+                </thead>
+            </table>
+            <form id="history_count_form_id"></form>
+            <div id="result_monthtotle_maps_id" class="result_maps"></div>
+        </div>
+    </div>
+    <!--融资统计结束-->
+</div>
+</body>
+
+ <style>
+      /*查询div*/
+.rank-menu-history-query-div {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/*查询框样式*/
+.rank-menu-history-query-input {
+    border: 1px solid #8DBDDC;
+    border-radius: 2px;
+    width: 200px;
+    line-height: 25px;
+    font-size: 16px;
+}
+
+/*第一个表单开始*/
+.rank-menu-history-first-div {
+    margin-top: 20px;
+    width: 100%;
+    margin-bottom: 10px;
+    margin-left: 5%;
+}
+
+/*标题*/
+.rank-menu-history-first-title {
+    background: #9FC6EA;
+    padding: 15px;
+    width: 196px;
+    color: #3A7FBF;
+}
+
+/*数据*/
+.rank-menu-history-first-data {
+    background: #E6EEFB;
+    width: 196px;
+    padding: 15px;
+    text-align: center;
+}
+
+/*第一个表单结束*/
+
+/*六张地图开始*/
+.result_maps {
+    height: 900px;
+    margin: 0 auto;
+    border-top: none;
+}
+
+/*六张地图结束*/
+.rank-menu-company-detail-div-history {
+    /*margin-top: 50px;*/
+    margin-left: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.rank-menu-org-detail-div-history {
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+</style>
+</html>

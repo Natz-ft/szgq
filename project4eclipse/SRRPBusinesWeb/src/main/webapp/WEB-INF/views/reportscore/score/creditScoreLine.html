@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px;width:650px"></div>
+    <!-- ECharts单文件引入 -->
+	<script src="../../static/echarts/echarts-2.js"></script>
+	<script src="../../static/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+    var $ = jQuery.noConflict();
+    // 基于准备好的dom，初始化echarts图表
+    var myChart = echarts.init(document.getElementById("main"),'macarons');
+    function createChart(){
+		var bstype = $("input[id$='lineData']",parent.document).val();
+		if(bstype == null || bstype ==""){
+			bstype = "[]";
+		}
+		var jsonBstype = $.parseJSON(bstype);
+	    var option = {
+	        tooltip : {
+	            trigger: 'axis'
+	        },
+	        legend: {
+	        	data:['信用评分','行业平均分']
+	        },
+	        //右上角工具条
+	        toolbox: {
+	            feature : {
+	                saveAsImage : {}
+	            }
+	        },
+	        grid: {
+    	        left: '3%',
+    	        right: '4%',
+    	        bottom: '3%',
+    	        top:'20%',
+    	        containLabel: true
+    	    },
+	        xAxis : [
+	            {
+	                type : 'category',
+	                boundaryGap : false,
+	                data: jsonBstype.month
+	            }
+	        ],
+	        yAxis: {
+		        type: 'value',
+		        max:850,
+		        min:200
+		    },
+		    series: [
+	     	        {
+	     	            name:'信用评分',
+	     	            type:'line',
+	     	            data:jsonBstype.data[0].value
+	     	        },
+			        {
+			            name:'行业平均分',
+			            type:'line',
+			            data:jsonBstype.data[5].value
+			        }
+	     	    ]
+	    };
+	    // 为echarts对象加载数据
+	    myChart.setOption(option);
+	 }
+    createChart();  
+    </script>
+</body>

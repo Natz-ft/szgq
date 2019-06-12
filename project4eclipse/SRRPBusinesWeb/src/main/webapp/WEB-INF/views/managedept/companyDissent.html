@@ -1,0 +1,285 @@
+
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <title>投资</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+    <style>
+          .boxWrap {
+            width: 896px;
+            margin: 0;
+          }
+          
+
+          .layui-input, .layui-select, .layui-textarea{
+           border:1px solid #8DBDDC;
+           border-radius: 5px;
+           height: 22px;
+		   line-height: 22px;
+           margin-left: 3px;
+           margin-top: 7px;
+          }
+
+          .boxWrap .formWrap {
+/*             padding: 0px 20px; */
+          }
+.dissentDitailHistory:hover{
+color: #0D4F92;
+}
+    </style>
+</head>
+<body>
+	<!--头部logo以及登录注册开始-->
+	<div class="boxWrap">
+				<form class="layui-form">
+	
+		<!-- 	<p class="boxTitle">异议</p> -->
+		<div class="formWrap">
+			<input type="hidden" name ="dissentId" value="${dissent.dissentId}">
+			<input type="hidden" name ="companyId" value="${dissent.companyId}">
+			<input type="hidden" name ="userType" value="${dissent.userType}">
+			<input type="hidden" name ="operUserName" value="${dissent.operUserName}">
+			<input type="hidden" name ="operUserId" value="${dissent.operUserId}">
+			<input type="hidden" name ="filePath" id ="filePath" value="${dissent.filePath}">
+			<input type="hidden" name ="fileName" id ="fileName" value="${dissent.fileName}">
+			<input type="hidden" name ="dissentStatus" value="${dissent.dissentStatus}">
+			<input type="hidden" name ="dissentType" value="${dissent.dissentType}">
+			
+				<div class="detailsCon clearfix">
+					<div class="form-title" style="margin-left: 3%;">
+						<span class="star" style="color: #e4398c;padding: 0 0;">*</span> <span style="padding: 0 0;">异议内容:</span>
+					</div>
+					<div class="layui-input-block">
+						<textarea name="dissentContent" id="dissentContent"
+							placeholder="请输入异议内容"
+							style="width: 87%; height: 150px; margin-left: 1%; margin-top: -3%;"
+							required lay-verify="dissentContent" class="layui-textarea">${dissent.dissentContent}</textarea>
+					</div>
+				</div>
+				<div class="form-title" style="margin-top: 3%; margin-left: -1%;">
+					<span>上传证明材料:</span>
+				</div>
+				<div class="layui-input-block"
+					style="margin-left: 2%; margin-top: -3%;">
+					<div class="layui-input-block clearfix" style="margin-left: 14%">
+						<button type="button"
+							class="layui-btn layui-btn-small uploadButton"
+							id="dissentUploadBtn">
+							<i class="layui-icon">&#xe67c;</i>上传文件
+						</button>
+					     <a  id="dissentUploadFile" name = "dissentUploadFile" download="${dissent.fileName}" style="cursor:pointer;font-weight:bold;color:#0D4F92;text-decoration: underline;" href="${dissent.filePath}">${dissent.fileName}</a>
+					     <c:if test='${not empty dissent.fileName}'>
+					     		<a  id="deleteFile" name = "deleteFile" onclick="deleteFile();return false;" href="void(0);" style="cursor:pointer;font-weight:bold;color:#0D4F92;text-decoration: underline;" target="_blank" >删除</a>
+					     </c:if>
+					     <c:if test='${empty dissent.fileName}'>
+					     		<a  id="deleteFile" name = "deleteFile" onclick="deleteFile();return false;" href="void(0);" style="cursor:pointer;font-weight:bold;color:#0D4F92;text-decoration: underline;" target="_blank" ></a>
+					     </c:if>
+					</div>
+				</div>
+				
+			   
+		
+		<div class="layui-input-block buttonWrap">
+			<button class="layui-btn submitBtn" lay-submit lay-filter="saveDissent">&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;交&nbsp;&nbsp;</button>
+			<button type="button" lay-close class="layui-btn closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>
+			<c:if test='${ dissent.dissentStatus=="01"   || dissent.dissentStatus=="02" }'>
+			     <button class="layui-btn canceldissent" type="button" lay-filter="dissentDitailHistory">解除异议</button>
+			</c:if>
+			<c:if test='${ dissent.dissentStatus!="00"}'>
+				<div style="margin-top:20px">
+				 	<a class="dissentDitailHistory" id ="dissentDitailHistory" href="void(0);" onclick="dissentDitailHistory();return false;" style="color:#0D4F92; text-decoration:underline;">点击展开历史异议记录</a>	
+				</div>
+			    </c:if>
+		</div>
+		 <div class="detailsCon clearfix" id="historyDiv" style="display:none">
+		           <div >
+		             <div class="detailsTxt detailsGrid" id="eventIdDiv">
+		                <div style="margin-left: -6%">
+		                    <table align="center" id="investorGrid" lay-filter="test"></table>
+		                </div>
+		             </div>
+		        </div>
+		      </div>
+		 </div>     
+		<!--             </div> -->
+		</form>
+	</div>
+	<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+	
+	<script>
+
+	function closeSelf(){
+		var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        parent.layer.close(index); //关闭layer(关闭当前窗口)
+//         parent.location.reload();
+	}
+	 function deleteFile(){
+    	 $("#filePath").attr("value", "");
+         $("#fileName").attr("value", "");
+         $("#dissentUploadFile").text("")
+         $("#dissentUploadFile").attr("href","#");
+         $('#dissentUploadFile').attr('download',"");
+         $("#deleteFile").text("");
+     }
+	 function dissentDitailHistory(){
+		 var historyDiv = document.getElementById("historyDiv");
+		 if (historyDiv.style.display == "none") {//隐藏
+			 historyDiv.style.display = 'inline'; //展示审核意见
+			 $("#dissentDitailHistory").text("点击隐藏历史异议记录");
+		}else {//展开
+			 historyDiv.style.display = 'none'; //隐藏
+			 $("#dissentDitailHistory").text("点击展开历史异议记录");
+		  }
+	 }
+    $(function () {
+    	  var table = layui.table;
+    	  //数据表格
+          layui.use('table', function () {
+              var table = layui.table;
+              // 赋值数据实际使用为后台获取数据
+              var gridData =${manageHisDissentInfor};
+              table.render({
+                  id: 'investorGrid'
+                  , elem: '#investorGrid' //指定原始表格元素选择器（推荐id选择器）
+                  , width: 740
+                  , data: gridData
+                  , page: true
+                  , limits: [5, 10, 20, 50]
+                  , limit: 5
+                  , cols: [[ //标题栏
+                       {field: 'operUserName', title: '操作用户', width: 160, align:'center'}
+                       ,{field: 'operUpdateDateStr', title: '操作时间', width: 160, align:'center'}
+                      ,{field: 'dissentStatusStr', title: '操作类型', width: 160, align:'center'}
+                      ,{field: 'dissentContent', title: '异议内容', width: '48%', align:'center'}
+                      ,{field: 'fileName', title: '证明材料', width: 160, align:'center',toolbar : '#productFileDownload'}
+                  ]]
+              });
+          });
+    	 //调用日期控件
+        var form;
+         layui.use('form', function () {
+        	form = layui.form;
+        	 var lock=true;
+        	 var enterpriseId="${dissent.companyId}";
+        	 var dissentId="${dissent.dissentId}";
+//         	 $(".dissentDitailHistory").on("click", function (){
+//         		 layer.open({
+// 	              	  type: 2,
+// 	              	  title: '异议历史记录',
+// 	              	  shadeClose: true,
+// 	              	  maxmin: true,	
+// 	              	  scrollbar: false,
+// 	              	  shade: 0,
+// 	            	  area: ['90%', '95%'],
+// 	              	  content: "/SRRPBusinesWeb/dissent/dissentDitailHistory?enterpriseId="+enterpriseId
+// 	              	});  
+//         	 });
+        	 $(".canceldissent").on("click", function (){
+        		 layer.open({
+	              	  type: 2,
+	              	  title: '解除异议',
+	              	  shadeClose: true,
+	              	  maxmin: true,	
+	              	  scrollbar: false,
+	              	  shade: 0,
+	            	  area: ['90%', '95%'],
+	              	  content: "/SRRPBusinesWeb/dissent/canceldissent?dissentId="+dissentId
+	              	});  
+        	 });
+        	 form.on('submit(saveDissent)', function (data) {
+                	  // 表单验证
+                 	  var dissentContent = data.field.dissentContent;
+                 	 if(dissentContent==""||dissentContent==null||dissentContent==undefined){
+                 		 layer.msg("异议内容不能为空");
+                 		 return false;
+                 	  }else{
+                 		 if(dissentContent.length>500){
+                 			layer.msg("异议内容不能超过500个字符");
+                    		 return false;
+                 		 }
+                 	  }
+                 	$.ajax({
+                        type: "post",
+                        async: false,
+                        url: "/SRRPBusinesWeb/dissent/saveDissent",
+                        data: {
+                            "manageDissentInfor": JSON.stringify(data.field)
+                        },// 你的formid
+                        success: function (data) {
+                            data = JSON.parse(data);
+                            if (data.code=='00000') {
+                        		layer.alert('提交成功', function () {
+                        			 parent.location.reload();
+                                });
+                            }else {
+                                layer.alert('提交失败', {
+                                    title: '最终的提交信息'
+                                })
+                                return false;
+                            }	
+                           
+                        },error:function(data){
+                        }
+                    });
+                 	 return false;  	 
+           });
+        });
+         
+        
+      // 上传文件控件
+         var upload = layui.upload;
+         //指定允许上传的主要技术产品证明材料
+         var  creditAuthUpload=upload.render({
+              elem: '#dissentUploadBtn'//绑定元素
+              //, exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf'
+              ,data : {"fileType" : 'zmcl'}//文件类型为披露材料
+              , url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+              , accept: 'file' //普通文件
+              , auto: false
+              , size: 1024 * 128  //设置文件上传的大小最大为128M
+              , before: function () {
+                  $("#dissentUploadFile").text("文件上传中请稍候…………");
+                  document.getElementById("dissentUploadFile").style.color = '#FF6838';
+              }
+              ,choose: function(obj){
+                  //将每次选择的文件追加到文件队列
+                  var files = obj.pushFile();
+                  //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+                  obj.preview(function(index, file, result){
+                    if(file.size == 0){
+                  	  $("#dissentUploadFile").text("请上传非空文件！");
+                  	  document.getElementById("dissentUploadFile").style.color = '#FF6838';
+                    }else{
+                  	  obj.upload(index, file);
+                    }
+                  });
+                }
+              , done: function (res) {
+                  if (res.code == 0) {
+                      document.getElementById("dissentUploadFile").style.color = 'black';
+                      $("#filePath").attr("value", res.url);
+                      $("#fileName").attr("value", res.name);
+                      $("#dissentUploadFile").text(res.name)
+                      $("#dissentUploadFile").attr("href",res.url);
+                      $('#dissentUploadFile').attr('download',res.name);
+                      $("#deleteFile").text("删除");
+                  }else{
+                  	$("#dissentUploadFile").text("请上传非空文件！");
+                  }
+              }
+          });
+        $(".closeBtn").on("click", function () {
+        	 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+             parent.layer.close(index); //关闭layer(关闭当前窗口)
+        })
+    })
+</script>
+</body>
+</html>

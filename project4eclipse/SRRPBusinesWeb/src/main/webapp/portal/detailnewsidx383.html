@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/> 
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>苏州股权融资服务平台</title>
+    <link rel="shortcut icon" href="common/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="common/style/reset.css">
+    <link rel="stylesheet" type="text/css" href="common/style/common.css">
+    <link rel="stylesheet" type="text/css" href="common/script/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="news/style/newsdetail.css">
+    <script src="common/script/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="common/script/layui/layui.js" type="text/javascript"></script>
+    <script src="common/script/common.js" type="text/javascript"></script>
+    <script src="common/script/qrcode/qrcode.js" type="text/javascript"></script>
+     <script src="common/script/ajax.js" type="text/javascript"></script>
+    
+</head>
+<body>
+<!--头部信息开始-->
+<!--头部logo以及登录注册开始-->
+<div class="logo clearfix">
+    <div class="logoRight" style="display: none;" id="login">
+        <a href="/creditplatformweb/success">进入业务系统</a><a href="/creditplatformweb/logout">退出登陆</a>
+    	
+    </div>
+    <div class="logoRight" style="display: none;" id="nologin">
+    	<a href="register.html"> 注&nbsp;&nbsp;&nbsp;&nbsp;册 </a>
+        <a href="/creditplatformweb/logout"> 登&nbsp;&nbsp;&nbsp;&nbsp;录 </a>
+    </div>
+          <div class="logoLeft">
+	        <a href="index.html">
+	            <p></p>
+	            <p></p>
+	        </a>
+	     </div>
+</div>
+<!--头部logo以及登录注册结束-->
+<!-- 操作菜单开始 -->
+<div class="header">
+    <ul class="nav clearfix">
+        <li class="active"><a href="index.html"> 首 页 </a></li>
+        <li><a href="investevent.html"> 投融事件 </a></li>
+        <li><a href="finace.html"> 融资需求 </a></li>
+        <li ><a href="news.html"> 新闻动态 </a></li>
+        <li><a href="result.html"> 运行成果 </a></li>
+        <li><a href="investor.html"> 投资机构 </a></li>
+        <li><a href="relate.html"> 联系我们 </a></li>
+    </ul>
+</div>
+<!-- 操作菜单结束-->
+<!--头部信息结束-->
+<!--页面主体开始-->
+<div style="background:#EEF3F9 ">
+    <div class="mainwraper">
+        <div class="current-position">
+            当前位置：首页&gt;>新闻动态明细
+        </div>
+		<div  style="display:none" id="infoId">383</div>
+        <!--明细内容开始-->
+<!--         <div class="sub-c"> -->
+<!--             <div class="pro-list"> -->
+<!--                 <h3>以金融科技为利器 苏州今天上线两大金融平台</h3> -->
+<!--                 <b>2019-3-21 17:40:00</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>阅读量:<a id="readAmout"></a></b> -->
+<!--             </div> -->
+
+<!--             <div><p style="text-align: center;">　<img src="http://www.szjr.suzhou.gov.cn/upload/image/20180814/1534248233328924605.jpg" width="632" height="343" _src="../../../upload/image/20180814/1534248233328924605.jpg"></p><p>&nbsp; &nbsp; &nbsp; &nbsp;为维护区域金融生态环境良好，促进金融服务实体经济。8月14日下午，市政府金融办召开新闻发布会，宣布苏州金融风险大数据监测预警平台及苏州股权融资服务平台正式上线运行。市政府副秘书长、金融办主任沈志栋出席发布会，并作讲话。市金融办、人行苏州中支、苏州银监分局、苏州保监分局分管领导，各市（区）金融办主要负责人，苏州市预防和打击处置非法集资工作领导小组市级机关成员单位处室负责人及相关金融机构代表等出席会议。</p><p>　　随着移动互联、云计算、大数据等新一代信息技术不断取得突破，“金融科技”迅速发展。苏州市政府以“金融科技”为抓手，联手多部门潜心打造了两大金融平台——苏州金融风险大数据监测预警平台、苏州股权融资服务平台，一方面为创立苏州金融安全区做贡献，另一方面也为在全国范围内首创的具有苏州特色的综合金融服务体系做努力。</p><p style="text-align: center;">　　<img src="http://www.szjr.suzhou.gov.cn/upload/image/20180814/1534248233614088156.jpg" _src="../../../upload/image/20180814/1534248233614088156.jpg"></p><p style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 沈志栋在发布会上致辞</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;沈志栋在发布会上致辞，他说：“要充分发挥监测预警平台作用，大数据监测预警平台利用互联网与大数据等高科技手段，将防控关口前移，是打早打小、防患于未然的重要手段，一定要推广好、运用好。也要完善打处非协调处置机制，依托平台，加强公安、人行、工商、税务、人社等多部门地联动处置，将信息流升级为多部门联动的工作流，合力防范处置金融风险，筑牢风险防范的‘防火墙’。”</p><p>　　此外，他还表示，要充分发挥股权融资服务平台的作用，打好服务实体经济的“组合拳”。股权融资服务平台直击股权融资难的“痛点”，通过为创新创业企业和股权投资机构搭建平台、依托征信平台帮助投资机构多维度发掘企业价值、配套奖励政策降低机构投资风险、延伸服务体系加强配套服务，打造“平台”+“征信”+“政策”+“配套”四位一体的服务载体，将有力推动企业对接资本市场。</p><p>　<strong>金融风险大数据监测预警平台 牢筑金融安全防线</strong></p><p style="text-align: center;"><img src="http://www.szjr.suzhou.gov.cn/upload/image/20180814/1534248249361028985.jpg" width="709" height="448" _src="../../../upload/image/20180814/1534248249361028985.jpg"></p><p>　　在传统手段难以适应新形势的情况下，为更好、更快、更及时的发现、处置非法集资风险，市金融办充分利用互联网与大数据等高科技手段，从解决发现难、识别难的痛点出发，自2016年末起，启动了苏州市金融风险预警平台的研发工作。在市公安局、人民银行等兄弟单位的大力支持下，承建单位苏州企业征信公司抽调骨干力量全力推进，经过一年多的努力，成功建成了苏州金融风险大数据监测预警平台。该平台实现了苏州大市范围1.9万余家投资理财类企业的系统化监测，具备风险监测预警、全息信息查询、举报分析等三大模块，构建了关联图谱模型与非法集资风险模型，计算了风险指数，及时将高危企业、重点监控企业名单推送给主管部门，实现了金融风险智能化监测的初步探索与尝试。</p><p>　　<strong>股权融资服务平台 “线上+线下”全面提高融资效率</strong></p><p style="text-align: center;"><img src="http://www.szjr.suzhou.gov.cn/upload/image/20180814/1534248249449076321.jpg" width="528" height="539" _src="../../../upload/image/20180814/1534248249449076321.jpg"></p><p>　　2015年以来，在市政府文件《苏州市金融支持企业自主创新行动计划（2015-2020）》的指导下，市金融办牵头建设了“综合金融服务平台”、“地方企业征信系统”和“企业自主创新金融支持中心”三大平台，并以三大平台为载体，在全国范围内首创建立了具有苏州特色的“企业守信用、机构有创新、政府有推动”的综合金融服务体系。在这一背景之下，体系中又一重要平台载体——苏州股权融资服务平台上线。苏州股权融资服务平台是帮助初创型、成长型企业拓宽股权融资渠道，帮助符合国家相关规定的投资机构深挖我市优质创新创业企业项目，通过“线上+线下”的联动服务模式，促进投融资双方的合作对接。</p><p>　　股权融资服务平台上线后，苏州综合金融服务体系将得到进一步完善。以提供“股权融资”服务为主的苏州股权融资服务平台与以提供“债权融资”服务为主的苏州综合金融服务平台互为补充，共同为企业提供“股权+债权”的一揽子综合融资解决方案，多渠道提升企业的金融服务满足率。</p><p style="text-align: center;"><img src="http://www.szjr.suzhou.gov.cn/upload/image/20180814/1534248249578024186.jpg" width="676" height="423" _src="../../../upload/image/20180814/1534248249578024186.jpg"></p><p style="text-align: center;">　　会议由市金融办副主任宋继峰主持</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;综合金融服务体系运行3年以来，发挥政策引导作用，充分调动各类金融资源，有效提升了金融服务实体经济的能力，取得了良好的示范效应。此外，在今天的会议上，市金融办表示，下一步将与公安、人行、银监、工商、税务、人社等多个部门协调联动，进一步建立金融风险分类监管体系，构筑地方金融风险防控全市“一张网”，为筑牢金融安全防线，共同看好百姓的“钱袋子”，打造苏州金融安全区做出更大贡献。</p></div> -->
+<!--             <div class="return-area"> -->
+<!--                 <a href="index.html" class="return-btn"> 返回 </a> -->
+<!--             </div> -->
+<!--         </div> -->
+ <div class="sub-c">
+            <div class="pro-list">
+                <h3>以金融科技为利器 苏州今天上线两大金融平台</h3>
+                <div class="clearfix" style="height: 30px;line-height: 30px;">
+                	<b class="floatL">2019-03-21</b>
+					<b class="floatL">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;阅读量:<a id="readAmout"></a></b>
+                	<a class="floatR return-btn" href="index.html"> 返回 </a>
+                </div>
+            </div>
+            <div style="margin:0 auto;margin-top:20px;width:90%"><p style="text-align: center;">　<img src="http://www.szjr.suzhou.gov.cn/upload/image/20180814/1534248233328924605.jpg" width="632" height="343" _src="../../../upload/image/20180814/1534248233328924605.jpg"></p><p>&nbsp; &nbsp; &nbsp; &nbsp;为维护区域金融生态环境良好，促进金融服务实体经济。8月14日下午，市政府金融办召开新闻发布会，宣布苏州金融风险大数据监测预警平台及苏州股权融资服务平台正式上线运行。市政府副秘书长、金融办主任沈志栋出席发布会，并作讲话。市金融办、人行苏州中支、苏州银监分局、苏州保监分局分管领导，各市（区）金融办主要负责人，苏州市预防和打击处置非法集资工作领导小组市级机关成员单位处室负责人及相关金融机构代表等出席会议。</p><p>　　随着移动互联、云计算、大数据等新一代信息技术不断取得突破，“金融科技”迅速发展。苏州市政府以“金融科技”为抓手，联手多部门潜心打造了两大金融平台——苏州金融风险大数据监测预警平台、苏州股权融资服务平台，一方面为创立苏州金融安全区做贡献，另一方面也为在全国范围内首创的具有苏州特色的综合金融服务体系做努力。</p><p style="text-align: center;">　　<img src="http://www.szjr.suzhou.gov.cn/upload/image/20180814/1534248233614088156.jpg" _src="../../../upload/image/20180814/1534248233614088156.jpg"></p><p style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 沈志栋在发布会上致辞</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;沈志栋在发布会上致辞，他说：“要充分发挥监测预警平台作用，大数据监测预警平台利用互联网与大数据等高科技手段，将防控关口前移，是打早打小、防患于未然的重要手段，一定要推广好、运用好。也要完善打处非协调处置机制，依托平台，加强公安、人行、工商、税务、人社等多部门地联动处置，将信息流升级为多部门联动的工作流，合力防范处置金融风险，筑牢风险防范的‘防火墙’。”</p><p>　　此外，他还表示，要充分发挥股权融资服务平台的作用，打好服务实体经济的“组合拳”。股权融资服务平台直击股权融资难的“痛点”，通过为创新创业企业和股权投资机构搭建平台、依托征信平台帮助投资机构多维度发掘企业价值、配套奖励政策降低机构投资风险、延伸服务体系加强配套服务，打造“平台”+“征信”+“政策”+“配套”四位一体的服务载体，将有力推动企业对接资本市场。</p><p>　<strong>金融风险大数据监测预警平台 牢筑金融安全防线</strong></p><p style="text-align: center;"><img src="http://www.szjr.suzhou.gov.cn/upload/image/20180814/1534248249361028985.jpg" width="709" height="448" _src="../../../upload/image/20180814/1534248249361028985.jpg"></p><p>　　在传统手段难以适应新形势的情况下，为更好、更快、更及时的发现、处置非法集资风险，市金融办充分利用互联网与大数据等高科技手段，从解决发现难、识别难的痛点出发，自2016年末起，启动了苏州市金融风险预警平台的研发工作。在市公安局、人民银行等兄弟单位的大力支持下，承建单位苏州企业征信公司抽调骨干力量全力推进，经过一年多的努力，成功建成了苏州金融风险大数据监测预警平台。该平台实现了苏州大市范围1.9万余家投资理财类企业的系统化监测，具备风险监测预警、全息信息查询、举报分析等三大模块，构建了关联图谱模型与非法集资风险模型，计算了风险指数，及时将高危企业、重点监控企业名单推送给主管部门，实现了金融风险智能化监测的初步探索与尝试。</p><p>　　<strong>股权融资服务平台 “线上+线下”全面提高融资效率</strong></p><p style="text-align: center;"><img src="http://www.szjr.suzhou.gov.cn/upload/image/20180814/1534248249449076321.jpg" width="528" height="539" _src="../../../upload/image/20180814/1534248249449076321.jpg"></p><p>　　2015年以来，在市政府文件《苏州市金融支持企业自主创新行动计划（2015-2020）》的指导下，市金融办牵头建设了“综合金融服务平台”、“地方企业征信系统”和“企业自主创新金融支持中心”三大平台，并以三大平台为载体，在全国范围内首创建立了具有苏州特色的“企业守信用、机构有创新、政府有推动”的综合金融服务体系。在这一背景之下，体系中又一重要平台载体——苏州股权融资服务平台上线。苏州股权融资服务平台是帮助初创型、成长型企业拓宽股权融资渠道，帮助符合国家相关规定的投资机构深挖我市优质创新创业企业项目，通过“线上+线下”的联动服务模式，促进投融资双方的合作对接。</p><p>　　股权融资服务平台上线后，苏州综合金融服务体系将得到进一步完善。以提供“股权融资”服务为主的苏州股权融资服务平台与以提供“债权融资”服务为主的苏州综合金融服务平台互为补充，共同为企业提供“股权+债权”的一揽子综合融资解决方案，多渠道提升企业的金融服务满足率。</p><p style="text-align: center;"><img src="http://www.szjr.suzhou.gov.cn/upload/image/20180814/1534248249578024186.jpg" width="676" height="423" _src="../../../upload/image/20180814/1534248249578024186.jpg"></p><p style="text-align: center;">　　会议由市金融办副主任宋继峰主持</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;综合金融服务体系运行3年以来，发挥政策引导作用，充分调动各类金融资源，有效提升了金融服务实体经济的能力，取得了良好的示范效应。此外，在今天的会议上，市金融办表示，下一步将与公安、人行、银监、工商、税务、人社等多个部门协调联动，进一步建立金融风险分类监管体系，构筑地方金融风险防控全市“一张网”，为筑牢金融安全防线，共同看好百姓的“钱袋子”，打造苏州金融安全区做出更大贡献。</p>
+               
+            </div>
+        </div>
+        <!--明细内容结束-->
+    </div>
+    <div>&nbsp;</div>
+</div>
+<!--页面主体结束-->
+<!--底部信息开始-->
+<div id="foot"></div>
+<!--底部信息结束-->
+<script>
+	$(function () {
+		var infoId = $("#infoId").html();
+	    $.ajax({
+	        type: "post",
+	        async: true,
+	        url: "/SRRPBusinesWeb/newInfos/addReadAmount",
+	        data: {infoId: infoId},
+	        success: function (data) {
+	        	document.getElementById('readAmout').innerHTML = data;
+	        }
+	    });
+	})
+</script>
+</body>
+</html>

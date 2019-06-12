@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+/*当前页引用*/
+.tittle_h3{
+	font-size: 29px;
+	text-align: center;
+	padding-bottom: 20px;
+	font-family: 宋体；
+}
+.tittle_h4,p{
+	font-size: 21px;
+	line-height: 40px;
+	font-family: 仿宋_GB2312;
+}
+.tittle_h4{
+	font-family: 黑体;
+}
+.inform-table tr th, .inform-table tr td { border:1px solid gray;font-family: 宋体;text-align: left;padding-left: 20px; }
+.inform-table { width: 90%; min-height: 25px; line-height: 25px; text-align: center;
+ border-collapse: collapse;margin-left: 32px;font-family: 宋体;
+ margin: 0 auto;font-size: 18px;border:2px solid;
+ }
+ .inform-table tr th{
+ text-align: center;
+ }
+
+.file-div{
+	margin-top: 50px;
+	font-size: 18px;
+}
+.file-div a{
+	color: #00adff;
+	cursor: pointer;
+}
+.file-div a:hover {
+	text-decoration: underline;
+	color: blue;
+}

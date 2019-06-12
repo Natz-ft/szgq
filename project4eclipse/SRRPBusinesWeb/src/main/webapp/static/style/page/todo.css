@@ -1,0 +1,139 @@
+.boxWrap .boxContent {
+    padding: 10px;
+    background-color: #EAF3F8;
+}
+
+/*查询条件*/
+.boxWrap .boxContent .termsType {
+    height: 100%;
+    float: left;
+}
+
+.boxWrap .boxContent .termsWrap {
+    margin: 10px 0;
+}
+
+.boxWrap .boxContent .termsType span {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    margin-right: 20px;
+}
+
+.boxWrap .boxContent .termsType a.queryAll {
+    color: #0D4F92;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 3px 5px;
+}
+
+.boxWrap .boxContent .termsType .queryAll.active {
+    color: #eee;
+    background-color: #0D4F92;
+    border-radius: 3px;
+}
+
+.boxWrap .boxContent .termsList {
+    max-width: 800px;
+    margin-left: 40px;
+    float: left;
+    height: 24px;
+    overflow: hidden;
+}
+
+.boxWrap .boxContent .termsList li {
+    float: left;
+    padding: 2px 10px;
+    margin: 0px 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.boxWrap .boxContent .termsList li.active {
+    background-color: #0D4F92;
+    border-radius: 3px;
+}
+
+.boxWrap .boxContent .termsList li.active a {
+    color: #eee;
+}
+
+.boxWrap .boxContent .selectedOrg {
+    max-width: 1000px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.boxWrap .boxContent .selectedOrg span {
+    float: left;
+}
+
+.boxWrap .boxContent .selectedOrg .selectedWrap {
+    float: left;
+    width: 600px;
+}
+
+.boxWrap .boxContent .selectedOrg .selectedWrap span {
+    color: #0D4F92;
+    margin-left: 20px;
+}
+
+.boxWrap .boxContent .selectedOrg button {
+    float: right;
+}
+
+/*查询条件 END*/
+
+/*大标题下划线指示*/
+.boxTitle {
+    margin-top: 10px;
+}
+
+.boxTitle span {
+    font-size: 16px;
+    color: #0D4F92;
+    padding: 5px 10px;
+    border-bottom: 2px solid #0D4F92;
+}
+
+/*点选字体变色*/
+.todo-active {
+    color: #0D4F92;
+}
+
+.boxWrap .todoTab {
+    float: left;
+    width: 82%;
+    border-bottom: 1px solid #666;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    margin-left: 9%;
+}
+
+.boxWrap .todoTab ul {
+    margin-left: 10%;
+}
+
+.boxWrap .todoTab li {
+    float: left;
+    margin-left: 30px;
+}
+
+.boxWrap .todoTab li a {
+    font-size: 18px;
+    border-left: 1px solid #666;
+    padding-left: 30px;
+}
+
+.boxWrap .todoTab li:first-child a {
+    padding: 0;
+    border: none;
+}
+
+.boxWrap .todoTab li a sup {
+    color: #FF6838;
+    padding-left: 3px;
+}
+
+
+

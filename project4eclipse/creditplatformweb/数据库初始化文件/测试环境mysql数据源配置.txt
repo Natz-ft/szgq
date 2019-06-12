@@ -1,0 +1,6 @@
+mysql ˝æ›‘¥≈‰÷√£∫
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://172.16.110.197:3306/stockrights?useUnicode=true&characterEncoding=utf-8
+jdbc.username=mysql
+jdbc.password=123456
+databasePlatform=org.hibernate.dialect.MySQLDialect

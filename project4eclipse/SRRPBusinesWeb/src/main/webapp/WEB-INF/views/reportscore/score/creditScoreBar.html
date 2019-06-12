@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:420px;width:650px;"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="../../static/echarts/echarts.js"></script>
+	<script src="../../static/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var $ = jQuery.noConflict();
+        var myChart = echarts.init(document.getElementById('main'),'macarons'); 
+        var num;
+        function createChart(){
+    		var bstype = $("input[id$='barParam']",parent.document).val();
+    		var corpData = $("input[id$='barData']",parent.document).val();
+    		var level = $("input[id$='level']",parent.document).val();
+    		var midLevel = $("input[id$='midLevel']",parent.document).val();
+    		var score = $("input[id$='score']",parent.document).val();
+    		var total = $("input[id$='total']",parent.document).val();
+    		var midName = $("input[id$='midN']",parent.document).val();
+    		var midScore = $("input[id$='midS']",parent.document).val();
+    		
+    		if(corpData == null || corpData ==""){
+    			corpData = "[]";
+    		}
+    		if(bstype == null || bstype ==""){
+    			bstype = "[]";
+    		}
+    		var jsonBstype = $.parseJSON(bstype);
+    		var jsonCorpData = $.parseJSON(corpData);
+    		var offset = 0;
+    		var midOffset = 0;
+    		if(level==midLevel){
+    			offset = 16;
+    			midOffset = -16;
+    		}
+	        var option = {
+	        	    tooltip: {
+			            trigger: 'axis',
+			            show:false,  
+			        },
+			        calculable:true,
+			        grid: {
+		    	        left: '10%',
+		    	        right: '15%',
+		    	        top:'20%',
+		    	        bottom: '3%',
+		    	        containLabel: true
+		    	    },
+			        xAxis:[{
+			               type:'category',
+			               name:'得分区间',
+			               axisLabel:{
+					           interval :0
+					           ,rotate : 15
+				            },
+			               data:jsonBstype           
+			        }],
+					yAxis:[
+				       {
+					       type:'value',
+					       name:'企业数'
+					   }
+					],
+			        series: [{
+				        name:'企业数',
+			            type:'bar',
+			            data:jsonCorpData,
+			            markPoint:{
+				            symbolOffset:[0,-20],
+			            	label:{
+		            			normal:{
+            						formatter:function(params){
+            							return params.data.value;
+            						}
+            					}
+		            		},
+		            		tooltip:{
+		            			trigger:'item',
+		            			show:true,
+           						formatter:function(params){
+           							return params.data.name;
+           						}
+		            		},
+			            	data:[
+			            	      {name:midName+':'+midScore+'分',symbolSize:60,value:'中位数',xAxis:parseInt(midLevel),yAxis:jsonCorpData[midLevel],itemStyle:{normal:{color:'#C1232B'}},symbolOffset:[midOffset,-20]},
+			            	      {name:'本企业:'+score+'分',value:score,xAxis:parseInt(level),yAxis:jsonCorpData[level],symbolOffset:[offset,-20]}
+						    ]
+						},
+						itemStyle:{
+							normal:{
+								color:'#4F81BD',
+								label:{
+									show:true,
+									position:'top',
+									formatter:function(param){
+										if(total == 0){
+											num = 100
+											return param.value+'('+num.toFixed(2)+'%)';
+										}else{
+											num = param.value/total*100
+											return param.value+'('+num.toFixed(2)+'%)';
+										}
+									}
+								}
+							}
+						},
+						markLine : {
+			                data : [
+			                     
+			                ]
+			            }
+					}]
+			    };
+	    myChart.setOption(option); 
+        }
+        createChart();  
+    </script>
+</body>

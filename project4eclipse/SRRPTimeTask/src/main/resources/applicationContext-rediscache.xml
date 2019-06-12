@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+     http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+     http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd 
+     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd">
+
+	<!-- 开启注解配置，实现自动注入 -->
+	<context:annotation-config /> 
+
+	<context:property-placeholder ignore-unresolvable="true" location="classpath*:/*.properties" />	 
+<!--<context:property-placeholder ignore-unresolvable="true" location="/conf/*.properties" /> -->
+	<!-- pool配置 -->  
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+       
+    </bean>  
+    <!-- jedis pool配置 -->  
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">  
+        <constructor-arg index="0" ref="jedisPoolConfig" />  
+        <constructor-arg index="1" value="${redis.host}"  type="java.lang.String"/>  
+        <constructor-arg index="2" value="${redis.port}"  type="int"/>  
+    </bean>  
+    <!-- 包装类 -->  
+    <bean id="redisUtil" class="com.icfcc.SRRPService.redis.RedisUtil">  
+        <property name="jedisPool" ref="jedisPool" />  
+    </bean>  
+    
+    <bean id="redisMQ" class="com.icfcc.SRRPService.redis.RedisMQ">  
+        <property name="redisUtil" ref="redisUtil" />  
+    </bean>  
+
+</beans>

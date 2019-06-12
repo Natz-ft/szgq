@@ -1,0 +1,83 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<input type="hidden" id="investorId" value='${investor.investorId}'/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>投资机构详情</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/details.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/page/todo.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+    <style>
+        .detailsTxt p img {
+            max-width: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <div class="boxContent">
+        <div class="detailsCon clearfix">
+           <div>
+             <div class="detailsTxt detailsGrid" id="eventIdDiv">
+                <div style="margin-left: -6%">
+                    <table align="center" id="investorGrid" lay-filter="test"></table>
+                </div>
+             </div>
+        </div>
+      </div>
+<!--       <div class="formWrap"> -->
+<!--          <div class="layui-form-item"> -->
+<!--                  <div class="layui-input-block buttonWrap" style="margin-left: -5%;"> -->
+<!--                     <button class="layui-btn upId" id="upId"  >&nbsp;&nbsp;上&nbsp;一&nbsp;步&nbsp;&nbsp;</button> -->
+<!--                 </div> -->
+<!--          </div>  -->
+<!--      </div> -->
+    </div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script type="text/html" id="auditContentBar">
+    <a href="javascript:void(0);" class="layui-table-link" title="{{d.auditContent}}">{{d.auditContent}}</a>
+</script>
+<script>
+    $(function () {
+    	var investorId = $("#investorId").val();
+        //数据表格
+        layui.use('table', function () {
+            var table = layui.table;
+            // 赋值数据实际使用为后台获取数据
+            var gridData = ${investorAuditRecords};
+            table.render({
+                id: 'investorGrid'
+                , elem: '#investorGrid' //指定原始表格元素选择器（推荐id选择器）
+                , width: 790
+                , data: gridData
+                , page: true
+                , limits: [5, 10, 20, 50]
+                , limit: 5
+                , cols: [[ //标题栏
+                    {field: 'auditorName', title: '审核人', width: 180, align:'center'}
+                    , {field: 'auditTimeStr', title: '审核时间', width: 190, align:'center'}
+                    , {field: 'auditResultDicname', title: '审核结果', width: 190, align:'center'}
+                    , {field: 'auditContent', title: '审核意见', width: 225, align:'center', toolbar: '#auditContentBar'}
+                ]]
+            });
+        });
+        //上一步
+//         $(".upId").on("click",function () {
+//     	    window.parent.update_page("113");
+//         	var index = parent.layer.getFrameIndex(window.name);
+//         	parent.layer.close(index);
+//         });
+    });
+</script>
+</body>
+</html>

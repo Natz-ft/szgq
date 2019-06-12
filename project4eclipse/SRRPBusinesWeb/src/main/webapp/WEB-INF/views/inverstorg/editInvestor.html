@@ -1,0 +1,528 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>投资需求</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+    <style>
+        .layui-form #layer-photos img {
+            max-width: 200px;
+        }
+        .layui-form .industryCheckbox li {
+            float: left;
+            width: 33%;
+        }
+        .layui-form-label {
+            padding: 6px 0px;
+            width: 110px;
+        }
+        .input-insert-data{
+            width: 280px;
+            height: 28px;
+            border: 1px solid #8DBDDC;
+            border-radius: 3px;
+        }
+          .layui-input1{
+           width: 420px;
+            height: 28px;
+            border: 1px solid #8DBDDC;
+            border-radius: 3px;
+            margin-top:4px;
+        }
+        .layui-input, .layui-select, .layui-textarea {
+          height: 28px;
+        }
+        .boxWrap .formWrap .form-title {
+          height: 100%;
+          padding-top:10px;
+        }
+        .layui-input-block1{
+          padding-top:10px;
+          padding-right:20px;
+        }
+        .layui-form-item1 {
+          height: 30px;
+          margin-bottom: 5px;
+        }
+        .layui-form-item {
+          margin-bottom: 3px;
+        }  
+    </style>
+</head>
+<body>
+<!--用户启用禁用状态    默认是启用-->
+<input id="stopFlag" type="hidden" value="1"/>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <p class="boxTitle"><span>编辑投资机构</span></p>
+    <div class="formWrap">
+         <form class="layui-form"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+                <div class="layui-form-item" >
+                    <div class="form-title"><span>基本信息</span></div>
+                </div>          
+           <div style="margin-left:14px;">
+                  <div class="layui-form-item">
+		                <label class="layui-form-label" style="width:110px;"><span class="star">*</span>投资机构名称：</label>
+		                <div class="layui-input-block">
+		                    <input type="text" name="name" value='${investor.name}' autocomplete="off" class="form-input layui-input1"   >
+		                </div>
+		            </div>
+                 <div class="form-left">
+		             
+		            <div class="layui-form-item">
+		                    <label class="layui-form-label"  style="width:110px;"><span class="star">*</span>证件代码类型：</label>
+		                    <div class="layui-input-block">
+		                       <input type="radio" lay-verify="required" name="certtype" value='${ddcerttype[1].dicCode}'  title="${ddcerttype[1].dicName}"  <c:if test ="${ddcerttype[1].dicCode eq investor.certtype}">checked</c:if>>
+		                       <input type="radio" lay-verify="required" name="certtype" value='${ddcerttype[0].dicCode}'  title="${ddcerttype[0].dicName}" <c:if test ="${ddcerttype[0].dicCode eq investor.certtype}">checked</c:if>>
+		                    </div>
+		            </div>
+		            <!-- 左右两列左侧容器 -->
+		               <div class="layui-form-item">
+		                    <label class="layui-form-label" style="width:110px;"><span class="star">*</span>注册时间：</label>
+		                    <div class="layui-input-block">
+		                       <input type="text" name="registeTime" value='${investor.registeTime}' autocomplete="off" class="form-input input-insert-data" id="focusDate" style="margin-top:4px;">
+		                   </div>
+		               </div>
+		                <div class="layui-form-item">
+		                    <label class="layui-form-label" style="width:110px;"><span class="star">*</span>机构类型：</label>
+		                    <div class="input-insert-data" style="margin-left: 110px;">
+		                        <select name="orgType" id="orgType" lay-verify="required" lay-search="" lay-filter="selectFilter" style="margin-top:4px;">
+		                            <c:forEach items='${ddOrgType}' var="d">
+		                                <option value='${d.dicCode}' <c:if test ='${d.dicCode eq investor.orgType}'>selected</c:if>>${d.dicName}</option>
+		                            </c:forEach>
+		                        </select>
+		                    </div>
+		                </div>
+		                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star">*</span>营业执照：</label>
+                    <div class="layui-input-block clearfix" style="width: 300%;">
+                        <input type="hidden" id="imgHidden" name="licensePath" value='${investor.licensePath}' autocomplete="off" class="layui-input">
+                        <input type="hidden" id="fileName" name="fileName">
+                        <button type="button" class="layui-btn layui-btn-small uploadButton" id="uploadBtn">
+                            <i class="layui-icon">&#xe67c;</i>上传图片
+                        </button>
+                        <a  id="preview" name = "preview" style="cursor:pointer"></a>
+                        <div class="warnNote">只支持后缀名为jpg,jpeg,bmp,png的文件</div> 
+                    </div>
+                </div>
+		       </div>
+            <!-- 左右两列右侧容器 -->
+            <div class="form-right">
+             <div class="layui-form-item">
+                <label class="layui-form-label"  style="width:110px;"><span class="star">*</span>证件号码：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="certno" value='${investor.certno}' autocomplete="off" class="form-input input-insert-data"  maxlength="18" style="margin-top:4px;">
+                </div>
+            </div>
+              <div class="layui-form-item">
+                  <label class="layui-form-label"><span class="star">*</span>所属地区：</label>
+                  <div class="input-insert-data" style="margin-left: 110px;">
+                      <select name="areaCode" id="areaCode" lay-verify="required" lay-search="" lay-filter="selectFilter" style="margin-top:4px;">
+                        <c:forEach items='${ddarea}' var="d">
+                            <option value='${d.dicCode}' <c:if test ='${d.dicCode eq investor.areaCode}'>selected</c:if>>${d.dicName}</option>
+                        </c:forEach>
+                        </select>
+                  </div>
+               </div>
+           
+               <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star">*</span>资本类型：</label>
+                    <div class="input-insert-data" style="margin-left: 110px;">
+                        <select name="capitalType" id="capitalType" lay-verify="required" lay-search="" lay-filter="selectFilter" style="margin-top:4px;">
+                             <c:forEach items='${ddCapitaltype}' var="d">
+                                 <option value='${d.dicCode}' <c:if test ='${d.dicCode eq investor.capitalType}'>selected</c:if>>${d.dicName}</option>
+                             </c:forEach>
+                         </select>
+                     </div>
+               </div>
+            </div>
+            <div class="layui-form-item1"></div>
+           </div>
+            <!-- 左右两列左侧容器 -->
+            <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+               <div class="form-title"><span>联系方式</span></div>
+            </div>
+            <div style="margin-left:14px;">
+            <div class="form-left" >
+                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star">*</span>联系人姓名：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="relName" value='${investor.relName}' autocomplete="off" class="form-input input-insert-data" maxlength="18" style="margin-top:4px;">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star"></span>地址：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="address" value='${investor.address}' autocomplete="off" class="form-input input-insert-data" maxlength="256" style="margin-top:4px;">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star"></span>电子邮箱：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="email" id="email" value='${investor.email}' autocomplete="off" class="form-input input-insert-data" maxlength="50" style="margin-top:4px;">
+                    </div>
+                </div>
+             </div>
+              
+            <!-- 左右两列右侧容器 -->
+            <div class="form-right">
+               
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star">*</span>联系人手机号：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="relPhone" value='${investor.relPhone}' autocomplete="off" class="form-input input-insert-data" maxlength="11" style="margin-top:4px;">
+                    </div>
+                </div>
+                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star"></span>邮编：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="zipcode" value='${investor.zipcode}' autocomplete="off" class="form-input input-insert-data" maxlength="6" style="margin-top:4px;">
+                    </div>
+                </div>
+                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star"></span>传真：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="fax" value='${investor.fax}' autocomplete="off" class="form-input input-insert-data" maxlength="20" style="margin-top:4px;">
+                    </div>
+                </div>
+            </div>
+                        <div class="layui-form-item1"></div>
+            </div>
+            
+            <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+               <div class="form-title"><span>机构介绍</span></div>
+            </div>     
+           <div style="margin-left:14px;">    
+           <div class="layui-form-item heightAuto">
+               <label class="layui-form-label"><span class="star">*</span>LOGO：</label>
+               <div class="layui-input-block clearfix" style="width: 300%;">
+                     <input type="hidden" id="logoHidden" name="logoPath" value='${investor.logoPath}' autocomplete="off" class="layui-input">
+                     <input type="hidden" id="logoName" name="logoName">
+                     <button type="button" class="layui-btn layui-btn-small uploadButton" id="logoUploadBtn">
+                          <i class="layui-icon">&#xe67c;</i>上传LOGO
+                     </button>
+                     <a  id="logoPreview" name = "logoPreview" ></a>
+                </div>
+                <label class="layui-form-label"><span class="star">*</span>机构介绍：</label>
+                <div class="layui-input-block" style="padding-top:12px">
+                    <textarea name="description" class="layui-textarea" style="border: 1px solid #8DBDDC;border-radius: 3px;">${investor.description}</textarea>
+                </div>
+            </div>
+            </div>
+             <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+               <div class="form-title"><span>投资策略</span></div>
+            </div>   
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="star"></span>管理资本量：</label>
+                <div class="layui-input-block">
+                    <div class="layui-input-inline formEleSplice">
+                      <input  maxlength="8" style="margin-top:4px;border: 1px solid #8DBDDC;border-radius: 3px;" type="text" name="capital" autocomplete="off" class="layui-input"  maxlength="15" value='<fmt:formatNumber value="${investor.capital}" pattern="####.##"/>'>
+                    </div>
+                    <div class="layui-form-mid">百万</div>
+                    <div class="layui-input-inline formEleSpliceUnit" style="border: 1px solid #8DBDDC;border-radius: 3px;margin-top:4px;">
+                        <select name="currency" lay-verify="required" lay-search="" lay-filter="selectFilter" >
+                            <option value="CNY">CNY</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="star"></span>拟投资阶段：</label>
+                <div class="layui-input-block">
+                  <c:forEach items='${ddfinanceStage}' var="d">
+                    <input type="checkbox" name="financeStage" lay-verify="required" value='${d.dicCode}' title='${d.dicName}'  lay-skin="primary" <c:if test ='${fn:contains(investor.financeStage, d.dicCode)}'>checked</c:if>>
+                  </c:forEach>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="star"></span>拟投资行业：</label>
+                <div class="layui-input-block">
+                    <ul class="clearfix industryCheckbox">
+                     <c:forEach items='${ddfinanceTrade}' var="d">
+                       <li> <input type="checkbox" name="financeTrade" value='${d.dicCode}' title='${d.dicName}' lay-skin="primary"<c:if test ='${fn:contains(investor.financeTrade, d.dicCode)}'>checked</c:if>></li>
+                     </c:forEach>
+                    </ul>
+                </div>
+            </div>
+             <div class="layui-form-item"></div>
+           <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+               <div class="form-title"><span>审核记录</span></div>
+            </div>
+            <div style="margin-left:4%;">
+            <div class="layui-form-item heightAuto">
+               <div style="margin-left:23px;">
+                <div class="layui-input-block1">
+                    <table id="orgGrid" lay-filter="test"></table>
+                </div>
+               </div>
+            </div>
+            <div class="layui-form-item1" style="border-top: 1px dotted #ccc;heigth:20%;">
+            </div>    
+            <div class="layui-form-item">
+                <div class="layui-input-block buttonWrap">
+                    <button class="layui-btn submitBtn" lay-submit lay-filter="investor">&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;交&nbsp;&nbsp;</button>
+                    <button type="button" class="layui-btn closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script>
+    $(function (){
+    	var nameVal ='${investor.name}';
+    	var certtypeVal = '${investor.certtype}';
+    	var certnoVal = '${investor.certno}';
+    	var registeTimeVal = '${investor.registeTime}';
+    	var areaCodeVal = '${investor.areaCode}';
+    	var orgTypeVal = '${investor.orgType}';
+    	var capitalTypeVal = '${investor.capitalType}';
+    	var licensePathVal = '${investor.licensePath}';
+    	
+        //调用图片预览
+        layer.photos({
+            photos: '#layer-photos'
+            , anim: 0 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+        });
+        var filepath='${investor.licensePath}';
+        var logopath ='${investor.logoPath}';
+        var arr = filepath.split('/');
+        var logoArr = filepath.split('/');
+        document.getElementById("preview").innerText = arr[arr.length-1];
+        document.getElementById("logoPreview").innerText = logoArr[logoArr.length-1];
+        //调用日期控件
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#focusDate' //指定元素
+        });
+        //调用富文本编辑器控件
+        var layedit = layui.layedit;
+        layedit.build('demandDetails'); //建立编辑器
+        // 上传文件控件
+        var upload = layui.upload;
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#uploadBtn' //绑定元素
+ 			,data : {"fileType" : 'yyzz'}
+			,url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+            , done: function (data) {
+            	//上传完毕回调
+            	if(data.code == 0){
+                    $('#imgHidden').attr('value',data.url);
+                    $('#fileName').attr('value',data.name);
+                    $('#preview').text(data.name);
+                }
+            }
+            , error: function (data) {
+            	alert(data);
+                //请求异常回调
+            }
+        });
+        var logoUpload = upload.render({
+        	elem: '#logoUploadBtn' //绑定元素
+     			,data : {"fileType" : 'yyzz'}
+    			,url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+                , done: function (data) {
+                	//上传完毕回调
+                	if(data.code == 0){
+                        $('#logoHidden').attr('value',data.url);
+                        $('#logoName').attr('value',data.name);
+                        $('#logoPreview').text(data.name);
+                    }
+                }
+                , error: function (data) {
+                	alert(data);
+                    //请求异常回调
+                }
+        });
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据(审核记录的集合按审核时间)
+        var gridData = [${investorAuditRecords}[0]];
+        if(gridData!=null&&gridData!=""&&gridData!=undefined){
+        	table.render({
+                id: 'orgGrid'
+                , elem: '#orgGrid' //指定原始表格元素选择器（推荐id选择器）
+                , width: 852
+                , height: 100 //容器高度
+                , data: gridData
+                , cols: [[ //标题栏
+                      {field: 'auditorName', title: '审核人', width: 200, align: 'center'}
+                    , {field: 'auditTimeStr', title: '审核时间', width: 200, align: 'center'}
+                    , {field: 'auditResultDicname', title: '审核结果', width: 210, align: 'center'}
+                    , {field: 'auditContent', title: '审核意见', width: 242, align: 'center'}
+                ]]
+            });
+        }
+
+		layui.use('form', function(){
+			  var form = layui.form;
+			  var lock=true;
+			  //监听提交
+			  form.on('submit(investor)', function(data){
+				  var financeStage_value="";
+				  var financeTrade_value="";
+				  var reg = /(^[1-9]([0-9]{0,3})(\.[0-9]{2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+				  //获取拟投资阶段复选框选中的值
+				  $("input:checkbox[name='financeStage']:checked").each(function() {
+		    		  var financeStageChecked = $(this).val();
+		    		  if(financeStageChecked == null || financeStageChecked == undefined || financeStageChecked == ''){
+		    			  financeStage_value=financeStageChecked;
+		    		  }else{
+		    			  financeStage_value=financeStageChecked+","+financeStage_value;
+		    		  }
+		    		 });
+				  //获取拟投资行业复选框选中的值
+				  $("input:checkbox[name='financeTrade']:checked").each(function() {
+		    		  var financeTradeChecked = $(this).val();
+		    		  if(financeTradeChecked == null || financeTradeChecked == undefined || financeTradeChecked == ''){
+		    			  financeTrade_value=financeTradeChecked;
+		    		  }else{
+		    			  financeTrade_value=financeTradeChecked+","+financeTrade_value;
+		    		  }
+		    		 });
+				  data.field.financeTrade=financeTrade_value;
+				  data.field.financeStage=financeStage_value;
+				  if(data.field.certno===''){
+		        		layer.msg("请输入证件代码");
+		        		return false;
+		           }
+				  if(data.field.name===''){
+					  layer.msg("请输入投资机构名称");
+					  return false;
+				  }
+				  if(data.field.areaCode===''){
+					  layer.msg("请输入所属地区");
+					  return false;
+				  }
+				  if(data.field.relName===''){
+					  layer.msg("请输入联系人姓名");
+					  return false;
+				  }
+				  if (data.field.relName.length > 10) {
+			            layer.msg("联系人姓名不能超过10个字符");
+			            return false;
+			        }
+				  if(data.field.relPhone===''){
+					  layer.msg("请输入联系人手机号");
+					  return false;
+				  }
+				  if (!(/^1[3|4|5|7|8][0-9]\d{4,8}$/.test(data.field.relPhone))) {
+			            layer.msg("请输入有效手机号");
+			            return false;
+			      }
+				  if(data.field.zipcode!="" && data.field.zipcode!=null){
+					  if(!(/^[1-9][0-9]{5}$/.test(data.field.zipcode))){
+						    layer.msg("请输入正确的邮编");
+						    return false;
+					  }
+				  }
+				  var emailReg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+				  if(data.field.email!="" && data.field.email!=null){
+					  if(!(emailReg.test(data.field.email))){
+							layer.msg("请输入正确格式的邮箱");
+							return false;
+				      }
+				  }
+				  if(data.field.fax!="" && data.field.fax!=null){
+					  if(!(/^(\d{3,4}-)?\d{7,8}$/.test(data.field.fax))){
+				    	    layer.msg("请输入正确格式的传真"); 
+				    	    return false;
+				      }
+				  }
+				  if(data.field.description===''){
+					    layer.msg("请输入机构介绍");
+					    return false;
+				  }
+				  if(!(reg.test(data.field.capital))){
+					    layer.msg("请输入四位以内整数或保留两位小数的管理资本量");
+					    return false;
+				  }
+				  if(lock!=true){
+						return false;
+				  }
+				  lock = false;
+				  data.field.stopFlag = $("#stopFlag").val();
+				  $.ajax({
+					   type : "post",
+					  async : false,
+						url : "/SRRPBusinesWeb/investor/updateInvestor",
+					   data : {"investorData" : JSON.stringify(data.field)},
+					success : function(data) {
+						           
+					          }
+				        });
+				  if(data.field.name==nameVal && data.field.certtype==certtypeVal && data.field.certno==certnoVal && 
+						  data.field.registeTime==registeTimeVal && data.field.areaCode==areaCodeVal && data.field.orgType==orgTypeVal
+						  && data.field.capitalType==capitalTypeVal && data.field.licensePath==licensePathVal){
+					  layer.confirm('修改成功',{
+				            btn:['确定','取消']
+				        },function(index){
+				        	  var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+						      parent.location.href="/SRRPBusinesWeb/investor/investorInfo"; //(刷新父级窗口)
+					          parent.layer.close(index); //关闭layer(关闭当前窗口)
+				        },function(index){
+				        	    location.reload(); 
+				        	    layer.close(index);
+				        })
+				  }else{
+					   layer.confirm('修改成功，等待主管机构审核',{
+				            btn:['确定','取消']
+				        },function(index){
+				        	  var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+						      parent.location.href="/SRRPBusinesWeb/investor/investorInfo"; //(刷新父级窗口)
+					          parent.layer.close(index); //关闭layer(关闭当前窗口)
+				        },function(index){
+				        	    location.reload(); 
+				        	    layer.close(index);
+				        })
+				  }
+			      return false; 
+			    });
+			});
+        //关闭后直接进行全查请求(刷新编辑页面)
+		$(".closeBtn").on("click", function () {
+           var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+           parent.layer.close(index); //关闭layer(关闭当前窗口)
+        });
+	    $('#preview').on('click', function () {
+	    	var contet='<div style="text-align: center; "><img src="'+$('#imgHidden').val()+'" width="350px;" height="300px;"/></div>';
+	        layer.open({
+	                type: 1,
+	                title: false, //不显示标题栏
+	                closeBtn: true,
+	                shade: 0.1,
+	                id: 'LAY_layuipro', //设定一个id，防止重复弹出
+	                btn: ['关闭'],
+	                btnAlign: 'c',
+	                moveType: 1,//拖拽模式，0或者1
+	                content:contet,
+	                success: function (layero) {
+	                }
+	            });
+	    });
+	    $('#logoPreview').on('click', function () {
+	    	var contet='<div style="text-align: center; "><img src="'+$('#logoHidden').val()+'" width="350px;" height="300px;"/></div>';
+	        layer.open({
+	                type: 1,
+	                title: false, //不显示标题栏
+	                closeBtn: true,
+	                shade: 0.1,
+	                id: 'LAY_layuipre', //设定一个id，防止重复弹出
+	                btn: ['关闭'],
+	                btnAlign: 'c',
+	                moveType: 1,//拖拽模式，0或者1
+	                content:contet,
+	                success: function (layero) {
+	                }
+	            });
+	    });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	
+    <title>融资统计</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+    <style>
+		.page {
+            text-align: center;
+        }
+
+        .page span {
+            background-color: #eee;
+        }
+        .history-btn {
+            margin-left: 10px;
+    		background: #0D4F92;
+    		border: 1px solid #0D4F92;
+    		border-radius: 5px;
+    		color: #FFFFFF;
+    		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    		display: inline-block;
+    		font-size: 14px;
+   		    height: 25px;
+    		line-height: 25px;
+    	    text-align: center;
+    		width: 50px;
+  	    }
+		.history-btn:hover {
+    		border: 1px solid #bbc2c6;
+    		color: #FFFFFF;
+    		background: #bbc2c6;
+		}
+		.detail-btn {
+            margin-left: 5px;
+        }
+        .boxWrap .boxContent .termsType span {
+            width:170px;
+        }
+        .boxWrap .boxContent .termsList{
+margin-left: -9px;
+}
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+  <div class="boxWrap">
+    <p class="boxTitle"><span>融资统计</span></p>
+    <div class="boxContent">
+        <!-- 统计条件 -->
+        <div class="queryTerms">
+        <!-- 2018年1月5日 12:09:19 LIWCH        更改查询条件位置 -->
+           <div class="termsWrap clearfix" style="margin-left:-6%;">
+                <div class="termsType" style="margin-top: -2px;">
+                    <span>统计周期：</span>
+                </div>
+                <div class="termsList" style="padding-top: 0.5%;">
+                        <input type="radio" id="monthId" name="statisticalCycle"  checked value="0"/>
+                        <label for="monthId" > 月度</label>&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="yearId" name="statisticalCycle"  value="1"/>
+                        <label for="yearId"> 年度</label>
+                </div>
+           </div>
+           <div class="termsWrap clearfix" id="timeId" style="margin-left:-6%;">
+                <div class="termsType" style="margin-top:-15px;">
+                    <span>投资月份：</span>
+                </div>
+                <div class="termsList" style="margin-top:-12px;">
+                   <input type="text" name="search_Myfinacing_operDate_beginTime" 
+                          onfocus=" WdatePicker({dateFmt:'yyyy-MM',minDate:'#F{$dp.$D(\'endTimeStr\',{M:-11})}',maxDate:'#F{$dp.$D(\'endTimeStr\',{M:-0})||\'%y-%M\'}'})"
+						  style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;"
+						  onkeydown="if(event.keyCode==13){event.keyCode=0;return false}"
+						  id="beginTimeStr"/>&nbsp;
+				         至&nbsp;&nbsp;
+                   <input type="text" name="search_Myfinacing_operDate_endTime" 
+                          onfocus=" WdatePicker({dateFmt:'yyyy-MM',maxDate:'#F{$dp.$D(\'beginTimeStr\',{M:+11})}',maxDate:'%y-%M',minDate:'#F{$dp.$D(\'beginTimeStr\',{M:+0})}'})"
+						  style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;"
+						  onkeydown="if(event.keyCode==13){event.keyCode=0;return false}"
+						  id="endTimeStr"/>
+				    <input type="button" id="queryId" value="统计" style="margin-left: 10px;" class="history-btn" />
+
+                    <input type="button" id="exportId" value="导出" style="margin-left: 10px;" class="history-btn" />
+				</div>
+            </div>
+            
+            <!-- 统计条件END-->
+					<div style="padding: 12px;margin-left:10px;">
+						<span>平台企业数：</span> <span id="companyNumberId"></span> &nbsp; &nbsp;
+						<span >平台机构数：</span> <span id="investorNumberId"></span> &nbsp; &nbsp;
+						<span> 平台机构用户数：</span> <span id="userNumberId"></span> &nbsp; &nbsp;
+					</div>
+					
+        </div>
+        
+        <!-- 融资统计统计表格 -->
+        <div>
+            <table id="finacingStatisticsGrid" lay-filter="investorListfilter"></table>
+            <!-- 合计 -->
+            
+            
+            
+<!--             <table id="finacingStatisticsGrid1" lay-filter="investorListfilter1"></table> -->
+<!--             <div class="layui-form layui-border-box layui-table-view" -->
+<!-- 					lay-filter="LAY-table-2" style="width: 737px; border-top: none;"> -->
+ 
+
+<!-- 					<div class="layui-table-body layui-table-main" border="1px solid #e2e2e2" s> -->
+						<table border="1"  frame=below style="border-bottom-style:solid;border-left-style:solid;border-right-style:solid; border-bottom-color:#e2e2e2;border-left-color:#e2e2e2;border-right-color:#e2e2e2; border-top-color:#e2e2e2;width:767px;height: 28px;margin-left: 5%;border-spacing: 0; border-collapse: collapse;border-left-width:1px;border-right-width:1px;background-color: #fff;">
+							<tbody>
+								<tr>
+									<td data-field="finacingTime" align="center" style="width: 20.12%;padding: 5px 0;border: 0px solid #E4E3E0;border-left-color: #e3e4e0;border-left-style: solid;border-left-width: 1px;"><div
+											class="layui-table-cell laytable-cell-1-finacingTime">合计</div></td>
+									<td data-field="demandNumber" align="center"  style="width: 134px;padding: 5px 0;border: 0px solid #E4E3E0;border-left-color: #e3e4e0;border-left-style: solid;border-left-width: 1px;" id="demandNumberId"></td>
+									<td data-field="demandAmount" align="center"  style="width: 166.67px;padding: 5px 0;border: 0px solid #E4E3E0;border-left-color: #e3e4e0;border-left-style: solid;border-left-width: 1px;" id="demandAmountId"></td>
+									<td data-field="solutionsNumber" align="center"  style="width: 144.67px ;padding: 5px 0;border: 0px solid #E4E3E0;border-left-color: #e3e4e0;border-left-style: solid;border-left-width: 1px;" id="solutionsNumberId"></td>
+									<td data-field="finacingAmount" align="center"  style="width: 166.67px;padding: 5px 0;border: 0px solid #E4E3E0;border-left-color: #e3e4e0;border-left-style: solid;border-left-width: 1px;" id="finacingAmountId"></td>
+								</tr>
+
+							</tbody>
+						</table>
+        </div>
+        <div id="showFlagId" style="display: inline;"><span style="color:red;font-size: 12px;margin-left:5%;" id="showSpan">注：融资统计默认统计至当前时间的数据，默认按照时间先后顺序进行排序</span></div>
+    </div>
+  </div>
+         <!-- 融资统计表格 END-->
+   <script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script type="text/javascript">
+    layui.config({
+        base: '../static/script/layui_exts/'
+    }).extend({
+        excel: 'excel'
+    });
+</script>
+<script>
+    $(function () {
+        var type, name;
+        var arr = [];
+        var arrData = {};
+        var data = {};
+        var initdata = {};
+        var allData,condition,heji={},allO;
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var gridData;
+        //页面默认初始化操作
+        initdata['statisticalCycleId']="monthId";
+        init(initdata);
+        function init(queryCondition) {
+        	$.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/countFinance/finacingStatisticsList",
+                data : {"queryCondition" : JSON.stringify(queryCondition)},// 查询条件
+                success: function (data) {
+                	data = JSON.parse(data);allData = data;condition=queryCondition;
+                	var companyNumber = data.paramsMap.resultNomber.companyNumber+" 家";
+                	var investorNumber = data.paramsMap.resultNomber.investorNumber+" 家";
+                	var userNumber = data.paramsMap.resultNomber.userNumber+" 个用户";
+                	var demandNumber  = data.paramsMap.finacingStatisticsResult.demandNumber; 
+                	var demandAmount  = data.paramsMap.finacingStatisticsResult.demandAmount*100;
+                	var solutionsNumber  = data.paramsMap.finacingStatisticsResult.solutionsNumber;
+                	var finacingAmount  = data.paramsMap.finacingStatisticsResult.finacingAmount*100;
+
+                	$("#companyNumberId").text(companyNumber);
+                	$("#investorNumberId").text(investorNumber);
+                	$("#userNumberId").text(userNumber);
+                	$("#demandNumberId").text(demandNumber);
+                	$("#demandAmountId").text(demandAmount);
+                	$("#solutionsNumberId").text(solutionsNumber);
+                	$("#finacingAmountId").text(finacingAmount);
+
+                    heji = {finacingTime:"合计",demandNumber:demandNumber,demandAmount:demandAmount,solutionsNumber:solutionsNumber, finacingAmount:finacingAmount};
+                    allO = "平台企业数："+companyNumber+"，平台机构数："+investorNumber+"，平台机构用户数："+userNumber;
+                	createPage(data.list);
+                }
+            });
+    	  }
+         //装配列表数据
+         function createPage(gridData) {
+                table.render({
+                    id: 'finacingStatisticsGrid',
+                    elem: '#finacingStatisticsGrid', //指定原始表格元素选择器（推荐id选择器）
+                    width: 767,
+                    data: gridData,
+                    cols: [[ //标题栏
+                             {field: 'finacingTime',unresize: true, title: '时间',align: 'center',width: 153,minWidth:153,maxWidth:153,},
+                             {field: 'demandNumber', unresize: true, title: '发布需求数',align: 'center', width: 133, sort: true,minWidth:153,maxWidth:153},
+                             {field: 'demandAmount', unresize: true, title: '发布融资金额(万)',align: 'center', width: 166, sort: true,minWidth:153,maxWidth:153,templet:function(d){
+                                 return (d.demandAmount*100).toFixed();
+                             }},
+                             {field: 'solutionsNumber',unresize: true,  title: '解决项目数',align: 'center', width: 144, sort: true,minWidth:153,maxWidth:153},
+                             {field: 'finacingAmount', unresize: true, title: '解决融资金额(万)',align: 'center', width: 166, sort: true,minWidth:153,maxWidth:153,templet:function(d){
+                                 return (d.finacingAmount*100).toFixed();
+                             }}
+                    ]],
+                    limit:Number.MAX_VALUE  //重要,否则数据不会全部渲染,默认10
+                });
+            }
+    	    //点击统计按钮时触发条件查询
+    	    var domId;
+            $("input:radio").click(function(){  
+    		    domId = $(this).attr('id');//获取当前单选框控件name 属性值
+    		    if(domId=="yearId"){
+    		    	initdata['statisticalCycleId']="yearId";
+    		    	document.getElementById("showSpan").innerHTML="注：默认按照时间先后顺序进行排序";
+    		        init(initdata);
+    		    	$("#beginTimeStr").attr("disabled","disabled");
+					$("#endTimeStr").attr("disabled","disabled");
+					$("#beginTimeStr").val('');
+					$("#endTimeStr").val('');
+					var statistical = $("#statisticalId").val();
+					
+				} else {
+					$("#beginTimeStr").removeAttr("disabled");
+					$("#endTimeStr").removeAttr("disabled");
+					$("#beginTimeStr").val('');
+					$("#endTimeStr").val('');
+					$("#statisticalId input").remove();
+					initdata['statisticalCycleId']="monthId";
+					 document.getElementById("showSpan").innerHTML="注：融资统计默认统计至当前时间的数据，默认按照时间先后顺序进行排序";
+    		        init(initdata);
+					}
+    		});
+            $(document).ready(function(){
+            	$(document).on("click","input[id='statisticsYearId']",function(){
+            		data['statisticalCycleId']=domId;
+          	        init(data);
+            	})
+            })
+            $("#queryId").on("click", function () {
+            	var dicType = $("#beginTimeStr").attr("id");
+     	        data[dicType] = $("#beginTimeStr").val();
+            	var dicType = $("#endTimeStr").attr("id");
+     	        data[dicType] = $("#endTimeStr").val();
+     	        if(domId==undefined||domId==""||domId==null){
+     	        	domId="monthId";
+     	        }
+     	       document.getElementById("showSpan").innerHTML="注：默认按照时间先后顺序进行排序";
+//      	        if(domId=="monthId"&&(data.beginTimeStr==null||data.beginTimeStr=="")&&(data.endTimeStr==null||data.endTimeStr=="")){
+//      	        	document.getElementById("showFlagId").style.display="inline";
+//      	        }else{
+//      	        	document.getElementById("showFlagId").style.display="none";
+//      	        }
+     	       data['statisticalCycleId']=domId;
+     	       init(data);
+            })
+
+        //导出excel
+        $("#exportId").on("click", function () {
+            layui.use(['excel'], function(){
+                var excel = layui.excel;
+                var v1 = condition.statisticalCycleId=="monthId"?"月度":"年度"
+                var v21 = condition.beginTimeStr!=undefined?condition.beginTimeStr:"";
+                var v22 = condition.endTimeStr!=undefined?condition.endTimeStr:"";
+                var c1 = {finacingTime:"统计周期：" + v1};
+                var c2 = {finacingTime:"投资月份：" +  v21+ "--" +v22 };
+                var c3 = {finacingTime:allO};
+
+
+                var data = excel.filterExportData(allData.list, {
+                    finacingTime:'finacingTime',
+                    demandNumber:'demandNumber',
+                    demandAmount:function(value, line, data) {
+                        return value * 100;
+                    },
+                    solutionsNumber:'solutionsNumber',
+                    finacingAmount:function(value, line, data) {
+                        return value * 100;
+                    }
+                });
+                data.unshift({finacingTime: '时间',demandNumber: '发布需求数', demandAmount: '发布融资金额(万)',solutionsNumber:"解决项目数",finacingAmount:"解决融资金额(万)"})
+                data.unshift(c3);
+                data.unshift(c2);
+                data.unshift(c1);
+                data.push(heji);
+                var colConf = excel.makeColConfig({'A':120,'B':120,'C':120,'D':120,'E':120});
+                var mergeConf = excel.makeMergeConfig([
+                    ['A2', 'E2'],['A3', 'E3'],['A1', 'E1']
+                ]);
+                excel.exportExcel(
+                    {
+                        融资统计: data
+                    },
+                    '融资统计.xlsx',
+                    'xlsx',
+                    {
+                        extend: {
+                            '!cols': colConf,
+                            '!merges': mergeConf
+                        }
+                    }
+                );
+            });
+        });
+    })
+</script>
+</body>
+</html>

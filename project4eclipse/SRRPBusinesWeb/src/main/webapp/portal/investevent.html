@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+     <meta name="renderer" content="webkit|ie-comp|ie-stand"/> 
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ 	<title>苏州股权融资服务平台</title>
+	<link rel="shortcut icon" href="common/images/favicon.ico" type="image/x-icon"/>
+	<link rel="stylesheet" type="text/css" href="common/style/reset.css">
+	<link rel="stylesheet" type="text/css" href="common/style/common.css">
+	<link rel="stylesheet" type="text/css" href="common/script/layui/css/layui.css">
+	<link rel="stylesheet" type="text/css" href="melte/style/melte.css">
+	<script src="common/script/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+	<script src="common/script/layui/layui.js" type="text/javascript"></script>
+	<script src="common/script/common.js" type="text/javascript"></script>
+	<script src="melte/script/melte.js" type="text/javascript"></script>
+</head>
+<body>
+	<!--头部信息开始-->
+	<!--头部logo以及登录注册开始-->
+	<div class="logo clearfix">
+	    <div class="logoRight">
+	    	<c:if test="${!empty sessionScope.user}">
+        <a href="/creditplatformweb/success">进入业务系统</a><a href="/creditplatformweb/logout">退出登陆</a>
+    </c:if>
+    <c:if test="${empty sessionScope.user}">
+    	<a href="register.html"> 注&nbsp;&nbsp;&nbsp;&nbsp;册 </a>
+        <a href="/creditplatformweb/logout"> 登&nbsp;&nbsp;&nbsp;&nbsp;录 </a>
+    </c:if></div>
+          <div class="logoLeft">
+	        <a href="index.html">
+	            <p></p>
+	            <p></p>
+	        </a>
+	     </div>
+	</div>
+	<!--头部logo以及登录注册结束-->
+	<!-- 操作菜单开始 -->
+	<div class="header">
+		<ul class="nav clearfix">
+			<li><a href="index.html"> 首 页 </a></li>
+			<li class="active"><a href="investevent.html"> 投融事件 </a></li>
+			<li><a href="finace.html"> 融资需求 </a></li>
+			<li><a href="news.html"> 新闻动态 </a></li>
+			<li><a href="result.html"> 运行成果 </a></li>
+			<li><a href="investor.html"> 投资机构 </a></li>
+			<li><a href="relate.html"> 联系我们 </a></li>
+		</ul>
+	</div>
+	<!-- 操作菜单结束-->
+	<!--头部信息结束-->
+	<!--页面主体开始-->
+	<div class="main-background">
+		<div class="mainwraper">
+			<div class="current-position">
+				当前位置：首页&gt;投融事件</span>
+			</div>
+			<div class="sub-c">
+				<div class="query-condition">
+					<!--<h2 class="subTitle">事件筛选</h2>-->
+					<dl>
+						<dt>
+							<span>行业</span>：
+						</dt>
+						<dd type="industry" id="industry">
+<!-- 							<a href="javascript:void(0);" name="0" class="current">全部</a> <a -->
+<!-- 								href="javascript:void(0);" name="1">教育培训</a> <a -->
+<!-- 								href="javascript:void(0);" name="2">电信与增值服务</a> <a -->
+<!-- 								href="javascript:void(0);" name="3">建筑工程</a> <a -->
+<!-- 								href="javascript:void(0);" name="4">能源矿产</a> <a -->
+<!-- 								href="javascript:void(0);" name="5">IT</a> -->
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<span>投资轮次</span>：
+						</dt>
+						<dd type="finacing_turn" id="finacing_turn">
+<!-- 							<a href="javascript:void(0);" name="0" class="current">全部</a> <a -->
+<!-- 								href="javascript:void(0);" name="1">A</a> <a -->
+<!-- 								href="javascript:void(0);" name="2">B</a> <a -->
+<!-- 								href="javascript:void(0);" name="3">C</a> <a -->
+<!-- 								href="javascript:void(0);" name="4">D</a> <a -->
+<!-- 								href="javascript:void(0);" name="5">天使轮</a> -->
+						</dd>
+					</dl>
+<!-- 					<dl> -->
+<!-- 						<dt> -->
+<!-- 							<span>投资时间</span>： -->
+<!-- 						</dt> -->
+<!-- 						<dd type="event_time"> -->
+<!-- 							<a href="javascript:void(0);" name="0" class="current">全部</a>  -->
+<!-- 							<a href="javascript:void(0);" name="2017">2017</a>  -->
+<!-- 							<a href="javascript:void(0);" name="2016">2016</a>  -->
+<!-- 						</dd> -->
+<!-- 					</dl> -->
+					<h4 class="center-dotted">
+						<span>共找到<b><a id="record_totle"></a></b>个结果
+						</span>
+					</h4>
+					<div class="melte-tablediv">
+						<ul>
+							<li>
+								<a class="melte-tablestyle">项目名称</a> 
+								<!-- <a class="melte-tablestyle-name">投资机构</a> 
+								<a class="melte-tablestyle-name">企业名称</a> -->
+								<a class="melte-tablestyleother">所属行业</a> 
+								<a class="melte-tablestyleother">投资轮次</a> 
+								<a class="melte-tablestyleother">投资金额(RMB)</a>
+								<a class="melte-tablestyleother">投资时间</a> 
+								<a class="melte-tablestyledetail">详情</a></li>
+						</ul>
+					</div>
+					<!--响应数据测试-->
+					<form id="formid"  name="form" method="post" action="#" >
+					</form>
+					<div>&nbsp;</div>
+					<!--分页组件-->
+					<div style="text-align: center;">
+						<div id="common-page-ui"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>&nbsp;</div>
+	</div>
+	<!--页面主体结束-->
+	<!--底部信息开始-->
+	<div id="foot"></div>
+	<!--底部信息结束-->
+</body>
+</html>

@@ -1,0 +1,21 @@
+http://172.16.110.197:8080/SRRPBusinesWeb/initInfo/initDD
+
+
+
+重新启动redis   服务
+
+
+
+   路径：/usr/local/redis/redis-3.0.2/src
+   命令：redis-server ../redis.conf 
+   启动后手动调取初始化redis方法。
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,497 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html style="height:auto;">
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>投资机构详情</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/my97/WdatePicker.js"
+            type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css"
+          href="../static/style/page/details.css">
+    <style type="text/css">
+    .detailsTxt p {
+    	width: 45%;
+       }
+    </style>
+         
+</head>
+<body >
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <p class="boxTitle"><span>${inverstor.name}</span></p>
+    <div class="boxContent" style="margin-left: -6%;width: 100%">
+        <div class="detailsCon" style="margin-top: 20px;">
+            <div class="detail-title-name"><span>基本信息</span></div>
+            <div class="detailsTxt clearfix">
+					<p>
+						证件号码类型：<span>${inverstor.certtypeDicname}</span>
+					</p>
+					<p>
+						证件号码：<span>${inverstor.certno}</span>
+					</p>
+					<p>
+						组织形式：<span>${inverstor.organizationalFormDicname}</span>
+					</p>
+					<p>
+						成立日期：<span>${inverstor.registeTime}</span>
+					</p>
+					<p>
+						所属地区：<span>${inverstor.areaName}</span>
+					</p>
+					<p>
+						注册资本(万)：<span><fmt:formatNumber
+								value="${inverstor.registeredCapital}" pattern="####.##" /> ${inverstor.regCurrencyDicname}</span>
+					</p>
+					<p>
+						实缴资本(万)：<span><fmt:formatNumber
+								value=" ${inverstor.paidCapital}" pattern="####.##" />
+							${inverstor.pcCurrencyDicname}</span>
+					</p>
+					<p>
+						机构类型：<span>${inverstor.orgTypeDicname}</span>
+					</p>
+					<p>
+						资本类型：<span>${inverstor.capitalTypeDicname}</span>
+					</p>
+					<p>
+						状态：<span>${inverstor.stopFlagDicname}</span>
+					</p>
+					<p>
+						法定代表人/执行事务合伙人：<span>${inverstor.legalRepresentative}</span>
+					</p>
+					<p>
+						法定代表电话/执行事务合伙人电话：<span>${inverstor.legalRepresentativeCall}</span>
+					</p>
+					<p>
+						审核状态：<span>${inverstor.auditStatusDicname}</span>
+					</p>
+					<p style="width: 100%;">
+						注册地址：<span>${inverstor.registeredAddress}</span>
+					</p>
+					<p style="width: 100%;">
+						办公地址：<span>${inverstor.officeAddress}</span>
+					</p>
+				</div>
+        </div>
+        <div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>日常联系人</span>
+				</div>
+				<div class="detailsTxt clearfix">
+					<p>
+						姓名：<span>${inverstor.relName}</span>
+					</p>
+					<p>
+						职务：<span>${inverstor.post}</span>
+					</p>
+					<p>
+						联系电话：<span>${inverstor.relPhone}</span>
+					</p>
+					<p>
+						电子邮箱：<span>${inverstor.email}</span>
+					</p>
+				</div>
+			</div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>运营资质</span></div>
+            <div class="detailsTxt clearfix">
+                <p style="width: 100%">是否在中国证券基金业协会履行基金管理人登记手续：
+                <c:choose>  
+                  <c:when test='${not empty inverstor.operationQualification2}'><span>是</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基金管理人登记编号：<span>${inverstor.operationQualification2}</span></c:when> 
+                  <c:otherwise> <span>否</span></c:otherwise>
+              </c:choose>
+                </p>
+                <p style="width: 100%">机构是否有过不良诚信记录 ：<span>${inverstor.operationQualification3Dicname}</span></p>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>团队成员</span>
+				</div>
+				<div class="detailsTxt clearfix">
+					<p style="width: 100%">
+						团队总人数：<span>${inverstor.teamCount}</span>
+					</p>
+					<p style="width: 100%">
+						从事股权投资且具备3年以上相关工作经验的人员数量（获得基金从业资格证）：<span>${inverstor.seniorManagement}</span>
+					</p>
+					<p style="width: 100%">
+						团队成员是否有过不良诚信记录：<span>
+				   <c:choose>  
+	                    <c:when test='${"1"==inverstor.creditUnhealthy}'>否</c:when> 
+	                    <c:otherwise>是</c:otherwise>
+	              </c:choose></span>
+					</p>
+				</div>
+			</div>
+        <div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>管理机制</span>
+				</div>
+				<div class="detailsTxt clearfix">
+					<p style="width: 100%">
+						是否具备严格合理的投资决策程序、风险控制机制以及健全的财务管理制度：<span>${inverstor.mechanismDicname}</span>
+					</p>
+				</div>
+			</div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>投资策略</span></div>
+            <div class="detailsTxt clearfix">
+                <p>管理规模(亿元)： <span>${inverstor.capital}</span></p>
+                <p style="width: 100%">主要投资阶段：<span>${inverstor.financeStageDicname}</span></p>
+                <p style="width: 100%">主要投资领域：<span>${inverstor.financeTradeDicname}</span></p>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>综合实力</span></div>
+            <div class="detailsTxt clearfix">
+                <p style="width: 100%"><span>${inverstor.corepersonnel}</span></p>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>核心团队</span></div>
+            <div class="detailsTxt clearfix">
+                <p style="width: 100%"><span>${inverstor.coreteam}</span></p>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>影像信息：</span>
+				</div>
+				<div class="detailsTxt clearfix">
+					<p style="width: 100%">
+						 营业执照：<span><a  name = "preview" download="${inverstor.fileName}" style="cursor:pointer;" href="${inverstor.licensePath}">${inverstor.fileName}	 </a></span>
+					</p>
+					<p style="width: 100%">
+						注册申请表：<span> <a  name = "preview" download="${inverstor.registerAutographName}" style="cursor:pointer;" href="${inverstor.registerAutographPath}">
+								      ${inverstor.registerAutographName}</a></span>
+					</p>
+					<p style="width: 100%">
+						   授权书：<span><a  name = "preview" download="${inverstor.creditAuthorizationName}" style="cursor:pointer;" href="${inverstor.creditAuthorizationPath}">${inverstor.creditAuthorizationName}</a></span>
+					</p>
+					<p style="width: 100%">
+						  LOGO：<span><a  name = "preview" download="${inverstor.logoName}" style="cursor:pointer;" href="${inverstor.logoPath}">${inverstor.logoName}</a></span>
+					</p>
+					
+				</div>
+		</div>
+       <div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>管理业绩</span>
+				</div>
+					<c:choose>
+					<c:when test='${manageAchievementList!="[]"}'>
+						<div id="manageAchievementDiv">
+							<div style="margin-left: 11%;width: 90%;">
+									<table align="center" id="manageAchievementGrid"
+										lay-filter="manageAchievementGrid"></table>
+							</div>
+						</div>
+						</c:when>
+						<c:otherwise>
+
+							<div class="detailsTxt clearfix">
+								<p style="width: 100%">
+									管理业绩：<span>无</span>
+								</p>
+								<p style="width: 100%">
+									未填写原因：<span>${investor.manageAchievementDesc}</span>
+								</p>
+
+							</div>
+						</c:otherwise>
+					</c:choose>
+			</div>
+			<div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>投资业绩</span>
+				</div>
+						<c:choose>
+						<c:when test='${investorAchievements!="[]"}'>
+					<div id="investorAchievementDiv">
+						<div style="margin-left: 11%;width: 90%;">
+									<table align="center" id="investorAchievementGrid"
+										lay-filter="investorAchievementGrid"></table>
+						</div>
+						</div>					
+								</c:when>
+								<c:otherwise>
+									<div class="detailsTxt clearfix">
+								<p style="width: 100%">
+									投资业绩：<span>无</span>
+								</p>
+								<p style="width: 100%">
+									未填写原因：<span>${investor.achievementDesc}</span>
+								</p>
+
+							</div>
+								</c:otherwise>
+							</c:choose>
+				</div>
+        <div class="detailsCon">
+            <div class="detail-title-name"><span>投资事件</span></div>
+            <div>
+                <div id="eventIdDiv">
+                    <div style="margin-left: 11%;width: 91%;">
+                        <table align="center" id="EventResultGrid" lay-filter="test"></table>
+                    </div>
+                </div>
+            </div>
+         </div>
+		<div class="detailsCon clearfix">
+            <div class="buttonWrap">
+                <c:if test="${'operate' eq operate}">
+                    <button class="layui-btn demandBtn">投递需求</button>
+                </c:if>
+                <button class="layui-btn closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </div>
+    <script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(".demandBtn").on("click", function () {
+            //打开的页面全覆盖
+            parent.layer.open({
+                title: '',
+                content: "/SRRPBusinesWeb/finacingDemand/finacingDemandInfoDetail?investorIdList=',${inverstor.investorId}'",
+                area: ['100%', '100%'],
+                offset: ['0%', '0%'],
+                type:2,
+                end:function(){
+                	window.parent.parent.document.getElementById('leftFrame').contentWindow.menu_sendToSelect_handle();//需要调用的方法;
+                }
+            });
+            window.parent.parent.document.getElementById('leftFrame').contentWindow.menu_select_handle();//需要调用的方法; 
+        });
+        $(".closeBtn").on("click", function () {
+            var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+            parent.layer.close(index); //关闭layer(关闭当前窗口)
+        })
+    </script>
+    <script>
+        $(function () {
+            //数据表格
+            var table = layui.table;
+            // 赋值数据实际使用为后台获取数据
+            var gridData = ${companyFinacingEventList};
+            table.render({
+                id: 'EventResultGrid',
+                elem: '#EventResultGrid', //指定原始表格元素选择器（推荐id选择器）
+                page:true,
+                limits: [5, 10, 20, 50]
+                , limit: 5,
+                data: gridData,
+                cols: [[ //标题栏
+//                     {
+//                         field: 'projectName',
+//                         title: '项目名称',
+//                         align: 'center',
+//                         width: 150
+//                     },
+                    {
+                        field: 'industryStr',
+                        title: '行业',
+                        align: 'center',
+                        width:'13%'
+                    }, {
+                        field: 'reareaDicName',
+                        title: '所属区域',
+                        align: 'center',
+                        width: '10%'
+                    }, {
+                        field: 'enterpriseName',
+                        title: '企业名称',
+                        align: 'center',
+                        width: '17%'
+                    }, {
+                        field: 'investorUser',
+                        title: '投资方',
+                        align: 'center',
+                        width: '17%'
+                    }, {
+                        field: 'finacingTurnDicName',
+                        title: '投资轮次',
+                        align: 'center',
+                        width: '10%'
+                    }, {
+                        field: 'currencyStr',
+                        title: '投资金额(百万)',
+                        align: 'center',
+                        width:'10%'
+                    }, {
+                        field: 'operdate',
+                        title: '投资日期',
+                        align: 'center',
+                        width: '10%',
+                        sort: true
+                    }, {
+                        field: 'duringdate',
+                        title: '投资用时(天)',
+                        align: 'center',
+                        width: '11%',
+                        sort: true
+                    }
+
+                ]]
+            });
+            
+            
+            var manageData = ${manageAchievementList};
+			//管理业绩列表
+			table.render({
+					id : 'manageAchievementGrid',
+					elem : '#manageAchievementGrid' //指定原始表格元素选择器（推荐id选择器）
+					,page: true
+	                , limits: [5, 10, 20, 50]
+	                , limit: 5,
+					data : manageData,
+					cols : [ [ //标题栏
+					{
+						field : 'fundName',
+						title : '管理基金名称',
+						align : 'center',
+						width :'12%'
+					}, {
+						field : 'registDateString',
+						title : '注册时间',
+						align : 'center',
+						width : '9%'
+					}, {
+						field : 'registAddressStr',
+						title : '注册地',
+						align : 'center',
+						width : '10%'
+					}, {
+                        field: 'trusteeship',
+                        title: '托管机构',
+                        align: 'center',
+                        width: '10%'
+                    }, {
+						field : 'manageCapital',
+						title : '管理资金规模(万)',
+						align : 'center',
+						width : '15%'
+					}, {
+						field : 'iccFilingNo',
+						title : '基金编号(中基协)',
+						align : 'center',
+						width : '16%'
+					}, {
+						field : 'foundTypeDicname',
+						title : '基金类型',
+						align : 'center',
+						width :'12%',
+					}, {
+						field : 'financeTradeDicname',
+						title : '投资行业定位',
+						align : 'center',
+						width : '12%'
+					}, {
+						field : 'financeStageDicname',
+						title : '投资阶段定位',
+						align : 'center',
+						width : '14%'
+					}, {
+						field : 'investmentProjects',
+						title : '投资项目数量',
+						align : 'center',
+						width : '12%'
+					}, {
+						field : 'cumulativeInvestment',
+						title : '累计投资金额（万）',
+						align : 'center',
+						width : '16%'
+					}, {
+						field : 'implementExitProject',
+						title : '实现退出项目数量',
+						align : 'center',
+						width :'15%'
+					} ] ]
+				});
+			//投资业绩列表
+			var investorData = ${investorAchievements};
+			table.render({
+				id : 'investorAchievementGrid',
+				elem : '#investorAchievementGrid', //指定原始表格元素选择器（推荐id选择器）
+				page: true
+                , limits: [5, 10, 20, 50]
+                , limit: 5,
+				data : investorData,
+				cols : [ [ //标题栏
+				{
+					field : 'investmentFunds',
+					title : '投资基金名称',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'investedEnterprise',
+					title : '已投企业名称',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'investedEnterpriseIndustryStr',
+					title : '已投企业行业',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'investedEnterpriseAreaStr',
+					title : '已投企业所属区域',
+					align : 'center',
+					width : '16%'
+				}, {
+					field : 'ecCurrencyStr',
+					title : '已投企业注册资本(万)',
+					align : 'center',
+					width : '17%'
+				}, {
+					field : 'investmentTimeStr',
+					title : '投资时间',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'iaCurrencyStr',
+					title : '投资金额(万)',
+					align : 'center',
+					width : '13%'
+				}, {
+					field : 'shareRatio',
+					title : '股权比例(%)',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'roundOfInvestmentStr',
+					title : '投资轮次',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'investmentStageStr',
+					title : '投资阶段',
+					align : 'center',
+					width : '12%'
+				},{
+                    field: 'signOutStr',
+                    title: '是否退出',
+                    align: 'center',
+                    width: '12%'
+                }, {
+					field : 'exitTimeStr',
+					title : '退出时间',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'rateOfReturnStr',
+					title : '回报率(%)',
+					align : 'center',
+					width : '12%'
+				} ] ]
+			});
+
+        })
+    </script>
+</body>

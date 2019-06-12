@@ -1,0 +1,358 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>首页待办事项-向我投递</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/todo.css">
+    <style type="text/css">
+   .layui-table-link1 {
+	    color: #001F6F;
+	}
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <p class="boxTitle"><span>首页待办事项-向我投递</span></p>
+    <div class="boxContent">
+        <!-- 查询条件 -->
+        <div class="todoTab clearfix">
+            <ul class="clearfix">
+                <li><a class="todo-active" href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=focus">向我投递<sup>${map.get("focus") + 0}</sup></a>
+                </li>
+                <li><a href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=talks">待启动约谈<sup>${map.get("talks") + 0}</sup></a></li>
+                <li><a href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=investor">待决定投资<sup>${map.get("investor") + 0}</sup></a></li>
+                <li><a href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=loan">待出资<sup>${map.get("loan") +  map.get("unPushed") }</sup></a></li>
+                <li><a href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=push">信息披露<sup>${map.get("push") + map.get("unPushed")  }</sup></a></li>
+            </ul>
+        </div>
+        <!-- 机构表格 -->
+        <div>
+            <div>
+            	<span style="margin-left:10%;  color: red;font-size: 14px;"><strong>注意</strong>：若需求超过有效时间，将无法关注。</span>
+            </div>
+             <div style="width:85%;margin-left:5%;"  >
+            <table id="todoGrid" lay-filter="test" align="center" style="margin-top: 1%; "></table>
+            </div>
+        </div>
+        <!-- 机构表格 END-->
+    </div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<!-- 表格工具条 -->
+<script type="text/html" id="barDemo">
+{{# if(d.revokeFlag =='0'){ }}
+    <a class="layui-btn layui-btn-mini" lay-event="detail">详情</a>
+{{# if(d.isOvered =='1'){ }}
+    <a class="layui-btn layui-btn-mini" lay-event="focus">关注</a>
+{{# } }}
+    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">忽略</a>
+{{# } else { }}
+{{# if(d.isOvered =='1'){ }}
+    <a class="layui-btn layui-btn-mini layui-btn-primary" >详情<span  onmouseover="showdetal();" id="msgNum" class="ii"><i class="layui-icon newicon" style="font-size: 30px;color:#331caa;">&#xe60b;</i></span></a>
+{{# } }}
+    <a class="layui-btn layui-btn-mini layui-btn-primary" >关注</a>
+
+    <a class="layui-btn layui-btn-danger layui-btn-mini layui-btn-primary" >忽略</a>
+ {{# } }}
+
+
+</script>
+<script type="text/html" id="barDemo0">
+{{# if(d.revokeFlag =='0'){ }}
+    <a  style="color:#333">{{d.projectName}}</a>
+{{# } else { }}
+    <a  style="color:#aba7a7">{{d.projectName}}</a>
+{{# } }}
+</script> 
+<script type="text/html" id="barDemo1">
+{{# if(d.revokeFlag =='0'){ }}
+        <a style="color:#333">{{d.enterpriseNameShow}}</a>&nbsp;&nbsp;
+{{# } else { }}
+        <a  style="color:#aba7a7">{{d.enterpriseNameShow}}</a>&nbsp;&nbsp;
+ {{# } }}
+</script> 
+<script type="text/html" id="barDemo2">
+{{# if(d.revokeFlag =='0'){ }}
+    <a  style="color:#333;cursor: pointer;">{{d.operdateStr}}</a>
+{{# } else { }}
+    <a  style="color:#aba7a7;cursor: pointer;">{{d.operdateStr}}</a>
+{{# } }}
+</script> 
+
+<script type="text/html" id="remindContentBar">
+{{# if(d.revokeFlag =='0'){ }}
+    <a href="javascript:void(0);" class="layui-table-link1" title="超过时间后，需求将无法关注。">{{d.remainTime}}</a>
+{{# } else { }}
+     <a href="" class="layui-table-link1"style="color:#aba7a7;" title="过时间后，需求将无法关注。">{{d.remainTime}}</a>
+ {{# } }}
+</script>
+<script type="text/html" id="scoreBar"> 
+{{# if(d.revokeFlag =='0'){ }}
+    {{# if(d.score ==null){ }}
+    <a lay-event="showScoreDetails"  style="color:#0D4F92;cursor: pointer;"></a>
+   {{# } else { }}
+   <a lay-event="showScoreDetails"  style="color:#0D4F92;cursor: pointer;">{{d.score}}</a>
+   {{# } }}
+{{# } else { }}
+   {{# if(d.score ==null){ }}
+      <a lay-event=""  style="color:#aba7a7;cursor: pointer;"></a>
+   {{# } else { }}
+       <a lay-event=""  style="color:#aba7a7;cursor: pointer;">{{d.score}}</a>
+   {{# } }}
+{{# } }}
+</script> 
+<script>
+   var has_showModalDialog = !!window.showModalDialog;//定义一个全局变量判定是否有原生showModalDialog方法  
+   if(!has_showModalDialog &&!!(window.opener)){         
+       window.onbeforeunload=function(){  
+            window.opener.hasOpenWindow = false;        //弹窗关闭时告诉opener：它子窗口已经关闭  
+      }  
+   }  
+   //定义window.showModalDialog如果它不存在  
+   if(window.showModalDialog == undefined){  
+          window.showModalDialog = function(url,mixedVar,features){  
+          if(mixedVar) var mixedVar = mixedVar;  
+          //因window.showmodaldialog 与 window.open 参数不一样，所以封装的时候用正则去格式化一下参数  
+          if(features) var features = features.replace(/(dialog)|(px)/ig,"").replace(/;/g,',').replace(/\:/g,"=");  
+       	  //window.open("Sample.htm",null,"height=200,width=400,status=yes,toolbar=no,menubar=no");  
+          //window.showModalDialog("modal.htm",obj,"dialogWidth=200px;dialogHeight=100px");   
+          var left = (window.screen.width - parseInt(features.match(/width[\s]*=[\s]*([\d]+)/i)[1]))/2;  
+          var top = (window.screen.height - parseInt(features.match(/height[\s]*=[\s]*([\d]+)/i)[1]))/2;  
+          window.myNewWindow = window.open(url,"_blank",features);  
+          }  
+    }
+    $(function () {
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var gridData =${eventBeanForOrgs};
+        //console.log(gridData);
+        table.render({
+            id: 'todoGrid'
+            , elem: '#todoGrid' //指定原始表格元素选择器（推荐id选择器）
+            , width: 814
+            , height: 475 //容器高度
+            , page: true
+            , limits: [10, 20, 50]
+            , limit: 10
+            , data: gridData
+            , cols: [[ //标题栏
+                {field: "projectNameShow", title: '项目名称', align: 'center', width: 211/* , toolbar: '#barDemo0' */},
+                {
+                    field: 'enterpriseName',
+                    title: '企业名称',
+                    align: 'center',
+                    width: 190,
+                    toolbar: '#barDemo1'
+                }
+                , {
+                    field: 'score',
+                    title: '评分',
+                    align: 'center',
+                    width: 85,
+                    style: 'color:#0D4F92;cursor: pointer;',
+                    toolbar: '#scoreBar'
+                }
+                , {field: 'maildateStr', title: '发布日期', align: 'center', width: 108, toolbar: '#barDemo2'}
+                , {field: 'remainTime', title: '有效时间', align: 'center', width: 66,toolbar: '#remindContentBar'}
+                , {field: 'history', fixed: 'right', title: '操作', align: 'center', width: 148, align: 'center', toolbar: '#barDemo'}
+            ]]
+        });
+        // 点击name弹窗
+        table.on('tool(test)', function (obj) {
+        	var operType = 'focus';
+            var data = obj.data;
+            var enterpriseId = data.enterpriseId;
+            var infoId = data.infoId;
+            var eventId = data.eventId;
+            var status = data.status;
+            var demandStatus = data.demandStatus;
+            //证件号证件类型
+            var code = data.code;
+            var codetype = data.codetype;
+            code= encodeURIComponent(encrypt(code));
+            codetype=encodeURIComponent(encrypt(codetype));
+            var layEvent = obj.event;
+            var score = data.score;
+            var isOvered = data.isOvered;
+            if (layEvent === 'showEnterpriseDetails') {
+                layer.open({
+                    title: '企业信息详情',
+                    content: "/SRRPBusinesWeb/companyInfo/companyInfoDetails?enterpriseId=" + enterpriseId,
+                    area: ['100%', '100%'],
+                    offset: ['0%', '0%'],
+                    type:2,
+                    scrollbar: false,
+                });
+            } else if (obj.event == 'showCreditReport') {//查看信用报告
+            	
+          	  window.showModalDialog("/SRRPBusinesWeb/creditscore/queryReport?certtype=" + codetype + "&certno=" + code + "&name='" + name + "'","1","dialogWidth:"+window.screen.width+"px;dialogHeight:"+window.screen.height+"px;");    
+            
+            } else if (obj.event == 'showScoreDetails') {//查看评分页面
+                
+            	if (score != null && score != '') {
+                	 window.showModalDialog("/SRRPBusinesWeb/creditscore/queryScore?certtype=" + codetype + "&certno=" + code,"1","dialogWidth:"+window.screen.width+"px;dialogHeight:"+window.screen.height+"px;");    
+                }
+            }else if (layEvent === 'detail') { //详情
+                var status = "10";
+                if(isOvered=='1' && demandStatus!='03'){
+                	var gotoUrl = 'send';
+                } 
+                layer.open({
+                    title: '需求信息详情',
+                    content: "/SRRPBusinesWeb/finacingDemand/demandInfoDetails?infoId=" + infoId + "&enterpriseId=" + enterpriseId + "&statusInfo=" + status + "&eventId=" + eventId+"&operType="+operType+"&gotoUrl="+gotoUrl,
+                    area: ['100%', '100%'],
+                    offset: ['0%', '0%'],
+                    type:2,
+                    scrollbar: false,
+                });
+            } else if (layEvent === 'focus') { //关注
+                var status = "11";
+            	operType = 'focus';
+            	$.ajax({
+                    type: "post",
+                    async: true,
+                    url: "/SRRPBusinesWeb/homeTodo/countFocus",
+                    data: {},//没有参数
+                   success: function (obj) {
+                	   var count = JSON.parse(obj);
+                	   if(count >=10){
+                		   layer.confirm('您最多可同时关注10条融资需求');
+                	   }else{
+                	   		//对操作者的类型判断
+				           	$.ajax({
+							   type : "post",
+							  async : false,
+							    url : "/SRRPBusinesWeb/homeTodo/chechedUserLevel",
+							success : function(obj) {
+								var result = JSON.parse(obj);
+								   if(result.userLevel=='0'){//如果结果为0，则是投资机构，需要提示
+									   	layer.confirm('您旗下有3只基金用户。<br>是否直接使用基金管理人进行用户直投？', {
+											  btn: ['使用基金账户', '确认直投'] //可以无限个按钮
+											  ,area: ['300px', '180px']
+											}, function(index, layero){		//基金账户，退出登录
+											  window.top.location.href='/creditplatformweb/logout';
+											}, function(index){				//确认直投
+											  layer.confirm('确认关注么？', function (index) {
+				                       			$.ajax({
+				                                    type: "post",
+				                                    async: true,
+				                                    url: "/SRRPBusinesWeb/homeTodo/checkStatus",
+				                                    data: {"infoId": infoId},
+				                                   success: function (obj) {
+				                                	   if(obj=="success"){
+				                                		   $.ajax({
+				                                               type: "post",
+				                                               async: false,
+				                                               url: "/SRRPBusinesWeb/homeTodo/delInfo",
+				                                               data: {"eventId": eventId, "status": status, "infoId": infoId,"operType":operType},// 查询条件
+				                                               success: function () {
+				                                               	layer.close(index);//向服务端发送删除指令
+				                                                   location.href = "/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=talks";
+				                                               }
+				                                           }); 
+				                                	   }else{
+				                                		   layer.close(index);
+				                                		   window.location.href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=focus";
+				                                	    } 
+				                                   }
+				                               }); 
+				            				});
+										});
+								   
+								   
+									  /* layer.confirm('是否直接使用基金管理人进行用户直投？',function (index) {
+										 layer.confirm('确认关注么？', function (index) {
+			                       			$.ajax({
+			                                    type: "post",
+			                                    async: true,
+			                                    url: "/SRRPBusinesWeb/homeTodo/checkStatus",
+			                                    data: {"infoId": infoId},
+			                                   success: function (obj) {
+			                                	   if(obj=="success"){
+			                                		   $.ajax({
+			                                               type: "post",
+			                                               async: false,
+			                                               url: "/SRRPBusinesWeb/homeTodo/delInfo",
+			                                               data: {"eventId": eventId, "status": status, "infoId": infoId,"operType":operType},// 查询条件
+			                                               success: function () {
+			                                               	layer.close(index);//向服务端发送删除指令
+			                                                   location.href = "/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=talks";
+			                                               }
+			                                           }); 
+			                                	   }else{
+			                                		   layer.close(index);
+			                                		   window.location.href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=focus";
+			                                	    } 
+			                                   }
+			                               }); 
+			            				});
+									  }); */
+							      }else{
+							    	 layer.confirm('确认关注么？', function (index) {
+		                       			$.ajax({
+		                                    type: "post",
+		                                    async: true,
+		                                    url: "/SRRPBusinesWeb/homeTodo/checkStatus",
+		                                    data: {"infoId": infoId},
+		                                   success: function (obj) {
+		                                	   if(obj=="success"){
+		                                		   $.ajax({
+		                                               type: "post",
+		                                               async: false,
+		                                               url: "/SRRPBusinesWeb/homeTodo/delInfo",
+		                                               data: {"eventId": eventId, "status": status, "infoId": infoId,"operType":operType},// 查询条件
+		                                               success: function () {
+		                                               	layer.close(index);//向服务端发送删除指令
+		                                                   location.href = "/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=talks";
+		                                               }
+		                                           }); 
+		                                	   }else{
+		                                		   layer.close(index);
+		                                		   window.location.href="/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=focus";
+		                                	    } 
+		                                   }
+		                               }); 
+		            				});
+		            				
+							      }
+							    }
+						     });
+                	   }
+                   }
+                    });
+                
+            } else if (layEvent === 'del') { //忽略
+                status = "12";
+                operType = 'ignore';
+                layer.confirm('确认忽略该需求么？', function (index) {
+                    $.ajax({
+                        type: "post",
+                        async: false,
+                        url: "/SRRPBusinesWeb/homeTodo/delInfo",
+                        data: {"eventId": eventId, "status": status, "infoId": infoId,"operType":operType},// 查询条件
+                        success: function () {
+                        }
+                    });
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);//向服务端发送删除指令
+                    location.href = "/SRRPBusinesWeb/homeTodo/sendHomeTodo?operType=focus";
+                });
+            }
+        });
+    })
+     function showdetal(){
+    		layer.msg('友情提示：需求内容包含不合法信息已被主管部门撤回',{time:1000});
+		}
+</script>
+</body>
+</html>

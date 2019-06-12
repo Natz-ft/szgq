@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+* { margin:0px; padding:0px; list-style:none; }
+body { font:14px/28px "Microsoft Yahei","SimSun", "FangSong", "NSimSun", "FangSong_GB2312", Arial; background:#f3f3f3; color:#000; }
+.container { width:900px; /*width:643px;height:1100px;padding:100px; padding:100px 50px;*/  margin:0px auto; padding:40px 60px 40px; background-color:#fff }
+.clear{ clear:both}
+h1,h2,h3,h4,h5,h6{ font-family:Microsoft Yahei;}
+.textL { text-align:left !important; }
+.textC { text-align:center !important; }
+.textR { text-align:right !important; }
+.floatR { float:right; }
+.floatL { float:left; }
+.rela { position:relative; }
+table { margin-top:10px; font-family:Arial, simsun; width:100%; }
+.table1 th,.table1 td,.table2 th,.table2 td,.table3 th,.table3 td { background:#fff; height:24px; line-height:24px; font-weight:normal; padding:0px 5px; }/*白底白框*/
+
+.rt_title{ margin-bottom:20px; padding:20px 0px 30px; width:100%; text-align:center;border-bottom:1px solid #bbb;}
+.h1_report{ text-align:center; font-weight:normal; font-size:30px;}
+.table1{ background:#fffcf3 none; background:none }
+.table1 td,.table1 th{ padding:3px 5px;background:#fff none; font-size:14px; }
+.table1 td{ text-align:left;  border:none;border-right:1px solid #dedede;border-bottom:1px solid #dedede; border:none}
+.table1 th{ text-align:left;border:none;border-bottom:1px solid #dedede; border:none; font-weight:bold }
+
+h5{ padding:60px 0px 5px; font-size:22px; line-height:30px; font-weight:normal; text-align:center}
+h6{ padding:30px 0px 0px; font-size:18px; line-height:28px; font-weight:normal}
+h5 p{ padding:5px 0px 0px; font-size:16px; font-weight:normal}
+h6 span{ font-size:15px; line-height:28px;}
+.table2{ border-right:1px solid #cdd3e0; border-top:1px solid #cdd3e0;}
+.table2 td,.table2 th{ padding:5px 5px; border-left:1px solid #cdd3e0; border-bottom:1px solid #cdd3e0;line-height:24px;}
+.table2 th{ background-color:#f5f7fa; color:#333;  font-weight:bold}
+.table3{ border-right:1px solid #cdd3e0; border-top:1px solid #cdd3e0;}
+.table3 td,.table3 th{ padding:5px 5px; border-left:1px solid #cdd3e0; border-bottom:1px solid #cdd3e0;line-height:24px;}
+.table3 th{ padding:10px 5px; background-color:#f5f7fa; color:#333; font-weight:bold;}
+
+
+.text_btm{padding:5px 0px 0px; font-size:14px; line-height:24px;}
+p.date{ float:right; padding:0px 0px 0px 20px; text-align:right}
+p.note{ float:left;padding:0px 0px 5px 0px;}
+
+iframe{ text-align:center}
+iframe body div{ margin:0 auto}
+.report_chart{ text-align:center; margin-top:10px; padding:40px 40px; background-color:#F9F9F9}
+.rep_chat_in{ background-color:#fff;}
+
+p{ padding:0px 0px 10px;}
+.p_article{ padding:20px 0px 0px;}
+
+
+/*for print*/
+@media print{
+body{ background-color:#fff;}
+.container { width:620px; margin:0px auto; padding:40px 0px 40px; background-color:#fff }
+.rt_title{border-bottom:1px solid #333;}
+table { border-collapse:collapse}
+.table2 td,.table2 th,.table3 td,.table3 th{ border:1px solid #666;}
+.report_chart{ width:820px; text-align:center; margin:20px auto; padding:0px; background-color:#0000FF}
+}

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px;width:500px;padding-bottom: 5px;"></div>
+    <!-- ECharts单文件引入 -->
+     <script src="../../static/echarts/echarts-2.js"></script>
+	<script src="../../static/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表 var bstype = $("input[id$='radarResult']",parent.document).val();
+        var $ = jQuery.noConflict();
+        var myChart = echarts.init(document.getElementById('main'),'macarons'); 
+        function createChart(){
+        	var bstype = $("input[id$='radarResult']",parent.document).val();
+    		if(bstype == null || bstype ==""){
+    			bstype = "[]";
+    		}
+    		var result = $.parseJSON(bstype);
+    		var title = "";
+    		if(result.title=='1'){
+    			title = "*由于部分指标数据缺失，评分仅供参考";
+    		}
+	        var option = {
+	        		title:{
+	        			text:title,
+	        			x:'center',
+	        			y:'bottom',
+	        			textStyle:{
+	        				fontSize:12
+	        			}
+	        		},
+			        radar:{
+				        indicator:result.param
+				    },
+			        series: [{
+			            type:'radar',
+			            data:[{
+				            name:'详细信息',
+							value:result.value
+				            }]
+						}
+			        ]
+			    };
+	    myChart.setOption(option); 
+        }
+        createChart();  
+    </script>
+</body>

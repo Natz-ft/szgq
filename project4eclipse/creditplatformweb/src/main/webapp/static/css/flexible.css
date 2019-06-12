@@ -1,0 +1,31 @@
+.box2  td {
+	font-family: Microsoft YaHei, Simsun, Arial, sans-serif;
+	color: #333;
+}
+
+.TableBlock {
+	border: 1px #dddddd solid;
+	line-height: 20px;
+	font-size: 12pt;
+	border-collapse: collapse;
+}
+
+tbody {
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit;
+}
+
+tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+
+.TableBlock .TableContent td,.TableBlock td.TableContent {
+	background: #f2f2f2;
+	border: 1px #dddddd solid;
+	border-right: 1px #dddddd solid;
+	padding: 3px;
+	height: 20px;
+}

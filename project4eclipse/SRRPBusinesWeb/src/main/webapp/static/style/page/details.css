@@ -1,0 +1,69 @@
+.detailsCon {
+    width: auto;
+    padding: 10px;
+    border-bottom: 1px dotted #ccc;
+}
+
+.detailsCon .detailsTitle {
+    width: 20%;
+    height: 100%;
+}
+
+.detailsCon .detailsTitle span {
+    font-size: 16px;
+    margin-left: 40px;
+    padding: 5px 10px;
+    color: #0D4F92;
+    border-bottom: 3px solid #0D4F92;
+}
+
+.detailsTxt {
+    width: 73%;
+    margin: 0 auto;
+}
+
+.detailsTxt p {
+    width: 40%;
+    color: #0D4F92;
+    float: left;
+    margin-right: 2%;
+    line-height: 34px;
+}
+
+.detailsTxt .aloneRow {
+    width: 80%;
+}
+
+.detailsTxt.aloneDiv p {
+    width: 80%;
+    color: #333
+}
+
+.detailsTxt span {
+    color: #333;
+}
+
+.detailsTxt span a {
+    font-weight: bold;
+    color: #0D4F92;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.detailsGrid {
+    width: 870px;
+}
+
+.detail-table {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.detail-table span {
+    color: #ffffff;
+}
+
+/*重新定义股东信息主要产品列表字体颜色(白色)*/
+.layui-table-cell span {
+    color: #ffffff;
+}

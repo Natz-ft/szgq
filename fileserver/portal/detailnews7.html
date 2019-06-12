@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>苏州股权融资服务平台</title>
+    <link rel="shortcut icon" href="common/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="common/style/reset.css">
+    <link rel="stylesheet" type="text/css" href="common/style/common.css">
+    <link rel="stylesheet" type="text/css" href="common/script/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="news/style/newsdetail.css">
+    <script src="common/script/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="common/script/layui/layui.js" type="text/javascript"></script>
+    <script src="common/script/common.js" type="text/javascript"></script>
+    <script src="common/script/qrcode/qrcode.js" type="text/javascript"></script>
+</head>
+<body>
+<!--头部信息开始-->
+<div id="top"></div>
+<!-- 操作菜单开始 -->
+<div class="header">
+    <ul class="nav clearfix">
+        <li><a href="index.html"> 首 页 </a></li>
+        <li><a href="investevent.html"> 投融事件 </a></li>
+        <li><a href="finace.html"> 融资需求 </a></li>
+        <li class="active"><a href="news.html"> 新闻动态 </a></li>
+        <li><a href="result.html"> 运行成果 </a></li>
+        <li><a href="investor.html"> 投资机构 </a></li>
+        <li><a href="relate.html"> 联系我们 </a></li>
+    </ul>
+</div>
+<!-- 操作菜单结束-->
+<!--头部信息结束-->
+<!--页面主体开始-->
+<div style="background:#EEF3F9 ">
+    <div class="mainwraper">
+        <div class="current-position">
+            当前位置：首页&gt;新闻动态>新闻动态明细
+        </div>
+		<div  style="display:none" id="infoId">7</div>
+        <!--明细内容开始-->
+        <div class="sub-c">
+            <div class="pro-list">
+                <h3>获谷歌领投的5.55亿美元融资，Airbnb会正式开拓中国市场吗?</h3>
+                <b>2017-09-20</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>阅读量:<a id="readAmout"></a></b>
+            </div>
+
+            <div>文章称，多方证据表明Airbnb其实目前资金充裕，但这笔融资可使其在IPO前有足够的现金流应对其上市压力，而且作为融资的一部分，Airbnb将允许员工出售所持股份，这部分股份总额约为2亿美元。Fortune援引一方观点表示，Airbnb不太可能在近期上市，除非纽约和旧金山立法同意其民宿共享服务.</div>
+            <div class="return-area">
+                <a href="news.html" class="return-btn"> 返回 </a>
+            </div>
+        </div>
+
+        <!--明细内容结束-->
+    </div>
+    <div>&nbsp;</div>
+</div>
+<!--页面主体结束-->
+<!--底部信息开始-->
+<div id="foot"></div>
+<!--底部信息结束-->
+<script>
+	$(function () {
+		var infoId = $("#infoId").html();
+	    $.ajax({
+	        type: "post",
+	        async: true,
+	        url: "/SRRPBusinesWeb/newInfos/addReadAmount",
+	        data: {infoId: infoId},
+	        success: function (data) {
+	        	document.getElementById('readAmout').innerHTML = data;
+	        }
+	    });
+	})
+</script>
+</body>
+</html>

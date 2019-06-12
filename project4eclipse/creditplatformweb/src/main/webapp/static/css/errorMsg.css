@@ -1,0 +1,53 @@
+@CHARSET "UTF-8";
+em{height:30px;}
+
+em>a{width:0px;height:0px;float:right;margin-top:12px;cursor:pointer;}
+s{
+position:absolute;
+top:-20px;
+left:20px;
+display:block;
+border-color:transparent transparent #666 transparent;
+border-style:dashed dashed solid dashed;
+border-width:10px;
+z-index: 999;
+}
+.errortip{
+position:absolute;
+display:none;
+width:15%;
+background-color:#eaeaea;
+*border:1px solid #666;
+z-index: 999;
+}
+i{
+position:absolute;
+top:-9px;
+left:-10px;
+display:block;
+border-color:transparent transparent #eaeaea transparent;
+border-style:dashed dashed solid dashed;
+border-width:10px;
+z-index: 999;
+}
+.content{
+width:100%;
+border:1px solid #666;
+-moz-border-radius:3px;
+-webkit-border-radius:3px;
+position:absolute;
+background-color:#eaeaea;
+padding:5px;
+box-shadow: 3px 3px 4px #999;
+-moz-box-shadow: 3px 3px 4px #999;
+-webkit-box-shadow: 3px 3px 4px #999;
+z-index: 999;
+}  
+.error{border-color: red}
+label.error{display:none} 
+
+/*表格样式*/
+table{width:100%;}
+.c1{width:30%;margin-left: 20px;background-color: #B8DDFF}
+.c2{width:70%;}
+.operate{height:20px}

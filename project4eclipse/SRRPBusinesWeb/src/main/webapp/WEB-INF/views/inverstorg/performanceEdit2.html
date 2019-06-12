@@ -1,0 +1,763 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>投资需求</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/page/todo.css">
+    <style>
+        .layui-form #layer-photos img {
+            max-width: 200px;
+        }
+        .layui-form .industryCheckbox li {
+            float: left;
+            width: 33%;
+        }
+        .layui-form-label {
+            padding: 6px 0px;
+            width: 135px;
+        }
+        .input-insert-data{
+            height: 22px;
+            border: 1px solid #8DBDDC;
+            border-radius: 3px;
+        }
+          .layui-input1{
+           width: 420px;
+            height: 28px;
+            border: 1px solid #8DBDDC;
+            border-radius: 3px;
+            margin-top:4px;
+        }
+        .layui-form-select .layui-input {
+          height: 22px;
+        }
+        .boxWrap .formWrap .form-title {
+          height: 100%;
+          padding-top:10px;
+        }
+        .boxWrap .formWrap .form-excle {
+		    height: 100%;
+		    padding-top: 10px;
+		    margin-left: 36px;
+		    margin-top: 4px;
+		    margin-bottom: 10px;
+        }
+        .layui-input-block1{
+          padding-top:10px;
+          padding-right:20px;
+        }
+        .layui-input-block{
+              margin-left: 140px;
+        }
+        .layui-form-item1 {
+          height: 30px;
+          margin-bottom: 5px;
+        }
+        .layui-form-item {
+          margin-bottom: 3px;
+        }  
+    </style>
+</head>
+<body>
+<!--用户启用禁用状态    默认是启用-->
+<input id="stopFlag" type="hidden" value="1"/>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+  <div class="boxContent">
+     <div class="formWrap">
+            <form class="layui-form" >
+            <div class="form-title"><span>管理业绩</span></div>
+             <div class="form-excle">
+	                    <button type="button"  class="layui-btn layui-btn-small uploadButton" id="downLoadWarrantPdf"  lay-submit lay-filter="exportWarrant"><i class="layui-icon">&#xe61e;</i>导入管理业绩</button>
+	                  <span style="font-size: 10px;color: #FF6838;">*支持Excel导入</span>
+	                  <a href="http://www.w3school.com.cn">Excel模板下载</a>
+                   </div>
+			  <div style="margin-left:14px;">
+                  <div class="form-left" >
+                      <div class="layui-form-item">
+                              <label class="layui-form-label">管理基金名称：</label>
+                              <div class="layui-input-block">
+                                    <input type="text" name="fundName" value=''  autocomplete="off" class="form-input input-insert-data" maxlength="50" style="margin-top:4px;">
+                              </div>
+                       </div>
+                       <div class="layui-form-item">
+                               <label class="layui-form-label">注册地址：</label>
+                               <div class="layui-input-block">
+                                     <input type="text" name="registAddress" value=''  autocomplete="off" class="form-input input-insert-data"  maxlength="255" style="margin-top:4px;">
+                               </div>
+                       </div>
+                       <div class="layui-form-item">
+                               <label class="layui-form-label">已投项目：</label>
+                               <div class="layui-input-block">
+                                     <input type="text" name="alreadyInvest" value=''  autocomplete="off" class="form-input input-insert-data" maxlength="60"  style="margin-top:4px;">
+                               </div>
+                       </div>
+                       <div class="layui-form-item">
+                               <label class="layui-form-label">回报率：</label>
+                               <div class="layui-input-block">
+                                     <input type="text" name="rateReturn" value=''  autocomplete="off" class="form-input input-insert-data"  maxlength="6"  style="margin-top:4px;">
+                                     (%)
+                               </div>
+                       </div>
+			      </div>
+			      <div class="form-right">
+			             <div class="layui-form-item">
+		                         <label class="layui-form-label" >注册时间 ：</label>
+		                         <div class="layui-input-block">
+		                            <input type="text" name="registDate" value='' autocomplete="off" class="form-input input-insert-data" id="focusDate" style="margin-top:4px;">
+		                         </div>
+		                  </div>
+			               <div class="layui-form-item">
+			                  <label class="layui-form-label">管理资金规模：</label>
+                              <div class="layui-input-block">
+                              <div class="layui-input-inline" style="width: 320px;">
+                                  <input type="text" maxlength="10" name="manageCapitalMin" placeholder="请输入" autocomplete="off" class="form-input"
+                                       value="<fmt:formatNumber value="" pattern="####.##"/>" style="width: 70px;height: 22px;float:left;margin-top: 5px; border: 1px solid #8DBDDC; border-radius: 3px;">
+                                 <div class="layui-form-mid">~</div>
+                                 <input type="text" maxlength="10" name="manageCapitalMax" placeholder="请输入" autocomplete="off" class="form-input"
+                                       value="<fmt:formatNumber value= "" pattern="####.##"/>" style="width: 70px;height: 22px;float:left;margin-top: 5px; border: 1px solid #8DBDDC; border-radius: 3px;">
+                                  <div class="layui-form-mid" style="left:6px;">万元</div>
+                                  <div class="layui-input-inline formEleSpliceUnit form-select" style="height: 22px; width: 72px;margin-top: 5px; border: 1px solid #8DBDDC; border-radius: 3px;">
+                                  <option value="" >请选择</option>
+                                  <select name="currency">
+                                      <option value="CNY" >CNY</option>
+                                  </select>
+                                  </div>
+                                </div>
+                              </div>
+                          </div> 
+                          <div class="layui-form-item">
+                                <label class="layui-form-label">投资行业：</label>
+                                <div class="layui-input-block">
+                                   <input type="text" name="investTrade" maxlength="500" autocomplete="off" class="form-input input-insert-data" style="margin-top:4px;">
+                                </div>
+                          </div>
+                          <div class="layui-form-item">
+                                <label class="layui-form-label">投资进度：</label>
+                                <div class="layui-input-block">
+                                   <input type="text" name="investProgress" value=''  maxlength="6" autocomplete="off" class="form-input input-insert-data" style="margin-top:4px;">
+                                    (%)                               
+                                </div>
+                          </div>
+			        </div>
+					<div class="layui-form-item heightAuto">
+						<div class="layui-input-block buttonWrap" style="margin-left:0px;">
+							<button class="layui-btn"  lay-submit lay-filter="investorManageAchievementForm"><i class="layui-icon">&#xe608;</i>增加</button>
+						</div>
+					</div>
+				    <div  style=" width: auto;padding: 10px;border-bottom: 1px dotted #ccc;">
+					  <div>
+						<div style="margin: 0 auto;">
+							<div>
+						         <table align="center" id="investorManageAchievementGrid" lay-filter="investorManageAchievementFilter"></table>
+							</div>
+						</div>
+					  </div>
+				    </div>
+			  </div>  
+		 </form>
+         <form class="layui-form"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+            <div class="form-title"><span>团队成员</span></div>
+             <div style="margin-left:14px;margin-top: 20px;">
+               <div class="form-left" >
+                 <div class="layui-form-item">
+                    <label class="layui-form-label">团队成员总人数：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="teamCount" id="teamCount" maxlength="6" value='${investor.teamCount}' autocomplete="off" class="form-input input-insert-data" style="margin-top:4px;">
+                    </div>
+                </div>
+             </div>
+             <div class="form-right">
+                   <div class="layui-form-item">
+                    <label class="layui-form-label" style="margin-top: 3px;">是否有过不良记录：</label>
+                    <div class="layui-input-block">
+                          <c:forEach items='${ddradio}' var="d">
+		                               <input type="radio" lay-verify="required" name="creditUnhealthy" id ="creditUnhealthy" value='${d.dicCode}' title='${d.dicName}' <c:if test ='${d.dicCode eq investor.creditUnhealthy}'>checked</c:if>>
+		                  </c:forEach>
+		                  (团队成员)
+                    </div>
+                 </div>
+             </div>
+             <div class="layui-form-item">
+                    <label class="layui-form-label">高级管理人数：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="seniorManagement" id="seniorManagement" maxlength="6" value='${investor.seniorManagement}' autocomplete="off" class="form-input input-insert-data"  style="margin-top:4px;">
+                        (具备3年以上股权投资或相关工作经验)
+                    </div>
+                </div>
+            </div> 
+            <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+               <div class="form-title"><span>投资业绩</span></div>
+            </div>
+            <div style="margin-left:14px;">
+             <div class="form-left" >
+                 <div class="layui-form-item">
+                    <label class="layui-form-label">累计投资项目数：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="projectCount" id="projectCount" maxlength="8" value='${investorAchievement.projectCount}' autocomplete="off" class="form-input input-insert-data"  style="margin-top:4px;">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">累计数量：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="projectQuitCount" id="projectQuitCount" maxlength="8" value='${investorAchievement.projectQuitCount}' autocomplete="off" class="form-input input-insert-data"  style="margin-top:4px;">
+                        (实现退出项目)
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                     <label class="layui-form-label">项目数：</label>
+                      <div class="layui-input-block">
+                          <input type="text" name="projectQuitCount2" id="projectQuitCount2" maxlength="8"value='${investorAchievement.projectQuitCount2}' autocomplete="off" class="form-input input-insert-data"  style="margin-top:4px;">
+                           (协议转让退出)
+                      </div>
+                   </div>
+                   <div class="layui-form-item">
+                     <label class="layui-form-label">项目数：</label>
+                      <div class="layui-input-block">
+                          <input type="text" name="projectQuitCount4" id="projectQuitCount4" maxlength="8"value='${investorAchievement.projectQuitCount4}' autocomplete="off" class="form-input input-insert-data"  style="margin-top:4px;">
+                          (企业回购退出)
+                      </div>
+                   </div>
+               </div>
+               <!-- 左右两列右侧容器 -->
+               <div class="form-right">
+                 <div class="layui-form-item">
+                    <label class="layui-form-label">累计投资金额：</label>
+                    <div class="layui-input-block">
+                          <input type="text" name="investmentAmount" id="investmentAmount" maxlength="10"value='${investorAchievement.investmentAmount}' autocomplete="off" class="form-input input-insert-data"  style="margin-top:4px;">
+                          (万元)                   
+                    </div>
+                 </div>
+                 <div class="layui-form-item">
+                    <label class="layui-form-label">项目数：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="projectQuitCount1" id="projectQuitCount1" maxlength="8"value='${investorAchievement.projectQuitCount1}' autocomplete="off" class="form-input input-insert-data" style="margin-top:4px;">
+                         (上市转让退出)
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">项目数：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="projectQuitCount3" id="projectQuitCount3" maxlength="8"value='${investorAchievement.projectQuitCount3}' autocomplete="off" class="form-input input-insert-data"  style="margin-top:4px;">
+                        (被整体收购退出)
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">项目数：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="projectQuitCount5" id="projectQuitCount5" maxlength="8"value='${investorAchievement.projectQuitCount5}' autocomplete="off" class="form-input input-insert-data"  style="margin-top:4px;">
+                         (清算退出)
+                    </div>
+                </div>
+              </div>
+              <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+                <div class="form-title"><span>综合介绍</span></div>
+              </div>     
+             <div class="layui-form-item heightAuto">
+                <label class="layui-form-label"><span class="star">*</span>过往综合介绍：</label>
+                <div class="layui-input-block" style="padding-top:12px">
+                    <textarea name="corepersonnel" class="layui-textarea" id="corepersonnel" maxlength="1000"style="border: 1px solid #8DBDDC;border-radius: 3px;">${investorAchievement.corepersonnel}</textarea>
+                    (主要包括综合实力、经营业绩、突出优势、核心人员)
+                </div>
+             </div>
+             <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+               <div class="form-title"><span>管理机制</span></div>
+            </div> 
+                   <div class="layui-form-item">
+                    <label class="layui-form-label" style="margin-top: 3px;"> 是否具备：</label>
+                    <div class="layui-input-block">
+                          <c:forEach items='${ddradio}' var="d">
+		                               <input type="radio" lay-verify="required" id="mechanism" name="mechanism" value='${d.dicCode}' title='${d.dicName}' <c:if test ='${d.dicCode eq investor.mechanism}'>checked</c:if>>
+		                  </c:forEach>
+		                  (是否具备严格合理的投资决策程序、风险控制机制以及健全的财务管理制度)
+                    </div>
+                 </div>
+            <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+                  <div class="form-title"><span>投资策略</span></div>
+            </div>   
+            <div class="layui-form-item"  style="height: 38px;">
+                   <label class="layui-form-label">管理规模：</label>
+                   <div class="layui-input-block">
+                        <div class="layui-input-inline" style="width: 320px;">
+                                <input type="text" maxlength="10" name="capitalMin" id="capitalMin" placeholder="请输入" autocomplete="off" class="form-input"
+                                       value="<fmt:formatNumber value="${investor.capitalMin}" pattern="####.##"/>" style="width: 70px;height:22px;float:left;margin-top: 5px; border: 1px solid #8DBDDC; border-radius: 3px;">
+                                <div class="layui-form-mid">~</div>
+                                <input type="text" maxlength="10" name="capitalMax" id="capitalMax" placeholder="请输入" autocomplete="off" class="form-input"
+                                       value="<fmt:formatNumber value="${investor.capitalMax}" pattern="####.##"/>" style="width: 70px;height:22px;float:left;margin-top: 5px; border: 1px solid #8DBDDC; border-radius: 3px;">
+                            <div class="layui-form-mid" style="left:6px;">亿元</div>
+                            <div class="layui-input-inline formEleSpliceUnit form-select" style="height: 22px;width: 72px;margin-top: 5px;border: 1px solid #8DBDDC;border-radius: 3px;">
+                                <select name="currency">
+                                    <option value="CNY">CNY</option>
+                                </select>
+                             </div>
+                         </div>
+                   </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="star"></span>主要投资阶段：</label>
+                <div class="layui-input-block">
+                  <c:forEach items='${ddfinanceStage}' var="d">
+                    <input type="checkbox" name="financeStage" lay-verify="required" id="financeStage" value='${d.dicCode}' title='${d.dicName}'  lay-skin="primary" <c:if test ='${fn:contains(investor.financeStage, d.dicCode)}'>checked</c:if>>
+                  </c:forEach>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="star"></span>主要投资领域：</label>
+                <div class="layui-input-block" >
+                    <ul class="clearfix industryCheckbox">
+                     <c:forEach items='${ddfinanceTrade}' var="d">
+                       <li> <input type="checkbox" name="financeTrade" id="financeTrade" value='${d.dicCode}' title='${d.dicName}' lay-skin="primary"<c:if test ='${fn:contains(investor.financeTrade, d.dicCode)}'>checked</c:if>></li>
+                     </c:forEach>
+                    </ul>
+                </div>
+            </div>
+            </div>    
+            <div class="layui-form-item">
+                <div class="layui-input-block buttonWrap" style="margin-left: -5px;">
+                    <button class="layui-btn submitBtn" lay-submit lay-filter="investorFilter">&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;交&nbsp;&nbsp;</button>
+                </div>
+            </div>
+        </form>
+      </div>
+   </div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script type="text/html" id="buttonBar">
+	<a lay-event="deleteButton" class="layui-btn layui-btn-mini">删除</a>
+</script>
+
+<script>
+      $(function(){
+    	//数据表格
+          var table = layui.table;
+          // 赋值数据实际使用为后台获取数据
+          var investorManageAchievementData = ${investorManageAchievement};
+          table.render({
+              id : 'investorManageAchievementGrid',
+              elem : '#investorManageAchievementGrid', //指定原始表格元素选择器（推荐id选择器）
+              width : 870,
+              data : investorManageAchievementData,
+              cols : [ [ //标题栏
+                  {
+                      field : 'fundName',
+                      title : '管理基金名称',
+                      align:'center',
+                      width : 110
+                  }, {
+                      field : 'registDateString',
+                      title : '注册时间',
+                      align:'center',
+                      width : 90,
+                      sort: true
+                  }, {
+                      field : 'registAddress',
+                      title : '注册地',
+                      align:'center',
+                      width : 110
+                  }, {
+                      field : 'manageCapital',
+                      title : '管理资金规模',
+                      align:'center',
+                      width : 100
+                  }, {
+                      field : 'alreadyInvest',
+                      title : '已投项目',
+                      align:'center',
+                      width : 100
+                  }, {
+                      field : 'investProgress',
+                      title : '投资进度(%)',
+                      align:'center',
+                      width : 100
+                  }, {
+                      field : 'investTrade',
+                      title : '投资行业',
+                      align:'center',
+                      width : 100
+                  }, {
+                      field : 'rateReturn',
+                      title : '回报率(%)',
+                      align:'center',
+                      width : 80
+                  }, {
+                      field : '',
+                      title : '操作',
+                      align:'center',
+                      width :80,
+                      toolbar : '#buttonBar'
+                  } ] ]
+          });
+      });
+</script>
+<script>
+$(function (){
+	var table = layui.table;
+	table.on('tool(investorManageAchievementFilter)', function (obj) {
+		    var data = obj.data;
+		    var manageId = obj.data.manageId;
+          if(obj.event==='deleteButton'){
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/investor/deleteInvestorManageAchievement",
+                data:{manageId:manageId},
+                success: function () {
+                	location.href="/SRRPBusinesWeb/investor/editInvestorType?operType=performanceInformation";
+                    document.getElementById('investorManageAchievementGrid').focus(); 
+                }
+            });
+        }
+    });
+})
+</script>
+<script>
+    $(function (){
+    	//调用日期控件
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#focusDate' //指定元素
+        });
+        //调用富文本编辑器控件
+        var layedit = layui.layedit;
+        layedit.build('demandDetails'); //建立编辑器
+		layui.use('form', function(){
+			  var form = layui.form;
+			  form.on('submit(investorFilter)', function(data){
+			    	  var financeStage_value="";
+					  var financeTrade_value="";
+					  //获取拟投资阶段复选框选中的值
+					  $("input:checkbox[name='financeStage']:checked").each(function() {
+			    		  var financeStageChecked = $(this).val();
+			    		  if(financeStageChecked == null || financeStageChecked == undefined || financeStageChecked == ''){
+			    			  financeStage_value=financeStageChecked;
+			    		  }else{
+			    			  financeStage_value=financeStageChecked+","+financeStage_value;
+			    		  }
+			    	  });
+					  //获取拟投资行业复选框选中的值
+					  $("input:checkbox[name='financeTrade']:checked").each(function() {
+			    		  var financeTradeChecked = $(this).val();
+			    		  if(financeTradeChecked == null || financeTradeChecked == undefined || financeTradeChecked == ''){
+			    			  financeTrade_value=financeTradeChecked;
+			    		  }else{
+			    			  financeTrade_value=financeTradeChecked+","+financeTrade_value;
+			    		  }
+			    	  });
+					  data.field.financeTrade=financeTrade_value;
+					  data.field.financeStage=financeStage_value;
+					  if(data.field.teamCount===''){
+						    parent.layer.msg("请输入团队成员总人数", {icon: 5});
+						    $("#teamCount").focus();
+			        		return false;
+			          }
+					  if(data.field.teamCount!=''){
+						  if(/[^\d.]/g.test(data.field.teamCount)){
+							   parent.layer.msg("请输入数字", {icon: 5});
+							   $("#teamCount").focus();
+							   return false;
+					    }
+			          }
+					  if(data.field.creditUnhealthy==''||data.field.creditUnhealthy==undefined||data.field.creditUnhealthy==null){
+						       parent.layer.msg("请选择团队成员是否有过不良诚信记录", {icon: 5});
+						       $("#creditUnhealthy").focus();
+						       return false;
+					  }
+					  if(data.field.seniorManagement===''){
+						   parent.layer.msg("请输入高级管理人数", {icon: 5});
+						   $("#seniorManagement").focus();
+			        		return false;
+			          }
+					  if(data.field.seniorManagement!=''){
+						  if(/[^\d.]/g.test(data.field.seniorManagement)){
+							   parent.layer.msg("请输入有效数字", {icon: 5});
+							   $("#seniorManagement").focus();
+							   return false;
+					    }
+			          }
+					  if(data.field.projectCount===''){
+						    parent.layer.msg("请输入累计投资项目数", {icon: 5});
+						    $("#projectCount").focus();
+			        		return false;
+			          }
+					  if(data.field.investmentAmount===''){
+						    parent.layer.msg("请输入累计投资金额", {icon: 5});
+						    $("#investmentAmount").focus();
+						    return false;
+					  }
+					  var investmentAmountReg =/^\d+(\.\d{1,2})?$/;
+					 if(data.field.investmentAmount!=''){
+						 if(!(investmentAmountReg.test(data.field.investmentAmount))){
+							 parent.layer.msg("小数点后最多两位数字", {icon: 5});
+							 $("#investmentAmount").focus();
+							 return false;
+						  }
+					 }
+					  if(data.field.projectCount!=''){
+						  if(/[^\d.]/g.test(data.field.projectCount)){
+							   parent.layer.msg("请输入数字", {icon: 5});
+							   $("#projectCount").focus();
+							   return false;
+					    }
+			          }
+					  if(data.field.projectQuitCount===''){
+						  parent.layer.msg("请输入累计实现退出项目数", {icon: 5});
+						  $("#projectQuitCount").focus();
+			        		return false;
+			          }
+					  if(data.field.projectQuitCount!=''){
+						  if(/[^\d.]/g.test(data.field.projectQuitCount)){
+							   parent.layer.msg("请输入有效数字", {icon: 5});
+							   $("#projectQuitCount").focus();
+							   return false;
+					    }
+			          }
+					  if(data.field.projectQuitCount1===''){
+						   parent.layer.msg("请输入上市转让退出项目数", {icon: 5});
+						   $("#projectQuitCount1").focus();
+			        		return false;
+			          }
+					  if(data.field.projectQuitCount1!=''){
+						  if(/[^\d.]/g.test(data.field.projectQuitCount1)){
+							  parent.layer.msg("请输入有效数字", {icon: 5});
+							  $("#projectQuitCount1").focus();
+							   return false;
+					    }
+			          }
+					  if(data.field.projectQuitCount2===''){
+						   parent.layer.msg("请输入协议转让退出项目数", {icon: 5});
+						   $("#projectQuitCount2").focus();
+			        		return false;
+			          }
+					  if(data.field.projectQuitCount2!=''){
+						  if(/[^\d.]/g.test(data.field.projectQuitCount2)){
+							   parent.layer.msg("请输入有效数字", {icon: 5});
+							   $("#projectQuitCount2").focus();
+							   return false;
+					    }
+			          }
+					  if(data.field.projectQuitCount3===''){
+						  parent.layer.msg("请输入被整体收购退出项目数", {icon: 5});
+						  $("#projectQuitCount3").focus();
+			        		return false;
+			          }
+					  if(data.field.projectQuitCount3!=''){
+						  if(/[^\d.]/g.test(data.field.projectQuitCount3)){
+							  parent.layer.msg("请输入有效数字", {icon: 5});
+							  $("#projectQuitCount3").focus();
+							   return false;
+					    }
+			          }
+					  if(data.field.projectQuitCount4===''){
+						  parent.layer.msg("请输入企业回购退出项目数", {icon: 5});
+						  $("#projectQuitCount4").focus();
+			        		return false;
+			          }
+					  if(data.field.projectQuitCount4!=''){
+						  if(/[^\d.]/g.test(data.field.projectQuitCount4)){
+							  parent.layer.msg("请输入有效数字", {icon: 5});
+							  $("#projectQuitCount4").focus();
+							   return false;
+					    }
+			          }
+					  if(data.field.projectQuitCount5===''){
+						  parent.layer.msg("请输入清算退出项目数", {icon: 5});
+						  $("#projectQuitCount5").focus();
+			        		return false;
+			          }
+					  if(data.field.projectQuitCount5!=''){
+						  if(/[^\d.]/g.test(data.field.projectQuitCount5)){
+							  parent.layer.msg("请输入有效数字", {icon: 5});
+							  $("#projectQuitCount5").focus();
+							   return false;
+					    }
+			          }
+			          if(data.field.corepersonnel===''){
+			        	  parent.layer.msg("请输入过往综合介绍", {icon: 5});
+			        	  $("#corepersonnel").focus();
+			        		return false;
+			          }
+			          if(data.field.mechanism==''||data.field.mechanism==undefined||data.field.mechanism==null){
+			        	   parent.layer.msg("请选择是否具备严格合理的投资决策程序、风险控制机制以及健全的财务管理制度", {icon: 5});
+			        	   $("#mechanism").focus();
+			        	   return false;
+			          }
+			          if(data.field.capitalMin===''){
+			        	  parent.layer.msg("请输入管理规模的最小值", {icon: 5});
+			        	  $("#capitalMin").focus();
+						  return false;
+			          }
+			          if(data.field.capitalMin!=''){
+			        	  if(!(investmentAmountReg.test(data.field.capitalMin))){
+			        		  parent.layer.msg("管理规模最小值最多保留两位小数", {icon: 5});
+			        		  $("#capitalMin").focus();
+							  return false;
+					      }
+			          }
+			          if(data.field.capitalMax===''){
+			        	  parent.layer.msg("请输入管理规模的最大值", {icon: 5});
+			        	  $("#capitalMax").focus();
+						  return false;
+			          }
+			          if(data.field.capitalMax!=''){
+			        	  if(!(investmentAmountReg.test(data.field.capitalMax))){
+			        		  parent.layer.msg("管理规模最大值最多保留两位小数", {icon: 5});
+			        		  $("#capitalMax").focus();
+							  return false;
+					      }
+			          }
+				      if(parseInt(data.field.capitalMin) > parseInt(data.field.capitalMax)){
+				    	  parent.layer.msg("请正确输入管理规模范围", {icon: 5});
+				    	  $("#capitalMax").focus();
+		                   return false
+		        	  }
+			          if(data.field.financeStage===''){
+			        	  parent.layer.msg("请选择主投资阶段", {icon: 5});
+			        	  $("#financeStage").focus();
+			        		return false;
+			          }
+			          if(data.field.financeTrade===''){
+			        	  parent.layer.msg("请选择主投资领域", {icon: 5});
+			        	  $("#financeTrade").focus();
+			        		return false;
+			          }
+					  data.field.stopFlag = $("#stopFlag").val();
+					  parent.layer.confirm('确认提交？',{
+   			            btn:['确定','取消']
+	     			        },function(index){
+	     			         $.ajax({
+	     						   type : "post",
+	     							url : "/SRRPBusinesWeb/investor/updateInvestor",
+	     						   data : {"investorData" : JSON.stringify(data.field),"pathType":"performancePath"},
+	     						success : function(data) {
+	     							data = JSON.parse(data);
+	     		                    var flag = update_successprocess(data);
+	     		                     if (flag) {
+	     		                    	window.parent.update_page("113");
+	     	     			        	parent.layer.close(index);
+	     		                      }else{
+	     		                    	  parent.layer.alert('提交失败', {
+	     		                              title: '最终的提交信息'
+	     		                          })
+	     		                          return false;
+	     		                     }
+	     						 }
+	     				       });
+	     			        },function(index){
+	     			        })
+					  return false;
+		   });
+	      form.on('submit(investorManageAchievementForm)',function(data){ 
+			    if(data.field.fundName===''){
+			    	    parent.layer.msg("请输入管理基金名称", {icon: 5});
+			    	    $("#fundName").focus();
+		        		return false;
+		        }
+			    if(data.field.registDate===''){
+          	      parent.layer.msg("请选择注册时间", {icon: 5});
+          	      $("#registDate").focus();
+					  return false;
+		       }
+               if(data.field.registAddress===''){
+            	         parent.layer.msg("请输入注册地址", {icon: 5});
+            	         $("#registAddress").focus();
+		              	 return false;
+               }
+               if(data.field.manageCapitalMin===''||data.field.manageCapitalMax===''){
+     	          parent.layer.msg("请输入管理资金范围", {icon: 5});
+     	         $("#manageCapitalMin").focus();
+     	         return false;
+		        }
+		        var manageCapitalReg =/^\d+(\.\d{1,2})?$/;
+		        if(!(manageCapitalReg.test(data.field.manageCapitalMin))){
+		         	          parent.layer.msg("管理资金规模最小值最多保留两位小数", {icon: 5});
+		         	          $("#manageCapitalMin").focus();
+							  return false;
+				 }
+				 if(!(manageCapitalReg.test(data.field.manageCapitalMax))){
+						      parent.layer.msg("管理资金规模最大值最多保留两位小数", {icon: 5});
+						      $("#manageCapitalMax").focus();
+							  return false;
+				  }
+				 if(parseInt(data.field.manageCapitalMin) > parseInt(data.field.manageCapitalMax)){
+							   parent.layer.msg("请正确输入管理资金规模范围", {icon: 5});
+							   $("#manageCapitalMax").focus();
+				                return false
+		     	}
+               if(data.field.alreadyInvest===''){
+	            	      parent.layer.msg("请输入已投项目名称", {icon: 5});
+	            	      $("#alreadyInvest").focus();
+						  return false;
+			   }
+               if(data.field.investTrade===''){
+	        	      parent.layer.msg("请输入投资行业", {icon: 5});
+	        	      $("#investTrade").focus();
+					  return false;
+		       }
+               if(data.field.rateReturn===''){
+	            	      parent.layer.msg("请输入回报率", {icon: 5});
+	            	      $("#rateReturn").focus();
+						  return false;
+			   }
+              if(data.field.rateReturn!=''){
+            	   if(0 >data.field.rateReturn || data.field.rateReturn > 101){
+	            		   parent.layer.msg("请正确输入回报率", {icon: 5});
+	            		   $("#rateReturn").focus();
+	            		   return false;
+            	   }
+               } 
+	           if(data.field.investProgress===''){
+	        	          parent.layer.msg("请输入投资进度", {icon: 5});
+	        	          $("#investProgress").focus();
+						  return false;
+			   }
+	           if(data.field.investProgress!=''){
+	            	 if(0 >data.field.investProgress || data.field.investProgress > 101){
+	            		   parent.layer.msg("请正确输入投资进度", {icon: 5});
+	            		   $("#investProgress").focus();
+	            		   return false;
+	            	   }
+	           }  
+	            //表单提交校验
+	           $.ajax({
+	                    type : "post",
+	                    async : false,
+	                    url : "/SRRPBusinesWeb/investor/addInvestorManageAchievement",
+	                    data : {"investorManageAchievementData" : JSON.stringify(data.field)},
+	                    success : function(data) {
+	                        if(data==0){
+	                        	layer.open({
+	                                title: '友好提示',
+	                                type: 1,
+	                                content: '<div style="padding: 10px 80px;">成功添加管理业绩信息！</div>',
+	                                btn: '关闭',
+	                                btnAlign: 'c', //按钮居中
+	                                shade: 0,//不显示遮罩
+	                                yes: function () {
+	                                	location.href="/SRRPBusinesWeb/investor/editInvestorType?operType=performanceInformation";
+	                                    document.getElementById('investorManageAchievementGrid').focus();
+	                                }
+	                            });                         
+	                        }
+	                    }
+	                });
+	            });
+		 });
+		//后端程序通过Jquery+Ajax将结果返回值提供给用户。
+        function update_successprocess(data) {
+            if (data.code == "00000") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    });
+</script>
+</body>
+</html>

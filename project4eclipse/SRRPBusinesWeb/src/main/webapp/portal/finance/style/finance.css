@@ -1,0 +1,446 @@
+@charset "utf-8";
+/*覆盖top中的相同样式*/
+a {
+    color: #000000;
+}
+
+li {
+    list-style: none;
+}
+
+/*设置整体大小开始*/
+.mainwraper {
+    width: 990px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/*设置整体大小结束*/
+/*当前位置开始说明等样式开始*/
+
+
+
+.sub-c {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    /*border-top: 3px solid #9d192b;*/
+    overflow: hidden;
+    min-height: 350px;
+}
+
+.sub-c h1 {
+    color: #0068b7;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px dotted #ccc;
+}
+
+
+
+/* .center-dotted { */
+/*     border-bottom: 1px dotted #ccc; */
+/*     width: 100%; */
+/*     position: relative; */
+/*     height: 20px; */
+/*     margin-bottom: 10px; */
+/* } */
+
+/* .center-dotted span { */
+/*     background: #f6f6f6; */
+/*     color: #03081e; */
+/*     left: 50%; */
+/*     margin-left: -100px; */
+/*     padding: 5px 10px; */
+/*     position: absolute; */
+/*     text-align: center; */
+/*     top: 0; */
+/*     width: 200px; */
+/*     font-weight: bold; 字体加粗 */
+/* } */
+
+/*当前位置开始说明等样式结束*/
+/*输入查询条件开始*/
+.GridBox {
+    background: #fff scroll left bottom;
+    border: 1px solid #dcdcdc;
+    display: inline-block;
+    overflow: hidden;
+    padding: 10px 0 10px;
+    width: 100%;
+}
+
+.queryTable {
+    color: #575757;
+    border-right: none;
+    empty-cells: show;
+    border-collapse: collapse;
+    clear: both;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.queryTable td {
+    padding: 5px 0;
+    text-align: left;
+}
+
+.queryTable td.title {
+    text-align: right;
+    width: 15%;
+    color: #424242;
+}
+
+.queryTable td.tit {
+    text-align: right;
+    width: 20%;
+    color: #424242;
+}
+
+.queryTable td.title span, .queryTable td.tit span {
+    color: red;
+}
+
+.detail-table tbody tr td input.default-input {
+    width: 230px;
+}
+
+.default-input, .s-input, .m-input, .default-input-new {
+    font-family: "Microsoft YaHei", "SimSun";
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 3px #ddd;
+    height: 26px;
+    line-height: 23px;
+    padding: 2px 4px;
+    vertical-align: middle;
+}
+
+.default-input {
+    width: 250px;
+}
+
+.default-input-new {
+    width: 180px;
+}
+
+.default-input:focus, .default-input:hover, .texta:focus,
+.default-input-new:focus, .default-input-new:hover {
+    border-color: #038ac8;
+    box-shadow: 0 0 2px #4e91fe;
+}
+
+/*输入查询条件结束*/
+/*查询条件样式开始*/
+.query-condition {
+    margin-top: 10px;
+    border: 1px solid #d3d3d3;
+    margin-bottom: 10px;
+}
+
+.query-condition h2.subTitle {
+    background: #fff repeat-x scroll left bottom;
+    border-bottom: 1px solid #dcdcdc;
+    height: 20px;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.query-condition dl {
+    border-bottom: 1px dotted #d3d3d3;
+    margin: 8px 0 2px;
+    overflow: hidden;
+    padding: 3px 0 8px;
+}
+
+.query-condition dl dt {
+    text-align: right;
+    color: #424242;
+    width: 100px;
+    font-weight: bold;
+    float: left;
+    line-height: 25px;
+    white-space: nowrap;
+}
+
+.query-condition dl dd {
+    line-height: 25px;
+    padding-left: 10px;
+    overflow: hidden;
+}
+
+.query-condition dl dd a {
+    padding: 0 5px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.query-condition .current {
+    background: #00B268;
+    color: #f9f1f2;
+}
+
+.query-condition dl .s-i {
+    width: 150px;
+    height: 24px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+.query-condition dl dd a:hover {
+    background: #00b268;
+    color: #f9f1f2;
+}
+
+.query-condition h5 {
+    border-bottom: 1px dotted #ccc;
+    position: relative;
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 20px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.query-condition h5 span {
+    background-color: #ffffff;
+    position: absolute;
+    left: 40%;
+    width: 220px;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.query-p h2.subTitle {
+    background: #fff repeat-x scroll left bottom;
+    height: 20px;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.query-btn {
+    text-decoration: none;
+    cursor: pointer;
+    color: #444;
+    background: #357ce2;
+    /*filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#429ffe',*/
+    /*endColorStr='#357ce2', gradientType='0');*/
+    background: -moz-linear-gradient(top, #429ffe, #357ce2);
+    background: -o-linear-gradient(top, #429ffe, #357ce2);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#429ffe),
+    to(#357ce2));
+    /*background: gradient(linear, 0 0, 0 100%, from(#429ffe), to(#357ce2));*/
+    border: 1px solid #2766c3;
+    border-radius: 2px;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    font-size: 14px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    width: 87px;
+}
+
+.query-btn:hover {
+    background: #429ffe;
+    /*background: -moz-linear-gradient(center top, #42a8fe, #358be2) repeat*/
+    /*scroll 0 0;*/
+}
+
+/*查询条件样式结束*/
+/*列表数据开始*/
+.mr20 {
+    margin-right: 20px;
+}
+
+.pro-list {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #d2d2d2;
+    padding: 20px 10px 10px 0;
+}
+
+.pro-list img {
+    float: left;
+    margin-right: 20px;
+    border: 1px solid #e7e7e7;
+    padding: 10px;
+}
+
+.sub-c ul li.pro-list {
+    /*padding-bottom: -50px;*/
+    border-bottom: none;
+}
+
+#quest .bd p {
+    width: 455px;
+}
+
+.pro-list .item_cont div {
+    float: left;
+    overflow: hidden;
+}
+
+
+.pro-list .item_cont div.item_info {
+    float: none;
+    overflow: visible;
+    padding-left: 28px;
+}
+
+.pro-list .title {
+    color: #05b;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    padding: 2px 0 5px;
+    position: relative;
+    top: -3px;
+    z-index: 1;
+}
+
+.pro-list .titledate {
+    font-size: 10px;
+    margin-top: -25px;
+    margin-left: 85%;
+    font-weight: bold; /*字体加粗*/
+}
+
+.meta_sep.specs {
+    color: #222;
+    width: 25%;
+    border-left: none;
+    margin-top: 25px;
+}
+
+.meta_sep {
+    /*border-left: 1px solid #f2f2f2;*/
+    float: left;
+    min-height: 75px;
+    overflow: hidden;
+    /*padding-left: 8px;*/
+    position: relative;
+    width: 25%;
+}
+
+
+.meta_sep .money {
+    margin-top: 2px;
+    /*margin-left: 12px;*/
+}
+
+
+.meta_sep .rait {
+    background-position: -116px 2px;
+}
+
+.pro-list div.item_meta {
+    float: none;
+    width: auto;
+    margin-top: 10px;
+}
+
+.item_meta {
+    float: left;
+    width: 876px;
+}
+
+.item_meta .reqs {
+    color: #555;
+    width: 25%;
+    /*padding-left: 18px;*/
+}
+
+.ui-btn-blue {
+    background: #357ce2;
+    /*filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#429ffe',*/
+    /*endColorStr='#357ce2', gradientType='0');*/
+    background: -moz-linear-gradient(top, #429ffe, #357ce2);
+    background: -o-linear-gradient(top, #429ffe, #357ce2);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#429ffe),
+    to(#357ce2));
+    /*background: gradient(linear, 0 0, 0 100%, from(#429ffe), to(#357ce2));*/
+    border: 1px solid #2766c3;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    height: 28px;
+    line-height: 25px;
+    text-align: center;
+    width: 120px;
+}
+
+.ui-btn-blue:active {
+    background: #3178de;
+}
+
+.pro-list .meta_sep p {
+    padding-top: 0;
+}
+
+.moneynum {
+    color: #FF6100;
+    font-size: 16px;
+}
+
+.item_meta .meta_sep.oper {
+    color: #222;
+    width: 25%;
+    border-left: none;
+    margin-top: 2px;
+    /*margin-left: 0px;*/
+}
+/*关注我们与项目约谈样式*/
+.finance-foncus {
+    width: 100px;
+    margin-left: 75px;
+    color: #ffffff;
+    display: inline-block;
+    *display: inline;
+    text-align: center; /*数据内容居中展示*/
+    background-color:#E43C4B;
+    /* border: 1px solid #E43C4B; */
+    /*border-radio: 10px;*/
+    font-size: 16px;
+    border-radius: 10px;
+    height: 25px;
+    vertical-align: middle;
+    line-height: 25px;
+
+}
+.finance-foncus:hover{
+
+    border: 1px solid #D43636;
+    color: #D43636;
+}
+.finance-talk {
+    width: 80px;
+    margin-left: 10px;
+    color: #ffffff;
+    display: inline-block;
+    *display: inline;
+    text-align: center; /*数据内容居中展示*/
+    background-color: #E43C4B;
+    /*border-radio: 10px;*/
+    border-radius: 10px;
+    height: 20px;
+    vertical-align: middle;
+    line-height: 20px;
+}
+.finance-talk:hover{
+    color: #ffffff;
+    background: #D43636;
+
+}
+/*分割线基本设置虚线上下边距*/
+.finance-dashedstyle {
+    border: 1px dashed #ddd;
+    margin-top: -30px;
+}
+/*列表数据结束*/

@@ -1,0 +1,406 @@
+@charset "utf-8";
+/*覆盖top中的相同样式*/
+a {
+    color: #000000;
+}
+
+ul, dl, dd, dt, li, form, h3, h2, h1, form {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 100;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    border: none;
+    vertical-align: top;
+}
+
+a, input, button {
+    outline: medium none;
+}
+
+.hide {
+    display: none;
+}
+
+.clear:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearf {
+    clear: both;
+    overflow: hidden;
+}
+
+/*整体大小开始*/
+.mainwraper {
+    width: 990px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/*整体大小开始*/
+/*当前位置说明等开始*/
+.sub-c > .pro-list {
+    padding: 0 10px 10px 0;
+}
+
+.sub-c ul li.pro-list {
+    /* padding-bottom: 15px; */
+    border-bottom: none;
+}
+
+.sub-c ul li.pro-list h3 {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.sub-c {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    /*border-top: 3px solid #9d192b;*/
+    overflow: hidden;
+    min-height: 350px;
+}
+
+.sub-c h1 {
+    color: #0068b7;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px dotted #ccc;
+}
+
+
+
+/*当前位置说明等结束*/
+/*输入查询条件开始*/
+.GridBox {
+    background: #fff repeat-x scroll left bottom;
+    border: 1px solid #dcdcdc;
+    display: inline-block;
+    overflow: hidden;
+    padding: 10px 0 10px;
+    width: 100%;
+}
+
+.queryTable {
+    color: #575757;
+    border-right: none;
+    empty-cells: show;
+    border-collapse: collapse;
+    clear: both;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.queryTable td {
+    padding: 5px 0;
+    text-align: left;
+}
+
+.queryTable td.title {
+    text-align: right;
+    width: 15%;
+    color: #424242;
+}
+
+.queryTable td.tit {
+    text-align: right;
+    width: 20%;
+    color: #424242;
+}
+
+.queryTable td.title span, .queryTable td.tit span {
+    color: red;
+}
+
+.detail-table tbody tr td input.default-input {
+    width: 230px;
+}
+
+.default-input, .s-input, .m-input, .default-input-new {
+    /* left: 0; */
+    font-family: "Microsoft YaHei", "SimSun";
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 3px #ddd;
+    height: 26px;
+    line-height: 23px;
+    padding: 2px 4px;
+    vertical-align: middle;
+}
+
+.default-input {
+    width: 250px;
+}
+
+.default-input:focus, .default-input:hover, .texta:focus, .default-input-new:focus, .default-input-new:hover {
+    border-color: #038ac8;
+    box-shadow: 0 0 2px #4e91fe;
+}
+
+/*输入查询条件结束*/
+/*点选查询条件开始*/
+.query-condition {
+    margin-top: 10px;
+    border: 1px solid #d3d3d3;
+    margin-bottom: 10px;
+}
+
+.query-condition h2.subTitle {
+    background: #fff repeat-x scroll left bottom;
+    border-bottom: 1px solid #dcdcdc;
+    height: 20px;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.query-condition dl {
+    border-bottom: 1px dotted #d3d3d3;
+    margin: 8px 0 2px;
+    overflow: hidden;
+    padding: 3px 0 8px;
+}
+
+.query-condition dl dt {
+    text-align: right;
+    color: #424242;
+    width: 100px;
+    font-weight: bold;
+    float: left;
+    line-height: 25px;
+    white-space: nowrap;
+}
+
+.query-condition dl dd {
+    line-height: 25px;
+    padding-left: 10px;
+    overflow: hidden;
+}
+
+.query-condition dl dd a {
+    padding: 0 5px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.query-condition dl dd a:hover {
+    background: #00b268;
+    color: #f9f1f2;
+}
+
+.query-condition .current {
+    background: #00B268;
+    color: #f9f1f2;
+}
+
+.query-condition dl .s-i {
+    width: 150px;
+    height: 24px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+.query-condition h5 {
+    border-bottom: 1px dotted #ccc;
+    position: relative;
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 20px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.query-condition h5 span {
+    background-color: #ffffff;
+    position: absolute;
+    left: 40%;
+    width: 220px;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.query-p h2.subTitle {
+    background: #fff repeat-x scroll left bottom;
+    height: 20px;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.query-btn {
+    text-decoration: none;
+    cursor: pointer;
+    color: #444;
+    background: #357ce2;
+    /*filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#429ffe', endColorStr='#357ce2', gradientType='0');*/
+    background: -moz-linear-gradient(top, #429ffe, #357ce2);
+    background: -o-linear-gradient(top, #429ffe, #357ce2);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#429ffe), to(#357ce2));
+    /*background:gradient(linear,0 0,0 100%,from(#429ffe),to(#357ce2));*/
+    border: 1px solid #2766c3;
+    border-radius: 2px;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    font-size: 14px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    width: 87px;
+}
+
+.query-btn:hover {
+    background: #429ffe;
+    /*background: -moz-linear-gradient(center top , #42a8fe, #358be2) repeat scroll 0 0;*/
+}
+
+/*点选查询条件结束*/
+/*列表数据开始*/
+.mr20 {
+    margin-right: 20px;
+}
+
+.melte-tablediv {
+    width: 99.99%;
+    background: #f1fdff;
+    height: 30px;
+    border-width: 1px;
+    border-style: solid;
+    border-left-color: #eedbc2;
+    border-right-color: #eedbc2;
+    border-top-color: #eedbc2;
+    border-bottom-color: #eedbc2;
+}
+
+.melte-tablestyle {
+    margin-top: 10px;
+    display: inline-block;
+    *display: inline;
+    width: 135px;
+    text-align: center; /*数据内容居中展示*/
+    vertical-align: middle;
+    line-height: 15px;
+    font-weight: bold;
+}
+
+.melte-tablestyle-name {
+    margin-top: 10px;
+    display: inline-block;
+    *display: inline;
+    width: 160px;
+    text-align: center; /*数据内容居中展示*/
+    vertical-align: middle;
+    line-height: 15px;
+    font-weight: bold;
+
+}
+
+.melte-tablestyleother {
+    margin-top: 10px;
+    display: inline-block;
+    *display: inline;
+    width: 170px;
+    text-align: center; /*数据内容居中展示*/
+    vertical-align: middle;
+    line-height: 15px;
+    font-weight: bold;
+}
+
+.melte-tablestyledetail {
+    margin-top: 10px;
+    display: inline-block;
+    *display: inline;
+    width: 116px;
+    text-align: center; /*数据内容居中展示*/
+    vertical-align: middle;
+    line-height: 15px;
+    font-weight: bold;
+}
+
+.melte-tablestyledata {
+    margin-top: 12px;
+    margin-left: 5px;
+    display: inline-block;
+    *display: inline;
+    width: 130px;
+    text-align: center; /*数据内容居中展示*/
+    vertical-align: middle;
+    line-height: 15px;
+}
+
+.melte-tablestyledata-name {
+    margin-top: 12px;
+    margin-left: 5px;
+    display: inline-block;
+    *display: inline;
+    width: 160px;
+    text-align: center; /*数据内容居中展示*/
+    vertical-align: middle;
+    line-height: 15px;
+}
+
+.melte-tablestyledataother {
+    margin-top: 12px;
+    margin-left: 3px;
+    display: inline-block;
+    *display: inline;
+    width: 170px;
+    text-align: center; /*数据内容居中展示*/
+    vertical-align: middle;
+    line-height: 15px;
+}
+
+/*详情按钮样式*/
+.melte-tablestyledatadetail {
+    margin-top: 12px;
+    color: #ffffff;
+    margin-left: 36px;
+    display: inline-block;
+    *display: inline;
+    width: 75px;
+    text-align: center; /*数据内容居中展示*/
+    background-color: #E43C4B;
+    color: #FFFFFF;
+    /*border-radio: 10px;*/
+    border-radius: 10px;
+    vertical-align: middle;
+    line-height: 25px;
+}
+
+.melte-tablestyledatadetail:hover {
+    color: #FFFFFF;
+    background: #D43636;
+}
+
+/*列表数据结束*/
+.dashedstyle {
+    border: 1px solid #E4E6EA;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}

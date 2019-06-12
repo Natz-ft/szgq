@@ -1,0 +1,1489 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>信用报告</title>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/style/creditscore/report.css" />
+    <script src="../static/script/jquery-1.9.1.min.js" ></script>
+    <script  src="../static/script/report.js"></script>
+    
+	<style media="print" type="text/css">
+	.noprint
+	{
+		display:none;
+	}
+	
+	</style>
+	
+<script language="javascript">
+	
+
+
+	function printReport(){
+		window.print();
+	}
+
+	var sdqDisplay = true;
+	function changeDisplay(obj){
+		var sjf = document.getElementById("sjf");
+		var djf = document.getElementById("djf");
+		var qjf = document.getElementById("qjf");
+		var zls = document.getElementById("zls");
+		var zld = document.getElementById("zld");
+		var zlq = document.getElementById("zlq");
+		if('隐藏' == obj.value){
+			obj.value='显示';	
+		}else{
+			obj.value='隐藏';
+		}
+		if(sdqDisplay){
+			if(sjf != null)
+				sjf.style.display = "none";
+			if(djf != null)
+				djf.style.display = "none";
+			if(qjf != null)
+				qjf.style.display = "none";
+			if(zls != null)
+				zls.style.display = "none";
+			if(zld != null)
+				zld.style.display = "none";
+			if(zlq != null)
+				zlq.style.display = "none";
+			sdqDisplay = false;
+		}else{
+			if(sjf != null)
+				sjf.style.display = "";
+			if(djf != null)
+				djf.style.display = "";
+			if(qjf != null)
+				qjf.style.display = "";
+			if(zls != null)
+				zls.style.display = "";
+			if(zld != null)
+				zld.style.display = "";
+			if(zlq != null)
+				zlq.style.display = "";
+			sdqDisplay = true;
+		}
+	}
+	var isDisplay = true;
+	function hiddenPatent(obj){
+		var pd = document.getElementById("patentDeadline");
+		var pi = document.getElementById("patentInfo");
+		var zlx = document.getElementById("zlx");
+		if('隐藏' == obj.value){
+			obj.value='显示';	
+		}else{
+			obj.value='隐藏';
+		}
+		if(isDisplay){
+			if(pd != null)
+		       pd.style.display = "none";
+			if(pi != null)
+		       pi.style.display = "none";
+			if(zlx != null)
+			   zlx.style.display = "none";
+		    isDisplay = false;
+		}else{
+			if(pd != null)
+		       pd.style.display = "";
+			if(pi != null)
+		       pi.style.display = "";
+			if(zlx != null)
+			   zlx.style.display = "";
+		    isDisplay = true;
+		}
+	}
+</script>
+  </head>
+  <body >
+	 <image class="noprint" id="printImage"  src="${pageContext.request.contextPath}/static/images/print.png" width="60px" height="60px" style="position:fixed;bottom:60px;right:30px;cursor:pointer" alt="打印" onClick="printReport();"></image>
+<div class="noprint" style="position:relative; margin:0 auto; ">
+	<div style="position:absolute; left:-140px; top:10px;" class="smint">
+    	<img src="${pageContext.request.contextPath}/static/images/link.jpg" border="0" usemap="#Map" />
+    <map name="Map" id="Map">
+  <area shape="rect" coords="2,3,62,41" href="#n1" alt="基本信息" title="基本信息" /><area shape="rect" coords="2,42,58,82" href="#n2" alt="社保公积金缴存信息" title="社保公积金缴存信息" /><area shape="rect" coords="2,84,58,119" href="#n3" alt="经营信息" title="经营信息" /><area shape="rect" coords="2,122,59,162" href="#n4" alt="非银金融机构融资信息" title="非银金融机构融资信息" />
+        <area shape="rect" coords="1,164,59,201" href="#n5" alt="抵质押与查封信息" title="抵质押与查封信息" /><area shape="rect" coords="2,203,57,242" href="#n6" alt="负面信息" title="负面信息" /><area shape="rect" coords="3,244,59,282" href="#n7" alt="其他信息" title="其他信息" /><area shape="rect" coords="3,284,56,323" href="#n8" alt="季度趋势图" title="季度趋势图" /><area shape="rect" coords="4,325,58,363" href="#n9" />
+    </map>
+  </div>
+</div>
+
+<div class="container" id="container">
+	<div class="rt_title"><h1 class="h1_report">企业征信报告</h1></div>
+	<div class="H42"></div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table1">
+		<tr>
+			<th align="left" width="87" nowrap="nowrap">报告编号：</th>
+			<td align="left" width="197" nowrap="nowrap">
+			${reportVo.report_number}
+			</td>
+			<th align="right" width="100" nowrap="nowrap">报告日期：</th>
+			<td align="left" width="180" nowrap="nowrap">
+				${reportVo.curr_time}
+			</td>
+            <th align="right" width="153" nowrap="nowrap">采集授权生效日期：</th>
+			<td  align="left" width="180" nowrap="nowrap">
+				${reportVo.archive_date}
+			</td>
+		</tr>
+		<tr>
+			<th align="left" width="87" nowrap="nowrap">查询人员:</th>
+			<td align="left" width="197" nowrap="nowrap">
+				${reportVo.real_name}
+			</td>
+			<th align="right" width="100" nowrap="nowrap">查询机构：</th>
+			<td align="left" width="180" nowrap="nowrap">
+				${reportVo.department_name}
+			</td>
+            <th align="left" width="153" nowrap="nowrap"></th>
+			<td align="left" width="180" nowrap="nowrap">
+
+			</td>
+
+		</tr>
+	</table>
+	<c:if test="${showFlag != 1}">
+	<h5><a name="n1"></a>一、	基本信息</h5>
+	<h6>1、身份信息</h6>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table2">
+		<tbody>
+		<tr>
+			<th width="19%" align="left" nowrap="nowrap">企业名称</th>
+			<td colspan="3" align="left" nowrap="nowrap">
+				${reportVo.corp_name}
+			</td>
+		</tr>
+		<tr>
+			<th align="left" nowrap="nowrap">企业注册地址</th>
+			<td colspan="3" align="left" nowrap="nowrap">
+				${reportVo.addr_all}
+			</td>
+		</tr>
+		<tr>
+			<th align="left" nowrap="nowrap">机构代码</th>
+			<td id="corp_code" align="left" nowrap="nowrap"> 
+				${reportVo.org_code}
+			</td>
+			<th align="left" nowrap="nowrap">注册资本</th>
+			<td align="left" nowrap="nowrap">
+				${reportVo.regcap}
+			</td>
+		</tr>
+		
+		<tr>
+			<th align="left" nowrap="nowrap">法定代表人姓名</th>
+			<td align="left" nowrap="nowrap">
+				${reportVo.legal_per}
+			</td>
+			<th align="left" nowrap="nowrap">企业联系电话</th>
+			<td align="left" nowrap="nowrap">
+				${reportVo.tel}
+			</td>
+		</tr>
+		
+		<tr>
+			<th align="left" nowrap="nowrap">类型</th>
+			<td align="left" nowrap="nowrap">
+				${reportVo.enttype}
+			</td>
+			<th align="left" nowrap="nowrap">经营状态</th>
+			<td align="left" nowrap="nowrap">
+				${reportVo.entstatus}
+			</td>
+		</tr>
+		
+		
+		<tr>
+			<th align="left" nowrap="nowrap">成立日期</th>
+			<td align="left" nowrap="nowrap">
+				${reportVo.esdate}
+			</td>
+			<th align="left" nowrap="nowrap">营业期限</th>
+			<td align="left" nowrap="nowrap">
+				${reportVo.op}
+			</td>
+		</tr>
+		
+		<tr>
+			<th align="left" nowrap="nowrap">行业分类</th>
+			<td align="left" nowrap="nowrap">
+				${reportVo.industryco}
+			</td>
+			<th align="left" nowrap="nowrap">公司人数</th>
+			<td align="left" nowrap="nowrap">
+				${reportVo.kjsbrs}
+			</td>
+		</tr>
+		<tr>
+			<th width="19%" align="left" nowrap="nowrap">经营范围</th>
+			<td colspan="3" style="wordbreak:break-all" align="left">
+			${reportVo.opscope}
+			</td>
+		</tr>
+	</tbody></table>
+	<div>
+		<p>注：公司人数为企业申报缴纳个人所得税的人数。</p>
+	</div>
+	<h6 class="marT18">2、股东信息 </h6>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+		<tbody><tr>	
+			<th width="35%" align="center" nowrap="nowrap">股东名称</th>
+			<th width="35%" align="center" nowrap="nowrap">股东类型</th>
+			<th width="30%" align="center" nowrap="nowrap">出资额(万)</th>
+		</tr>
+		<c:forEach var="item" items="${reportVo.gdxxlist}">
+		<div class="input_element">
+		<tr>
+				<td align="center" nowrap="nowrap">
+					${item.inv}
+				</td>
+				<td align="center" nowrap="nowrap">
+					${item.invtype}
+				</td>
+				<td align="center" nowrap="nowrap">
+					${item.subconam}
+				</td>
+	    	</tr>
+	    	</div>
+		</c:forEach>
+	</tbody></table>
+	<div>
+		<p>注：股份公司股东信息仅登记设立时的发起人股份。</p>
+	</div>
+	<h6 class="marT18">3、董事、监事、高管信息 </h6>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+		<tbody><tr>
+			<th width="50%" align="center" nowrap="nowrap">职务</th>
+			<th width="50%" align="center" nowrap="nowrap">姓名</th>
+		</tr>
+		<div class="input_element" >
+		<c:forEach var="item" items="${reportVo.ggxxlist}">
+				<tr> 
+					<td align="center" nowrap="nowrap">
+						${item.member_type}
+					</td>
+					<td align="center" nowrap="nowrap">
+						${item.member_name}
+					</td>
+		    	</tr>
+		</c:forEach>
+		</div>
+	</tbody></table>
+	</c:if>
+	<h5><a name="n2"></a>二、	社保公积金缴存信息</h5>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+		<tbody><tr>
+			<th width="20%" align="center" nowrap="nowrap">缴存月份</th>
+			<th width="15%" align="center" nowrap="nowrap">社保人数</th>
+			<th width="25%" align="center" nowrap="nowrap">社保金额</th>
+			<th width="15%" align="center" nowrap="nowrap">公积金人数</th>
+			<th width="25%" align="center" nowrap="nowrap">公积金金额</th>
+		</tr>
+		<c:forEach var="item" items="${reportVo.sbgjjlist}">
+	    <tr>
+			<td nowrap="nowrap" align="center">
+				${item.b_deposit_month}</td>
+			<td nowrap="nowrap" align="center">
+				${item.sbrs}</td>
+			<td nowrap="nowrap" align="center">
+				${item.sbje}</td>
+			<td nowrap="nowrap" align="center">
+				${item.b_person_num}</td>
+			<td nowrap="nowrap" align="center">
+				${item.b_amount}</td>
+		</tr>
+		</c:forEach>
+	</tbody></table>
+	<div>
+		<p>注：公积金覆盖苏州大市；社保覆盖除张家港市、昆山市、常熟市外的大市区县。</p>
+	</div>
+	
+	<h5><a name="n3"></a>三、经营信息</h5>
+	<h6>1、资产负债表主要信息 </h6>
+	<c:choose>
+ <c:when test="${!empty reportVo.szcfzlist}">
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" class="table3">
+		<tbody><tr>
+			<th width="8%" align="center">编号</th>
+			<th width="30%" align="center">项目</th>
+			<th width="15%" align="center">
+				${reportVo.cwzbVo.before_last_year}
+				年
+			</th>
+			<th width="15%" align="center">
+				${reportVo.cwzbVo.last_year}
+				年
+			</th>
+			<c:if test="${12 != reportVo.cwzbVo.g_current_max_month_1 }">
+			<th width="15%" align="center">
+				${reportVo.cwzbVo.last_year}
+				年
+				${reportVo.cwzbVo.g_current_max_month_1}
+				月
+			</th>
+			</c:if>
+			<th width="15%" align="center">
+				${reportVo.cwzbVo.current_year}
+				年
+				${reportVo.cwzbVo.g_current_max_month_1}
+				月
+			</th>
+		</tr>
+		<c:forEach var="item" items="${reportVo.szcfzlist}">
+		<tr>
+			<td align="center">${item.index}</td>
+			<td align="left">${item.cn_name}</td>
+			<td align="right">${item.before_last_qmye}</td>
+			<td align="right">${item.last_qmye}</td>
+			<c:if test="${12 != reportVo.cwzbVo.g_current_max_month_1 }">
+				<td align="right">${item.last_time_qmye}</td>
+			</c:if>
+			<td align="right">${item.current_qmye}</td>
+		</tr>
+		</c:forEach>
+	</tbody></table>
+	<div>
+		<p>注：本表数据为期末时点数。</p>
+	</div> 
+ </c:when>
+ <c:otherwise>
+			<div>
+				<p>系统中不存在该企业近三年的资产负债信息。</p>
+			</div> 
+ </c:otherwise>
+</c:choose>
+	<h6 class="marT18">2、利润表主要信息 </h6>
+	<c:choose>
+ <c:when test="${!empty reportVo.lrlist}">
+			<table width="100%" cellspacing="0" cellpadding="0" border="0" class="table3">
+				<tbody><tr>
+					<th width="8%" align="center">编号</th>
+					<th width="30%" align="center">项目</th>
+					<th width="15%" align="center">
+						${reportVo.cwzbVo.before_last_year}
+						年
+					</th>
+					<th width="15%" align="center">
+						${reportVo.cwzbVo.last_year}
+						年
+					</th>
+					<c:if test="${12 != reportVo.cwzbVo.g_current_max_month_1 }">
+					<th width="15%" align="center">
+						${reportVo.cwzbVo.last_year}
+						年
+						${reportVo.cwzbVo.g_current_max_month_1}
+						月
+					</th>
+					</c:if>
+					<th width="15%" align="center">
+						${reportVo.cwzbVo.current_year}
+						年
+						${reportVo.cwzbVo.g_current_max_month_1}
+						月
+					</th>
+				</tr>
+				<c:forEach var="item" items="${reportVo.lrlist}">
+					<tr>
+						<td align="center">${item.index}</td>
+						<td align="left">${item.cn_name}</td>
+						<td nowrap="nowrap"  align="right">${item.before_last_qmye}</td>
+						<td nowrap="nowrap"  align="right">${item.last_qmye}</td>
+						<c:if test="${12 != reportVo.cwzbVo.g_current_max_month_1 }">
+							<td align="right">${item.last_time_qmye}</td>
+						</c:if>
+						<td nowrap="nowrap"  align="right">${item.current_qmye}</td>
+					</tr>
+				</c:forEach>
+			</tbody></table>
+		</c:when>
+ <c:otherwise>
+			<div>
+				<p>系统中不存在该企业近三年的利润信息。</p>
+			</div> 
+ </c:otherwise>
+</c:choose>
+	<h6 class="marT18">3、主要财务指标信息  </h6>
+	<c:choose>
+ <c:when test="${!empty reportVo.cwzbVo.current_year}">
+			<table width="100%" cellspacing="0" cellpadding="0" border="0" class="table3">
+					<tbody><tr>
+						<th width="8%" align="center">编号</th>
+						<th width="30%" align="center">指标</th>
+						<th width="15%" align="center">
+							${reportVo.cwzbVo.before_last_year}
+							年
+						</th>
+						<th width="15%" align="center">
+							${reportVo.cwzbVo.last_year}
+							年
+						</th>
+						<c:if test="${12 != reportVo.cwzbVo.g_current_max_month_1 }">
+						<th width="15%" align="center">
+							${reportVo.cwzbVo.last_year}
+							年
+							${reportVo.cwzbVo.g_current_max_month_1}
+							月
+						</th>
+						</c:if>
+						<th width="15%" align="center">
+							${reportVo.cwzbVo.current_year}
+							年
+							${reportVo.cwzbVo.g_current_max_month_1}
+							月
+						</th>
+					</tr>
+					<c:forEach var="item" items="${reportVo.cwzbVo.cwzbvo}">
+						<tr>
+							<td align="center">${item.indexnum}</td>
+							<td align="left">${item.zbStr}</td>
+							<td nowrap="nowrap"  align="right">${item.beforelastyear}</td>
+							<td nowrap="nowrap"  align="right">${item.lastyear}</td>
+							<c:if test="${12 != reportVo.cwzbVo.g_current_max_month_1 }">
+								<td align="right">${item.lastyearcurmonth}</td>
+							</c:if>
+							<td nowrap="nowrap"  align="right">${item.curyear}</td>
+						</tr>
+					</c:forEach>
+				</tbody></table>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业近三年的主要财务指标信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6 class="marT18">4、纳税信息 </h6>
+	<c:choose>
+ <c:when test="${!empty reportVo.nsxxVo.nsvo}">
+			<table width="100%" cellspacing="0" cellpadding="0" border="0" class="table3">
+				<tbody><tr>
+					<th width="16%" nowrap="nowrap" align="center">税种</th>
+					<th width="21%" nowrap="nowrap" align="center">
+						${reportVo.nsxxVo.before_last_year}
+						年
+					</th>
+					<th width="21%" nowrap="nowrap" align="center">
+						${reportVo.nsxxVo.last_year}
+						年
+					</th>
+					<th width="21%" nowrap="nowrap" align="center">
+						${reportVo.nsxxVo.current_year}
+						年
+					</th>
+					<th width="21%" nowrap="nowrap" align="center">当年所属日期</th>
+					
+				</tr>
+				<c:forEach var="item" items='${reportVo.nsxxVo.nsvo}'>
+						<tr>
+							<td align="center">${item.shuiz}</td>
+							<td align="center">${item.beforelastyear}</td>
+							<td nowrap="nowrap"  align="center">${item.lastyear}</td>
+							<td nowrap="nowrap"  align="center">${item.curyear}</td>
+							<td nowrap="nowrap"  align="center">${item.max_month}</td>
+						</tr>
+				</c:forEach>
+			</tbody></table>
+			<div>
+				<p>注：日期为税款所属期。</p>
+			</div>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业近三年的纳税信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>5、海关进出口额信息<span class="floatR">币种：美元</span></h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.hgjckxxVo.hgjck}'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+				<tbody><tr>
+					<th width="33%" align="center" nowrap="nowrap">业务类型</th>
+					<th width="21%" nowrap="nowrap" align="center">
+						${reportVo.hgjckxxVo.before_last_year}
+						年
+					</th>
+					<th width="21%" nowrap="nowrap" align="center">
+						${reportVo.hgjckxxVo.last_year}
+						年
+					</th>
+					<th width="21%" nowrap="nowrap" align="center">
+						${reportVo.hgjckxxVo.current_year}
+						年1-
+						${reportVo.hgjckxxVo.g_current_max_month_1}
+						月
+					</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.hgjckxxVo.hgjck}'>
+					<tr>
+						<td nowrap="nowrap"  align="center">${item.typeStr}</td>
+						<td nowrap="nowrap"  align="center">${item.beforelastyear}</td>
+						<td nowrap="nowrap"  align="center">${item.lastyear}</td>
+						<td nowrap="nowrap"  align="center">${item.curyear}</td>
+					</tr>
+				</c:forEach>
+			</tbody></table>
+			    <div class="text_btm">
+					<p class="date">信息更新日期：${reportVo.time_hg_create_time} </p>
+					<div class="clear"></div>
+				</div>
+			</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业近三年的海关进出口信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6 class="marT18">6、水缴费信息<span class="floatR"><input type="button" value="隐藏" onclick="changeDisplay(this)" style="margin:1px 5px 1px 5px; padding:2px 10px 2px 10px;"/></span></h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.sdqxxVo.svo}'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3"  id="sjf">
+				<tbody><tr>
+					<th width="10%" align="center" nowrap="nowrap">类别</th>
+					<th width="15%" align="center" nowrap="nowrap">户号</th>
+					<th width="15%" nowrap="nowrap" align="center">
+						${reportVo.sdqxxVo.before_last_year}
+						年
+					</th>
+					<th width="15%" nowrap="nowrap" align="center">
+						${reportVo.sdqxxVo.last_year}
+						年
+					</th>
+					<th width="15%" nowrap="nowrap" align="center">
+						${reportVo.sdqxxVo.current_year}
+						年
+					</th>
+					<th width="15%" align="center" nowrap="nowrap">当年所属日期</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.sdqxxVo.svo}'>
+					<tr>
+						<td nowrap="nowrap"  align="center">${item.typeStr}<c:if test='${item.isShare ==1 }'><span style="color:Red"><B>&nbsp;*</B></span></c:if></td>
+						<td nowrap="nowrap"  align="center">${item.zhhStr}</td>
+						<td nowrap="nowrap"  align="center">${item.beforelastyear}</td>
+						<td nowrap="nowrap"  align="center">${item.lastyear}</td>
+						<td nowrap="nowrap"  align="center">${item.curyear}</td>
+						<td nowrap="nowrap"  align="center">${item.max_month}</td>
+					</tr>
+				</c:forEach>
+			</tbody></table>
+			<div id = "zls">
+				<p>注：*表示户号有租赁关系。</p>
+			</div>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业的水信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+
+	<h6 class="marT18">7、电缴费信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.sdqxxVo.dvo}'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3" id="djf">
+				<tbody><tr>
+					<th width="10%" align="center" nowrap="nowrap">类别</th>
+					<th width="15%" align="center" nowrap="nowrap">户号</th>
+					<th width="15%" nowrap="nowrap" align="center">
+						${reportVo.sdqxxVo.before_last_year}
+						年
+					</th>
+					<th width="15%" nowrap="nowrap" align="center">
+						${reportVo.sdqxxVo.last_year}
+						年
+					</th>
+					<th width="15%" nowrap="nowrap" align="center">
+						${reportVo.sdqxxVo.current_year}
+						年
+					</th>
+					<th width="15%" align="center" nowrap="nowrap">当年所属日期</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.sdqxxVo.dvo}'>
+					<tr>
+						<td nowrap="nowrap"  align="center">${item.typeStr}<c:if test='${item.isShare ==1 }'><span style="color:Red"><B>&nbsp;*</B></span></c:if></td>
+						<td nowrap="nowrap"  align="center">${item.zhhStr}</td>
+						<td nowrap="nowrap"  align="center">${item.beforelastyear}</td>
+						<td nowrap="nowrap"  align="center">${item.lastyear}</td>
+						<td nowrap="nowrap"  align="center">${item.curyear}</td>
+						<td nowrap="nowrap"  align="center">${item.max_month}</td>
+					</tr>
+				</c:forEach>
+			</tbody></table>
+			<div id="zld">
+				<p>注：*表示户号有租赁关系。</p>
+			</div>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业的电信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6 class="marT18">8、气缴费信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.sdqxxVo.qvo}'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3" id="qjf">
+				<tbody><tr>
+					<th width="10%" align="center" nowrap="nowrap">类别</th>
+					<th width="15%" align="center" nowrap="nowrap">户号</th>
+					<th width="15%" nowrap="nowrap" align="center">
+						${reportVo.sdqxxVo.before_last_year}
+						年
+					</th>
+					<th width="15%" nowrap="nowrap" align="center">
+						${reportVo.sdqxxVo.last_year}
+						年
+					</th>
+					<th width="15%" nowrap="nowrap" align="center">
+						${reportVo.sdqxxVo.current_year}
+						年
+					</th>
+					<th width="15%" align="center" nowrap="nowrap">当年所属日期</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.sdqxxVo.qvo}'>
+					<tr>
+						<td nowrap="nowrap"  align="center">${item.typeStr}<c:if test="${item.isShare ==1 }"><span style="color:Red"><B>&nbsp;*</B></span></c:if></td>
+						<td nowrap="nowrap"  align="center">${item.zhhStr}</td>
+						<td nowrap="nowrap"  align="center">${item.beforelastyear}</td>
+						<td nowrap="nowrap"  align="center">${item.lastyear}</td>
+						<td nowrap="nowrap"  align="center">${item.curyear}</td>
+						<td nowrap="nowrap"  align="center">${item.max_month}</td>
+					</tr>
+				</c:forEach>
+			</tbody></table>
+			<div id = "zlq">
+				<p>注：*表示户号有租赁关系。</p>
+			</div>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业的气信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+
+	<h5><a name="n4"></a>四、金融机构融资信息</h5>
+	<h6>1、未结清信贷信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.wjqxdlist}'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+				<tbody><tr>
+					<th width="16%" align="center" nowrap="nowrap">金融机构名称</th>
+					<th width="16%" align="center" nowrap="nowrap">贷款余额</th>
+					<th width="4%" align="center" nowrap="nowrap">币种</th> 
+					<th width="16%" align="center" nowrap="nowrap">放款日期</th>
+					<th width="16%" align="center">到期日期</th>
+					<th width="16%" align="center">担保方式</th>
+					<th width="16%" align="center" nowrap="nowrap">五级分类</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.wjqxdlist}'>
+			    <tr>
+					<td align="center">
+						${item.finance_no}</td>
+					<td align="center">
+						${item.loan_num_balance}</td>
+					<td align="center" nowrap="nowrap">
+						${item.currency}</td>
+					<td align="center" nowrap="nowrap">
+						${item.loan_date_send}</td>
+					<td align="center" nowrap="nowrap">
+						${item.loan_date_expire}</td>
+					<td align="left" nowrap="nowrap">
+						${item.guarantee_type}</td>
+					<td align="left" nowrap="nowrap">
+						${item.five_category}</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+
+		<div class="text_btm">
+		<p class="note">注：担保公司名称、贷款银行名称以"*"显示，担保责任解除日期为合同约定的解除日期。。</p>
+		<p class="date">信息更新日期： ${reportVo.time_rzdb_create_time}</p>
+		<div class="clear"></div>
+		</div>
+	</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业未结清信贷信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>2、贴现信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.txlist}'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+				<tbody><tr>
+					<th width="16%" align="center" nowrap="nowrap">贴现金融机构名称</th>
+					<th width="16%" align="center" nowrap="nowrap">票面金额</th>
+					<th width="5%" align="center" nowrap="nowrap">币种</th> 
+					<th width="21%" align="center" nowrap="nowrap">贴现日期</th>
+					<th width="21%" align="center">到期日期</th>
+					<th width="21%" align="center" nowrap="nowrap">五级分类</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.txlist}'>
+			    <tr>
+					<td align="center">
+						${item.finance_no}</td>
+					<td align="center">
+						${item.loan_num_balance}</td>
+					<td align="center" nowrap="nowrap">
+						${item.currency}</td>
+					<td align="center" nowrap="nowrap">
+						${item.loan_date_send}</td>
+					<td align="center" nowrap="nowrap">
+						${item.loan_date_expire}</td>
+					<td align="left" nowrap="nowrap">
+						${item.five_category}</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+
+		<div class="text_btm">
+		<p class="note">注：担保公司名称、贷款银行名称以"*"显示，担保责任解除日期为合同约定的解除日期。</p>
+		<p class="date">信息更新日期： ${reportVo.time_rzdb_create_time}</p>
+		<div class="clear"></div>
+		</div>
+	</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业上个月份的贴现信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>3、未结清小额贷款信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.wjqxelist}'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+				<tbody><tr>
+					<th width="20%" align="center" nowrap="nowrap">小贷公司名称</th>
+					<th width="15%" align="center" nowrap="nowrap">金额</th>
+					<th width="15%" align="center" nowrap="nowrap">放款日期</th>
+					<th width="15%" align="center" nowrap="nowrap">到期日期</th>
+					<th width="35%" align="center" nowrap="nowrap">担保措施</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.wjqxelist}'>
+			    <tr>
+					<td align="center" nowrap="nowrap">
+						${item.mc_bank_name}</td>
+					<td align="center" nowrap="nowrap">
+						${item.mc_os_prcp}</td>
+					<td align="center" nowrap="nowrap">
+						${item.mc_actv_dt}</td>
+					<td align="center" nowrap="nowrap">
+						${item.mc_last_due_dt}</td>
+					<td align="left" nowrap="nowrap">
+						${item.mc_main_gur_typ}</td>
+				</tr>
+				</c:forEach>
+				
+			</tbody></table>
+		    <div class="text_btm">
+			<p class="note">注：小贷公司名称以"*"显示。</p>
+			<p class="date">信息更新日期： ${reportVo.time_xedk_create_time}</p>
+			<div class="clear"></div>
+			</div>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业的未结清小额贷款信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>4、未解保的融资担保信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.wjbrzlist}'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+				<tbody><tr>
+					<th width="16%" align="center" nowrap="nowrap">担保公司名称</th>
+					<th width="16%" align="center" nowrap="nowrap">贷款银行名称</th>
+					<!-- <th width="5%" align="center" nowrap="nowrap">币种</th> -->
+					<th width="21%" align="center" nowrap="nowrap">担保金额<br/>(万元)</th>
+					<th width="21%" align="center">担保责任<br/>
+						发生日期</th>
+					<th width="21%" align="center">
+						<p align="center">担保责任<br/>
+							解除日期 
+					</p></th>
+					<th width="21%" align="center" nowrap="nowrap">反担保措施</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.wjbrzlist}'>
+			    <tr>
+		
+					<td align="center">
+						${item.t_assure_corp_name}</td>
+					<td align="center">
+						${item.t_bank_name}</td>
+					<td align="center" nowrap="nowrap">
+						${item.t_assure_prcp}</td>
+					<td align="center" nowrap="nowrap">
+						${item.t_actv_dt}</td>
+					<td align="center" nowrap="nowrap">
+						${item.t_last_due_dt}</td>
+					<td align="left" nowrap="nowrap">
+						${item.t_unassure_type}</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+
+		<div class="text_btm">
+		<p class="note">注：担保公司名称、贷款银行名称以"*"显示，担保责任解除日期为合同约定的解除日期。。</p>
+		<p class="date">信息更新日期： ${reportVo.time_rzdb_create_time}</p>
+		<div class="clear"></div>
+		</div>
+	</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业未解保的融资担保信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+<c:if test="${showFlag == 3}">
+	<h5><a name="n5"></a>五、抵押与查封信息</h5>
+	<div style="text-align:center">
+		<p>(注：不动产登记改革进行中，以下内容仅供参考。)</p>
+	</div>
+	<h6>1、抵押登记信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.fcdylist}'>
+			<c:forEach var="item" items='${reportVo.fcdylist}'>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+					<tbody><tr>
+						<th align="center">类别</th>
+						<th colspan="3" align="center">座落</th>
+						<th colspan="3" align="center">他项权证号</th>
+					</tr>
+					<tr>
+						<td align="center">
+							${item.type}
+						</td>
+						<td colspan="3" align="center">
+							${item.zl}
+						</td>
+						<td colspan="3" align="center">
+							${item.certnum}
+						</td>
+					</tr>
+					<tr>
+						<th align="center" nowrap="nowrap">抵押权人</th>
+						<th align="center" nowrap="nowrap" width="5%">币种</th>
+						<th align="center" nowrap="nowrap" width="16%">债权金额（万元）</th>
+						<th align="center" nowrap="nowrap" width="16%">债权起始日期</th>
+						<th align="center" nowrap="nowrap" width="16%">债权截止日期</th>
+						<th align="center" nowrap="nowrap" width="16%">土地面积（㎡）</th>
+						<th align="center" nowrap="nowrap" width="16%">房产面积（㎡）</th>
+					</tr>
+					<tr>
+						<!-- <td align="center"> </td>-->
+						<td align="center">
+							${item.dyzqr}
+						</td>
+						<td align="center">
+							${item.bz}
+						</td>
+						<td align="center">
+							${item.amount}
+						</td>
+						<td align="center">
+							${item.startdate}
+						</td>
+						<td align="center">
+							${item.enddate}
+						</td>
+						<td align="center">
+							${item.landarea}
+						</td>
+						<td align="center">
+							${item.area}
+						</td>
+					</tr>
+				</tbody></table>
+			</c:forEach>
+		    <div class="text_btm">
+				<p class="note">注：只显示未注销抵押信息，仅覆盖姑苏区。</p>
+				<p class="date">信息更新日期：${reportVo.time_fdc_create_time}</p>
+			<div class="clear"></div>
+			</div>
+	</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业的房产抵押登记信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>2、查封信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.fccflist}'>
+			<c:forEach var="item" items='${reportVo.fccflist}'>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+					<tbody><tr>
+						<th align="center">类别</th>
+						<th colspan="2" align="center">座落</th>
+						<th colspan="3" align="center">证号</th>
+					</tr>
+					<tr>
+						<td align="center">
+							${item.type}
+						</td>
+						<td align="center">
+							${item.zl}
+						</td>
+						<td colspan="5" align="center">
+							${item.certnum}
+						</td>
+					</tr>
+					<tr>
+						<th align="center" nowrap="nowrap">查封单位</th>
+						<th align="center" nowrap="nowrap" width="10%">查封文件号</th>
+						<th align="center" nowrap="nowrap" width="20%">查封开始日期</th>
+						<th align="center" nowrap="nowrap" width="20%">查封结束日期</th>
+						<th align="center" nowrap="nowrap" width="20%">土地面积（㎡）</th>
+						<th align="center" nowrap="nowrap" width="20%">房产面积（㎡）</th>
+					</tr>
+					<tr>
+						<td align="center">
+							${item.cfdw}
+						</td>
+						<td align="center">
+							${item.cfnum}
+						</td>
+						<td align="center">
+							${item.startdate}
+						</td>
+						<td align="center">
+							${item.enddate}
+						</td>
+						<td align="center">
+							${item.landarea}
+						</td>
+						<td align="center">
+							${item.area}
+						</td>
+					</tr>
+				</tbody></table>
+			</c:forEach>
+		    <div class="text_btm">
+				<p class="note">注：只显示未撤销查封信息，覆盖姑苏区、高新区、吴中区、相城区、太仓市。</p>
+				<p class="date">信息更新日期：${reportVo.time_tddy_create_time}</p>
+			<div class="clear"></div>
+			</div>
+	</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业的土地查封登记信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	</c:if>
+<c:if test="${showFlag == 3}">
+	<h5><a name="n6"></a>六、涉诉信息</h5>
+	<h6>1、立案信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.laxxlist}'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+				<tr>
+					<th width="10%" align="center" nowrap="nowrap">立案号</th>
+					<th width="15%" align="center" nowrap="nowrap">案件案由</th>
+					<th width="15%" align="center" nowrap="nowrap">立案日期</th>
+					<th width="15%" align="center" nowrap="nowrap">当事人诉讼地位</th>
+					<th width="15%" align="center" nowrap="nowrap">案件类型</th>
+					<th width="15%" align="center" nowrap="nowrap">立案标的</th>
+					<th width="15%" align="center" nowrap="nowrap">案件状态</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.laxxlist}'>
+			    <tr>
+					<td align="center">
+						${item.laxx_case_no}</td>
+					<td align="left">
+						${item.laxx_case_reson}</td>
+					<td align="center">
+						${item.laxx_case_create_date}</td>
+					<td align="center">
+						${item.laxx_case_person_state}</td>
+					<td align="center">
+						${item.laxx_case_type}</td>
+					<td align="center">
+						${item.laxx_case_create_amount}</td>
+					<td align="center">
+						${item.laxx_case_status}</td>		
+				</tr>
+				</c:forEach>
+			</table>
+	</c:when>
+	 <c:otherwise>
+				<div>
+					<p>最近5个年度该企业无立案信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>2、结案信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.jaxxlist}'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+				<tr>
+					<th width="10%" align="center" nowrap="nowrap">案号</th>
+					<th width="15%" align="center" nowrap="nowrap">案件案由</th>
+					<th width="15%" align="center" nowrap="nowrap">结案日期</th>
+					<th width="15%" align="center" nowrap="nowrap">当事人诉讼地位</th>
+					<th width="15%" align="center" nowrap="nowrap">案件类型</th>
+					<th width="15%" align="center" nowrap="nowrap">结案标的</th>
+					<th width="15%" align="center" nowrap="nowrap">结案方式</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.jaxxlist}'>
+			    <tr>
+					<td align="center">
+						${item.jaxx_case_no}</td>
+					<td align="left">
+						${item.jaxx_case_reson}</td>
+					<td align="center">
+						${item.jaxx_case_end_date}</td>
+					<td align="center">
+						${item.jaxx_case_person_state}</td>
+					<td align="center">
+						${item.jaxx_case_type}</td>
+					<td align="center">
+						${item.jaxx_case_end_amount}</td>
+					<td align="center">
+						${item.jaxx_case_end_type}</td>		
+				</tr>
+				</c:forEach>
+			</table>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>最近5个年度该企业无结案信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>3、失信被执行人信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.sxbzxrlist}'>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table3">
+				<tr>
+					<th width="20%" align="center" nowrap="nowrap">执行案号</th>
+					<th width="25%" align="center" nowrap="nowrap">执行法院</th>
+					<th width="25%" align="center" nowrap="nowrap">发布日期</th>
+					<th width="25%" align="center" nowrap="nowrap">失信行为</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.sxbzxrlist}'>
+			    <tr>
+					<td align="center">
+						${item.sxzx_case_exe_no}</td>
+					<td align="left">
+						${item.sxzx_case_courthouse}</td>
+					<td align="center">
+						${item.sxzx_publish_date}</td>
+					<td align="center">
+						${item.sxzx_discreditable_state}</td>	
+				</tr>
+				</c:forEach>
+			</table>
+	</c:when>
+	 <c:otherwise>
+				<div>
+					<p>最近5个年度该企业无失信被执行人信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	</c:if>
+	<c:if test="${showFlag == 3}">
+	<h5><a name="n7"></a>七、负面信息</h5>
+	<h6>1、欠缴/逾期信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.qjyqlist}'>
+			<table class="table3" border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tbody><tr>
+					<th align="center" nowrap="nowrap" width="21%">欠缴/逾期类型</th>
+					<th align="center" nowrap="nowrap" width="34%">欠缴/逾期金额</th>
+					<th align="center" nowrap="nowrap" width="25%">欠缴/逾期截止日期</th>
+					<th align="center" nowrap="nowrap" width="20%">采集截止日期</th>
+				</tr>
+				
+				<c:forEach var="item" items='${reportVo.qjyqlist}'>
+			    <tr>
+					<td align="center">
+						${item.h_source}</td>
+					<td align="center">
+						${item.h_yqje}</td>
+					<td align="center">
+						${item.h_yqsj}</td>
+					<td align="center">
+						${item.h_create_time}</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+			<div class="text_btm">
+					<p class="note">注：欠缴/逾期类型主要包括国地税、社保、公积金等部门的信息；其中社保覆盖除张家港市、昆山市、常熟市外的大市区县;除市公积金的“欠缴/逾期截至日期”指开始欠缴/逾期的时间外，其他部门的“欠缴/逾期截至日期”均指截至欠缴/逾期的时间。</p>
+					<div class="clear"></div>
+			</div>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>最近5个年度该企业无欠缴/逾期信息。</p>
+					<p>注：欠缴/逾期类型主要包括国地税、社保、公积金等部门的信息；其中社保覆盖除张家港市、昆山市、常熟市外的大市区县;除市公积金的“欠缴/逾期截至日期”指开始欠缴/逾期的时间外，其他部门的“欠缴/逾期截至日期”均指截至欠缴/逾期的时间。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>2、处罚信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.cfxxlist}'>
+			<table class="table3" border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tbody><tr>
+					<th align="center" nowrap="nowrap" width="">处罚部门</th>
+					<th align="center" nowrap="nowrap" width="">处罚决定书号</th>
+					<th align="center" nowrap="nowrap" width="">处罚日期</th>
+					<th align="center" nowrap="nowrap" width="">违法行为</th>
+					<th align="center" nowrap="nowrap" width="">违法行为所属期间</th>
+					<th align="center" nowrap="nowrap" width="">处罚内容</th>
+					<th align="center" nowrap="nowrap" width="">采集截止日期</th>
+				</tr>
+				
+				<c:forEach var="item" items='${reportVo.cfxxlist}'>
+			    <tr>
+					<td align="left">
+						${item.i_pun_type}</td>
+					<td align="center">
+						${item.i_pun_deci}</td>
+					<td align="center">
+						${item.i_pun_time}</td>
+					<td align="left">
+						${item.i_illegal_act}</td>
+					<td align="center">
+						${item.i_skssqsr}</td>
+					<td align="left">
+						${item.i_pun_content}</td>
+					<td align="center">
+						${item.i_create_time}</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+			<div class="text_btm">
+					<p class="note">注：处罚信息主要包括税务、社保、环保、安监、市场监督（食药监）、国土、住建等部门的信息。</p>
+					<div class="clear"></div>
+			</div>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>最近5个年度该企业无处罚信息。</p>
+					<p>注：处罚信息主要包括税务、社保、环保、安监、市场监督（食药监）、国土、住建等部门的信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>3、安全生产挂牌督办未完成整改的信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.aqscwwclist}'>
+			<table class="table3" border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tbody><tr>
+					<th align="center" nowrap="nowrap" width="">督办级别</th>
+					<th align="center" nowrap="nowrap" width="">隐患类别</th>
+					<th align="center" nowrap="nowrap" width="">挂牌日期</th>
+					<th align="center" nowrap="nowrap" width="">整改期限</th>
+					<th align="center" nowrap="nowrap" width="">跟踪督办部门</th>
+				</tr>
+				
+				<c:forEach var="item" items='${reportVo.aqscwwclist}'>
+			    <tr>
+					<td align="left">
+						${item.gpdb_duty_level}</td>
+					<td align="center">
+						${item.gpdb_problem_type}</td>
+					<td align="center">
+						${item.gpdb_start_date}</td>
+					<td align="left">
+						${item.gpdb_expire_date}</td>
+					<td align="center">
+						${item.gpdb_flow_org}</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+			<div class="text_btm">
+					<p class="note">注：安全生产挂牌督办覆盖高新区、吴中区、相城区、吴江区、太仓市及苏州市局职能范围等部门的信息。</p>
+					<div class="clear"></div>
+			</div>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业安全生产挂牌督办未完成整改的信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>4、税务部门非正常户认定信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.swfzclist}'>
+			<table class="table3" border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tbody><tr>
+					<th align="center" nowrap="nowrap" width="43%">认定部门</th>
+					<th align="center" nowrap="nowrap" width="29%">认定日期</th>
+					<th align="center" nowrap="nowrap" width="28%">采集截止日期</th>
+				</tr>
+				
+				<c:forEach var="item" items='${reportVo.swfzclist}'>
+			    <tr>
+					<td align="left">
+						${item.m_rdbm}</td>
+					<td align="center">
+						${item.m_fzchrdsj}</td>
+					<td align="center">
+						${item.m_create_time}</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>该企业未被税务部门认定为非正常户。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>5、海关失信企业</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.qhgsxqylist}'>
+			<table class="table3" border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tbody><tr>
+					<th align="center" nowrap="nowrap" width="50%">认定类型</th>
+					<th align="center" nowrap="nowrap" width="50%">采集截止日期</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.qhgsxqylist}'>
+			    <tr>
+					<td align="center">
+						${item.z_leib}</td>
+					<td align="center">
+						${item.z_create_time}</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>该企业未被认定为失信企业。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>6、环保负面评价</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.hbfmlist}'>
+			<table class="table3" border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tbody><tr>
+					<th align="center" nowrap="nowrap" width="20%">评价机构</th>
+					<th align="center" nowrap="nowrap" width="20%">评价内容</th>
+					<th align="center" nowrap="nowrap" width="20%">评价结果</th>
+					<th align="center" nowrap="nowrap" width="20%">评价日期</th>
+					<th align="center" nowrap="nowrap" width="20%">信息更新日期</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.hbfmlist}'>
+			    <tr>
+					<td align="center">
+						${item.k2_evaluate_organ}</td>
+					<td align="left">
+						${item.k2_evaluate_content}</td>
+					<td align="left">
+						${item.k2_evaluate_grade}</td>
+					<td align="center">
+						${item.k2_award_date}</td>
+					<td align="center">
+						${item.k2_create_time}</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业的环保负面评价信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>7、产品抽检信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.cpcjlist}'>
+			<table class="table3" border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tbody><tr>
+					<th align="center" nowrap="nowrap" width="20%">认定部门</th>
+					<th align="center" nowrap="nowrap" width="10%">检查时间</th>
+					<th align="center" nowrap="nowrap" width="20%">产品名称</th>
+					<th align="center" nowrap="nowrap" width="10%">商标</th>
+					<th align="center" nowrap="nowrap" width="20%">不合格项目</th>
+					<th align="center" nowrap="nowrap" width="20%">检查结论</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.cpcjlist}'>
+			    <tr>
+					<td align="center">
+						${item.a2_cjjg}</td>
+					<td align="left">
+						${item.a2_ccsj}</td>
+					<td align="left">
+						${item.a2_cpmc}</td>
+					<td align="center">
+						${item.a2_shangb}</td>
+					<td align="center">
+						${item.a2_bhgxm}</td>
+					<td align="center">
+						${item.a2_jyjl}</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业的产品抽检信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6>8、其他负面信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.qtfmlist}'>
+			<table class="table3" border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tbody><tr>
+					<th align="center" nowrap="nowrap" width="20%">评价机构</th>
+					<th align="center" nowrap="nowrap" width="20%">评价内容</th>
+					<th align="center" nowrap="nowrap" width="20%">评价结果</th>
+					<th align="center" nowrap="nowrap" width="20%">评价日期</th>
+					<th align="center" nowrap="nowrap" width="20%">信息更新日期</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.qtfmlist}'>
+			    <tr>
+					<td align="center">
+						${item.k3_evaluate_organ}</td>
+					<td align="left">
+						${item.k3_evaluate_content}</td>
+					<td align="left">
+						${item.k3_evaluate_grade}</td>
+					<td align="center">
+						${item.k3_award_date}</td>
+					<td align="center">
+						${item.k3_create_time}</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+		</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业的其他负面信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	</c:if>
+	<h5><a name="n8"></a>八、资质认证信息</h5>
+	<h6 class="marT18">1、专利信息
+        <span class="floatR">
+        	<input type="button" onclick="hiddenPatent(this)" value="隐藏" style="margin:1px 5px 1px 5px; padding:2px 10px 2px 10px;"/>
+        </span>
+    </h6>
+    <c:choose>
+ <c:when test='${!empty reportVo.zllist}'>
+			<table id="patentInfo" style="width:100%;display:ture" class="table3" border="0" cellpadding="0" cellspacing="0">
+				<tbody><tr>
+					<th align="center" nowrap="nowrap" width="16%">专利类型</th>
+					<th align="center" nowrap="nowrap" width="17%">专利证书号</th>
+					<th align="center" nowrap="nowrap" width="53%">专利名称</th>
+					<th align="center" nowrap="nowrap" width="14%">授权公告日</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.zllist}'>
+			    <tr>
+					<td align="center" nowrap="nowrap">
+						${item.pat_type}</td>
+					<td align="center" nowrap="nowrap">
+						${item.pat_cert_no}</td>
+					<td style="wordbreak:break-all" align="left">
+						${item.name}</td>
+					<td align="center" nowrap="nowrap">
+						${item.pat_date}</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+		    <div class="text_btm" id="patentDeadline" >
+				<p class="date">信息更新日期：${reportVo.time_zl_create_time}</p>
+				<div class="clear"></div>
+			</div>
+	</c:when>
+	 <c:otherwise>
+				<div id = "zlx">
+					<p>最近5个年度该企业无专利信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h6 class="marT18">2、评价信息</h6>
+	<c:choose>
+ <c:when test='${!empty reportVo.pjlist}'>
+			<table class="table3" border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tbody><tr>
+					<th align="center" nowrap="nowrap" width="">评价机构</th>
+					<th align="center" nowrap="nowrap" width="">评价内容</th>
+					<th align="center" nowrap="nowrap" width="">评价等级</th>
+					<th align="center" nowrap="nowrap" width="">文号</th>
+					<th align="center" nowrap="nowrap" width="">评价日期</th>
+					<th align="center" nowrap="nowrap" width="">采集截止日期</th>
+				</tr>
+				<c:forEach var="item" items='${reportVo.pjlist}'>
+			    <tr>
+					<td align="left">
+						${item.evaluate_organ}
+					</td>
+					<td align="left">
+						${item.evaluate_content}
+					</td>
+					<td align="center" nowrap="nowrap">
+						${item.evaluate_grade}
+					</td>
+					<td align="center" nowrap="nowrap">
+						${item.file_no}
+					</td>
+					<td align="center" nowrap="nowrap">
+						${item.award_date}
+					</td>
+					<td align="center" nowrap="nowrap">
+						${item.create_time}
+					</td>
+				</tr>
+				</c:forEach>
+			</tbody></table>
+	</c:when>
+	 <c:otherwise>
+				<div>
+					<p>系统中不存在该企业的评价信息。</p>
+				</div> 
+	 </c:otherwise>
+	</c:choose>
+	<h5><a name="n9"></a>附：季度趋势图</h5>
+	    <input type="hidden"  value='${reportVo.data_yysr_cate}' id="yysrcate"/>
+		<input type="hidden"  value='${reportVo.data_yysr_sery}' id="yysrsery"/>
+		<input type="hidden"  value='${reportVo.data_jlr_cate}' id="jlrcate"/>
+		<input type="hidden"  value='${reportVo.data_jlr_sery}' id="jlrsery"/>
+		<input type="hidden"  value='${reportVo.data_zz_ye_cate}' id="zzyecate"/>
+		<input type="hidden"  value='${reportVo.data_zz_ye_sery}' id="zzyesery"/>
+		<input type="hidden"  value='${reportVo.data_gsrs_cate}' id="gsrscate"/>
+		<input type="hidden"  value='${reportVo.data_gsrs_sery}' id="gsrssery"/>
+		<input type="hidden"  value='${reportVo.data_df_cate}' id="dfcate"/>
+		<input type="hidden"  value='${reportVo.data_df_sery}' id="dfsery"/>
+		<input type="hidden"  value='${reportVo.data_xdrzye_cate}' id="xdrzyecate"/>
+		<input type="hidden"  value='${reportVo.data_xdrzye_sery}' id="xdrzyesery"/>
+		
+    <div class="report_chart">
+    	<div class="rep_chat_in">
+    	<iframe  id="mainframe" src="${pageContext.request.contextPath}/portal/report/reportchart.html"   scrolling="no" frameborder="0"   onload="iFrameHeight()" ></iframe>
+	<script language="javascript">
+	function iFrameHeight() {   
+		var ifm= document.getElementById("mainframe");   
+		var subWeb = document.frames ? document.frames["mainframe"].document : ifm.contentDocument;   
+		if(ifm != null && subWeb!=null ) {
+		   ifm.height = subWeb.body.scrollHeight;
+		   ifm.width = subWeb.body.scrollWidth;
+		}
+		
+		}
+	</script>
+    </div>
+    </div>
+	<div class="H42"></div>
+	<h5>报告说明：</h5>
+	<div>
+		<p>1.	本报告由苏州企业征信服务有限公司（下称"企业征信公司"）出具，依据截止报告时间苏州市地方企业征信系统记录的信息生成。除企业征信公司标注外，报告中的信息均由信息主体授权企业征信公司向相关部门采集或企业征信公司通过合法、公开渠道获取。企业征信公司不保证其真实性和准确性，但承诺在信息整合、汇总、展示的全过程中保持客观、中立的地位。</p>
+		<p>2.   资产负债表与利润表取数于国税或地税部门，财务指标根据上述报表数据由系统计算生成。</p>
+		<p>3.	本报告中的金额类数据项，除非特别声明，单位均为人民币元，保留小数点后两位小数。</p>
+		<p>4.	信息主体声明是信息主体对相关部门提供的信息记录所作的简要说明。</p>
+		<p>5.	本报告仅供经信息主体授权的单位约定使用，请妥善保管。因使用不当而引起纠纷的，企业征信公司不承担相关责任。</p>
+	</div>
+</div>
+  
+  </body>
+
+</html>

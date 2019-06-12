@@ -1,0 +1,84 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+    <style>
+        .boxWrap {
+            width: 600px;
+            margin: 0;
+        }
+
+        .boxWrap .formWrap {
+            padding: 20px 60px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="boxWrap">
+	<div class="formWrap">
+		<form class="layui-form" enctype="multipart/form-data">
+			<div class="layui-form-item heightAuto">
+			    <input style="display: none;" type="text" name="demandInfoId" value=${demandInfoId} >
+				<label class="layui-form-label">关闭原因：</label>
+				<div class="layui-input-block">
+					<textarea placeholder="请输入你的关闭原因" class="layui-textarea"name="closereason"></textarea>
+			    </div>
+			    <div class="layui-form-item">
+		                <div class="layui-input-block buttonWrap">
+		                    <button class="layui-btn submitBtn" lay-submit lay-filter="rateForm">&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;交&nbsp;&nbsp;</button>
+		                    <button type="button " lay-close class="layui-btn layui-btn-primary closeBtn">&nbsp;&nbsp;取&nbsp;&nbsp;&nbsp;消&nbsp;&nbsp;</button>
+		                </div>
+		            </div>
+			</div>
+		</form>
+	</div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script>
+	$(".submitBtn").on("click", function () {
+	    layui.use('form', function () {
+	        var form = layui.form;
+	        //监听提交
+	        form.on('submit(rateForm)', function (data) {
+	        	if(data.field.closereason===''){
+	        		layer.msg("请输入关闭原因");
+	        		return false;
+	        		}
+	        	if(data.field.closereason.length>300){
+	        		layer.msg("关闭原因不能超过300个字节");
+	        		return false;
+	        		}
+	        	var demandInfoId=data.field.demandInfoId;
+	        	var closeReason=data.field.closereason;
+	        	  $.ajax({
+	                  type: "post",
+	                  async: false,
+	                  url: "/SRRPBusinesWeb/finacingDemand/saveCloseReason",
+	                  data: {demandInfoId: demandInfoId, closeReason: closeReason},
+	                  success: function (data) {
+	                	  layer.msg("需求关闭成功");
+	                	  var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+					      parent.location.href="/SRRPBusinesWeb/finacingDemand/demandList"; //(刷新父级窗口) 
+				          parent.layer.close(index); //关闭layer(关闭当前窗口)
+	                  }
+	              });
+	            return false;
+	        });
+	    });
+	});
+	
+	$(".closeBtn").on("click", function () {
+			var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+// 			parent.location.href="/SRRPBusinesWeb/finacingDemand/demandList"; //(刷新父级窗口) 
+	        parent.layer.close(index); //关闭layer(关闭当前窗口)
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,1874 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:jaf="http://cfcc.com/jaf">
+			<script charset="UTF-8" src="../static/qry/js/js/jquery-1.7.2.js"></script>
+			<script charset="UTF-8" src="../static/qry/js/js/common.js"></script>
+			<script charset="UTF-8" src="../static/qry/js/common.js"></script>
+			<script type="text/javascript" src="../static/qry/js/js/corp.js"></script>
+            <link href="../static/qry/pages/skin3/css/page.css" type="text/css" rel="stylesheet"></link>
+	        <link href="../static/qry/pages/skin3/css/common.css" type="text/css" rel="stylesheet"></link>
+	        <link href="../static/qry/pages/skin3/css/css.css" type="text/css" rel="stylesheet"></link>
+	        <script src="../static/script/autoload.js" type="text/javascript"></script>
+			<script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+			<script src="../static/script/layui-v2.3.0/layui/layui.js" type="text/javascript"></script>
+			<link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+	        <script src="../static/script/jquery-1.9.1.min.js"type="text/javascript"></script>
+		    <script src="../static/script/layui-v2.3.0/layui/layui.all.js"type="text/javascript"></script>
+		    <script src="../static/script/aes.js" type="text/javascript"></script>
+		    <script src="../static/script/encrypt.js" type="text/javascript"></script>
+			<script type="text/javascript">
+				window.onbeforeunload = nodisabledButton;
+				function nodisabledButton() {
+					return;
+				}
+			
+				function NumberText(a) {
+					var str = (a.value.replace(/\D/g, ''));
+					a.value = str;
+				}
+			
+				function NumberTextA(a) {
+					var str = (a.value.replace(/[^0-9.]/g, '')).replace(/[.][0-9]*[.]/, '.');
+					a.value = str;
+				}
+			
+				function resetCheckBox() {
+					jq("input:checkbox").each(function() {
+						jq(this).removeClass("checkbox0 checkbox2");
+						jq(this).addClass("checkbox0 checkbox1");
+						jq(this).removeAttr("checked");
+						jq(".inputText").val("");
+						jq(".pffz").val("");
+					});
+				}
+				function showCue() {
+					document.getElementById("query_reason").style.display = "";
+					document.getElementById("progressBarModalDiv").style.display = "block";
+			
+				}
+				function hideCue() {
+					document.getElementById("query_reason").style.display = "none";
+					document.getElementById("progressBarModalDiv").style.display = "none";
+				}
+			</script>
+			<style>
+			.layui-table-cell {
+				    height: 20px;
+				    line-height: 20px;
+				    }
+		   .tool_part span.label {
+				    float: left;
+				    font-size: 14px;
+				    font-weight: normal;
+				}
+			.content{
+			   margin-left: 2%;
+			   margin-right: 2%;
+			   width: 95%;
+			}
+			</style>
+     <form action="##" method="post" onsubmit="return false" id="form">
+			<table width="98%" cellpadding="0" cellspacing="0">
+				<div class="content">
+						<div class="smint_box" id="">
+							<div class="tool_bar" style="padding-left: 5px;">
+								规模、区域、行业、登记注册类型、投资类型、经营年限、是否授权类别下的指标，指标间均为”或“的关系；<br /> 财务、纳税、信贷、其他指标、信用评分类别下的一级指标之间是“且”的关系（如小额贷款状态是正常并且涉诉状况是无涉诉记录）；<br /> 财务、纳税、信贷、其他指标、信用评分类别下，同一 一级指标下的二级指标及三级指标，属于定性指标的，为“或”关系（如小额贷款状况是正常或者逾期、环保评价是红色或黑色）；属于定量指标的，为“且”的关系（如营业收入最近年度大于200万且净利润连续两年增幅超过10%，营业收入最近年度大于100万且连续两年增幅超过10%）。
+							</div>
+							<div class="tool_bar" id="tool">
+								<div class="control_ht control_ht_short">
+									<span>一键展开</span>
+								</div>
+								<div class="tool_part input_block" style="text-align: center;width:100%;background-color:#eceff5;">基础指标</div>
+								<div class="tool_part">
+									<div class="tool_tit">
+										<span class="label">规模：</span> <a href="javascript:;" class="a_all">全选</a> <a href="javascript:void(0)" class="a_tool a_tool_show"></a>
+									</div>
+									<div class="input_list ui-grid-1row">
+										<div class="listheight">
+											<c:forEach var="item" items="${capcompanyinfoBean.companyScale_v1_map}">
+												<div class="input_element">
+													<input type="checkbox" name="scale" class="checkbox0 checkbox1" value="${item.key}" /> <label>${item.value}</label>
+												</div>
+											</c:forEach>	
+										</div>
+									</div>
+								</div>
+								<div class="tool_part">
+									<div class="tool_tit">
+										<span class="label">区域：</span><a href="javascript:;" class="a_all">全选</a><a href="javascript:void(0)" class="a_tool a_tool_show"></a>
+									</div>
+									<div class="input_list ui-grid-1row">
+										<div class="listheight">
+										    <c:forEach var="item" items="${capcompanyinfoBean.corp_AREA_map}">
+												<div class="input_element">
+													<input type="checkbox" name="region" Class="checkbox0 checkbox1" value="${item.key}" /> <label>${item.value}</label>
+												</div>
+									        </c:forEach>  
+										</div>
+									</div>
+								</div>
+								<div class="tool_part">
+									<div class="tool_tit">
+										<span class="label">行业：</span><a href="javascript:;" class="a_all">全选</a><a href="javascript:void(0)" class="a_tool a_tool_show"></a>
+									</div>
+									<div class="input_list ui-grid-1row">
+										<div class="listheight">
+										<c:forEach var="item" items="${capcompanyinfoBean.service_CATEGORY_map}">
+												<div class="input_block">
+													<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span> <input type="checkbox" class="checkbox0 checkbox1" /> <label>${item.key}</label>
+													<div class="boxwh" style="display:none">
+														<ul>
+															<c:forEach var="entry" items="${item.value}">
+																<li><input type="checkbox" class="checkbox0 checkbox1" name="industry" value="${entry.key}"></input><span>${entry.value}</span></li>
+														    </c:forEach>
+														</ul>
+													</div>
+												</div>
+												</c:forEach>
+										</div>
+									</div>
+								</div>
+								<div class="tool_part">
+									<div class="tool_tit">
+										<span class="label">登记注册类型：</span><a href="javascript:;" class="a_all">全选</a><a href="javascript:void(0)" class="a_tool a_tool_show"></a>
+									</div>
+									<div class="input_list ui-grid-1row">
+										<div class="listheight">
+										   <c:forEach var="item" items="${capcompanyinfoBean.register_type_map}">
+												<div class="input_element">
+													<input type="checkbox" name="register_type" class="checkbox0 checkbox1" value="${item.key}" /> <label>${item.value}</label>
+												</div>
+											</c:forEach>
+										</div>
+									</div>
+								</div>
+								<div class="tool_part">
+									<div class="tool_tit">
+										<span class="label">投资类型：</span><a href="javascript:;" class="a_all">全选</a><a href="javascript:void(0)" class="a_tool a_tool_show"></a>
+									</div>
+									<div class="input_list ui-grid-1row">
+										<div class="listheight">
+										    <c:forEach var="item" items="${capcompanyinfoBean.investment_type_map}">
+												<div class="input_element">
+													<input type="checkbox" name="investment_type_map" class="checkbox0 checkbox1" value="${item.key}" /> <label>${item.value}</label>
+												</div>
+										    </c:forEach>
+										</div>
+									</div>
+								</div>
+								<div class="tool_part">
+									<div class="tool_tit">
+										<span class="label">经营年限：</span><a href="javascript:;" class="a_all">全选</a><a href="javascript:void(0)" class="a_tool a_tool_show"></a>
+									</div>
+									<div class="input_list ui-grid-1row">
+										<div class="listheight">
+										    <c:forEach var="item" items="${capcompanyinfoBean.bizTerm_v1_map}"> 
+												<div class="input_element">
+													<input type="checkbox" name="bizTerm" Class="checkbox0 checkbox1" value="${item.key}" /> <label>${item.value}</label>
+												</div>
+										    </c:forEach>
+										</div>
+									</div>
+								</div>
+<!-- 								<div class="tool_part"> -->
+<!-- 									<div class="tool_tit"> -->
+<!-- 										<span class="label">是否授权：</span> -->
+<!-- 									</div> -->
+<!-- 									<div class="input_list ui-grid-1row"> -->
+<!-- 										<div class="listheight"> -->
+<!-- 											<div class="input_element"> -->
+<!-- 											    <input type="checkbox" name="authFlagYes" Class="checkbox0 checkbox1" value="true" /> <label>是</label> -->
+<!-- 											</div> -->
+<!-- 											<div class="input_element"> -->
+<!-- 											    <input type="checkbox" name="authFlagNo" Class="checkbox0 checkbox1" value="true" /> <label>否</label> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+								<div style="text-align: center;width:100%;background-color:#eceff5;float: left;padding: 4px 20px 4px 12px;padding-bottom: 8px;margin: px 5px 3px 0px;font-size: 13px;">征信指标</div>
+								
+								
+								
+								<div class="tool_part">
+									<div class="tool_tit">
+										<span class="label">财务指标：</span><a href="javascript:;" class="a_all">全选</a><a href="javascript:void(0)" class="a_tool a_tool_show"></a>
+									</div>
+									<div class="input_list ui-grid-1row">
+										<div class="listheight">
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												 <input type="checkbox" class="checkbox0 checkbox1" value="true" /> 
+												<label>资产负债表科目</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li>
+														<input type="checkbox" name="index1999F" class="checkbox0 checkbox1" value="true" /> 
+														<span>总资产</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<select id="index1999F_operator" name="index1999F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																	
+																</select> 
+																<input type="text" name="index1999F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<spacer width="4"></spacer>
+																<select id="index1999F_two_rate_down" name="index1999F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index1999F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<spacer width="4"></spacer>
+																<select id="index1999F_three_rate_down" name="index1999F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index1999F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30" />
+																%
+															</div>
+															</li>
+														    <li>
+															<input type="checkbox" name="index2999F" class="checkbox0 checkbox1" value="true" /> 
+															<span>负债合计</span>
+																<div class="input_range" style="display:none">
+																	<label>最近年度</label>
+																	<select id="index2999F" name="index2999F_operator" size="1" style="margin-left:10%;">
+																		<option value="&lt;=">&lt;=</option>
+																		<option value="&gt;=">&gt;=</option>
+																		<option value="&lt;">&lt;</option>
+																		<option value="&gt;">&gt;</option>
+																		
+																	</select> 
+																	<input type="text" name="index2999F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																	<label style="padding-left:0px;">元</label>
+																</div> <br class="input_range" style="display:none" />
+																<div class="input_range" style="display:none">
+																	<label>连续两年</label>
+																	<spacer width="4"></spacer>
+																	<select id="index2999F_two_rate_down" name="index2999F_two_rate_down">
+																		<option value="&gt;">增幅超过</option>
+																		<option value="&lt;">降幅超过</option>
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index2999F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																	%
+																</div> <br class="input_range" style="display:none" />
+																<div class="input_range" style="display:none">
+																	<label>连续三年</label>
+																	<spacer width="4"></spacer>
+																	<select id="index2999F_three_rate_down" name="index2999F_three_rate_down">
+																		<option value="&gt;">增幅超过</option>
+																		<option value="&lt;">降幅超过</option>
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index2999F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																	%
+																</div>
+																</li>
+																<li>
+														<input type="checkbox" name="index4001F" class="checkbox0 checkbox1" value="true" /> 
+														<span>实收资本</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<select id="index4001F_operator" name="index4001F_operator" size="1"style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																	
+																</select> 
+																<input type="text" name="index4001F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<spacer width="4"></spacer>
+																<select id="index4001F_two_rate_down" name="index4001F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index4001F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<spacer width="4"></spacer>
+																<select id="index4001F_three_rate_down" name="index4001F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index4001F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div>
+															</li>
+															<li><input type="checkbox" name="index4998F" class="checkbox0 checkbox1" value="true" /> <span>净资产</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index4998F_operator" name="index4998F_operator" size="1"style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																	
+																</select>
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index4998F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index4998F_two_rate_down" name="index4998F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index4998F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index4998F_three_rate_down" name="index4998F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index4998F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																%
+															</div></li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												 <input type="checkbox" class="checkbox0 checkbox1" value="true" /> 
+												<label>利润表科目</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li>
+														<input type="checkbox" name="index6001F" class="checkbox0 checkbox1" value="true" /> 
+														<span>营业收入</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<select id="index6001F_operator" name="index6001F_operator" size="1"style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																	
+																</select> 
+																<input type="text" name="index6001F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<spacer width="4"></spacer>
+																<select id="index6001F_two_rate_down" name="index6001F_two_rate_down">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index6001F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<spacer width="4"></spacer>
+																<select id="index6001F_three_rate_down" name="index6001F_three_rate_down">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index6001F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div>
+															</li>
+														    <li>
+															<input type="checkbox" name="index6799F" class="checkbox0 checkbox1" value="true" /> 
+															<span>营业利润</span>
+																<div class="input_range" style="display:none">
+																	<label>最近年度</label>
+																	<select id="index6799F_operator" name="index6799F_operator"style="margin-left:10%;">
+																		<option value="&lt;=">&lt;=</option>
+																		<option value="&gt;=">&gt;=</option>
+																		<option value="&lt;">&lt;</option>
+																		<option value="&gt;">&gt;</option>
+																		
+																	</select> 
+																	<input type="text" name="index6799F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																	<label style="padding-left:0px;">元</label>
+																</div> <br class="input_range" style="display:none" />
+																<div class="input_range" style="display:none">
+																	<label>连续两年</label>
+																	<spacer width="4"></spacer>
+																	<select id="index6799F_two_rate_down" name="index6799F_two_rate_down" size="1">
+																		<option value="&gt;">增幅超过</option>
+																		<option value="&lt;">降幅超过</option>
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index6799F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																	%
+																</div> <br class="input_range" style="display:none" />
+																<div class="input_range" style="display:none">
+																	<label>连续三年</label>
+																	<spacer width="4"></spacer>
+																	<select id="index6799F_three_rate_down" name="index6799F_three_rate_down" size="1">
+																		<option value="&gt;">增幅超过</option>
+																		<option value="&lt;">降幅超过</option>
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index6799F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																	%
+																</div>
+																</li>
+																<li>
+															<input type="checkbox" name="index6899F" class="checkbox0 checkbox1" value="true" /> 
+															<span>利润总额</span>
+																<div class="input_range" style="display:none">
+																	<label>最近年度</label>
+																	<select id="index6899F_operator" name="index6899F_operator" size="1" style="margin-left:10%;">
+																		<option value="&lt;=">&lt;=</option>
+																		<option value="&gt;=">&gt;=</option>
+																		<option value="&lt;">&lt;</option>
+																		<option value="&gt;">&gt;</option>
+																		
+																	</select> 
+																	<input type="text" name="index6899F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																	<label style="padding-left:0px;">元</label>
+																</div> <br class="input_range" style="display:none" />
+																<div class="input_range" style="display:none">
+																	<label>连续两年</label>
+																	<spacer width="4"></spacer>
+																	<select id="index6899F_two_rate_down" name="index6899F_two_rate_down" size="1">
+																		<option value="&gt;">增幅超过</option>
+																		<option value="&lt;">降幅超过</option>
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index6899F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																	%
+																</div> <br class="input_range" style="display:none" />
+																<div class="input_range" style="display:none">
+																	<label>连续三年</label>
+																	<spacer width="4"></spacer>
+																	<select id="index6899F_three_rate_down" name="index6899F_three_rate_down" size="1">
+																		<option value="&gt;">增幅超过</option>
+																		<option value="&lt;">降幅超过</option>
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index6899F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																	%
+																</div>
+																</li>
+															<li>
+															<input type="checkbox" name="index6999F" class="checkbox0 checkbox1" value="true" /> 
+															<span>净利润</span>
+																<div class="input_range" style="display:none">
+																	<label>最近年度</label>
+																	<select id="index6999F_operator" name="index6999F_operator" size="1" style="margin-left:10%;">
+																		<option value="&lt;=">&lt;=</option>
+																		<option value="&gt;=">&gt;=</option>
+																		<option value="&lt;">&lt;</option>
+																		<option value="&gt;">&gt;</option>
+																		
+																	</select> 
+																	<input type="text" name="index6999F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																	<label style="padding-left:0px;">元</label>
+																</div> <br class="input_range" style="display:none" />
+																<div class="input_range" style="display:none">
+																	<label>连续两年</label>
+																	<spacer width="4"></spacer>
+																	<select id="index6999F_two_rate_down" name="index6999F_two_rate_down" size="1">
+																		<option value="&gt;">增幅超过</option>
+																		<option value="&lt;">降幅超过</option>
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index6999F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																	%
+																</div> <br class="input_range" style="display:none" />
+																<div class="input_range" style="display:none">
+																	<label>连续三年</label>
+																	<spacer width="4"></spacer>
+																	<select id="index6999F_three_rate_down" name="index6999F_three_rate_down" size="1">
+																		<option value="&gt;">增幅超过</option>
+																		<option value="&lt;">降幅超过</option>
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index6999F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																	%
+																</div>
+																</li>
+																
+													</ul>
+												</div>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="tool_part">
+									<div class="tool_tit">
+										<span class="label">纳税指标：</span><a href="javascript:;" class="a_all">全选</a><a href="javascript:void(0)" class="a_tool a_tool_show"></a>
+									</div>
+									<div class="input_list ui-grid-1row">
+										<div class="listheight">
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												 <input type="checkbox"  class="checkbox0 checkbox1" value="true" />
+												<label>流转税</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li>
+														<input type="checkbox" name="index0067F" class="checkbox0 checkbox1" value="true" /> 
+														<span>增值税</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<spacer width="44" class="rich-spacer"></spacer>
+																<select id="index0067F_operator" name="index0067F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																	
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0067F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<spacer width="4"></spacer>
+																<select id="index0067F_two_rate_down" name="index0067F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0067F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<spacer width="4"></spacer>
+																<select id="index0067F_three_rate_down" name="index0067F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0067F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div>
+															</li>
+														    <li>
+															<input type="checkbox" name="index0070F" class="checkbox0 checkbox1" value="true" /> 
+															<span>消费税</span>
+																<div class="input_range" style="display:none">
+																	<label>最近年度</label>
+																	<spacer width="44" class="rich-spacer"></spacer>
+																	<select id="index0070F_operator" name="index0070F_operator" size="1" style="margin-left:10%;">
+																		<option value="&lt;=">&lt;=</option>
+																		<option value="&gt;=">&gt;=</option>
+																		<option value="&lt;">&lt;</option>
+																		<option value="&gt;">&gt;</option>
+																		
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index0070F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																	<label style="padding-left:0px;">元</label>
+																</div> <br class="input_range" style="display:none" />
+																<div class="input_range" style="display:none">
+																	<label>连续两年</label>
+																	<spacer width="4"></spacer>
+																	<select id="index0070F_two_rate_down" name="index0070F_two_rate_down" size="1">
+																		<option value="&gt;">增幅超过</option>
+																		<option value="&lt;">降幅超过</option>
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index0070F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																	%
+																</div> <br class="input_range" style="display:none" />
+																<div class="input_range" style="display:none">
+																	<label>连续三年</label>
+																	<spacer width="4"></spacer>
+																	<select id="index0070F_three_rate_down" name="index0070F_three_rate_down" size="1">
+																		<option value="&gt;">增幅超过</option>
+																		<option value="&lt;">降幅超过</option>
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index0070F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																	%
+																</div>
+																</li>
+																<li>
+														<input type="checkbox" name="index0068F" class="checkbox0 checkbox1" value="true" /> 
+														<span>营业税</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<spacer width="44" class="rich-spacer"></spacer>
+																<select id="form1:new" name="form1:new" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																	
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0068F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<spacer width="4"></spacer>
+																<select id="index0068F_two_rate_down" name="index0068F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0068F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<spacer width="4"></spacer>
+																<select id="index0068F_three_rate_down" name="index0068F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0068F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div>
+															</li>
+															<li>
+														<input type="checkbox" name="index0071F" class="checkbox0 checkbox1" value="true" /> 
+														<span>流转税合计</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<spacer width="44" class="rich-spacer"></spacer>
+																<select id="index0071F_operator" name="index0071F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																	
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0071F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<spacer width="4"></spacer>
+																<select id="index0071F_two_rate_down" name="index0071F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0071F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<spacer width="4"></spacer>
+																<select id="index0071F_three_rate_down" name="index0071F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0071F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div>
+															</li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												 <input type="checkbox"   class="checkbox0 checkbox1" value="true" />
+												<label>所得税</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li>
+														<input type="checkbox" name="index0069F" class="checkbox0 checkbox1" value="true" /> 
+														<span>企业所得税</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<spacer width="44" class="rich-spacer"></spacer>
+																<select id="index0069F_operator" name="index0069F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																	
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0069F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<spacer width="4"></spacer>
+																<select id="index0069F_two_rate_down" name="index0069F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0069F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<spacer width="4"></spacer>
+																<select id="index0069F_three_rate_down" name="index0069F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0069F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div>
+															</li>
+														    <li>
+															<input type="checkbox" name="index0072F" class="checkbox0 checkbox1" value="true" /> 
+															<span>个人所得税</span>
+																<div class="input_range" style="display:none">
+																	<label>最近年度</label>
+																	<spacer width="44" class="rich-spacer"></spacer>
+																	<select id="index0072F_operator" name="index0072F_operator" size="1" style="margin-left:10%;">
+																		<option value="&lt;=">&lt;=</option>
+																		<option value="&gt;=">&gt;=</option>
+																		<option value="&lt;">&lt;</option>
+																		<option value="&gt;">&gt;</option>
+																		
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index0072F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																	<label style="padding-left:0px;">元</label>
+																</div> <br class="input_range" style="display:none" />
+																<div class="input_range" style="display:none">
+																	<label>连续两年</label>
+																	<spacer width="4"></spacer>
+																	<select id="index0072F_two_rate_down" name="index0072F_two_rate_down" size="1">
+																		<option value="&gt;">增幅超过</option>
+																		<option value="&lt;">降幅超过</option>
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index0072F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																	%
+																</div> <br class="input_range" style="display:none" />
+																<div class="input_range" style="display:none">
+																	<label>连续三年</label>
+																	<spacer width="4"></spacer>
+																	<select id="index0072F_three_rate_down" name="index0072F_three_rate_down" size="1">
+																		<option value="&gt;">增幅超过</option>
+																		<option value="&lt;">降幅超过</option>
+																	</select> 
+																	<spacer width="4"></spacer>
+																	<input type="text" name="index0072F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																	%
+																</div>
+																</li>
+																<li>
+														<input type="checkbox" name="index0073F" class="checkbox0 checkbox1" value="true" /> 
+														<span>所得税合计</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<spacer width="44" class="rich-spacer"></spacer>
+																<select id="index0073F_operator" name="index0073F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																	
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0073F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="30" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<spacer width="4"></spacer>
+																<select id="index0073F_two_rate_down" name="index0073F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0073F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<spacer width="4"></spacer>
+																<select id="index0073F_three_rate_down" name="index0073F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<spacer width="4"></spacer>
+																<input type="text" name="index0073F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div>
+															</li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox" class="checkbox0 checkbox1" value="true" />
+												<label>其他</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" name="index0074F" class="checkbox0 checkbox1" value="true" /> <span>个人所得税申报人数</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0074F_operator" name="index0074F_operator" size="1" style="margin-left:10%;">
+																		<option value="&lt;=">&lt;=</option>
+																		<option value="&gt;=">&gt;=</option>
+																		<option value="&lt;">&lt;</option>
+																		<option value="&gt;">&gt;</option>
+																	</select>
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0074F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">人</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0074F_two_rate_down" name="index0074F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0074F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0074F_three_rate_down" name="index0074F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0074F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="tool_part">
+									<div class="tool_tit">
+										<span class="label">信贷指标：</span><a href="javascript:;" class="a_all">全选</a><a href="javascript:void(0)" class="a_tool a_tool_show"></a>
+									</div>
+									<div class="input_list ui-grid-1row">
+										<div class="listheight">
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox"  class="checkbox0 checkbox1" value="true" /> 
+												<label>小额贷款状态</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="loan_status" value="030087" /><span>正常</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="loan_status" value="010087" /><span>逾期</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="loan_status" value="020087" /><span>呆帐</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="loan_status" value="040087" /><span>结清</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="loan_status" value="050087" /><span>无小额贷款历史</span></li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox"  class="checkbox0 checkbox1" value="true" /> 
+												<label>银行业金融机构贷款状态</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="yhjr_status" value="10107" /><span>正常</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="yhjr_status" value="20107" /><span>关注</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="yhjr_status" value="30107" /><span>次级</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="yhjr_status" value="40107" /><span>可疑</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="yhjr_status" value="50107" /><span>损失</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="yhjr_status" value="60107" /><span>无贷款历史</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="yhjr_status" value="70107" /><span>有贷款历史</span></li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox"  class="checkbox0 checkbox1" value="true" /> 
+												<label>上月末银行业金融机构有贷户贷款情况</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" name="index0108E" class="checkbox0 checkbox1" value="true" />  <label>贷款余额</label>
+															<div class="input_range" style="display:none">
+																<select id="index0108E_operator" name="index0108E_operator" size="1" >
+																		<option value="&lt;=">&lt;=</option>
+																		<option value="&gt;=">&gt;=</option>
+																		<option value="&lt;">&lt;</option>
+																		<option value="&gt;">&gt;</option>
+																	</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0108E_count" class="inputText" onkeyup="NumberText(this)" style="height: 15px;margin-top: -3px;" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div></li>
+														<li><input type="checkbox"  class="checkbox0 checkbox1" name="index0109E"  value="true"/>  <label>授信银行数</label>
+															<div class="input_range" style="display:none">
+																<select id="index0109E_operator" name="index0109E_operator" size="1">
+																		<option value="&lt;=">&lt;=</option>
+																		<option value="&gt;=">&gt;=</option>
+																		<option value="&lt;">&lt;</option>
+																		<option value="&gt;">&gt;</option>
+																	</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0109E_count" class="inputText" onkeyup="NumberText(this)" style="height: 15px;margin-top: -3px;" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">家</label>
+															</div></li>
+														<li><input type="checkbox"  class="checkbox0 checkbox1" name="index0110E" value="true"/>  <label>不良贷款余额</label>
+															<div class="input_range" style="display:none">
+																<select id="index0110E_operator" name="index0110E_operator" size="1">
+																		<option value="&lt;=">&lt;=</option>
+																		<option value="&gt;=">&gt;=</option>
+																		<option value="&lt;">&lt;</option>
+																		<option value="&gt;">&gt;</option>
+																	</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0110E_count" class="inputText" onkeyup="NumberText(this)" style="height: 15px;margin-top: -3px;" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div></li>
+														<li><input type="checkbox" name="index0111E" class="checkbox0 checkbox1" value="true" /> <label>未结清贷款笔数</label>
+															<div class="input_range" style="display:none">
+																<select id="index0111E_operator" name="index0111E_operator" size="1">
+																		<option value="&lt;=">&lt;=</option>
+																		<option value="&gt;=">&gt;=</option>
+																		<option value="&lt;">&lt;</option>
+																		<option value="&gt;">&gt;</option>
+																	</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0111E_count" class="inputText" onkeyup="NumberText(this)" style="height: 15px;margin-top: -3px;" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">笔</label>
+															</div></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tool_part">
+									<div class="tool_tit">
+										<span class="label">其他指标：</span><a href="javascript:;" class="a_all">全选</a><a href="javascript:void(0)" class="a_tool a_tool_show"></a>
+									</div>
+									<div class="input_list ui-grid-1row">
+										<div class="listheight">
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox" class="checkbox0 checkbox1" value="true" /> 
+												<label>水电气</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" name="index0075F" class="checkbox0 checkbox1" value="true" /> <span>水费</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0075F_operator" name="index0075F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0075F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0075F_two_rate_down" name="index0075F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0075F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0075F_three_rate_down" name="index0075F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0075F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+														<li><input type="checkbox" name="index0076F" class="checkbox0 checkbox1" value="true" /> <span>电费</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0076F_operator" name="index0076F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0076F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0076F_two_rate_down" name="index0076F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0076F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0076F_three_rate_down" name="index0076F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0076F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+														<li><input type="checkbox" name="index0077F" class="checkbox0 checkbox1" value="true" /> <span>气费</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0077F_curr_amount" name="index0077F_curr_amount" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0077F_two_rate_down" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="form1:new" name="form1:new" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0077F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0077F_three_rate_down" name="index0077F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0077F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+														<li><input type="checkbox" name="index0078F" class="checkbox0 checkbox1" value="true" /> <span>用水量</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0078F_operator" name="index0078F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0078F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">吨</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0078F_two_rate_down" name="index0078F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0078F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0078F_three_rate_down" name="index0078F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0078F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+														<li><input type="checkbox" name="index0079F" class="checkbox0 checkbox1" value="true" /> <span>用电量</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0079F_operator" name="index0079F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0079F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">度</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0079F_two_rate_down" name="index0079F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0079F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0079F_three_rate_down" name="index0079F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0079F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+														<li><input type="checkbox" name="index0080F" class="checkbox0 checkbox1" value="true" /> <span>用气量</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0080F_operator" name="index0080F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0080F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">立方米</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0080F_two_rate_down" name="index0080F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0080F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0080F_three_rate_down" name="index0080F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0080F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox" class="checkbox0 checkbox1" value="true" />
+												<label>社保公积金</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" name="index0081F" class="checkbox0 checkbox1" value="true" /><span>社保缴纳金额</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0081F_operator" name="index0081F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0081F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0081F_two_rate_down" name="index0081F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0081F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0081F_three_rate_down" name="index0081F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0081F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+														<li><input type="checkbox" name="index0082F" class="checkbox0 checkbox1" value="true" /><span>公积金缴纳金额</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0082F_operator" name="index0082F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0082F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0082F_two_rate_down" name="index0082F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0082F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0082F_three_rate_down" name="index0082F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0082F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+														<li><input type="checkbox" name="index0083F" class="checkbox0 checkbox1" value="true" /><span>社保缴纳人数</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0083F_operator" name="index0083F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0083F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">人</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0083F_two_rate_down" name="index0083F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0083F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0083F_three_rate_down" name="index0083F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0083F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+														<li><input type="checkbox" name="index0084F" class="checkbox0 checkbox1" value="true" /><span>公积金缴纳人数</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0084F_operator" name="index0084F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0084F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">人</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0084F_two_rate_down" name="index0084F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0084F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0084F_three_rate_down" name="index0084F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0084F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox" class="checkbox0 checkbox1" value="true" />
+												<label>进出口</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" name="index0085F" class="checkbox0 checkbox1" value="true" /><span>进口总值</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0085F_operator" name="index0085F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0085F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0085F_two_rate_down" name="index0085F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select>
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0085F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0085F_three_rate_down" name="index0085F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select>
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0085F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+														<li><input type="checkbox" name="index0086F" class="checkbox0 checkbox1" value="true" /><span>出口总值</span>
+															<div class="input_range" style="display:none">
+																<label>最近年度</label>
+																<rich:spacer width="44"></rich:spacer>
+																<select id="index0086F_operator" name="index0086F_operator" size="1" style="margin-left:10%;">
+																	<option value="&lt;=">&lt;=</option>
+																	<option value="&gt;=">&gt;=</option>
+																	<option value="&lt;">&lt;</option>
+																	<option value="&gt;">&gt;</option>
+																</select> 
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0086F_curr_amount" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续两年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0086F_two_rate_down" name="index0086F_two_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select>
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0086F_two_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div> <br class="input_range" style="display:none" />
+															<div class="input_range" style="display:none">
+																<label>连续三年</label>
+																<rich:spacer width="4"></rich:spacer>
+																<select id="index0086F_three_rate_down" name="index0086F_three_rate_down" size="1">
+																	<option value="&gt;">增幅超过</option>
+																	<option value="&lt;">降幅超过</option>
+																</select>
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0086F_three_rate_up" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																%
+															</div></li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox" class="checkbox0 checkbox1" value="true" />
+												<label>海关评级</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="hg_status" value="010088" /><span>高级认证</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="hg_status" value="020088" /><span>一般认证</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="hg_status" value="030088" /><span>失信企业</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="hg_status" value="040088" /><span>无海关评级</span></li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox" class="checkbox0 checkbox1" value="true" />
+												<label>安全事故记录</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="aq_status" value="010089" /><span>存在较大安全事故</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="aq_status" value="020089" /><span>不存在安全事故记录</span></li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox"  class="checkbox0 checkbox1" value="true" />
+												<label>税务部门评价</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="nashui_status" value="010090" /><span>非正常户</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="nashui_status" value="020090" /><span>A级</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="nashui_status" value="030090" /><span>无税务评价</span></li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox"  class="checkbox0 checkbox1" value="true" />
+												<label>环保信用评价</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="hb_status" value="010091" /><span>绿色</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="hb_status" value="020091" /><span>蓝色</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="hb_status" value="030091" /><span>黄色</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="hb_status" value="040091" /><span>红色</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="hb_status" value="050091" /><span>黑色</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="hb_status" value="060091" /><span>无环保信用评价</span></li>
+													</ul>
+												</div>
+											</div>
+
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox" class="checkbox0 checkbox1" value="true" />
+												<label>涉诉</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="ss_status" value="010106" /><span>有涉诉信息</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="ss_status" value="020106" /><span>无涉诉信息</span></li>
+													</ul>
+												</div>
+											</div>
+
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox"  class="checkbox0 checkbox1" value="true" />
+												<label>行政处罚</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" name="index0092E" class="checkbox0 checkbox1" value="true" /><label>处罚次数</label>
+															<div class="input_range" style="display:none">
+															    <select id="index0092E_operator" name="index0092E_operator" size="1">
+																	<option value="&gt;">&gt;</option>
+																	<option value="&lt;">&lt;</option>
+																</select>
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0092E_count" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">次</label>
+															</div></li>
+														<li>
+															<div class="input_range">
+															    <select id=index0092E_operator_symbol name="index0092E_operator_symbol" size="1">
+																	<option value="0">或</option>
+																	<option value="1">且</option>
+																</select>
+															</div>
+														</li>
+														<li><input type="checkbox" name="index0093E" class="checkbox0 checkbox1" value="true" /><label>处罚金额</label>
+															<div class="input_range" style="display:none">
+																<select id="index0093E_operator" name="index0093E_operator" size="1">
+																	<option value="&gt;">&gt;</option>
+																	<option value="&lt;">&lt;</option>
+																</select>
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0093E_count" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div></li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox"  class="checkbox0 checkbox1" value="true" />
+												<label>社保公积金欠缴</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" name="index0094E" class="checkbox0 checkbox1" value="true" /><label>欠缴次数</label>
+															<div class="input_range" style="display:none">
+																<select id="index0094E_operator" name="index0094E_operator" size="1">
+																	<option value="&gt;">&gt;</option>
+																	<option value="&lt;">&lt;</option>
+																</select>
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0094E_count" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">次</label>
+															</div></li>
+														<li>
+															<div class="input_range">
+																<select id="index0094E_operator_symbol" name="index0094E_operator_symbol" size="1">
+																	<option value="0">或</option>
+																	<option value="1">且</option>
+																</select>
+															</div>
+														</li>
+														<li><input type="checkbox" name="index0095E" class="checkbox0 checkbox1" value="1" /><label>欠缴金额</label>
+															<div class="input_range" style="display:none">
+																<select id="index0095E_operator" name="index0095E_operator" size="1">
+																	<option value="&gt;">&gt;</option>
+																	<option value="&lt;">&lt;</option>
+																</select>
+																<rich:spacer width="4"></rich:spacer>
+																<input type="text" name="index0095E_count" class="inputText" onkeyup="NumberText(this)" size="10" maxlength="30"/>
+																<label style="padding-left:0px;">元</label>
+															</div></li>
+													</ul>
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox"  class="checkbox0 checkbox1" value="true" />
+												<label>荣誉表彰</label>
+												<div class="boxwh" style="display:none">
+													<ul>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="rongyu_status" value="010096" /><span>获省级荣誉表彰</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="rongyu_status" value="020096" /><span>获市级荣誉表彰</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="rongyu_status" value="030096" /><span>获区县级荣誉表彰</span></li>
+													</ul>
+												</div>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								
+								<div class="tool_part">
+									<div class="tool_tit">
+										<span class="label">信用评分：</span><a href="javascript:;" class="a_all">全选</a><a href="javascript:void(0)" class="a_tool a_tool_show"></a>
+									</div>
+									<div class="input_list ui-grid-1row">
+										<div class="listheight">
+											<div class="input_block">
+												<input type="checkbox"  class="checkbox0 checkbox1" value="true" />
+												<label>评分分值</label>
+												<div class="input_range" style="display:none">
+													<input type="text" class="pffz" onkeyup="NumberText(this)" name="pffzstart" /> <span class="text">-</span>
+													<rich:spacer width="4"></rich:spacer>
+													<input type="text" class="pffz" onkeyup="NumberText(this)" name="pffzend" />
+												</div>
+											</div>
+											<div class="input_block">
+												<span class="arrow_d ar1"><a href="javascript:void(0)" class=""></a></span>
+												<input type="checkbox"  class="checkbox0 checkbox1" value="true" />
+												<label>信用等级</label>
+												<div class="boxwh" style="display:none;height:95px;">
+													<ul>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="xyfdj" value="R1" /><span>优秀</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="xyfdj" value="R2" /><span>良好</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="xyfdj" value="R3" /><span>一般</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="xyfdj" value="R4" /><span>较弱</span></li>
+														<li><input type="checkbox" class="checkbox0 checkbox1" name="xyfdj" value="R5" /><span>最弱</span></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="clear"></div>
+								<div class="btn_center_space" style="margin-top:30px">
+									
+									<span>
+										 <input type="button" class="btn_bar btn_gray" value="清空" onclick="resetCheckBox()" /> 
+								   </span>
+								   <span>
+										 <input  id="code8918aba5-e947-462d-ab26-6ede1b483855"  class="btn_bar btn_search"  type="submit" value="查询"/>
+									
+									</span>
+<!-- 								   <span>  -->
+<!-- 										 <input id="export" class="btn_bar btn_search"  value="导出" type="submit"" /> -->
+<!-- 									</span> -->
+								</div>
+							</div>
+						</div>
+				</div>
+			</table>
+			<input type="hidden" name="pageSize"  id="pageSize" value="1"></input>
+			<input type="hidden" name="pageNum" id="pageNum" value="10"></input>
+			<input type="hidden" name="total" id="total" value="6"></input>
+			<input type="hidden" name="fileName" id="fileName" value=""></input>
+		</form>	
+		
+
+		<div style="margin-left: -3%;margin-right: 2%;width: 100%;">
+           <table id="QueryGrid" lay-filter="toQueryFilter"></table>
+           <div style="width: 83%;">
+             <div class="table-page">
+                  <div id="paged" class="page"></div>
+             </div>
+           </div>
+       </div>
+</html>
+<script>
+	var has_showModalDialog = !!window.showModalDialog;//定义一个全局变量判定是否有原生showModalDialog方法  
+	if(!has_showModalDialog &&!!(window.opener)){          
+	    window.onbeforeunload=function(){  
+	        window.opener.hasOpenWindow = false;        //弹窗关闭时告诉opener：它子窗口已经关闭  
+	    }  
+	}  
+	//定义window.showModalDialog如果它不存在  
+	if(window.showModalDialog == undefined){  
+	    window.showModalDialog = function(url,mixedVar,features){  
+	        
+	        if(mixedVar) var mixedVar = mixedVar;  
+	        //因window.showmodaldialog 与 window.open 参数不一样，所以封装的时候用正则去格式化一下参数  
+	        if(features) var features = features.replace(/(dialog)|(px)/ig,"").replace(/;/g,',').replace(/\:/g,"=");  
+	        //window.open("Sample.htm",null,"height=200,width=400,status=yes,toolbar=no,menubar=no");  
+	        //window.showModalDialog("modal.htm",obj,"dialogWidth=200px;dialogHeight=100px");   
+	        var left = (window.screen.width - parseInt(features.match(/width[\s]*=[\s]*([\d]+)/i)[1]))/2;  
+	        var top = (window.screen.height - parseInt(features.match(/height[\s]*=[\s]*([\d]+)/i)[1]))/2;  
+	        window.myNewWindow = window.open(url,"_blank",features);  
+	    }  
+	}
+	 function ityzl_SHOW_LOAD_LAYER(){
+	   		return  layer.load(1, {shade: [0.6, '#f5f5f5']}) ;
+
+	   	}
+	   	function ityzl_CLOSE_LOAD_LAYER(index){
+	   		layer.close(index);
+	   	}
+	   	function ityzl_SHOW_TIP_LAYER(){
+	   		layer.msg('恭喜您，加载完成！',{time: 1000,offset: '10px'});
+	   	}
+    $(function() {
+        var dataCount;//数据总条数
+        var gridData;
+        var $ = layui.jquery
+        ,element = layui.element;
+       
+    	$("#code8918aba5-e947-462d-ab26-6ede1b483855").on("click", function () {
+    		init();
+        });
+    	var load_index;
+		$("#export").on("click", function () {
+			 $.ajax({
+                 type : "post",
+                 async : true,
+                 dataType: "json",
+                 beforeSend: function () {//加载前
+                	 i = ityzl_SHOW_LOAD_LAYER();
+                 },
+                 complete: function () {//加载后
+                	 ityzl_CLOSE_LOAD_LAYER(i);
+                 },
+                 url : "/SRRPBusinesWeb/companyserch/export",
+                 data : $('#form').serialize(),
+                 success : function(data) {
+                	 //调用后台查询数据后，执行下载
+                	 $("#fileName").val(data.fileName);
+        			 document.getElementById("form").action="/SRRPBusinesWeb/companyserch/downLoad";
+        			 document.getElementById("form").submit();
+                 },error: function (e, jqxhr, settings, exception) {
+     	        	ityzl_CLOSE_LOAD_LAYER(i);
+     	        }
+			});
+        });	
+    	
+    	 //数据表格
+        var table = layui.table;
+    	 var initDate=[];
+        createPage(initDate);
+        // 赋值数据实际使用为后台获取数据
+    	 var maxSize = 10;
+    	 function init() {
+    		 var i ;
+    		 $.ajax({
+                 type : "post",
+                 async : true,
+                 dataType: "json",
+                 beforeSend: function () {//加载前
+                	 i = ityzl_SHOW_LOAD_LAYER();
+                 },
+                 complete: function () {//加载后
+                	 ityzl_CLOSE_LOAD_LAYER(i);
+                 },
+                 url : "/SRRPBusinesWeb/companyserch/query",
+                 data : $('#form').serialize(),
+                 success : function(data) {
+                     dataCount = data.recordCnt;
+                     createPage(data.list);
+                     layui.use('laypage', function () {
+                         var laypage = layui.laypage;
+                         $("#total").val(dataCount);
+                         //执行一个laypage实例
+                         laypage.render({
+                             elem: 'paged', //注意,这里的paged是分页调用ID,不用加#号
+                             count: dataCount, //注意,再操作分页功能时,必须获取到数据总条数(条件查询);
+                             layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+                             limits: [10, 20, 50], //每页可选值,默认值确保与最小值相同
+                             limit: maxSize, //默认每页10条数据;
+                             skip: true,
+                             groups: 2,
+                             jump: function (obj, first) {
+                                 if (!first) {
+                                     getPageInfo(obj);
+                                 }
+                             }
+                         });
+                     });
+                 	
+                 },error: function (e, jqxhr, settings, exception) {
+     	        	ityzl_CLOSE_LOAD_LAYER(i);
+     	        }
+			});
+             //分页调用
+            
+         }
+    	
+
+    	 function createPage(gridData,gridlimit) {
+    		 table.render({
+    	            id: 'QueryGrid',
+    	            elem: '#QueryGrid', //指定原始表格元素选择器（推荐id选择器）
+    	            data: gridData,
+    	            limit: gridlimit,
+    	            cols: [[ //标题栏
+    	                {
+    	                    field: 'id',
+    	                    title: '序号',
+    	                    align: 'center',
+    	                    width: '10%'}
+    	                , {
+    	                    field: 'corpname',
+    	                    title: '企业名称',
+    	                    align: 'center',
+    	                    width: '30%'
+    	                }, {
+    	                    field: 'creditscore',
+    	                    title: '信用分',
+    	                    align: 'center',
+    	                    width: '9%'
+    	                }, {
+    	                    field: 'xydjiStr',
+    	                    title: '信用等级',
+    	                    align: 'center',
+    	                    width: '10%'
+    	                }, {
+    	                    field: 'pjdate',
+    	                    title: '评价日期',
+    	                    align: 'center',
+    	                    width: '9%'
+    	                }, {
+    	                    field: 'financeauthflaginfo',
+    	                    title: '是否金融办授权',
+    	                    align: 'center',
+    	                    width: '9.4%'
+    	                }, {
+    	                    title: '操作',
+    	                    align: 'center',
+    	                    width: '18%'
+    	                    , toolbar: '#operateBar'
+    	                }]]
+    	        });
+         }
+       
+     
+        //只操作分页数据
+        function getPageInfo(obj) {
+        	   var currentPage = obj.curr;//当前页(跳转页也是当前页)
+               var limit = obj.limit;//每页多少条数
+               document.getElementById('pageSize').value=currentPage;
+               document.getElementById('pageNum').value=limit;
+               $.ajax({
+                   type : "post",
+                   async : true,
+                   dataType: "json",
+                   beforeSend: function () {//加载前
+                  	 i = ityzl_SHOW_LOAD_LAYER();
+                   },
+                   complete: function () {//加载后
+                  	 ityzl_CLOSE_LOAD_LAYER(i);
+                   },
+                   url : "/SRRPBusinesWeb/companyserch/query",
+                   data : $('#form').serialize(),
+                   success : function(data) {
+                       dataCount = data.recordCnt;
+                       createPage(data.list,limit);
+                   	
+                   },error: function (e, jqxhr, settings, exception) {
+       	        	ityzl_CLOSE_LOAD_LAYER(i);
+       	        }
+  			});
+        }
+        table.on('tool(toQueryFilter)', function (obj) {
+        	var data = obj.data;
+        	var code = data.corpcode;
+            var codetype ='1';
+            code= encodeURIComponent(encrypt(code));
+            codetype=encodeURIComponent(encrypt(codetype));
+            var name =data.corpname ;
+        	if (obj.event == 'showCreditReport') {//查看信用报告
+	            	var url="/SRRPBusinesWeb/creditscore/queryReport?certtype=" + codetype + "&certno=" + code + "&name='" + name + "'";
+	 	            url = encodeURI(encodeURI(url));
+	            	window.showModalDialog(url,"1","dialogWidth:"+window.screen.width+"px;dialogHeight:"+window.screen.height+"px;");    
+            }
+        });
+    });
+</script>
+
+<script type="text/html" id="operateBar">
+      <a lay-event="showCreditReport"  style="color:#0D4F92;cursor: pointer;">查看征信报告</a>
+</script>

@@ -1,0 +1,329 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>苏州股权融资服务平台</title>
+<link rel="stylesheet" type="text/css" href="common/css/top.css">
+<link rel="stylesheet" type="text/css" href="common/css/relybody.css" />
+<link rel="stylesheet" type="text/css" href="common/css/relyfoncus.css">
+<link rel="stylesheet" type="text/css" href="common/css/foot.css">
+<link rel="stylesheet" type="text/css" href="index/css/rollpic.css">
+<link rel="stylesheet" type="text/css" href="index/css/totle.css">
+<link rel="stylesheet" type="text/css" href="index/css/needs.css">
+<link rel="stylesheet" type="text/css" href="index/css/cms.css">
+<link rel="stylesheet" type="text/css" href="index/css/suspend.css">
+<link rel="stylesheet" type="text/css" href="index/css/partners.css">
+<script src="common/js/jquery/jquery-1.8.3.min.js"  type="text/javascript" ></script>
+<script src="common/js/foot.js" type="text/javascript"></script>
+<script src="index/js/rollpic.js" type="text/javascript"></script>
+<script src="index/js/partner.js" type="text/javascript"></script>
+<script language="javascript">
+	$(function() {
+		$('#owl-demo').owlCarousel({
+			items : 1,
+			navigation : true,
+			navigationText : [ "上一个", "下一个" ],
+			autoPlay : true,
+			stopOnHover : true
+		}).hover(function() {
+			$('.owl-buttons').show();
+		}, function() {
+			$('.owl-buttons').hide();
+		});
+	});
+</script>
+</head>
+<body>
+	<!--头部logo以及登录注册开始-->
+	<div>
+		<div class="logo">
+			<div class="logo_m">
+				<a href=""> <img src="index/images/logo.jpg" alt="" /></a>
+			</div>
+			<div class="register">
+				<a href="##" class="lang zh on"> 投资者注册 </a> 
+			</div>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="login">
+				<a href="##" class="lang zh on"> 登录 </a>
+			</div>
+		</div>
+	</div>
+	<!--头部logo以及登录注册结束-->
+	<!-- 操作菜单开始 -->
+	<div>
+		<div class="head">
+			<div class="w960 m960">
+				<ul class="nav">
+					<li><a href="index.html"> 首 页 </a></li>
+					<li><a href="index.html"> 投融事件 </a></li>
+					<li><a href="index.html"> 融资需求 </a></li>
+					<li><a href="index.html"> 新闻动态 </a></li>
+					<li><a href="index.html"> 运行成果 </a></li>
+					<li><a href="index.html"> 投资机构 </a></li>
+					<li><a href="index.html"> 联系我们 </a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 操作菜单结束-->
+	<!--幻灯片开始-->
+	<div id="banner" class="banner">
+		<div id="owl-demo" class="owl-carousel">
+			<a class="item" target="_blank" href=""
+				style="background-image: url(index/upload/banner.jpg)"> <img
+				src="index/upload/banner.jpg" alt="">
+			</a> <a class="item" target="_blank" href=""
+				style="background-image: url(index/upload/banner.jpg)"> <img
+				src="index/upload/banner.jpg" alt="">
+			</a> <a class="item" target="_blank" href=""
+				style="background-image: url(index/upload/banner.jpg)"> <img
+				src="index/upload/banner.jpg" alt="">
+			</a>
+		</div>
+	</div>
+	<!--幻灯片结束-->
+	<!--三个总量开始-->
+	<div class="space_hx">&nbsp;</div>
+	<div class="i_totle">
+		<ul>
+			<li>
+				<div class="finance">
+					<p>平台融资总量（RMB）</p>
+					<span> ${total.finance!}M </span>
+				</div>
+			</li>
+			<li>
+				<div class="enterprise">
+					<p>平台企业数（家）</p>
+					<span> ${total.enterprise!} </span>
+				</div>
+			</li>
+			<li>
+				<div class="organize">
+					<p>平台机构数（家）</p>
+					<span> ${total.organize!} </span>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<!--三个总量结束-->
+	<div class="space_hx">&nbsp;</div>
+	<!-- 融资需求开始-->
+	<div class="neednum clearfix">
+		<div class="neednuml">
+			<div class="need_about">
+				<div class="need_name">
+					<br> 融资需求 </br> <a href=""> 1321条 </a>
+				</div>
+				<div class="need_more">
+					<a href=""> 查看更多 </a>
+				</div>
+			</div>
+		</div>
+		<div class="i_need">
+			<div class="tx clearfix">
+				<ul class="tx_r">
+					<li><a class="on"> 项目名称 </a> <a class="on"> 融资金额(RMB) </a> <a
+						class="on"> 出让股权 </a> <a class="on"> 轮次 </a> <a class="on"> 详情
+					</a></li>
+					<#if projList??>
+						<#list projList as proj>
+							<li>
+								<a class="on"> ${proj.projName!} </a>
+								<a class="on"> ${proj.projAmount!} </a>
+								<a class="on"> ${proj.projPer!}% </a>
+								<a class="on"> ${proj.projLunCi!} </a> 
+								<a href="" class="on_data"> ${proj.projDetail!} </a>
+							</li>
+						</#list>
+					</#if>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 融资需求结束-->
+	<div class="space_hx">&nbsp;</div>
+	<!-- 新闻动态以及最新投资信息开始 -->
+	<div>
+		<dl id="newstitle" class="clearfix">
+			<dt style="margin-bottom: 10px">
+				<table width="110%">
+					<tbody>
+						<tr>
+							<td><u class="ubottomline">新闻动态</u></td>
+							<td><a href="##"  class="cmsmore">更多>> </a></td>
+						</tr>
+					</tbody>
+				</table>
+			</dt>
+			<div id="news"  class="clearfix">
+			<table class="cms_link" border="0" cellspacing="0" cellpadding="0"
+				width="100%" height="25px">
+				<tr>
+					<td><a href="##">贯彻落实习近平在省部级专题研讨班重要讲话精神</a></td>
+					<td class="cms_date">2010-11-20</td>
+				</tr>
+			</table>
+			<table class="cms_link" border="0" cellspacing="0" cellpadding="0"
+				width="100%" height="25px">
+				<tr>
+					<td><a href="##">全面从严治党重拳频出 政治生态焕然一新</a></td>
+					<td class="cms_date">2010-11-20</td>
+				</tr>
+			</table>
+			<table class="cms_link" border="0" cellspacing="0" cellpadding="0"
+				width="100%" height="25px">
+				<tr>
+					<td><a href="##">点火升空那一刹，升腾的是满满自豪</a></td>
+					<td class="cms_date">2010-11-20</td>
+				</tr>
+			</table>
+			<table class="cms_link" border="0" cellspacing="0" cellpadding="0"
+				width="100%" height="25px">
+				<tr>
+					<td><a href="##">快讯！中国连续五个月增持美债 重新成美国最大债权国</a></td>
+					<td class="cms_date">2010-11-20</td>
+				</tr>
+			</table>
+			<table class="cms_link" border="0" cellspacing="0" cellpadding="0"
+				width="100%" height="25px">
+				<tr>
+					<td><a href="##">美将中国列入宗教自由黑名单 外交部：管好自己的事</a></td>
+					<td class="cms_date">2010-11-20</td>
+				</tr>
+			</table>
+			</div>
+		</dl>
+		<dl id="investstitle">
+			<dt style="margin-bottom: 10px">
+				<table width="110%">
+					<tbody>
+						<tr>
+							<td><u class="ubottomline">最新投资动态</u></td>
+							<td><a href="##" target="_blank" class="cmsmore"> 更多>> </a></td>
+						</tr>
+					</tbody>
+				</table>
+			</dt>
+			</dl>
+			<dl id="invests">
+			<table class="cms_link" border="0" cellspacing="0" cellpadding="0"
+				width="100%" height="25px">
+				<tr>
+					<td><a href="##">投资最新动态一</a></td>
+					<td class="cms_date">2010-11-20</td>
+				</tr>
+			</table>
+			<table class="cms_link" border="0" cellspacing="0" cellpadding="0"
+				width="100%" height="25px">
+				<tr>
+					<td><a href="##">投资最新动态二</a></td>
+					<td class="cms_date">2010-11-20</td>
+				</tr>
+			</table>
+			<table class="cms_link" border="0" cellspacing="0" cellpadding="0"
+				width="100%" height="25px">
+				<tr>
+					<td><a href="##">投资最新动态三</a></td>
+					<td class="cms_date">2010-11-20</td>
+				</tr>
+			</table>
+			<table class="cms_link" border="0" cellspacing="0" cellpadding="0"
+				width="100%" height="25px">
+				<tr>
+					<td><a href="##">投资最新动态四</a></td>
+					<td class="cms_date">2010-11-20</td>
+				</tr>
+			</table>
+			<table class="cms_link" border="0" cellspacing="0" cellpadding="0"
+				width="100%" height="25px">
+				<tr>
+					<td><a href="##">投资最新动态五</a></td>
+					<td class="cms_date">2010-11-20</td>
+				</tr>
+			</table>
+		</dl>
+	</div>
+	<!-- 新闻动态以及最新投资信息结束-->
+	<!-- 合作伙伴以及友情链接开始-->
+	<div class="space_hx">&nbsp;</div>
+	<div>
+		<div class="partners">
+		   <a href="javascript:void(0);" id="click_partners" > 合作伙伴 </a>
+		</div>
+		<div class="friendlylink">
+	       <a href="javascript:void(0);" id="click_friendlylink" > 友情链接 </a>
+		</div>
+		<div class="space_hx">&nbsp;</div>
+		<!--合作伙伴元素  -->
+		<div id="obj_partners" style="display: inline;">
+			<a href="##" target="_blank" class="icon_first">拉卡拉</a> 
+			<a href="##" target="_blank" class="icon_other">神州绿盟</a> 
+			<a href="##" target="_blank" class="icon_other">唯一网络</a> 
+			<a href="##" target="_blank" class="icon_other">好贷网</a> 
+			<a href="##" target="_blank" class="icon_other">盈科律师事务所</a>
+			<a href="##" target="_blank" class="icon_other">民生银行</a>
+			<a href="##" target="_blank" class="icon_other">汇付天下</a>
+		</div>
+		<!--友情链接元素  -->
+		<div id="obj_friendlylink" style="display: none;">
+			<a href="##" target="_blank" class="icon_first">江苏省人民政府</a> 
+			<a href="##" target="_blank" class="icon_other">苏州市人民政府</a> 
+			<a href="##" target="_blank" class="icon_other">友情链接1</a> 
+			<a href="##" target="_blank" class="icon_other">友情链接2</a> 
+			<a href="##" target="_blank" class="icon_other">友情链接3</a>
+			<a href="##" target="_blank" class="icon_other">友情链接4</a>
+			<a href="##" target="_blank" class="icon_other">友情链接5</a>
+		</div>
+	</div>
+	<!-- 合作伙伴以及友情链接结束-->
+	<!--客服信息以及关注我们开始-->
+	<div class="space_hx">&nbsp;</div>
+	<div class="service_bg">
+		<ul class="service_nav clearfix">
+			<li class="phoneli">客服热线 (工作时间 9:00-17:00)<span
+				class="phonespan">68555158-5115</span> 客服邮箱szgqpt@126.com
+			</li>
+			<li class="focusonli">关注我们  
+			    <!-- <a href="##" id="weibo"><i class="fa fa-weibo"></i></a> -->
+			    <a href="##" id="weixin"><i class="fa fa-weixin"></i></a>
+			</li>
+			 <!-- <div id="weibohover" class="weibohover" style="display: none;">
+                  <p>扫描二维码<br>关注微博</p>
+             </div> -->
+             <div id="weixinhover" class="weixinhover" style="display: none;">
+                  <p>扫描二维码<br>关注微信</p>
+             </div>
+		</ul>
+	</div>
+	<!--客服信息以及关注我们结束-->
+	<!-- 悬浮菜单开始 -->
+	<div class="side-bar">
+		<table>
+			<tr>
+				<td><a href="#" class="icon-notice">公告通知</a></td>
+			</tr>
+			<tr>
+				<td><a href="#" class="icon-question">常见问题</a></td>
+			</tr>
+			<tr>
+				<td><a href="" class="icon-online">在线提问</a></td>
+			</tr>
+			<tr>
+				<td><a href="" class="icon-needposted">需求发布</a></td>
+			</tr>
+		</table>
+	</div>
+	<!-- 悬浮菜单结束 -->
+	<!-- 版权声明信息开始 -->
+	<div class="bq_bg">
+		<div class="bq">
+			<span> 版权所有©剑雪封喉 粤ICP备00000000号 </span> <span> 办公地址：北京市大兴区软开中心
+			</span>
+		</div>
+	</div>
+	<!-- 版权声明信息结束 -->
+</body>
+</html>

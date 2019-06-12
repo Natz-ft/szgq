@@ -1,0 +1,197 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>我的融资</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <p class="boxTitle"><span>我的融资</span></p>
+        <div class="boxContent">
+            <!-- 查询条件 -->
+            <div class="queryTerms">
+                <div class="termsWrap clearfix">
+                    <div class="termsType">
+                        <span>投资日期：</span>
+                    </div>
+                    <div class="termsList termsList-query-date">
+                        <input type="text" name="search_Myfinacing_operDate_beginTime"
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endTime\')}'})"
+                               onkeydown="if(event.keyCode==13){event.keyCode=0;return false}" id="beginTime"
+                               style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;padding-left: 5px;"
+                        />
+                        至
+                        <input type="text" name="search_Myfinacing_operDate_endTime"
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'beginTime\')}'})"
+                               onkeydown="if(event.keyCode==13){event.keyCode=0;return false}" id="endTime"
+                               style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;padding-left: 5px;"
+                        />
+                    </div>
+                    <a href="javascript:void(0);" class="select-botton">查询</a>
+                </div>
+            </div>
+            <!-- 分页组件 -->
+            <div class="orgGrid">
+            <div style="width:90%;">
+                <table id="orgGrid" lay-filter="test"></table>
+            </div>    
+                <div class="table-page">
+                    <div id="paged" class="page"> </div>
+                </div>
+            </div>
+        </div>
+    <!-- 机构表格 END-->
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script type="text/html" id="barDemo">
+   <a class="layui-btn layui-btn-mini" lay-event="showDetails">详情</a>
+   <a class="layui-btn layui-btn-mini" lay-event="showDemandDetails">需求详情</a>
+</script>
+<script>
+
+var isShow="${isShow}";
+if (isShow == "true") {
+	window.location.href = "/SRRPBusinesWeb/enterprise/enterpriseDetail";
+    window.parent.document.getElementById('leftFrame').contentWindow.menu_eventToEnter_handle();//需要调用的方法;
+}
+    $(function () {
+        var type, name;
+        var arr = [];
+        var arrData = {};
+        var data = {};
+        $(".select-botton").on("click", function () {
+            var dicType = $("#projectName").attr("id");
+            data[dicType] = $("#projectName").val();
+            var dicType = $("#beginTime").attr("id");
+            data[dicType] = $("#beginTime").val();
+            var dicType = $("#endTime").attr("id");
+            data[dicType] = $("#endTime").val();
+            init(data);
+        })
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var gridData;
+        var dataCount;//数据总条数
+        //每页最大条数
+        var maxSize;
+        //页面默认初始化操作
+        init('');
+        // 点击name弹窗
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            var infoId = data.infoId;
+            var eventId=data.eventId;
+            if (obj.event === 'showDetails') {
+
+                layer.open({
+                    title: '融资详情',
+                    content: "/SRRPBusinesWeb/finacingEvent/finacingDetail?infoId="+infoId+"&eventId="+eventId ,
+                    area: ['100%', '100%'],
+                    offset: ['0%', '0%'],
+                    type:2,
+                    scrollbar: false,
+                });
+            }
+            if (obj.event === 'showDemandDetails') {
+
+              layer.open({
+                  title: '融资需求详情',
+                  content: "/SRRPBusinesWeb/finacingDemand/findFinancingDemandDetails?operate=operate&eventFlag=eventFlag&demandInfoId='" + infoId + "'" ,
+                  area: ['100%', '100%'],
+                  offset: ['0%', '0%'],
+                  type:2,
+                  scrollbar: false,
+              });
+          }
+        });
+      	//只操作分页数据
+        function getPageInfo(obj,queryCondition) {
+                var currentPage = obj.curr;//当前页(跳转页也是当前页)
+                var limit = obj.limit;//每页多少条数
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    url: "/SRRPBusinesWeb/finacingEvent/unionEventList",
+                    data: {start: currentPage, limit: limit,queryCondition:JSON.stringify(queryCondition)},
+                    success: function (data) {
+                    	data = JSON.parse(data);
+                        createPage(data.list,limit);//装配列表数据
+                    }
+                });
+            }
+            //装配列表数据
+            function createPage(gridData,gridlimit) {
+                table.render({
+                    id: 'orgGrid',
+                    elem: '#orgGrid', //指定原始表格元素选择器（推荐id选择器）
+//                     width: 1016,
+                    data: gridData,
+                    limit:gridlimit,
+                    cols: [[ //标题栏
+//                         {field: 'projectName', title: '项目名称',style: 'color:#0D4F92;cursor: pointer;',align:'center', width:240,event: 'showDemandDetails'},
+                        {
+                            field: 'investorName',
+                            title: '投资机构名称',
+                            align:'center',
+                            width: '27%',
+                        },
+                        {field: 'finacingTurnDic', title: '投资轮次',align:'center', width:'13%'},
+                        {field: 'amountShow', title: '投资金额(万)',align:'center', width: '13%'},
+                        {field: 'openStr', title: '投递方式',align:'center', width: '12.3%'},
+                        {field: 'operdate', title: '投资日期',align:'center', width: '10%', sort: true},
+                        {   field:'',
+                            title: '操作',
+                            width: '20%',
+                            align:'center',
+                            toolbar : '#barDemo'
+                        }
+                    ]]
+                });
+                
+            }
+            
+            function init(queryCondition) {
+            	$.ajax({
+                    type: "post",
+                    async: false,
+                    url: "/SRRPBusinesWeb/finacingEvent/unionEventList",
+                    data : {"queryCondition" : JSON.stringify(queryCondition)},// 查询条件
+                    success: function (data) {
+                    	data = JSON.parse(data);
+                        dataCount = data.recordCnt;
+                        maxSize = data.maxSize;
+                        createPage(data.list);
+                    }
+                });
+                //分页调用
+                layui.use('laypage', function () {
+                    var laypage = layui.laypage;
+                    //执行一个laypage实例
+                    laypage.render({
+                        elem: 'paged', //注意,这里的paged是分页调用ID,不用加#号
+                        count: dataCount,//注意,再操作分页功能时,必须获取到数据总条数(条件查询);
+                        layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+                        limits: [10, 20, 50],//每页可选值,默认值确保与最小值相同
+                        limit: maxSize,//默认每页10条数据
+                        skip: true,
+                        jump: function (obj, first) {
+                            if(!first){
+                            	getPageInfo(obj,queryCondition);
+                            }
+                        }
+                    });
+                });
+        	}
+    })
+</script>
+</body>
+</html>

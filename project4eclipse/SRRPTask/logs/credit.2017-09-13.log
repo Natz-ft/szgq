@@ -1,0 +1,63 @@
+18:51:17.708 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+18:51:18.449 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@10d0686: startup date [Wed Sep 13 18:51:18 CST 2017]; root of context hierarchy
+18:51:18.797 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+18:51:18.923 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+18:51:19.164 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+18:51:19.267 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+18:51:19.273 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+18:51:19.275 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+18:51:19.276 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+18:51:19.292 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+18:51:19.382 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+18:51:19.412 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+18:51:19.583 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+18:51:19.587 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+18:51:19.662 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+18:51:19.956 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+18:51:20.241 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@10d0686: startup date [Wed Sep 13 18:51:18 CST 2017]; root of context hierarchy
+18:51:20.245 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+18:51:20.248 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+18:53:05.583 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+18:53:06.181 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@10d0686: startup date [Wed Sep 13 18:53:06 CST 2017]; root of context hierarchy
+18:53:06.507 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+18:53:06.629 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+18:53:06.865 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+18:53:06.966 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+18:53:06.972 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+18:53:06.974 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+18:53:06.975 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+18:53:06.990 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+18:53:07.074 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+18:53:07.104 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+18:53:07.271 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+18:53:07.275 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+18:53:07.352 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+18:53:07.652 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+18:53:07.966 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@10d0686: startup date [Wed Sep 13 18:53:06 CST 2017]; root of context hierarchy
+18:53:07.970 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+18:53:07.971 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+18:53:32.483 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+18:53:33.031 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@10d0686: startup date [Wed Sep 13 18:53:33 CST 2017]; root of context hierarchy
+18:53:33.354 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+18:53:33.478 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+18:53:33.714 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+18:53:33.822 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+18:53:33.828 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+18:53:33.829 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+18:53:33.831 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+18:53:33.846 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+18:53:33.931 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+18:53:33.962 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+18:53:34.131 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+18:53:34.135 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+18:53:34.210 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+18:53:34.513 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+18:53:34.801 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@10d0686: startup date [Wed Sep 13 18:53:33 CST 2017]; root of context hierarchy
+18:53:34.805 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+18:53:34.807 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed

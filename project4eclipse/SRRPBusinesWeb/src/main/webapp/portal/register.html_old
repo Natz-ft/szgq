@@ -1,0 +1,1062 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+   <meta name="renderer" content="webkit|ie-comp|ie-stand"/> 
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <meta name=”renderer” content=”ie-comp”>
+    <title>苏州股权融资服务平台</title>
+    <link rel="shortcut icon" href="common/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="register/style/register.css">
+    <link rel="stylesheet" type="text/css" href="common/style/reset.css">
+    <link rel="stylesheet" type="text/css" href="common/style/common.css">
+    <link rel="stylesheet" type="text/css" href="common/script/layui/css/layui.css">
+    <script src="common/script/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="common/script/layui/layui.js" type="text/javascript"></script>
+    <script src="common/script/layui/layui.all.js" type="text/javascript"></script>
+    <script src="common/script/layui/layer.cu.js" type="text/javascript"></script>
+    <script src="common/script/layui/autoCenterScript.js" type="text/javascript"></script>
+    <script src="common/script/date/my97/WdatePicker.js" type="text/javascript"></script>
+    <script src="common/script/common.js" type="text/javascript"></script>
+    <script src="register/script/formValidator_min.js" type="text/javascript"></script>
+    <script src="register/script/formValidatorRegex.js" type="text/javascript"></script>
+    <script src="investregister/script/md5.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="common/style/style.css" type="text/css" />
+    <style type="text/css">
+    .telIcons {
+	    display: inline-block;
+	    color: blue;
+	    height: 21px;
+	    line-height: 21px;
+	}
+	.telIcons:hover {
+	    color: red;
+	}
+
+	.layui-form-item {
+          margin-bottom: 3px;
+        }  
+    .reg .title-star {
+    margin-left: 9%;
+    width: 16%;
+    display: inline-block;
+    text-align: left;
+}
+
+.layui-tab {
+    margin: 10px 0;
+    text-align: center!important;
+}
+.regist-background {
+    background: #EEF3F9;
+    
+    
+}	
+.reg {
+    width: 60%;
+    margin-left: 20%;
+    font-size: 14px;
+    line-height: 25px;
+    overflow: hidden;
+    margin-right: 20%;
+    background-color: #FFFFFF;
+}
+.reg_input {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    height: 25px;
+    width: 25%;
+}
+
+    </style>
+</head>
+<body>
+<!--头部信息开始-->
+<!--头部logo以及登录注册开始-->
+<div class="logo clearfix">
+    <div class="logoRight">
+    	<c:if test="${!empty sessionScope.user}">
+        <a href="/creditplatformweb/success">进入业务系统</a><a href="/creditplatformweb/logout">退出登陆</a>
+    </c:if>
+    <c:if test="${empty sessionScope.user}">
+    	<a href="register.html"> 注&nbsp;&nbsp;&nbsp;&nbsp;册 </a>
+        <a href="/creditplatformweb/logout"> 登&nbsp;&nbsp;&nbsp;&nbsp;录 </a>
+    </c:if></div>
+          <div class="logoLeft">
+	        <a href="index.html">
+	            <p></p>
+	            <p></p>
+	        </a>
+	     </div>
+</div>
+<!--头部logo以及登录注册结束-->
+<!-- 操作菜单开始 -->
+<div class="header">
+    <ul class="nav clearfix">
+        <li class="active"><a href="index.html"> 首 页</a></li>
+        <li><a href="investevent.html"> 投融事件 </a></li>
+        <li><a href="finace.html"> 融资需求 </a></li>
+        <li><a href="news.html"> 新闻动态 </a></li>
+        <li><a href="result.html"> 运行成果 </a></li>
+        <li><a href="investor.html"> 投资机构 </a></li>
+        <li><a href="relate.html"> 联系我们 </a></li>
+    </ul>
+</div>
+<!-- 操作菜单结束-->
+<!--头部信息结束-->
+<!-- 注册表单信息开始 -->
+<div class="regist-background">
+			<div class="layui-tab" lay-filter="test1">
+				<ul class="layui-tab-title">
+					<li class="layui-this" lay-id="111">融资企业注册</li>
+					<li  lay-id="112">投资机构注册</li>
+				</ul>
+				<div class="layui-tab-content"  >
+					  
+					<div class="layui-tab-item  layui-show">
+					    <div class="reg">
+				            <form action="" name="registerfrom" id="registerfrom" method="post">
+				                <dl>
+<!-- 					                <div class="dashedstyle"></div> -->
+					                    <dt class="heading">账户信息</dt>
+					                    <div class="dashedstyle"></div>
+					                    <div class="invest-register-invest-name">
+					                        <div>
+					                            <span class="title-star"><a>*</a>融资企业名称：</span>
+					                            <input class="reg_input" name="name" id="name" type="text" style="width:300px;font-size:12px" maxlength="50"/>
+					                            <span id="nameTip" class="onshow"></span>
+					                        </div>
+					                    </div>
+					                   	<div class="dashedstyle"></div>
+					                    <div class="invest-register-invest-name">
+					                        <div>
+					                            <span class="title-star"><a>*</a>证件代码类型：</span>
+					                            <input type="radio" name="codetype" value="2" checked="checked"  onclick="javascript:radionCompanyChange(1);"/>
+					                            <label> 统一社会信用代码</label>&nbsp;&nbsp;&nbsp;
+					                            <input type="radio" name="codetype" value="1" onclick="javascript:radionCompanyChange(2);"/>
+					                            <label> 组织机构代码</label>　
+					                        </div>
+					                    </div>
+					                    <div class="dashedstyle"></div>
+					                    <div class="invest-register-invest-name">
+					                        <div class="invest-register-radio-left">
+					                            <span class="title-star"><a>*</a>证件号码：</span>
+					                            <input class="reg_input" name="code" id="code" type="text" style="width:200px;"  maxlength="18"/>
+					                             <span id="codeTip" class="onshow"></span>
+					                        </div>
+					                    </div>
+					                </dl>
+					                <dl>
+					                   <div class="dashedstyle"></div>
+					                    <dt class="heading">联系方式</dt>
+					                   	<div class="dashedstyle"></div>
+					                    <div class="invest-register-invest-name">
+					                        <div class="invest-register-radio-left">
+					                            <span class="title-star"><a>*</a>联系人姓名：</span>
+					                            <input class="reg_input"  name ="stockName" maxlength="20" id="contacName" type="text"  style="width:200px;font-size:12px"/>
+					                             <span id="contacNameTip" class="onshow"></span>
+					                        </div>
+					                    </div>
+					                    <div class="dashedstyle"></div>
+					                    <div class="invest-register-invest-name">
+					                        <div class="invest-register-radio-left">
+					                            <span class="title-star"><a>*</a>联系人手机号：</span>
+					                            <input class="reg_input"  name="stockCal" id ="contacCal"  type="text" maxlength="11" style="width:200px;"/>
+					                            <a class="telIcons" id="click_phone" style="display: inline">获取验证码</a>
+					                            <span style="color: red; display: none; " id="countdown"><a id="countdown_value"></a></span>
+					                            <span id="contacCalTip" class="onshow"></span>
+					                        </div>
+					                    </div>
+					                   	<div class="dashedstyle"></div>
+					                    <div class="invest-register-invest-name">
+					                        <div class="invest-register-radio-left">
+					                            <span class="title-star"><a>*</a>手机验证码：</span>
+					                            <input class="reg_input" name="random" id="random" type="text" maxlength="6" style="width:100px;"autocomplete="off"/>
+					                            <span id="randomTip" class="onshow"></span>
+					                        </div>
+					                    </div>
+					                    <div class="dashedstyle"></div>
+					                    <dt class="heading">用户密码</dt>
+					                   	<div class="dashedstyle"></div>
+					                    <div class="invest-register-invest-name">
+					                        <div class="invest-register-radio-left">
+					                            <span class="title-star"><a>*</a>用户密码：</span>
+					                               <!-- 防止输入框读取缓存 -->
+					                            <input type="text" style="display:none">
+					                            <input type="password" name="password" style="display:none"/>
+					                            <input id="password" type="password" name="password"   class="reg_input" style="width:100px;" autocomplete="off"/>
+					                            <span id="passwordTip" class="onshow"></span>
+					                        </div>
+					                    </div>
+					                   	<div class="dashedstyle"></div>
+					                    <div class="invest-register-invest-name">
+					                        <div class="invest-register-radio-left">
+					                            <span class="title-star"><a>*</a>确认密码：</span>
+					                               <!-- 防止输入框读取缓存 -->
+					                            <input type="text" style="display:none">
+					                            <input type="password" name="password2" style="display:none"/>
+					                            <input id="password2" type="password" name="password2" class="reg_input" style="width:100px;" autocomplete="off"/>
+					                            <span id="password2Tip" class="onshow"></span>
+					                        </div>
+					                    </div>
+					                </dl>
+					               	<div class="dashedstyle"></div>
+<!-- 					                <div class="invest-register-invest-name"> -->
+<!-- 					                    <div style="margin-left: 28%;"> -->
+<!-- 					                        <input class="reg-checkbtn" name="" id="agreedeal" type="checkbox"/> -->
+<!-- 					                      	  我已阅读并同意<a href="javascript:;" onclick="openStaticPopup()" title="Static example">《用户协议》！(点击打开阅读)</a> -->
+<!-- 					                    </div> -->
+<!-- 					                </div> -->
+					                <div class="f_reg_but">
+						            	<input id="registButton" name="registButton" type="submit"  value="免费注册" class="r_button"/>
+						                <span class="clew_txt">如果您已有帐号，可<a href="/creditplatformweb/success"><u>直接登录</u></a></span>
+						            </div>
+				                </form>
+                        </div>
+					</div>
+					<div class="layui-tab-item">
+     				        <div class="reg">
+						        <form action="" method="post" name="investRegisterfrom" id="investRegisterfrom" >
+						            <dl>
+<!-- 					                <div class="dashedstyle"></div> -->
+						             	<dt class="heading">账户信息</dt>
+						             	<div class="dashedstyle"></div>
+						                <dd>
+						                    <span class="title-star"><a>*</a>投资机构名称：</span>
+						                    <input class="reg_input" name="name" id="investName" type="text" style="width:300px;font-size:12px;" maxlength="50"/>
+						                    <span id="investNameTip" class="onshow"></span>
+						                </dd>
+					                   	<div class="dashedstyle"></div>
+						                <dd>
+						                    <span class="title-star"><a>*</a>证件代码类型：</span>
+						                    <input type="radio" id="org_code1" name="certtype" value="2" checked="checked" onclick="javascript:radionChange(1);"/>
+						                    <label for="org_code"> 统一社会信用代码</label>&nbsp;&nbsp;&nbsp;
+						                    <input type="radio" id="org_code2" name="certtype" value="1" onclick="javascript:radionChange(2);"/>
+						                    <label for="credit_code"> 组织机构代码</label>　
+						                </dd>
+					                   	<div class="dashedstyle"></div>
+						                <dd>
+						                    <span class="title-star"><a>*</a>证件号码：</span>
+						                    <input class="reg_input required" name="certno" id="investCertno" type="text" maxlength="18"/>
+						                    <span id="investCertnoTip" class="onshow"></span>
+						                </dd>
+						            </dl>
+						            <dl>
+						                <div class="dashedstyle"></div>
+						             	<dt class="heading">联系方式</dt>
+						                <div class="dashedstyle"></div>
+						
+						                <dd>
+						                    <span class="title-star"><a>*</a>联系人姓名：</span>
+						                    <input class="reg_input" name="relName" id="investRelName" type="text" maxlength="20"/>
+						                    <span id="investRelNameTip" class="onshow"></span>
+						                </dd>
+					                   	<div class="dashedstyle"></div>
+						                <dd>  
+						                    <span class="title-star"><a>*</a>联系人手机号：</span>
+						                    <input class="reg_input" name="relPhone" id="investRelPhone" type="text" maxlength="11"/>
+						                      <a class="telIcons" id="click_investPhone" style="display: inline">获取验证码</a>
+					                           <span style="color: red; display: none; " id="investCountdown"><a id="investCountdown_value"></a></span>
+						                      <span id="investRelPhoneTip" class="onshow"></span>
+						                </dd>
+					                   	<div class="dashedstyle"></div>
+						                <dd>  
+						                     <span class="title-star"><a>*</a>手机验证码：</span>
+					                        <input class="reg_input" name="random" id="investRandom" type="text" maxlength="6"  style="width:100px;" size="6" autocomplete="off"/>
+					                        <span id="investRandomTip" class="onshow"></span>
+						                    
+						                </dd>
+						            </dl>
+						            <dl>
+						            	<div class="dashedstyle"></div>
+						             	<dt class="heading">用户密码</dt>
+					                   	<div class="dashedstyle"></div>
+						                <dd>
+						                    <span class="title-star"><a>*</a>用户密码：</span>
+						                    <input class="reg_input" name="password" id="investPassword" type="password" maxlength="12"/>
+						                    <span id="investPasswordTip" class="onshow"></span>
+						                </dd>
+					                   	<div class="dashedstyle"></div>
+						                <dd>  
+						                    <span class="title-star"><a>*</a>确认密码：</span>
+						                    <input class="reg_input" name="confirmpwd" id="investConfirmpwd" type="password" maxlength="12"/>
+						                    <span id="investConfirmpwdTip" class="onshow"></span>
+						                </dd>
+					                 <div class="dashedstyle"></div>
+						            </dl>
+<!-- 						           <div class="invest-register-invest-name"> -->
+<!-- 					                    <div style="margin-left: 28%;"> -->
+<!-- 					                        <input class="reg-checkbtn" name="" id="investAgreedea" type="checkbox"/> -->
+<!-- 					                      	  我接受用户服务协议<a href="javascript:;" onclick="openStaticPopup()" title="Static example">《易站分享服务条款》！(点击打开阅读条款)</a> -->
+<!-- 					                    </div> -->
+<!-- 					                </div> -->
+<!-- 					                <div class="dashedstyle"></div> -->
+					                <div class="f_reg_but">
+						            	<input id="investButton" name="investButton" type="submit"  value="免费注册" class="r_button"/>
+						                <span class="clew_txt">如果您已有帐号，可<a href="/creditplatformweb/success"><u>直接登录</u></a></span>
+						            </div>
+						        </form>
+    			         </div>				
+    	            </div>
+				</div>
+			</div>
+</div>		
+<!-- 注册表单信息结束 -->
+<!--底部信息开始-->
+<div id="foot"></div>
+  
+<!--底部信息结束-->
+<script type="text/javascript">
+var element = layui.element;
+var openindex;
+// var orgV = document.getElementById("myHiddenDiv");
+element.on('tab(test1)', function(data){
+// 	openindex=layer.open({
+// 	 	  type: 1,
+// 	 	  title: false,
+// 	 	  area: ['40%'],
+// 	 	  content: $('#myHiddenDiv'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+// 	 	end: function () {           //关闭弹出层触发
+// 	 		orgV.style.display = 'none'; //展示审核意见
+// 	       }
+// 	 	});
+	});
+openindex=layer.open({
+	  type: 2,
+	  title: false,
+	  closeBtn:false,
+	  isOutAnim:true,
+	  anim:5,
+	  area: ['700px', '411px'],
+	  content: 'registerUserRead.html', //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+	end: function () {           //关闭弹出层触发
+//		orgV.style.display = 'none'; //展示审核意见
+    }
+	});
+
+//页面默认选中的单选
+var defaultValue='1';
+function submitform() {
+    return false;
+}
+//如果点选值改变将内容置空且获取焦点
+function radionChange(radioValue){
+	if(defaultValue == radioValue){
+	}else{
+		$("#investCertno").val('');
+		$("#investCertno").focus();
+		defaultValue = radioValue;
+	}
+}
+//如果点选值改变将内容置空且获取焦点
+function radionCompanyChange(radioValue){
+	if(defaultValue == radioValue){
+	}else{
+		$("#code").val('');
+		$("#code").focus();
+		defaultValue = radioValue;
+	}
+}
+$(function () {
+	
+	 var layer;
+     layui.use('layer', function () {
+         layer = layui.layer;
+        
+     });
+//     initDD();
+	var errorMsg;
+	$.formValidator.initConfig({
+        formid: "investRegisterfrom",debug: false, submitonce: false,
+        onerror: function (msg, obj, errorlist) {
+        	layer.open({
+                type: 1,
+                content: '<div style="padding: 10px 80px;">'+msg+'！</div>',
+                btn: '关闭',
+                btnAlign: 'c', //按钮居中
+                shade: 0,//不显示遮罩
+                yes: function () {
+                    layer.closeAll();
+                }
+            });
+        },
+   	    onsuccess: function (msg, obj, successlist) { 
+    		addInvestorInfos('investRegisterfrom');
+    		 return false;
+    	}
+    });
+	
+	//机构名称
+    $("#investName").formValidator({
+        onshow: "投资机构名称",
+        onfocus: "最多50个字符",
+        oncorrect: "ok"
+    }).inputValidator({
+        min: 1,
+        max: 50,
+//         empty: {leftempty: false, rightempty: false, emptyerror: "请输入"},
+        onerror: "请核查输入内容"
+    });
+  //证件号码校验
+    $("#investCertno").formValidator({
+        onshow: "10~18个字符",
+        onfocus: "",
+        oncorrect: "ok"
+    }).inputValidator({
+        min: 10,
+        max:18,
+        onerror: "请核查输入内容"
+    }).functionValidator({
+		fun : function(val, elem){
+			var certType =$("input:radio[name='certtype']:checked").val();
+			var  objRegExp;
+			if(certType == '2'){
+				objRegExp= /[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}/;
+			}else{
+				objRegExp= /[A-Za-z0-9]{8}-[A-Za-z0-9]/;
+			}
+			var r = val.match(objRegExp); 
+			if(objRegExp.test(val)){
+				var investFlag="";
+				 $.ajax({
+				        url: "/SRRPBusinesWeb/index/ajaxValidatorCertNo",
+				 		type: "post",
+				 		async: false,
+				 		data:{"certno":val},// 你的formid
+				 		success: function(data) {
+				 			data = JSON.parse(data);
+				        	result=data.code;
+				        	if (data.code == '00000') {
+				        		investFlag="1";
+//					        	return true; 
+					        }else if (data.code == '00001') {
+					        	investFlag="2"; 
+								
+					       	}else if(data.code == '00002') {
+					       		investFlag="3"; 
+					       	}
+				        	return false; 
+				 		}
+				 	});	
+				 if(investFlag=="1"){
+					 return true;
+				 }else if(investFlag=="2"){
+					 return "请勿重复注册"
+				 }else if(investFlag=="3"){
+					 return "此证件码基金用户已注册"
+				 }
+// 				return true;
+			}else{
+			 	return false;
+			}
+		},
+	    onerror:"证件号码格式错误"
+	});
+//     .ajaxValidator({
+// 		type: "post",
+//         dataType: "json",
+//         async: true,
+//         url: "/SRRPBusinesWeb/index/ajaxValidatorCertNo",
+//         success: function (data) {
+//         	data = JSON.parse(data);
+// 	        if (data.code == '00000') {
+// 	        	return true; 
+// 	        }else if (data.code == '00001') {
+// 	        	return false; 
+// 	       	}
+//         },
+//         error: function (jqXHR, textStatus,errorThrown) { 
+//         	return errorThrown;
+//         }
+//         ,
+//         onerror: "请勿重复注册1!"
+//       });  
+	
+	//联系人
+    $("#investRelName").formValidator({
+        onshow: "联系人名称",
+        onfocus: "最多20个字符",
+        oncorrect: "ok"
+    }).inputValidator({
+        min: 1,
+        max: 20,
+//         empty: {leftempty: false, rightempty: false, emptyerror: "请输入"},
+        onerror: "请核查输入内容"
+    });
+	//联系人手机号
+    $("#investRelPhone").formValidator({
+        onshow: "联系人手机号",
+        onfocus: "最多11个字符",
+        oncorrect: "ok"
+    }).inputValidator({
+        min: 1,
+        max: 11,
+        empty: {leftempty: false, rightempty: false, emptyerror: "请输入"},
+        onerror: "请核查输入内容"
+    }).regexValidator({
+        regexp: "^[0-9]{11}$",
+        onerror: "格式错误"
+    });
+  	  	$("#investPassword").formValidator({
+  		onshow:"密码",
+		onfocus:"密码为8~12位",
+  		oncorrect:"密码合法"
+	  }).inputValidator({
+	    min:8,
+	    max: 12,
+	    empty:{leftempty:false,rightempty:false,emptyerror:"密码非法包含空格"},
+	    onerror:"密码8~12位"
+	 });
+  	  	
+  	// 验证码
+        $("#investRandom").formValidator({ 
+			onshow: "（必填）",
+			onfocus: "",
+			oncorrect: "ok"
+		}).inputValidator({
+            min: 6,
+            max: 6,
+            onerror: "必须为6位"
+        }).ajaxValidator({
+            dataType: "text",
+            async: true,
+            url: "/SRRPBusinesWeb/newCompany/checkRandom",
+            success: function (data) {
+            	data = JSON.parse(data);
+    	        if (data.code == '00000') {
+    	        	return true; 
+    	        }else if (data.code == '00001') {
+    	        	return false; 
+    	       	}
+            },
+            error: function (jqXHR, textStatus,errorThrown) { 
+            	return errorThrown;
+            }
+            ,
+            onerror: " 验证码错误！",
+            onwait: ""
+          })
+          ;   	
+	$("#investConfirmpwd").formValidator({
+		onshow:"确认密码",
+		onfocus:"密码为8~12位",
+		oncorrect:"密码一致"
+	}).inputValidator({
+		min:8,
+		max: 12,
+		empty:{leftempty:false,rightempty:false,emptyerror:"密码非法包含空格"},
+		onerror:"确认密码8~12位"
+	}).compareValidator({
+		desid:"investPassword",
+		operateor:"=",
+		onerror:"两次密码不一致"
+	});
+	$.formValidator.initConfig({
+		validatorgroup: "2",formid: "registerfrom",debug: false, submitonce: false,
+        onerror: function (msg, obj, errorlist) {
+        	layer.open({
+                type: 1,
+                content: '<div style="padding: 10px 80px;">'+msg+'！</div>',
+                btn: '关闭',
+                btnAlign: 'c', //按钮居中
+                shade: 0,//不显示遮罩
+                yes: function () {
+                    layer.closeAll();
+                }
+            });
+        },
+   	    onsuccess: function (msg, obj, successlist) { 
+    	
+       	layer.confirm('是否确定注册为<span style="font-weight: bold;">融资企业</span>用户？一经注册，融资企业用户身份将不可修改。',{icon: 3, title:'提示',btnAlign: 'c'},function(index){
+       		MD5pwd('password');
+           	var params = $('#registerfrom').serialize();
+           	var code = $('#code').val();
+   		 $.ajax({
+                type: "post",
+                url: "/SRRPBusinesWeb/newCompany/addBascompaseInfo",
+                async: false,
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                data:{"addform" : params},// 你的formid
+                success: function(data) {
+             	   if(null != data){
+             		   data = JSON.parse(data);
+            	        	if (data.code == '00000') {
+            	        		var msg="注册成功，账号为"+code+'，请登录系统完善融资企业信息';
+            	        		layer.alert(msg, function () {
+            	        			layer.closeAll();
+            	        			layer.open({
+            	                       type: 1,
+            	                       title: '<span style="color: #233142; font-weight: 700;text-align: center;">请关注平台微信公众号，谢谢！</span>', //不显示标题栏                content: '<div style="padding: 30px 0px 30px 48px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"><div>< img src="common/images/gongzhonghao.png" alt=""/></div>'+msg+'！ </div>',
+            	                       btn: '关闭',
+            	                       btnAlign: 'c', //按钮居中
+            	                       shade: 0,//不显示遮罩
+            	                       content: '<div style="padding: 30px 0px 30px 48px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"><img src="common/images/gongzhonghao.png" alt=""/> </div>',
+            	                       end: function () {
+            	                       	window.location.href="/creditplatformweb/logout"; 
+            	                       }
+            	                   });
+            	        		  });
+            	        		return false;
+            		        }else if (data.code == '00001') {
+            		        	 alertdata('注册失败，请联系管理人员！');
+            		        	 return false;
+            		       	}
+                    	}else{
+                    		return false; 
+                    	}
+                },
+                error: function(XMLHttpRequest){  
+                    alert( "Error: " + XMLHttpRequest.responseText);  
+                }  
+         });
+       	});	
+    		return false;
+    	}
+    });
+
+	//机构名称
+    $("#name").formValidator({
+    	validatorgroup: "2",
+        onshow: "融资企业名称",
+        onfocus: "最多50个字符",
+        oncorrect: "ok"
+    }).inputValidator({
+        min: 1,
+        max: 50,
+//         empty: {leftempty: false, rightempty: false, emptyerror: "请输入"},
+        onerror: "请核查输入内容"
+    });
+	var result;
+  //证件号码校验
+    $("#code").formValidator({
+    	validatorgroup: "2",
+        onShow: "10~18个字符",
+        onfocus: "",
+        onCorrect: "ok"
+    }).functionValidator({
+		fun : function(val, elem){
+			var certType =$("input:radio[name='codetype']:checked").val();
+			var  objregExp;
+			if(certType == '2'){
+				objregExp= /[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}/;
+			}else{
+				objregExp= /[A-Za-z0-9]{8}-[A-Za-z0-9]{1}/;
+			}
+			var valleng=true;
+			var r = val.match(objregExp); 
+			if(certType == '1' && val.length!=10 && val.length!=0){
+				valleng= false;
+			}else if(certType == '2' && val.length!=18 && val.length!=0){
+				valleng= false;
+			}
+			if(valleng){
+				if(r==null){
+    				return false;
+    			}else{
+    				var flag;
+    				 $.ajax({
+    				 		url:"/SRRPBusinesWeb/newCompany/ajaxValidatorCertNo",
+    				 		type: "POST",
+    				 		async: false,
+    				 		data:{"code":val},// 你的formid
+    				 		success: function(data) {
+    				 			data = JSON.parse(data);
+    				        	result=data.code;
+    				        	if (data.code == '00000') {
+    				        		flag="1";
+    					        }else if (data.code == '00001') {
+    					        	layer.open({
+    				                    type: 1,
+    				                    title: '提示信息',
+    				                    btn: '关闭',
+    				                    closeBtn: 0,
+    				                    shade: 0,//不显示遮罩
+    				                    content: '<div style="padding: 20px 25px;">该用户已在股权融资服务平台注册，请直接登录。</div>',
+    				                    end: function () {
+    				                    	window.location.href="/creditplatformweb/logout"; 
+    				                    }
+    				                });
+    					        	return false; 
+    					       	}else if (data.code == '00002') {
+    					       		layer.open({
+    				                    type: 1,
+    				                    title: '提示信息',
+    				                    btn: '关闭',
+    				                    closeBtn: 0,
+    				                    shade: 0,//不显示遮罩
+    				                    content: '<div style="padding: 20px 25px;">该用户已在综合金服服务平台注册，请直接登录。</div>',
+    				                    end: function () {
+    				                    	window.location.href="/creditplatformweb/logout"; 
+    				                    }
+    				                });
+    					        	return false; 
+    					       	}
+    				 		}
+    				 	});	
+    				 if(flag=="1"){
+    					 return true;
+    				 }
+    			}
+			}else{
+				return false;
+			}
+			
+			
+		}, onerror: "证件号码不正确!"
+	});
+	
+	
+// 	.ajaxValidator({
+// 		type: "post",
+//         dataType: "json",
+//         async: true,
+//         url: "/SRRPBusinesWeb/newCompany/ajaxValidatorCertNo",
+//         success: function (data) {
+//         	data = JSON.parse(data);
+//         	result=data.code;
+// 	        if (data.code == '00000') {
+// 	        	return true; 
+// 	        }else if (data.code == '00001') {
+// 	        	return false; 
+// 	       	}
+//         },
+//         error: function (jqXHR, textStatus,errorThrown) { 
+//         	return errorThrown;
+//         }
+//         ,
+//         onerror:"请勿重复注册2!",
+//         onwait: ""
+//       }).defaultPassed();  
+ 
+	//联系人
+    $("#contacName").formValidator({
+    	validatorgroup: "2",
+        onshow: "股权事宜联系人名称",
+        onfocus: "最多20个字符",
+        oncorrect: "ok"
+    }).inputValidator({
+        min: 1,
+        max: 20,
+//         empty: {leftempty: false, rightempty: false, emptyerror: "请输入"},
+        onerror: "请核查输入内容"
+    });
+	//联系人手机号
+    $("#contacCal").formValidator({
+    	validatorgroup: "2",
+        onshow: "股权事宜联系人手机号",
+        onfocus: "最多11个字符",
+        oncorrect: "ok"
+    }).inputValidator({
+        min: 1,
+        max: 11,
+        empty: {leftempty: false, rightempty: false, emptyerror: "请输入"},
+        onerror: "请核查输入内容"
+    }).regexValidator({
+        regexp: "^[0-9]{11}$",
+        onerror: "格式错误"
+    });
+  	// 验证码
+        $("#random").formValidator({ 
+        	validatorgroup:"2",
+			onShow: "（必填）",
+			onFocus: "",
+			onCorrect: "ok"
+		}).inputValidator({
+            min: 6,
+            max: 6,
+            onerror: "必须为6位"
+        }).ajaxValidator({
+            dataType: "text",
+            async: true,
+            url: "/SRRPBusinesWeb/newCompany/checkRandom",
+            success: function (data) {
+            	data = JSON.parse(data);
+            	
+    	        if (data.code == '00000') {
+    	        	return true; 
+    	        }else if (data.code == '00001') {
+    	        	return false; 
+    	       	}
+            },
+            error: function (jqXHR, textStatus,errorThrown) { 
+            	return errorThrown;
+            },
+            onerror: "验证码错误!",
+            onwait: ""
+          })
+;  	
+    	$("#password").formValidator({
+    		validatorgroup:"2",
+      		onshow:"密码",
+      		onfocus:"密码为8~12位",
+      		oncorrect:"密码合法"
+    	  }).inputValidator({
+    	    min:8,
+    	    max: 12,
+    	    empty:{leftempty:false,rightempty:false,emptyerror:"密码非法包含空格"},
+    	    onerror:"密码8~12位"
+    	 });
+    	$("#password2").formValidator({
+    		validatorgroup:"2",
+    		onshow:"确认密码",
+    		onfocus:"密码为8~12位",
+    		oncorrect:"密码一致"
+    	}).inputValidator({
+    		min:8,
+    		max: 12,
+    		empty:{leftempty:false,rightempty:false,emptyerror:"密码非法包含空格"},
+    		onerror:"确认密码8~12位"
+    	}).compareValidator({
+    		desid:"password",
+    		operateor:"=",
+    		onerror:"两次密码不一致"
+    	});
+	
+});
+function addInvestorInfos(formId){
+	    layer.confirm('是否确定注册为<span style="font-weight: bold;">投资机构</span>用户？ 一经注册，投资机构用户身份将不可修改。',{icon: 3, title:'提示',btnAlign: 'c'},function(index){
+	       	 MD5pwd('investPassword');
+			 var code = $('#investCertno').val();
+		 $.ajax({
+				cache: true,
+				type: "POST",
+				url:"/SRRPBusinesWeb/index/addInvestorInfos",
+				data:$('#investRegisterfrom').serialize(),// 你的formid
+				async: false,
+				success: function(data) {
+					data = JSON.parse(data);
+					if(data.msg =='sucessful'){
+						var msg="注册成功，账号为"+code+'，请登录系统完善投资机构信息';
+			     		layer.alert(msg, function () {
+			     			layer.closeAll();
+			     			layer.open({
+			                    type: 1,
+			                    title: '<span style="color: #233142; font-weight: 700;text-align: center;">请关注平台微信公众号，谢谢！</span>', //不显示标题栏                content: '<div style="padding: 30px 0px 30px 48px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"><div>< img src="common/images/gongzhonghao.png" alt=""/></div>'+msg+'！ </div>',
+			                    btn: '关闭',
+			                    btnAlign: 'c', //按钮居中
+			                    shade: 0,//不显示遮罩
+			                    content: '<div style="padding: 30px 0px 30px 48px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"><img src="common/images/gongzhonghao.png" alt=""/></div>',
+			                    end: function () {
+			                    	window.location.href="/creditplatformweb/logout"; 
+			                    }
+			                });
+			     		  });
+			     		return false;
+					}else{
+    		        	 alertdata('注册失败，请联系管理人员！');
+						return false;
+					}
+				},
+				error: function(request) {
+					layer.msg("提交失败啦，请稍后再试！");
+					window.location.href = "index.html";
+				}
+			});	
+	       	});	
+	return false;
+}
+function MD5pwd(password){
+	var prekey=$("#"+password).val();
+	var hex=hex_md5(prekey);
+	$("#"+password).val(hex);
+}
+
+function addCompanyInfos(formId){
+// 	 if ($('#agreedeal').is(':checked')) {
+	alert("进入注册方法==============");
+ 		 MD5pwd('password');
+    	var params = $('#registerfrom').serialize();
+    	var code = $('#code').val();
+		 $.ajax({
+             type: "post",
+             url: "/SRRPBusinesWeb/newCompany/addBascompaseInfo",
+             async: false,
+             contentType: "application/x-www-form-urlencoded; charset=utf-8",
+             data:{"addform" : params},// 你的formid
+             success: function(data) {
+          	   if(null != data){
+          		   data = JSON.parse(data);
+         	        	if (data.code == '00000') {
+         	        		alert("后台提交返回ata.code == '00000'==============");
+
+         	        		var msg="注册成功，账号为"+code+'，请登录系统完善融资企业信息';
+         	        		layer.alert(msg, function () {
+         	        			layer.closeAll();
+         	        			layer.open({
+         	                       type: 1,
+         	                       title: '<span style="color: #233142; font-weight: 700;text-align: center;">请关注平台微信公众号，谢谢！</span>', //不显示标题栏                content: '<div style="padding: 30px 0px 30px 48px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"><div>< img src="common/images/gongzhonghao.png" alt=""/></div>'+msg+'！ </div>',
+         	                       btn: '关闭',
+         	                       btnAlign: 'c', //按钮居中
+         	                       shade: 0,//不显示遮罩
+         	                       content: '<div style="padding: 30px 0px 30px 48px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"><img src="common/images/gongzhonghao.png" alt=""/> </div>',
+         	                       end: function () {
+         	                       	window.location.href="/creditplatformweb/logout"; 
+         	                       }
+         	                   });
+         	        		  });
+         	        		return false;
+         		        }else if (data.code == '00001') {
+         		        	 alertdata('注册失败，请联系管理人员！');
+         		        	 return false;
+         		       	}
+                 	}else{
+                 		return false; 
+                 	}
+             },
+             error: function(XMLHttpRequest){  
+                 alert( "Error: " + XMLHttpRequest.responseText);  
+             }  
+      });
+		 return false;
+// 	 }else{
+// 		 alertdata('请选择是否同意《用户协议》！');
+// 	 }
+}
+ //机构验证吗：联系人联系方式获取
+var countdown;
+var max_countdown = 60;
+$('#click_investPhone').click(function () {
+	var phone=$('#investRelPhone').val();
+	if(null == phone || "" == phone){
+		layer.open({
+            title: '友好提示',
+            type: 1,
+            content: '<div style="padding: 10px 80px;">联系人手机号！</div>',
+            btn: '关闭',
+            btnAlign: 'c', //按钮居中
+            shade: 0,//不显示遮罩
+            yes: function () {
+                layer.closeAll();
+            }
+        });
+		return false;
+	}
+    $.ajax({
+ 		url:"/SRRPBusinesWeb/newCompany/sendMessage",
+ 		type: "POST",
+ 		data:{"phone":phone},// 你的formid
+ 		success: function(data) {
+ 		}
+ 	});	
+    $('#click_investPhone').css("display", "none");
+    $('#investCountdown').css("display", "inline");
+    countdown = max_countdown;
+    setInvestTime(countdown);
+   
+})
+function setInvestTime(countdown) {
+    if (countdown == 0) {
+        countdown = max_countdown;
+    } else {
+        countdown--;
+    }
+    document.getElementById('investCountdown_value').innerHTML = countdown + "秒重新获取";
+    $('#investCountdown_value').css({"font-size": "14px"});
+    setTimeout(function () {
+        if (countdown != 0) {
+       	 setInvestTime(countdown);
+        } else {
+        	 $.ajax({
+          		url:"/SRRPBusinesWeb/newCompany/checkRandom",
+          		type: "POST",
+          		data:{"type":"0"},
+          		success: function(data) {
+          		}
+          	});	
+            $('#click_investPhone').css("display", "inline");
+            $('#investCountdown').css("display", "none");
+        }
+    }, 1000)
+}
+//企业验证码：联系人联系方式获取
+var countdown;
+var max_countdown = 60;
+$('#click_phone').click(function () {
+	var phone=$('#contacCal').val();
+	if(null == phone || "" == phone){
+		layer.open({
+            title: '友好提示',
+            type: 1,
+            content: '<div style="padding: 10px 80px;">联系人手机号！</div>',
+            btn: '关闭',
+            btnAlign: 'c', //按钮居中
+            shade: 0,//不显示遮罩
+            yes: function () {
+                layer.closeAll();
+            }
+        });
+		return false;
+	}
+    $.ajax({
+ 		url:"/SRRPBusinesWeb/newCompany/sendMessage",
+ 		type: "POST",
+ 		data:{"phone":phone},// 你的formid
+ 		success: function(data) {
+ 		}
+ 	});	
+    $('#click_phone').css("display", "none");
+    $('#countdown').css("display", "inline");
+    countdown = max_countdown;
+    settime(countdown);
+   
+})
+function settime(countdown) {
+    if (countdown == 0) {
+        countdown = max_countdown;
+    } else {
+        countdown--;
+    }
+    document.getElementById('countdown_value').innerHTML = countdown + "秒重新获取";
+    $('#countdown_value').css({"font-size": "14px"});
+    setTimeout(function () {
+        if (countdown != 0) {
+            settime(countdown);
+        } else {
+        	 $.ajax({
+          		url:"/SRRPBusinesWeb/newCompany/checkRandom",
+          		type: "POST",
+          		data:{"type":"0"},
+          		success: function(data) {
+          		}
+          	});	
+            $('#click_phone').css("display", "inline");
+            $('#countdown').css("display", "none");
+        }
+    }, 1000)
+}
+
+//提示信息方法
+function alertdata(data) {
+   layer.open({
+       title: '友好提示',
+       type: 1,
+       content: '<div style="padding: 10px 80px;">' + data + '</div>',
+       btn: '关闭',
+       btnAlign: 'c', //按钮居中
+       shade: 0,//不显示遮罩
+       yes: function () {
+           layer.closeAll();
+       }
+   });
+}
+function getRadioValues(keys){
+	var values=""; 
+	$('input[name="'+keys+'"]:checked').each(function(){ 
+		values+=$(this).val(); 
+	}) 
+	return values;
+}
+</script>
+</body>
+</html>

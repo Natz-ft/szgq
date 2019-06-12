@@ -1,0 +1,184 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<input type="hidden" id="investorId" value='${investor.investorId}'/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>投资机构详情</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/details.css">
+    <style>
+        .detailsTxt p img {
+            max-width: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <p class="boxTitle"><span>${investor.name}</span></p>
+    <div class="boxContent">
+    <div class="detailsCon">
+    	<div class="detail-title-name"><span>基本信息</span></div>
+        <div class="detailsTxt clearfix">
+            <p>证件类型：<span>${investor.certtypeDicname}</span></p>
+            <p>证件号码：<span>${investor.certno}</span></p>
+            <p>注册时间：<span>${investor.registeTime}</span></p>
+            <p>所属地区：<span>${investor.areaCodeDicname}</span></p>
+            <p>机构类型：<span>${investor.orgTypeDicname}</span></p>
+            <p>资本类型：<span>${investor.capitalTypeDicname}</span></p>
+            <p>状态：<span>${investor.stopFlagDicname}</span></p>
+            <p>审核状态：<span>${investor.auditStatusDicname}</span></p>
+            <p class="aloneRow"><label>营业执照：</label>
+               <span>
+                <a  id="layer-licensePhotos" style="cursor:pointer"><img layer-src=${investor.licensePath} id="licenseImgHidden" height="50" src=${investor.licensePath} alt=${investor.fileName}></a> 
+               </span>
+            </p>
+        </div>
+    </div>
+    <div class="detailsCon clearfix">
+        <div class="detail-title-name"><span>联系方式</span></div>
+        <div class="detailsTxt clearfix">
+            <p>联系人姓名：<span>${investor.relName}</span></p>
+            <p>联系人手机号：<span>${investor.relPhone}</span></p>
+            <p>地址：<span>${investor.address}</span></p>
+            <p>邮编：<span>${investor.zipcode}</span></p>
+            <p>电子邮箱：<span>${investor.email}</span></p>
+            <p>传真：<span>${investor.fax}</span></p>
+        </div>
+    </div>
+    <div class="detailsCon clearfix">
+        <div class="detail-title-name"><span>机构介绍</span></div>
+        <div class="detailsTxt clearfix aloneDiv">
+            <p class="aloneRow">
+            <c:choose>  
+               <c:when test='${investor.logoPath!="undefined"&&investor.logoPath!=""&&investor.logoPath!=null}'>
+               	 <span>
+                	<a  id="layer-logoPhotos" style="cursor:pointer">
+                 	  <img layer-src=${investor.logoPath} id="logoImgHidden" height="80" src=${investor.logoPath} alt="${investor.logoName}">
+                   	</a>
+                 </span>
+               </c:when> 
+               <c:otherwise>
+               		<span>
+               			<a  id="layer-logoPhotos" style="cursor:pointer">
+               			   <img layer-src="../static/images/defaultInvestor.png" id="logoImgHidden" height="50" src="../static/images/defaultInvestor.png" >
+               			</a> 
+               		</span>
+               </c:otherwise>
+            </c:choose>
+            </p>
+        </div>
+        <div class="detailsTxt clearfix aloneDiv">
+            <p><pre><p style="font-family: Microsoft YaHei;color:#333;font-size: 14px; display:inline;">${investor.description}</p>&nbsp;&nbsp;</pre></p>
+        </div>
+    </div>
+     <div class="detailsCon clearfix">
+        <div class="detail-title-name"><span>投资策略</span></div>
+        <div class="detailsTxt clearfix aloneDiv">
+            <p>管理资本量（百万）：<span><c:if test="${!empty investor.capital && investor.capital!=0}">${investor.currency} <fmt:formatNumber value="${investor.capital}" pattern="####.##"/></c:if></span></p>
+            <p>拟投资阶段：<span>${investor.financeStageDicname}</span></p>
+            <p>拟投资行业：<span>${investor.financeTradeDicname}</span></p>
+        </div>
+    </div>
+    <div class="detailsCon clearfix">
+        <div class="detail-title-name"><span>审核记录</span></div>
+        <div>
+            <div class="detail-table" id="eventIdDiv">
+                <div style="margin-left: -6%">
+                    <table align="center" id="investorGrid" lay-filter="test"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="buttonWrap">
+        <button class="layui-btn editBtn">&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;辑&nbsp;&nbsp;</button>
+    </div>
+    </div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+
+<script type="text/html" id="auditContentBar">
+    <a href="javascript:void(0);" class="layui-table-link" title="{{d.auditContent}}">{{d.auditContent}}</a>
+</script>
+<script>
+    $(function () {
+    	var investorId = $("#investorId").val();
+        //数据表格
+        layui.use('table', function () {
+            var table = layui.table;
+            // 赋值数据实际使用为后台获取数据
+            var gridData = ${investorAuditRecords};
+            table.render({
+                id: 'investorGrid'
+                , elem: '#investorGrid' //指定原始表格元素选择器（推荐id选择器）
+                , width: 770
+                , height: 280 //容器高度
+                , page: true
+                , limits: [10, 20, 50]
+                , limit: 10
+                , data: gridData
+                , cols: [[ //标题栏
+                    {field: 'auditorName', title: '审核人', width: 180, align:'center'}
+                    , {field: 'auditTimeStr', title: '审核时间', width: 190, align:'center'}
+                    , {field: 'auditResultDicname', title: '审核结果', width: 190, align:'center'}
+                    , {field: 'auditContent', title: '审核意见', width: 210, align:'center', toolbar: '#auditContentBar'}
+                ]]
+            });
+        });
+        $('#layer-licensePhotos').on('click', function () {
+	    	var contet='<div style="text-align: center; "><img src="'+$('#licenseImgHidden').attr('src')+'" width="350px;" height="300px;"/></div>';
+	        layer.open({
+	                type: 1,
+	                title: false, //不显示标题栏
+	                closeBtn: true,
+	                shade: 0.1,
+	                id: 'LAY_layuiLicense', //设定一个id，防止重复弹出
+	                btn: ['关闭'],
+	                btnAlign: 'c',
+	                moveType: 1,//拖拽模式，0或者1
+	                content:contet,
+	                success: function (layero) {
+	                }
+	            });
+	    });
+        $('#layer-logoPhotos').on('click', function () {
+	    	var contet='<div style="text-align: center; "><img src="'+$('#logoImgHidden').attr('src')+'" width="350px;" height="300px;"/></div>';
+	        layer.open({
+	                type: 1,
+	                title: false, //不显示标题栏
+	                closeBtn: true,
+	                shade: 0.1,
+	                id: 'LAY_layuiLogo', //设定一个id，防止重复弹出
+	                btn: ['关闭'],
+	                btnAlign: 'c',
+	                moveType: 1,//拖拽模式，0或者1
+	                content:contet,
+	                success: function (layero) {
+	                }
+	            });
+	    });
+        $(".editBtn").on("click", function () {
+         		if(${investor.auditStatus} =="1" || ${investor.auditStatus} =="4"){
+         			layer.msg('正在审核中无法编辑');
+         		}else{
+                    layer.open({
+                        title: '编辑',
+                        content: "/SRRPBusinesWeb/investor/selecetInvestor?investorId="+investorId,
+                        area: ['100%', '100%'],
+                        offset: ['0%', '0%'],
+                        type:2,
+                        scrollbar: false,
+                    });
+         		}
+         	});
+    });
+</script>
+</body>
+</html>

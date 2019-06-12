@@ -1,0 +1,81 @@
+14:51:59.282 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+14:52:02.392 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext-constants.xml]
+14:52:02.443 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext-rediscache.xml]
+14:52:02.493 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@87761d: startup date [Tue Oct 10 14:52:02 CST 2017]; root of context hierarchy
+14:52:04.539 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+14:52:05.292 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+14:52:05.787 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+14:52:05.999 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+14:52:06.004 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+14:52:06.007 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+14:52:06.008 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+14:52:06.034 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+14:52:06.174 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+14:52:06.210 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+14:52:06.408 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+14:52:06.413 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+14:52:06.531 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+14:52:07.137 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+14:52:07.144 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+14:52:07.146 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-2} inited
+14:52:07.179 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+14:52:07.179 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+14:52:07.184 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+14:52:07.189 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+14:52:07.215 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+14:52:07.215 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+14:52:07.266 [main] WARN  o.h.e.i.EntityManagerFactoryRegistry - HHH000436: Entity manager factory name (default) is already registered.  If entity manager will be clustered or passivated, specify a unique value for property 'hibernate.ejb.entitymanager_factory_name'
+14:52:07.266 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+14:52:08.526 [main] WARN  o.h.hql.internal.ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 77.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+14:52:08.526 [main] WARN  o.h.hql.internal.ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 97.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+14:52:08.529 [main] WARN  o.h.hql.internal.ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 77.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+14:52:08.529 [main] WARN  o.h.hql.internal.ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 94.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+14:52:08.529 [main] WARN  o.h.hql.internal.ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 114.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+14:52:08.950 [main] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+14:52:09.183 [Thread-3] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@87761d: startup date [Tue Oct 10 14:52:02 CST 2017]; root of context hierarchy
+14:52:09.190 [Thread-3] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+14:52:09.194 [Thread-3] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-2} closed
+14:52:09.195 [Thread-3] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+14:52:09.196 [Thread-3] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+14:52:20.895 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+14:52:21.421 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext-constants.xml]
+14:52:21.436 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext-rediscache.xml]
+14:52:21.451 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@84448c: startup date [Tue Oct 10 14:52:21 CST 2017]; root of context hierarchy
+14:52:22.321 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+14:52:22.490 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+14:52:22.749 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+14:52:22.876 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+14:52:22.881 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+14:52:22.883 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+14:52:22.884 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+14:52:22.907 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+14:52:23.001 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+14:52:23.037 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+14:52:23.185 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+14:52:23.190 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+14:52:23.283 [main] WARN  org.hibernate.id.UUIDHexGenerator - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+14:52:23.552 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+14:52:23.560 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+14:52:23.563 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-2} inited
+14:52:23.593 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+14:52:23.594 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+14:52:23.599 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+14:52:23.604 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+14:52:23.632 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+14:52:23.632 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+14:52:23.696 [main] WARN  o.h.e.i.EntityManagerFactoryRegistry - HHH000436: Entity manager factory name (default) is already registered.  If entity manager will be clustered or passivated, specify a unique value for property 'hibernate.ejb.entitymanager_factory_name'
+14:52:23.696 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+14:52:24.650 [main] WARN  o.h.hql.internal.ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 77.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+14:52:24.650 [main] WARN  o.h.hql.internal.ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 97.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+14:52:24.654 [main] WARN  o.h.hql.internal.ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 77.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+14:52:24.654 [main] WARN  o.h.hql.internal.ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 94.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+14:52:24.656 [main] WARN  o.h.hql.internal.ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 114.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+14:52:24.927 [main] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing

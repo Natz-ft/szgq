@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>苏州股权融资服务平台</title>
+    <link rel="shortcut icon" href="common/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="common/style/reset.css">
+    <link rel="stylesheet" type="text/css" href="common/style/common.css">
+    <link rel="stylesheet" type="text/css" href="common/script/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="news/style/news.css">
+    <script src="common/script/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="common/script/layui/layui.js" type="text/javascript"></script>
+    <script src="common/script/common.js" type="text/javascript"></script>
+    <script src="common/script/qrcode/qrcode.js" type="text/javascript"></script>
+    <script src="news/script/news.js" type="text/javascript"></script>
+</head>
+<body>
+<!--头部信息开始-->
+<div id="top"></div>
+<!-- 操作菜单开始 -->
+<div class="header">
+    <ul class="nav clearfix">
+        <li><a href="index.html"> 首 页 </a></li>
+        <li><a href="investevent.html"> 投融事件 </a></li>
+        <li><a href="finace.html"> 融资需求 </a></li>
+        <li class="active"><a href="news.html"> 新闻动态 </a></li>
+        <li><a href="result.html"> 运行成果 </a></li>
+        <li><a href="investor.html"> 投资机构 </a></li>
+        <li><a href="relate.html"> 联系我们 </a></li>
+    </ul>
+</div>
+<!-- 操作菜单结束-->
+<!--头部信息结束-->
+<!--页面主体开始-->
+<div class="main-background">
+    <div class="mainwraper">
+        <div class="current-position">
+            当前位置：首页&gt;新闻动态
+        </div>
+        <!--五张图片开始-->
+        <div>
+            <table class="newstable">
+                <tr>
+                    <td class="td-left" rowspan="2">
+                        <a href="detailnewsInfo6.html">
+                            <img class="img" src="news/images/1.jpg" title="解放军最新出炉这份名单 有何特殊之处" alt=""/>
+                        </a>
+                        <div class="imgfont">解放军最新出炉这份名单 有何特殊之处</div>
+                    </td>
+
+                    <td class="td-center">
+                        <a href="detailnewsInfo7.html">
+                            <img class="img" src="news/images/2-1.jpg"  title="德国驻华大使说了啥？中方斥..." alt=""/>
+                        </a>
+                        <div class="imgfont">德国驻华大使说了啥？中方斥...</div>
+                    </td>
+
+                    <td class="td-center">
+                        <a href="detailnewsInfo9.html">
+                            <img class="img" src="news/images/2-2.jpg"  title="银监会前9月罚没6.25亿..." alt=""/>
+                        </a>
+                        <div class="imgfont">银监会前9月罚没6.25亿...</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-right">
+                        <a href="detailnewsInfo8.html">
+                            <img class="img" src="news/images/3-1.jpg"  title="美弗吉尼亚大学枪击案致1人..."  alt=""/>
+                        </a>
+                        <div class="imgfont">美弗吉尼亚大学枪击案致1人...</div>
+                    </td>
+                    <td class="td-right">
+                        <a href="detailnewsInfo5.html">
+                            <img class="img" src="news/images/3-1.jpg"  title="中央政治局会议透露修宪信息..."  alt=""/>
+                        </a>
+                        <div class="imgfont">中央政治局会议透露修宪信息...</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--五张图片结束-->
+        <div>&nbsp;</div>
+        <!--行业动态与政策指南开始-->
+        <div>
+            <a class="industry-dynamic" id="click_industry_dynamic" href="javascript:;"> 行业动态 </a>
+            <a class="policy-guide" id="click_policy_guide" href="javascript:;"> 政策指南 </a>
+        </div>
+        <!--行业动态与政策指南结束-->
+        <div>&nbsp;</div>
+        <div class="sub-c">
+            <!--行业动态列表开始-->
+            <div id="obj_industry_dynamic" style="display:inline;">
+                <!--每一条内容开始-->
+                <form id="newsformid"></form>
+                <!--每一条内容结束-->
+                <div>&nbsp;</div>
+                <!--分页组件-->
+                <div style="text-align: center;">
+                    <div id="news-page-ui"></div>
+                </div>
+            </div>
+            <!--行业动态列表结束-->
+            <!--政策指南列表开始-->
+            <div id="obj_policy_guide" style="display:none;">
+                <!--每一条内容开始-->
+                <form id="policyformid"></form>
+                <!--每一条内容结束-->
+                <div>&nbsp;</div>
+                <!--分页组件-->
+                <div style="text-align: center;">
+                    <div id="policy-page-ui"></div>
+                </div>
+            </div>
+            <!--政策指南列表结束-->
+        </div>
+        <!--列表结束-->
+    </div>
+    <div>&nbsp;</div>
+</div>
+<!--页面主体结束-->
+<!--底部信息开始-->
+<div id="foot"></div>
+<!--底部信息结束-->
+</body>
+</html>

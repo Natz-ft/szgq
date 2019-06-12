@@ -1,0 +1,414 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>我的需求</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+    <style type="text/css">
+		.ii {
+			    background: #ffffff;
+			    border-radius: 50%;
+			    width: 17px;
+			    height: 17px;
+			    top: 0px;
+			    position: absolute;
+			    text-align: center;
+			    z-index: 99999;
+			    font-size: 14px;
+			    margin-left: 1%;
+			}
+		 .layui-icon newicon{
+			    margin-right: 200%;
+			    font-size: 18px;
+			    vertical-align: bottom;
+			    }
+		  .layui-icon{
+			    font-weight: bold;
+			    }
+		 .layui-btn-mini i {
+				    font-size: 18px !important;
+				}
+
+
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <p class="boxTitle"><span>我的需求</span></p>
+        <div class="boxContent">
+            <!-- 查询条件 -->
+            <div class="queryTerms">
+<!--                 <div class="termsWrap clearfix"> -->
+<!--                     <div class="termsType"> -->
+<!--                         <span>项目名称：</span> -->
+<!--                         <input id="projectName" type="text" name="projectName" class="query-blank-input"/> -->
+<!--                     </div> -->
+<!--                 </div> -->
+                <div class="termsWrap clearfix">
+                    <div class="termsType">
+                        <span>需求状态<i class="l_class"></i>：</span>
+                        <a class="queryAll" id="statusAll">全部</a>
+                    </div>
+                    <div class="termsList" id="status">
+                        <ul class="clearfix" id="statusType">
+                            <c:forEach items="${ddFinacingStatus}" var="ddstatus">
+                                <li><a value="${ddstatus.dicCode}">${ddstatus.dicName}</a></li>
+                            </c:forEach>
+                            <li><a value="88">撤回</a></li>
+                            <li><a value="89">待审核</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="termsWrap clearfix">
+                    <div class="termsType">
+                        <span>发布日期：</span>
+                    </div>
+                    <div class="termsList termsList-query-date">
+                        <input type="text" name="search_Myfinacing_operDate_beginTime"
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endTime\')}'})"
+                               onkeydown="if(event.keyCode==13){event.keyCode=0;return false}" id="beginTime"
+                               style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;padding-left: 5px;"
+                        />
+                        至
+                        <input type="text" name="search_Myfinacing_operDate_endTime"
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'beginTime\')}'})"
+                               onkeydown="if(event.keyCode==13){event.keyCode=0;return false}" id="endTime"
+                               style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;padding-left: 5px;"
+                        />
+                    </div>
+                    <a href="javascript:void(0);" class="select-botton">查询</a>
+                    <a href="javascript:void(0);"  class="addBtn">新增</a>
+                </div>
+
+            </div>
+            <!-- 分页组件 -->
+            <div>
+<!--               <div style="width:95%;"> -->
+                <table id="orgGrid" lay-filter="test"></table>
+                </div>
+                <div class="table-page">
+                    <div id="paged" class="page"></div>
+                </div>
+<!--             </div> -->
+        </div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<!-- 根据状态进行修改这里面的数据  
+     4.对于非草稿状态的的需求进行复制需求
+     5.对于已经关注、启动约谈、拒绝投资的需求是不能进行关闭的
+-->
+<script type="text/html" id="barDemo">
+        <a lay-event="opShowDetails" class="layui-btn layui-btn-mini">详情</a>
+ {{# if(d.status !='00' && d.status !='01'&& !(d.status ==99 && d.revokeFlag =='0' )){ }}
+    {{# if(d.updateFlag !='0' || d.publish=='1'){ }}
+        <a lay-event="findprojectProgress" class="layui-btn layui-btn-mini">项目进度<span  onmouseover="showdetal('{{d.updateFlag}}','{{d.publish}}');" mouseleave="hidedetail();" id="msgNum" class="ii"><i class="layui-icon newicon" style="font-size: 30px;color:red;">&#xe60b;</i></span></a>
+    {{# } else { }}
+         <a lay-event="findprojectProgress" class="layui-btn layui-btn-mini">项目进度</a>
+    {{# } }}
+ {{# } }}
+    {{# if(d.status =='00'&& d.publishFlag=='1'){ }}
+    	<a lay-event="sendFinacingDemand" class="layui-btn layui-btn-mini">发布</a>
+    {{# } }}
+    {{# if(d.status =='00' || d.status =='01' || d.status =='12' || d.status =='22' || d.status =='32' || d.revokeFlag =='1'){ }}
+    	<a lay-event="editFinacingDemand" class="layui-btn layui-btn-mini">修改</a>
+    {{# } }}
+    {{# if(d.copyShowFlag =='0'){ }}
+    	<a lay-event="copyFinacingDemand" class="layui-btn layui-btn-mini">复制</a>
+    {{# } }}
+    {{# if(d.changeOpenFlag =='0'){ }}
+    	<a lay-event="openFinacingDemand" class="layui-btn layui-btn-mini">公开发布</a>
+    {{# } }}
+	{{# if(d.status =='00' ||d.status =='01'){ }}
+   		<a lay-event="closeFinacingDemand" data-method="offset" data-type="auto" class="layui-btn layui-btn-mini">关闭</a>
+	{{# } }}
+</script>
+<script type="text/html" id="statusBar">
+    {{# if(d.revokeFlag =='0'){ }}
+    	<a>{{d.statusDicname}}</a>
+    {{# }else if(d.revokeFlag =='1'){ }}
+        <a >撤回</a>
+    {{# }else if(d.revokeFlag =='2'){ }}
+		<a >待审核</a>
+    {{# }}}
+</script>
+<script>
+    var demandIndex;
+    $(function () {
+    	
+        var type, name;
+        var arr = [];
+        var arrData = {};
+        var data = {};
+        $(".termsWrap a").on("click", function () {
+            var statusType = $(this).parents(".termsList").attr("id");
+            data[statusType] = $(this).attr("value");
+        })
+        $("#statusAll").on("click", function () {
+            delete eval(data).status;
+        })
+
+        $(".select-botton").on("click", function () {
+            var dicType = $("#projectName").attr("id");
+            data[dicType] = $("#projectName").val();
+            var dicType = $("#beginTime").attr("id");
+            data[dicType] = $("#beginTime").val();
+            var dicType = $("#endTime").attr("id");
+            data[dicType] = $("#endTime").val();
+            init(data);
+        })
+        $(".addBtn").on("click", function () {//新增按钮
+        	 layer.open({
+                 title: false,
+                 closeBtn :1,
+                 content:["/SRRPBusinesWeb/finacingDemand/finacingDemandInfoDetail", 'no'],
+                 area: ['100%', '100%'],
+                 offset: ['0%', '0%'],
+                 type:2,
+                 scrollbar: false,
+                 end:function(){
+                	 window.parent.parent.document.getElementById('leftFrame').contentWindow.menu_send_handle();//需要调用的方法;
+                 }
+             });
+        	 window.parent.document.getElementById('leftFrame').contentWindow.menu_demandToSend_handle();//需要调用的方法;
+        })
+        // 查询条件选择高亮
+        var queryAll;
+        $(".boxWrap .boxContent .termsList li a").on("click", function () {
+            queryAll = $(this).parents(".termsWrap").find(".queryAll");
+            var t = $(this);
+            if (queryAll.hasClass("active")) {
+                queryAll.removeClass("active");
+            }
+            if (!$(this).parent().hasClass("active")) {
+                $(this).parent().addClass("active").siblings().removeClass("active");
+            }
+        });
+        // 查询条件展开
+        var list, showOne, showAll;
+        $(".queryAll").on("click", function () {
+            list = $(this).parent().siblings(".termsList");
+            showAll = list.find("ul").height();
+            showOne = list.height();
+            $(this).addClass("active");
+            list.find("li").removeClass("active");
+            if (showOne < showAll) {
+                list.animate({height: showAll});
+            } else {
+                list.animate({height: 24});
+            }
+        });
+
+
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var gridData;
+        var dataCount;//数据总条数
+        //每页最大条数
+        var maxSize;
+        //页面默认初始化操作
+        init('');
+      //初始化页面
+        function init(queryCondition) {
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/finacingDemand/demandInfoList",
+                data: {"queryCondition": JSON.stringify(queryCondition)},// 查询条件
+                success: function (data) {
+                    data = JSON.parse(data);
+                    dataCount = data.recordCnt;
+                    createPage(data.list);
+                }
+            });
+            //分页调用
+            layui.use('laypage', function () {
+                var laypage = layui.laypage;
+                //执行一个laypage实例
+                laypage.render({
+                    elem: 'paged', //注意,这里的paged是分页调用ID,不用加#号
+                    count: dataCount,//注意,再操作分页功能时,必须获取到数据总条数(条件查询);
+                    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+                    limits: [10, 20, 50],//每页可选值,默认值确保与最小值相同
+                    limit: maxSize,//默认每页10条数据
+                    skip: true,
+                    jump: function (obj, first) {
+                        if (!first) {
+                            getPageInfo(obj, queryCondition);
+                        }
+                    }
+                });
+            });
+        }
+        // 点击name弹窗
+        table.on('tool(test)', function (obj) {
+        	var msg = '';//提示信息
+            var data = obj.data;
+            var demandInfoId = obj.data.infoId;
+            var demandName = obj.data.projectName;
+            //显示需求详情
+            if (obj.event === 'showDetails') {
+                layer.open({
+                    title: '需求详情',
+                    content: "/SRRPBusinesWeb/finacingDemand/findFinancingDemandDetails?operate=operate&demandInfoId='" + demandInfoId + "'" ,
+                    area: ['100%', '100%'],
+                    offset: ['0%', '0%'],
+                    type:2,
+                    scrollbar: false,
+                });
+            }
+            //项目进度查询
+            if (obj.event === 'findprojectProgress') {
+                layer.open({
+                    title: '',
+                    content: "/SRRPBusinesWeb/finacingDemand/findprojectProgress?demandInfoId='" + demandInfoId + "'",
+                    area: ['100%', '100%'],
+                    offset: ['0%', '0%'],
+                    type:2,
+                    closeBtn:0,
+                    scrollbar: false,
+                });
+            	}
+            //操作栏内-详情需求详情
+            if (obj.event === 'opShowDetails') {
+              layer.open({
+                  title: '需求详情',
+                  content: "/SRRPBusinesWeb/finacingDemand/findFinancingDemandDetails?operate=detail&demandInfoId='" + demandInfoId + "'",
+                  area: ['100%', '100%'],
+                  offset: ['0%', '0%'],
+                  type:2,
+                  scrollbar: false,
+              });
+          	}
+            
+            //发布需求事件
+            if (obj.event === 'sendFinacingDemand') {
+                layer.confirm(msg+'是否确认发布？一旦发布，是否公开和指定投资机构选项将不能修改。 ', {icon: 3, title:'提示',btnAlign: 'c'}, function(index){
+	                $.ajax({
+	                    type: "post",
+	                    async: false,
+	                    url: "/SRRPBusinesWeb/finacingDemand/sendFinacingInfo",
+	                    data: {status: '01', demandInfoId: demandInfoId},
+	                    success: function () {
+	                        layer.msg("发布成功了");
+	                        window.location.reload();
+	                    }
+	                });
+            	});
+            }
+            //复制需求
+            if (obj.event === 'copyFinacingDemand') {
+                layer.confirm('确认复制需求： '+demandName+' ？', {icon: 3, title:'提示',btnAlign: 'c'}, function(index){	
+	                $.ajax({
+	                    type: "post",
+	                    async: false,
+	                    url: "/SRRPBusinesWeb/finacingDemand/copyFinacingDemand",
+	                    data: {demandInfoId: demandInfoId},
+	                    success: function () {
+	                        layer.msg("复制成功了");
+	                        window.location.reload();
+	                    }
+	                });
+            	});
+            }
+            if (obj.event === 'openFinacingDemand') {
+                layer.confirm('确认公开发布需求： '+demandName+' ？公开发布的需求将对平台内所有机构及基金可见', {icon: 3, title:'提示',btnAlign: 'c'}, function(index){	
+	                $.ajax({
+	                    type: "post",
+	                    async: false,
+	                    url: "/SRRPBusinesWeb/finacingDemand/openFinacingDemand",
+	                    data: {demandInfoId: demandInfoId},
+	                    success: function () {
+	                        layer.msg("需求公开发布成功");
+	                        window.location.reload();
+	                    }
+	                });
+            	});
+            }
+            //关闭需求
+            if (obj.event === 'closeFinacingDemand') {
+                demandIndex = layerOpen("demoId", "604", "247", "关闭需求", "/SRRPBusinesWeb/finacingDemand/closeDemandReason?demandInfoId='" + demandInfoId + "'", 2, '', true)
+            }
+            //修改需求信息
+            if (obj.event === 'editFinacingDemand') {
+                layer.open({
+                    title: false,
+                    closeBtn :1,
+                    content: ["/SRRPBusinesWeb/finacingDemand/editFinacingDemand?demandInfoId=" + demandInfoId],
+                    area: ['100%', '100%'],
+                    offset: ['0%', '0%'],
+                    type:2,
+                    scrollbar: false,
+                    end:function(){
+                   	 window.parent.parent.document.getElementById('leftFrame').contentWindow.menu_send_handle();//需要调用的方法;
+                    }
+                });
+                window.parent.document.getElementById('leftFrame').contentWindow.menu_demandToSend_handle();//需要调用的方法;
+            }
+        });
+        //
+        //只操作分页数据
+        function getPageInfo(obj, queryCondition) {
+            var currentPage = obj.curr;//当前页(跳转页也是当前页)
+            var limit = obj.limit;//每页多少条数
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/finacingDemand/demandInfoList",
+                data: {start: currentPage, limit: limit, queryCondition: JSON.stringify(queryCondition)},
+                success: function (data) {
+                    data = JSON.parse(data);
+                    createPage(data.list,limit);//装配列表数据
+                }
+            });
+
+        }
+        //装配列表数据
+        function createPage(gridData,gridlimit) {
+            table.render({
+                id: 'orgGrid',
+                elem: '#orgGrid', //指定原始表格元素选择器（推荐id选择器）
+                width:916,
+                data: gridData,
+                limit:gridlimit,
+                cols: [[ //标题栏
+                    {field: 'finacingTurnDicname', title: '融资轮次', align: 'center', width: 90},
+                    {field: 'amountShow', title: '融资金额(万)', align: 'center', width: 115},
+                    {field: 'sellScale', title: '出让股权', align: 'center', width: 85},
+                    {field: 'operdate', title: '发布日期', align: 'center', width: 102, sort: true},
+                    {field: 'followTimeStr', title: '有效关注日期', align: 'center', width: 102},
+                    {field: 'openStr', title: '投递方式', align: 'center', width: 71},
+                    {field: 'statusDicname', title: '需求状态', align: 'center', width: 73, toolbar: '#statusBar'},
+                    {field: '', title: '操作', fixed: 'right',align: 'center', toolbar: '#barDemo', width: 270}
+                ]]
+            });
+        }
+        
+        var isShow="${isShow}";
+        if (isShow == "true") {
+        	window.location.href = "/SRRPBusinesWeb/enterprise/enterpriseDetail";
+	        window.parent.document.getElementById('leftFrame').contentWindow.menu_demanToEnter_handle();//需要调用的方法;
+        }
+    })
+    function showdetal(updateFlag,publish){
+    	if(publish=='1' && updateFlag != '0'){
+    		layer.msg('友情提示：信息待披露且有'+updateFlag+'条记录更新',{time:2500});
+    	}else if(publish=='1' && updateFlag == '0'){
+    		layer.msg('友情提示：需求有基金或者机构关注未进行披露 ',{time:2500});
+    	}else if(publish=='0' && updateFlag !='0'){
+    		layer.msg('友情提示：项目进度有'+updateFlag+'条记录更新 ',{time:2500});
+    	}
+    	
+		}
+</script>
+</body>
+</html>

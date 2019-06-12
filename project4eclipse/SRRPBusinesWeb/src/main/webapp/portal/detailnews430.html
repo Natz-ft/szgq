@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/> 
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/> 
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>苏州股权融资服务平台</title>
+    <link rel="shortcut icon" href="common/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="common/style/reset.css">
+    <link rel="stylesheet" type="text/css" href="common/style/common.css">
+    <link rel="stylesheet" type="text/css" href="common/script/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="news/style/newsdetail.css">
+    <script src="common/script/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="common/script/layui/layui.js" type="text/javascript"></script>
+    <script src="common/script/common.js" type="text/javascript"></script>
+    <script src="common/script/qrcode/qrcode.js" type="text/javascript"></script>
+    <script src="common/script/ajax.js" type="text/javascript"></script>
+        
+</head>
+<body>
+<!--头部信息开始-->
+<!--头部logo以及登录注册开始-->
+<div class="logo clearfix">
+   <div class="logoRight" style="display: none;" id="login">
+        <a href="/creditplatformweb/success">进入业务系统</a><a href="/creditplatformweb/logout">退出登陆</a>
+    	
+    </div>
+    <div class="logoRight" style="display: none;" id="nologin">
+    	<a href="register.html"> 注&nbsp;&nbsp;&nbsp;&nbsp;册 </a>
+        <a href="/creditplatformweb/logout"> 登&nbsp;&nbsp;&nbsp;&nbsp;录 </a>
+    </div>
+          <div class="logoLeft">
+	        <a href="index.html">
+	            <p></p>
+	            <p></p>
+	        </a>
+	     </div>
+</div>
+<!--头部logo以及登录注册结束-->
+<!-- 操作菜单开始 -->
+<div class="header">
+    <ul class="nav clearfix">
+        <li><a href="index.html"> 首 页 </a></li>
+        <li><a href="investevent.html"> 投融事件 </a></li>
+        <li><a href="finace.html"> 融资需求 </a></li>
+        <li class="active"><a href="news.html"> 新闻动态 </a></li>
+        <li><a href="result.html"> 运行成果 </a></li>
+        <li><a href="investor.html"> 投资机构 </a></li>
+        <li><a href="relate.html"> 联系我们 </a></li>
+    </ul>
+</div>
+<!-- 操作菜单结束-->
+<!--头部信息结束-->
+<!--页面主体开始-->
+<div style="background:#EEF3F9 ">
+    <div class="mainwraper">
+        <div class="current-position">
+            当前位置：首页&gt;新闻动态&gt;新闻动态明细
+        </div>
+		<div  style="display:none" id="infoId">430</div>
+        <!--明细内容开始-->
+        <div class="sub-c">
+<!--             <div class="pro-list"> -->
+<!--                 <h3>中国保监会关于印发互联网保险业务监管暂行办法的通知</h3> -->
+<!--                 <div class="clearfix" style="height: 30px;line-height: 30px;"> -->
+<!--                 	<b class="floatL">2015-10-31</b> -->
+<!-- 					<b class="floatL">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;阅读量:<a id="readAmout"></a></b> -->
+<!--                 	<a class="floatR return-btn" href="news.html"> 返回 </a> -->
+<!--                 </div> -->
+<!--             </div> -->
+            <div class="pro-list">
+                <h3>中国保监会关于印发互联网保险业务监管暂行办法的通知</h3>
+                <div class="clearfix" style="height: 30px;line-height: 30px;">
+                	<b class="floatL">2015-10-31</b>
+					<b class="floatL">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;阅读量:<a id="readAmout"></a></b>
+                	<a class="floatR return-btn" href="news.html"> 返回 </a>
+                </div>
+            </div>
+            <div style="margin:0 auto;margin-top:20px;width:90%"><p><span>为规范互联网保险业务经营行为，保护保险消费者合法权益，促进互联网保险业务健康发展，我会制定了《互联网保险业务监管暂行办法》。 保险机构已经开展的互联网保险业务与本办法不符的，应按照有关规定认真整改；本办法实施后仍不能符合要求的，应立即停止相关互联网保险业务的开展。</span></p><p><span><br></span></p><p><span></span></p><p><b><a target="_blank" href="http://www.szgq.suzhou.gov.cn/home/www/srrp/fileserver/upload/news/7835020151031173719.doc">中国保监会关于印发互联网保险业务监管暂行办法的通知.doc</a></b></p><div><br></div>
+            
+            </div>
+        </div>
+
+        <!--明细内容结束-->
+    </div>
+    <div>&nbsp;</div>
+</div>
+<!--页面主体结束-->
+<!--底部信息开始-->
+<div id="foot"></div>
+<!--底部信息结束-->
+<script>
+	$(function () {
+		var infoId = $("#infoId").html();
+	    $.ajax({
+	        type: "post",
+	        async: true,
+	        url: "/SRRPBusinesWeb/newInfos/addReadAmount",
+	        data: {infoId: infoId},
+	        success: function (data) {
+	        	document.getElementById('readAmout').innerHTML = data;
+	        }
+	    });
+	})
+</script>
+</body>
+</html>

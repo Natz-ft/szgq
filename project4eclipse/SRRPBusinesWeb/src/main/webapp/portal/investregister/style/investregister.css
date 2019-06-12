@@ -1,0 +1,385 @@
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+    margin: 0;
+    padding: 0
+}
+
+/*body, button, input, select, textarea {*/
+/*font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;*/
+/*text-align: justify;*/
+/*text-justify: inter-ideograph;*/
+/*word-break: break-all;*/
+/*word-wrap: break-word*/
+/*}*/
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%
+}
+
+address, cite, dfn, em, var, i, u {
+    font-style: normal
+}
+
+code, kbd, pre, samp {
+    font-family: courier new, courier, monospace
+}
+
+small {
+    font-size: 12px
+}
+
+ul, ol {
+    list-style: none
+}
+
+sup {
+    vertical-align: text-top
+}
+
+sub {
+    vertical-align: text-bottom
+}
+
+button, input, select, textarea {
+    font-size: 100%;
+    padding: 0;
+    margin: 0
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+caption, th {
+    text-align: left
+}
+
+.ovh {
+    overflow: hidden
+}
+
+.l {
+    float: left
+}
+
+.r {
+    float: right
+}
+
+.cur {
+    cursor: pointer
+}
+
+.dis {
+    display: block
+}
+
+.heading {
+    color: #005088;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.bigheading {
+    margin-left: 10px;
+    color: #005088;
+    font-weight: bold;
+    font-size: 22px;
+    height: 60px;
+}
+
+
+.dashedstyle {
+    border: 1px dashed #ddd;
+    margin: 10px;
+}
+
+body {
+    font-family: "Microsoft YaHei", 瀹嬩綋;
+    color: #333;
+}
+
+/*hover*/
+
+.reg_input {
+    background-color: #FFF;
+    border: 1px solid #d5cfc2;
+    font-size: 14px;
+    vertical-align: middle;
+    padding: 0 0 0 10px;
+}
+
+.reg_input:hover {
+    border: 1px solid #99BBDE;
+    background-color: #F2FAFF;
+}
+
+.reg_input {
+    /*_behavior: url(register/js/Round_htc.htc);*/
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    height: 30px;
+    width: 150px;
+}
+
+.r_button {
+    background: url(../images/register_button.png) no-repeat;
+    width: 118px;
+    height: 39px;
+    border: none;
+    cursor: pointer;
+    display: block;
+    float: left;
+    text-indent: -9000px
+}
+
+.r_button {
+    background-position: -138px -60px;
+    margin-left: 25%
+}
+
+.r_button:hover {
+    background-position: -138px 0;
+}
+
+.f_reg_but {
+    margin: 10px 0 0 115px
+}
+
+.reg {
+    width: 60%; 
+    font-size: 14px;
+    line-height: 25px;
+    overflow: hidden;
+    margin-left: 20%; 
+    margin-right: 20%; 
+    background-color: #FFFFFF; 
+}
+
+.reg dl {
+    padding-left: 10px;
+    font-size: 14px;
+}
+
+.reg dl dt {
+    margin-top: 15px
+}
+
+.reg dl dd {
+    padding: 0px 0
+}
+
+
+.reg .title-normal {
+    margin-left: 5%;
+    width: 15%;
+    display: inline-block;
+    text-align: left;
+}
+
+.reg .title-normal a {
+    font-size: 20px;
+    color: #FFFFFF;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+
+.reg .title-star {
+    width: 22%;
+    display: inline-block;
+    text-align: left;
+}
+
+.reg .title-star a {
+    font-size: 20px;
+    color: #FF0000;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.reg .title-star-special {
+    margin-left: 5%;
+    width: 17%;
+    display: inline-block;
+    text-align: left;
+}
+
+.reg .title-star-special a {
+    font-size: 20px;
+    color: #FF0000;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.reg .title-star-radio {
+    margin-left: 5%;
+    width: 30%;
+    display: inline-block;
+    text-align: left;
+}
+
+.reg .title-star-radio a {
+    font-size: 20px;
+    color: #FF0000;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.reg .img {
+    position: absolute
+}
+
+.reg_m {
+    margin-left: 90px
+}
+
+.clew_txt {
+    display: inline-block;
+    padding: 7px 0 0 15px;
+    font-size: 12px;
+}
+
+.currentsite {
+    margin-left: 20%;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline;
+    /*background: #f3f3f3; !*#9d192b;*!*/
+    line-height: 30px;
+    color: #000000;
+}
+
+.register-intruoduce {
+    width: 60%;
+    height: 80px;
+    background-color: #FFF;
+    /*margin-left: 20%;*/
+    /*margin-top: -25px;*/
+    padding: 0 20px 0 6px;
+    border: 1px solid #d5cfc2;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.register-intruoduce:hover {
+    border: 1px solid #99BBDE;
+    background-color: #F2FAFF;
+}
+
+.reg-checkbtn {
+    margin-left: 20px;
+}
+
+.reg-industry-checkbtn {
+    margin-left: 20px;
+}
+
+.reg-industry-checkbtn-content {
+    width: auto;
+    display: inline-block;
+    text-align: left;
+}
+
+.onShow, .onFocus, .onError, .onCorrect, .onLoad {
+    background: url(../images/reg_bg.png) no-repeat 3000px 3000px;
+    padding-left: 29px;
+    font-size: 12px;
+    height: 25px;
+    width: 90px;
+    display: inline-block;
+    line-height: 25px;
+    vertical-align: middle;
+    overflow: hidden;
+    margin-left: 0px
+}
+
+.onShow {
+    color: red;
+   
+}
+
+.onShow {
+    color: #999;
+ 
+}
+
+.onFocus {
+    background-position: 0px -30px;
+    color: #333
+}
+
+.onError {
+    background-position: 0px -60px;
+    color: #333
+}
+
+.onCorrect {
+    background-position: 0px 0;
+    text-indent: -9000px
+}
+
+.onLoad {
+    background-position: 0px 0
+}
+
+.invest-register-radio {
+    margin-left: 2%;
+    float: left;
+    width: 48%;
+    height: 40px
+}
+
+.invest-register-radio-left {
+    margin-left: 5%;
+    /*padding-top: 5px*/
+}
+
+.invest-register-radio-right {
+    margin-left: 4.5%;
+    /*padding-top: 5px*/
+}
+
+.invest-register-radio span a, .invest-register-invest-name div span a {
+    font-size: 20px;
+    color: #FF0000;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.invest-register-invest-name {
+    width: 100%;
+    float: left;
+    height: 40px
+}
+
+.invest-register-invest-name div {
+    margin-left: 5%;
+    /*padding-top: 5px*/
+}
+
+.invest-register-drop-down-input {
+    height: 32px;
+    width: 200px;
+}
+
+
+.user-deal {
+    /*color: #1b66c7;*/
+    /*border-bottom: 1px solid #1b66c7;*/
+}
+
+.user-deal:hover {
+    color: #1b66c7;
+    border-bottom: 1px solid #1b66c7;
+}
+
+
+
+.countdown_value {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+    

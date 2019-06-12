@@ -1,0 +1,844 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:jaf="http://cfcc.com/jaf">
+	<meta name="renderer" content="ie-comp" />  
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+    <link href="../static/qry/pages/skin3/css/page.css" type="text/css" rel="stylesheet"></link>
+	<link href="../static/qry/pages/skin3/css/common.css" type="text/css" rel="stylesheet"></link>
+	<link href="../static/qry/pages/skin3/css/css.css" type="text/css" rel="stylesheet"></link>
+	<link href="../static/qry/pages/skin3/css/style-test.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="../static/qry/pages/skin3/css/style2.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+	<script src="../static/script/autoload.js" type="text/javascript"></script>
+	<script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+	<script src="../static/script/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+	
+<style>
+.select-botton {
+    margin-top: 3px;
+    margin-left: 10px;
+    background: #0D4F92;
+    border: 1px solid #0D4F92;
+    border-radius: 5px;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    font-size: 14px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    width: 50px;
+}	
+
+.tool_part span.label {
+	float: left;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.content {
+	margin-left: 2%;
+	margin-right: 2%;
+	width: 95%;
+}
+.layui-input1 {
+	width: 160px;
+	height: 22px;
+	border: 1px solid #8DBDDC;
+	border-radius: 3px;
+	margin-top: 4px;
+}
+.layui-input2 {
+	width: 200px;
+	height: 22px;
+	border: 1px solid #8DBDDC;
+	border-radius: 3px;
+	margin-top: 4px;
+}
+.layui-form-item {
+	margin-bottom: 3px;
+}
+
+.layui-form-select .layui-input {
+	height: 22px;
+	line-height: 22px;
+	padding-right: 30px;
+	cursor: pointer;
+}
+
+
+.invet_infor_left{
+    width: 36%;
+    float: left;
+    line-height:35px;
+}
+
+.invet_infor_center{
+    width: 25%;
+    float: left;
+    margin-left: -2%;
+    line-height:35px
+}
+.invet_infor_right{
+    width: 40%;
+    float: right;
+    line-height:35px
+}
+.invet_result_left{
+width: 26%;
+    float: left;
+    line-height:30px;
+}
+
+.invet_result_center{
+    width: 25%;
+    float: left;
+    
+    line-height:30px
+}
+.invet_result_right{
+    width: 25%;
+    float: left;
+    line-height:30px;
+}
+.invet_result_Zright{
+    width: 24%;
+    float: right;
+    line-height:30px
+}
+.invet_result_Zright1{
+    width: 47%;
+    float: right;
+    line-height:30px;
+    margin-right: 2%;
+}
+.invet_querDate_left{
+    width: 30%;
+    float: left;
+    line-height:50px
+}
+.invet_querDate_right{
+      width: 50%;
+      float: left;
+       margin-left: 4%;
+      line-height:50px
+}
+.result_ht {
+    margin-top: -10px;
+    padding: 5px 0px 5px 0px;
+    background-color: #ECEFF8;
+    background: linear-gradient(#f3f6fb, #e9edf5) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 1px solid #dbe1f2;
+    font-size: 14px;
+}
+.selected{background-color:#c4d6d6;}
+ .invest-checkbox {
+    display: block;
+    position: absolute;
+    width: 18px;
+    height: 21px;
+}
+.clear{clear:both;height:0px;}
+.image_hidd {
+width: 17%;
+
+}
+
+
+
+.div_hidd:hover img{
+      width: 85%; 
+     height: 98px; 
+}
+.div_hidd:hover span{
+/*       font-size:8px; */
+font-size: 134%;
+}
+</style>
+
+<form action="##" method="post" onsubmit="return false" id="form">
+<!--  隐藏input标签 ---申报单位	 -->
+<input type="hidden" name="declareName" value="${reward.invest.name}">
+<!--  隐藏input标签 ---机构代码	 -->
+<input type="hidden" name="certno" value="${reward.invest.certno}">
+<input type="hidden" name="investorId" value="${reward.invest.investorId}">
+<input type="hidden" name="jsonArray" value="" id="jsonArray">
+
+
+					
+		<table width="98%" cellpadding="0" cellspacing="0">
+		 
+			<div class="content" id="queryConten">
+			
+				<div class="smint_box" id="smint_box">
+				<div class="tool_bar" style="padding-left: 5px;">
+				             <div class="div_hidd">
+				              &nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:#0D4F92">奖励申报流程: </span><img src="../static/images/flow_declare.jpg" class="image_hidd" /></br>
+								&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:#0D4F92">注：具体说明详见苏府金发[2018]70号关于印发《苏州股权融资服务平台奖励政策实施细则（试行）》的通知。 </span>
+				             </div>
+				                
+							</div>
+					<div class="tool_bar" id="tool">
+<!-- 					    <div class="control_ht control_ht_short" id="invest_info_hide"> -->
+<!-- 									<span>一键展开</span> -->
+<!-- 						</div> -->
+                         <div class="control_ht control_ht_short" id="invest_info_hide"
+							style="text-align: center; width: 100%; background-color: #ECEFF8;font-size: 18px;color: #0D4F92;border-bottom: 1px solid white;">
+							<span style="font-size:16px;color: #0D4F92">填报奖励申报信息</span></div>
+						<div id="invest_info">
+						    
+						<div class="tool_part" >
+							<div  class="invet_infor_left">
+							  <div class="layui-infor-item">
+							   <label class="invet_infor_label" ><span class="star" >*</span>申报单位：</label>
+							  <span>${reward.invest.name}</span>
+							  </div>
+							  <div class="layui-infor-item">
+									<label class="invet_infor_label" ><span
+										class="star">*</span ">联系人：</label>
+										<input type="text"  name="relName"
+											 value="${reward.relName}"
+											autocomplete="off" class="form-input layui-input1"
+											maxlength="50">
+								</div>
+								
+								
+						  </div>
+						   <div  class="invet_infor_center">
+						     <div class="layui-infor-item">
+						      <label class="invet_infor_label" ><span class="star">*</span>机构代码：</label>
+							  <span>${reward.invest.certno}</span>
+						      </div>
+						      <div class="layui-infor-item">
+									<label class="invet_infor_label" ><span
+										class="star">*</span>联系电话：</label>
+										<input type="text" name="relPhone"  
+											value="${reward.relPhone}" autocomplete="off"
+											class="form-input layui-input1" maxlength="12">
+								</div>
+						   </div>
+						   <div  class="invet_infor_right">
+						   	<div class="layui-infor-item">
+						      <label class="invet_infor_label" ><span class="star">*</span>所属区域：</label>
+			                          <div class="layui-input-inline" >
+			                                  <select  style="width:90px" id="areaProvince" name ="areaProvince" lay-search="" lay-filter="areaProvince" > 
+											    <option value="${reward.areaProvince}" selected >${reward.areaProvinceName}</option>
+						                        </select>
+			                          </div>
+			                         <div class="layui-input-inline" >
+										<select style="width:90px" id="areaCity" name ="areaCity" lay-search="" lay-filter="areaCity">
+											    <option value="${reward.areaCity}" selected >${reward.areaCityName}</option>
+										</select>
+							        </div>
+							        <c:if test="${empty reward.areaCounty }">
+								        <div class="layui-input-inline" >
+												<select style="width:90px" id="areaCounty" name ="areaCounty" lay-search="">
+												<option value="">请选择县/区</option>
+												        <c:forEach items="${reward.areaCountyList}" var="dind">
+																<option value="${dind.code}" <c:if test ='${dind.code eq reward.areaProvince}'>selected</c:if> >${dind.name}</option>
+												        </c:forEach>
+												</select>
+										  </div>
+							        
+							        </c:if>
+							        <c:if test="${not empty reward.areaCounty }">
+								        <div class="layui-input-inline" >
+												<select style="width:90px" id="areaCounty" name ="areaCounty" lay-search="">
+												   <option value="${reward.areaCounty}" selected >${reward.areaCountyName}</option>
+												</select>
+										  </div>
+							        
+							        </c:if>
+									  
+								</div>
+								<div class="layui-infor-item">
+									<label class="invet_infor_label" ><span
+										class="star">*</span>开户银行：</label>
+										<input type="text"  name="bankDeposit"
+											value="${reward.bankDeposit}" autocomplete="off"
+											class="form-input layui-input2" maxlength="50">
+								</div>
+						  </div>
+						   <div class="invet_querDate_left">
+							 <div class="layui-infor-item">
+									<label class="invet_infor_label" ><span
+										class="star">*</span>银行账号：</label>
+										<input type="text"  name="bankAccount"
+											value="${reward.bankAccount}" autocomplete="off"
+											class="form-input layui-input1">
+								</div>
+								
+							</div>
+							 <div class="invet_querDate_right">
+							 
+								<div class="layui-infor-item">
+									<label class="invet_infor_label" ><span
+										class="star">*</span>申报期间：</label>
+	                                     <input type="text" name="declare_begin_time" autocomplete="off" value="<fmt:formatDate  value='${reward.declare_begin_time}' pattern='yyyy-MM-dd' />"
+			                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endTime\')||\'%y-%M-%d\'}'})"
+			                               style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;padding-left: 5px;"
+			                               onkeydown="if(event.keyCode==13){event.keyCode=0;return false}"
+			                               id="beginTime"/>&nbsp; 至&nbsp;&nbsp;
+					                        <input type="text" name="declare_end_time" autocomplete="off" value="<fmt:formatDate  value='${reward.declare_end_time}' pattern='yyyy-MM-dd' />"
+					                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',minDate:'#F{$dp.$D(\'beginTime\')}'})"
+					                               style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;padding-left: 5px;"
+					                               onkeydown="if(event.keyCode==13){event.keyCode=0;return false}"
+					                               id="endTime"/>
+<!--                                            <a href="javascript:void(0);" id="query" class="select-botton">查询</a> -->
+								</div>
+							</div>
+						</div>
+
+							
+							
+							<div class="clear"></div>
+							<div class="btn_center_space" style="margin-top: 30px;">
+							<span> 
+							<input type="button"  class="btn_bar btn_gray" value="清空" onclick="resetCheckBox()"
+							</span> <span> <input
+								id="query"
+								class="btn_bar btn_search" type="submit" value="查询" />
+
+						</span>
+
+					</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</table>
+		<div class="content" result="resultContent">
+			<div class="smint_box" id="">
+				<div class="tool_bar" id="tool">
+					<div class="result_ht">
+					<c:if test="${not empty result}">
+					   <div style="float: left;height:25px;margin-left: 1%;">
+							<input type="checkbox"  id = "all-checkbox" name="all-checkbox"  style="width:18px;height: 21px;"/>
+					   </div>
+					    <div style="float: left;height:25px;margin-left:4px;margin-top:1px;">
+							<span style="font-size:13px;margin-bottom:3px">全选</span>
+					   </div>
+					   <span style="font-size:18px;color:#8996b8;margin-left:-4%";">查询结果</span>
+					</c:if>
+					<c:if test="${empty result}">
+							<span style="font-size:18px;color:#8996b8;">查询结果</span>
+					</c:if>
+					</div>
+				<c:if test="${not empty result}">
+					<c:forEach var="declare" items="${result}" >
+				   
+					<div id="${declare.declareId}">
+					      <div style="text-align: center;width:100%;background-color:#eceff5;float: left;padding: 4px 20px 4px 12px;border-top: 1px solid white;padding-bottom: 8px;margin: px 5px 3px 0px;font-size: 13px;">
+							<input type="checkbox"  name="result_checkBox" class="invest-checkbox"  value="${declare.declareId}" /><span style="font-weight:bold;font-size:15px;">被投企业注册地：${declare.reareaDicname}</>
+			        	</div>
+					<div class="tool_part">
+						    <div  class="invet_result_left">
+								  <div class="layui-infor-item">
+								   <label class="invet_infor_label" >申报单位：</label>
+								  <span>${declare.declareName}</span>
+								  </div>
+								  <div class="layui-infor-item">
+										<label class="invet_infor_label" >联系人：</label>
+											<input type="text"  name="relName"
+											value="${declare.relName}" autocomplete="off"
+											class="form-input layui-input1" maxlength="255">
+									</div>
+								
+								
+						  </div>
+						  <div  class="invet_result_center">
+						     <div class="layui-infor-item">
+						      <label class="invet_infor_label" >机构代码：</label>
+							  <span>${declare.certno}</span>
+						      </div>
+						      <div class="layui-infor-item">
+									<label class="invet_infor_label" >联系电话：</label>
+										<input type="text"  name="relPhone"
+											value="${declare.relPhone}" autocomplete="off"
+											class="form-input layui-input1" maxlength="255">
+								</div>
+						   </div>
+						   <div  class="invet_result_right">
+						   	<div class="layui-infor-item">
+						      <label class="invet_infor_label" >注册地：</label>
+						       <span>${declare.investorAreaName}</span>
+								</div>
+								
+						  </div>  
+						  
+						    <div  class="invet_result_Zright">
+						   	<div class="layui-infor-item">
+						      <label class="invet_infor_label" >申报期间：</label>
+						          <fmt:formatDate  value='${declare.declareBeginTime}' pattern='yyyy-MM-dd' />
+						                               ~
+								  <fmt:formatDate  value='${declare.declareEndTime}' pattern='yyyy-MM-dd' />
+								</div>
+								
+								
+						  </div> 
+						    <div  class="invet_result_Zright1">
+						  	<div class="layui-infor-item">
+									<label class="invet_infor_label" >开户银行及账号：</label>
+										${declare.bankDeposit}:${declare.bankAccount}
+							</div>
+						  </div> 
+							<table id="listTable" class="listTable listTable-select" cellspacing="0"
+								cellpadding="7" width="100%" border="0">
+								<thead>
+									<tr>
+										<!-- 开发人员根据业务需求，自定义表头字段 开始 -->
+										<td>序号</td>
+										<td>管理基金名称</td>
+										<td>基金工商注册地
+										</td>
+										<!-- <td>用户类型</td> -->
+										<td>基金统一社会信息代码
+										</td>
+										<td>基金编号</td>
+
+										<td>被投企业名称</td>
+										<td>被投企业证件代码
+										</td>
+										<td>投资金额</td>
+										<!-- 开发人员根据业务需求，自定义表头字段  结束-->
+									</tr>
+								</thead>
+								<tbody>
+								<c:forEach var="report" items="${declare.declareRewarReport}" >
+								     <tr>
+										<!-- 开发人员根据业务需求，自定义表格内容字段 开始 -->
+										<td>${report.serialNumber}</td>
+										<td>${report.subacName}</td>
+										<td>${report.achievementAddress}</td>
+										<td>${report.achievementCode}</td>
+										<td>${report.amacRecord}</td>
+										<td>${report.investedEnterprise}</td>
+										<td>${report.investedEnterpriseCode}</td>
+										<td>${report.investmentAmountStr}</td>
+									</tr>
+								</c:forEach>
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+					</c:forEach>
+					  <div class="clear"></div>
+					<div class="btn_center_space" style="margin-top: 30px;">
+						<span> <input type="button" id="export"
+							class="btn_bar btn_bar" value="导出奖励申报表" type="submit" style="background-color: #0D4F92;color: #fff;border-radius: 2px;"/>
+						</span>
+						<span> <input
+							id="code8918aba5-e947-462d-ab26-6ede1b483855"
+							class="btn_bar btn_search" type="submit" value="确认申报" />
+						</span>
+					</div>
+					</c:if>
+					<c:if test="${empty result}">
+					        <div class="clear"></div>
+					<div class="btn_center_space" style="padding:10px 0; color:#0D4F92; font-size:12px;font-weight:bold">
+
+						<span > 
+                                  	暂无查询投资记录
+						</span>
+
+					</div>
+					   </c:if>
+					</div>
+					
+					
+				</div>
+			</div>
+	</form>
+</html>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script>
+	
+	function ityzl_SHOW_LOAD_LAYER() {
+		return layer.load(1, {
+			shade : [ 0.6, '#f5f5f5' ]
+		});
+
+	}
+	function ityzl_CLOSE_LOAD_LAYER(index) {
+		layer.close(index);
+	}
+	function ityzl_SHOW_TIP_LAYER() {
+		layer.msg('恭喜您，加载完成！', {
+			time : 1000,
+			offset : '10px'
+		});
+	}
+	
+	$(function() {
+		var data = '${resultJson}';
+		var layer=layui.layer;
+		var jsonArray=[];
+		var dataCount;//数据总条数
+		var gridData;
+		var $ = layui.jquery, element = layui.element;
+		var isQuery='${reward.isQuery}';
+		if(isQuery=='1'){
+			$("#invest_info").toggle();
+		}
+		$("#invest_info_hide").click(function(){
+			  $("#invest_info").toggle();
+			});
+
+		var objArr =$("input[name='result_checkBox']"); 
+		objArr.each(function(i) {
+	            $(this).click(function(){
+	            	var id= this.value;
+	                if(this.checked==true){
+	                	$("#"+id).addClass("selected");
+						 $("#"+id +" .listTable-select thead tr").css("background-color","#c4d6d6");
+						 $("#"+id +" .listTable-select tbody tr").css("background-color","#c4d6d6");
+							//总数
+							var count=0
+							//全选时
+				        	var countChecked=0;
+				            	objArr.each(function(ii) {
+				    		                if(this.checked==true){
+				    		                	countChecked++;
+				    		                }
+				    		                count++;
+				    		        }); 
+				            if(countChecked==count){
+			                	$("#all-checkbox").prop("checked", true);
+				            }	
+	                }else{
+						$("#"+id).removeClass("selected");
+						$("#"+id + " .listTable-select thead tr").css("background-color","#e4eef7");
+						$("#"+id + " .listTable-select tbody tr").css("background-color","#FFFFFF");
+	                	$("#all-checkbox").attr("checked", false);
+	                }
+	             });
+	        }); 
+	
+		
+	 //查询操作
+		$("#query").on("click", function() {
+			var relName =$("#queryConten input[name='relName']").val(); 
+			var relPhone =$("#queryConten input[name='relPhone']").val(); 
+			var areaCounty = $("#areaCounty option:selected").val();	
+			var bankDeposit =$("#queryConten input[name='bankDeposit']").val(); 
+			var bankAccount =$("#queryConten input[name='bankAccount']").val();
+			
+			var declare_begin_time =$("#queryConten input[name='declare_begin_time']").val(); 
+			var declare_end_time =$("#queryConten input[name='declare_end_time']").val();
+			
+			var num = /^\d*$/; //全数字
+			var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+			var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+			var mobile = /^[1][3,4,5,7,8][0-9]{9}$/ ;
+			var phone = /^0\d{2,3}-?\d{7,8}$/;
+			if(areaCounty===''||areaCounty===null||$.trim(areaCounty)==''){
+				  layer.alert('请选择区县', {icon: 5,btnAlign: 'c',shade: 0}, function(index){
+					  layer.close(index);
+					  $("#queryConten select[name='areaCounty']").focus();
+						return false;
+					});       
+				  return false;
+			}else if(relName===''||relName===null||$.trim(relName)==''){
+     		        layer.alert('联系人不能为空', {icon: 5,btnAlign: 'c',shade: 0}, function(index){
+     		        	layer.close(index);
+     	     		   $("#queryConten input[name='relName']").focus();
+						return false;
+					});       
+				return false;
+			}else if(relName.lenth>20){
+ 		        layer.alert('联系人长度不能超过20位', {icon: 5,btnAlign: 'c',shade: 0}, function(index){
+ 		        	layer.close(index);
+ 	     		   $("#queryConten input[name='relName']").focus();
+					return false;
+				});       
+			  return false;
+			}
+			else if(relPhone===''||relPhone===null||$.trim(relPhone)==''){
+	     		    layer.alert('联系电话不能为空', {icon: 5,btnAlign: 'c',shade: 0}, function(index){
+						  layer.close(index);
+	     		    	 $("#queryConten input[name='relPhone']").focus();
+	     		    	 return false;
+	     		   });   
+	     		   return false;
+			}else if (!phone.test(relPhone)&& !mobile.test(relPhone)) {
+				layer.alert('联系电话格式不正确', {icon: 5,btnAlign: 'c',shade: 0}, function(index){
+					  layer.close(index);
+    		    	 $("#queryConten input[name='relPhone']").focus();
+    		    	 return false;
+    		   });   
+    		   return false;
+			}else if(bankDeposit===''||bankDeposit===null||$.trim(bankDeposit)==''){
+				  layer.alert('开户银行不能为空', {icon: 5,btnAlign: 'c',shade: 0});
+				  layer.close(index);
+	     		   $("#queryConten input[name='bankDeposit']").focus();
+					return false;
+			}else if(pattern.test(bankDeposit)){
+				  layer.alert('开户银行不能输入特殊字符', {icon: 5,btnAlign: 'c',shade: 0});
+				  layer.close(index);
+	     		   $("#queryConten input[name='bankDeposit']").focus();
+					return false;
+			}
+			else  if(bankAccount===''||bankAccount===null||$.trim(bankAccount)==''){
+				  layer.alert('银行账号不能为空', {icon: 5,btnAlign: 'c',shade: 0}, function(index){
+					  layer.close(index);
+	     		   $("#queryConten input[name='bankAccount']").focus();
+					return false;
+					});   
+	    		   return false;
+			}/* else if(bankAccount.length < 16 || bankAccount.length > 19) {
+				layer.alert("银行卡号长度必须在16到19之间", {icon: 5,btnAlign: 'c',shade: 0}, function(index){
+					 layer.close(index);
+				$("#queryConten input[name='bankAccount']").focus();
+				return false;
+				});   
+	    		   return false;
+		     } */else  if(!num.exec(bankAccount)) {
+		    	 layer.alert("银行卡号必须全为数字", {icon: 5,btnAlign: 'c',shade: 0}, function(index){
+		    		 layer.close(index);
+		    	 $("#queryConten input[name='bankAccount']").focus();
+					return false;
+					});
+	    		   return false;
+			}else if(declare_begin_time===''||declare_begin_time===null||$.trim(declare_begin_time)==''){
+				 layer.alert('申报期间不能为空', {icon: 5,btnAlign: 'c',shade: 0});
+				  layer.close(index);
+	     		   $("#queryConten input[name='bankDeposit']").focus();
+					return false;
+			}else  if(declare_end_time===''||declare_end_time===null||$.trim(declare_end_time)==''){
+				 layer.alert('申报期间不能为空', {icon: 5,btnAlign: 'c',shade: 0});
+				  layer.close(index);
+	     		   $("#queryConten input[name='bankDeposit']").focus();
+					return false;
+			}
+			//校验同一机构、同一申报期间、同一区域只能申报一次
+			
+			document.getElementById("form").action = "/SRRPBusinesWeb/investorRewardDeclare/query";
+			document.getElementById("form").submit();
+		});
+		//提交申报
+		$("#code8918aba5-e947-462d-ab26-6ede1b483855").on("click", function() {
+			var checked_counts = 0;
+			console.log(data);
+			var dataJson= JSON.parse(data);
+			var objArr =$("input[name='result_checkBox']");
+			var erroStr='';
+			var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+			var mobile = /^[1][3,4,5,7,8][0-9]{9}$/ ;
+			var phone = /^0\d{2,3}-?\d{7,8}$/;
+			objArr.each(function(i) {
+				var id=this.value;
+		                if(this.checked==true){
+		        			$.each(dataJson,function(index,iteam) {
+		                		if(iteam.declareId==id){
+		                			var relName =$("#"+id+" input[name='relName']").val(); 
+		                			var relPhone =$("#"+id+" input[name='relPhone']").val();
+		                			 if(relName===''||relName===null||$.trim(relName)==''){
+		                				    erroStr='联系人不能为空';
+		                					return false;
+		                				}else if(relName.lenth>20){
+		                	 		       erroStr='联系人长度不能超过20位';  
+		                				  return false;
+		                				}else if(relPhone===''||relPhone===null||$.trim(relPhone)==''){
+		                					 erroStr='联系电话不能为空';  
+		                		     		 return false;
+		                				}else if (!mobile.test(relPhone) &&  !phone.test(relPhone)) {
+			                			  erroStr='联系电话格式不正确';  
+		                	 		      return false;
+		                				}
+		                			iteam.relName=relName;
+		                			iteam.relPhone=relPhone;
+		                			jsonArray.push(iteam);
+		                			checked_counts++;
+		                		}
+		                	});
+		                }
+		        }); 
+			 if(erroStr!=''){
+				 layer.alert(erroStr, {icon: 5,btnAlign: 'c',shade: 0}, function(index){
+					 layer.close(index);	
+	 		    	 return false;
+	 		   });   
+	 		   return false;
+			 }
+			if (checked_counts == 0) {
+				layer.alert('请选择申报的区域', {icon: 5,btnAlign: 'c',shade: 0}, function(index){
+					layer.close(index);
+	 		    	 return false;
+	 		   });
+	 		   return false;
+			}
+			 $.ajax({
+	                type: "post",
+	                url: "/SRRPBusinesWeb/investorRewardDeclare/save",
+	                beforeSend: function () {//加载前
+	                  	 i = ityzl_SHOW_LOAD_LAYER();
+	                   },
+	                   complete: function () {//加载后
+	                  	 ityzl_CLOSE_LOAD_LAYER(i);
+	                   },
+	                data: {
+	                	"result": JSON.stringify(jsonArray)
+	                },
+	                success: function (data) {
+	                    data = JSON.parse(data);
+	                    if (data.code=='00000') {
+	                		 layer.alert('申报信息提交成功，请将申报所需材料寄送至各市（区）金融办。', {icon: 1,btnAlign: 'c',shade: 0}, function(index){
+	        					 layer.close(index);	
+	        					 location.href="/SRRPBusinesWeb/investorRewardDeclare/onlineRewarDeclare" ; //(刷新父级窗口)
+	        	 		   }); 
+	                    } else if(data.code=='00002'){
+	                    	layer.alert('提交失败！同一机构、同一申报期间、同一区域只能申报一次。', {
+	                            title: '最终的提交信息'
+	                        })
+	                        return false;
+	                    }else if(data.code=='00003'){
+		                 	layer.alert('提交失败！您提交的申报信息中投资记录只能申报一次。', {
+		                 	 title: '最终的提交信息'
+	              				})
+	             			 return false;
+	         			 }else {
+	                        layer.alert('提交失败', {
+	                            title: '最终的提交信息'
+	                        })
+	                        return false;
+	                    }	
+	                }
+	            });
+		});
+
+		//导出Pdf
+		$("#export").on("click",function() {
+			var checked_counts = 0;
+			var exportJsonArray=[];
+			var dataJson= JSON.parse(data);
+			var objArr =$("input[name='result_checkBox']");
+			var erroStr='';
+			var mobile = /^[1][3,4,5,7,8][0-9]{9}$/ ;
+			var phone = /^0\d{2,3}-?\d{7,8}$/;
+			objArr.each(function(i) {
+				var id=this.value;
+		                if(this.checked==true){
+		        			$.each(dataJson,function(index,iteam) {
+		                		if(iteam.declareId==id){
+		                			var relName =$("#"+id+" input[name='relName']").val(); 
+		                			var relPhone =$("#"+id+" input[name='relPhone']").val();
+		                			 if(relName===''||relName===null||$.trim(relName)==''){
+		                				    erroStr='联系人不能为空';
+		                					return false;
+		                				}else if(relName.lenth>20){
+			                	 		       erroStr='联系人长度不能超过20位';  
+				                				  return false;
+		                				}else if(relPhone===''||relPhone===null||$.trim(relPhone)==''){
+		                					 erroStr='联系电话不能为空';  
+		                		     		 return false;
+		                				}else if (!mobile.test(relPhone) &&  !phone.test(relPhone)) {
+				                			 erroStr='联系电话格式不正确';  
+			                	 		     return false;
+		                				}
+		                			iteam.relName=relName;
+		                			iteam.relPhone=relPhone;
+		                			exportJsonArray.push(iteam);
+		                			checked_counts++;
+		                		}
+		                	});
+		                }
+		        }); 
+			 if(erroStr!=''){
+				 layer.alert(erroStr, {icon: 5,btnAlign: 'c',shade: 0}, function(index){
+					 layer.close(index);	
+	 		    	 return false;
+	 		   });   
+	 		   return false;
+			 }
+			if (checked_counts == 0) {
+				layer.alert('请选择申报的区域', {icon: 5,btnAlign: 'c',shade: 0}, function(index){
+					layer.close(index);
+	 		    	 return false;
+	 		   });
+	 		   return false;
+			}
+			$('#jsonArray').val(JSON.stringify(exportJsonArray));
+			document.getElementById("form").action = "/SRRPBusinesWeb/investorRewardDeclare/exportRewardDeclareTable";
+			document.getElementById("form").submit();
+		});
+         //全选反选
+		$("#all-checkbox").click(function() {
+			var objArr =$("input[name='result_checkBox']");
+            	if($('#all-checkbox').is(':checked')) {//全选选中
+            		objArr.each(function(i) {
+        				var id=this.value;
+        				this.checked=true;
+						$("#"+id).addClass("selected");
+						$("#"+id +" .listTable-select thead tr").css("background-color","#c4d6d6");
+						$("#"+id +" .listTable-select tbody tr").css("background-color","#c4d6d6");
+        		     }); 
+                } else{//取消全选选中
+                	objArr.each(function(i) {
+                		var id=this.value;
+        				this.checked=false;
+	     				$("#"+id).removeClass("selected");
+						$("#"+id + " .listTable-select thead tr").css("background-color","#e4eef7");
+						$("#"+id + " .listTable-select tbody tr").css("background-color","#FFFFFF");
+        		     }); 
+                }	
+        });
+	});
+</script>
+
+<script type="text/html" id="operateBar">
+      <a lay-event="showCreditReport"  style="color:#0D4F92;cursor: pointer;">查看征信报告</a>
+</script>
+
+
+	<script type="text/javascript">
+		window.onbeforeunload = nodisabledButton;
+		function nodisabledButton() {
+			return;
+		}
+		
+
+		function NumberText(a) {
+			var str = (a.value.replace(/\D/g, ''));
+			a.value = str;
+		}
+
+		function NumberTextA(a) {
+			var str = (a.value.replace(/[^0-9.]/g, '')).replace(/[.][0-9]*[.]/,
+					'.');
+			a.value = str;
+		}
+
+		function resetCheckBox() {
+			$("#queryConten input[type='text']").val("");
+			var  areaCounty='${reward.areaCounty}';
+			if(areaCounty==''||areaCounty==null){
+				$("#areaCounty").html("");
+				   var childrenDataStr="";
+			       var options = $("#areaCity option:selected").val();
+			       childrenDataStr='<option value="">请选择县/区</option>';
+			       childrenDataStr+=getCountyChildren(options);
+			       $("#areaCounty").append(childrenDataStr);
+			}
+		}
+		function showCue() {
+			document.getElementById("query_reason").style.display = "";
+			document.getElementById("progressBarModalDiv").style.display = "block";
+
+		}
+		function hideCue() {
+			document.getElementById("query_reason").style.display = "none";
+			document.getElementById("progressBarModalDiv").style.display = "none";
+		}
+	</script>

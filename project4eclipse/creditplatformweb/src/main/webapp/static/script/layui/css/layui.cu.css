@@ -1,0 +1,91 @@
+/*layui鑷畾涔塩ss*/
+/*琛ㄦ牸鍏冪礌*/
+.layui-table-body{
+    background-color: #fff;
+}
+ .layui-table-sort[lay-sort=asc] .layui-table-sort-asc {
+    border-bottom-color: #0D4F92;
+}
+ .layui-table-sort[lay-sort=desc] .layui-table-sort-desc {
+    border-top-color: #0D4F92;
+}
+ .layui-laypage .layui-laypage-curr .layui-laypage-em{
+ 	background-color: #0D4F92; 
+ }
+ .layui-form-checkbox[lay-skin=primary]:hover i{
+ 	border-color: #0D4F92;
+ }
+ .layui-laypage .layui-input:focus{
+    border-color: #0D4F92;
+ }
+ .layui-table-view{
+    margin: 0 auto;
+ }
+ /*绐楀彛鏈�灏忓寲/鏈�澶у寲鎸夐挳闅愯棌*/
+ .layui-layer-setwin .layui-layer-min,.layui-layer-setwin .layui-layer-maxmin{
+ 	display: none !important;
+ }
+/*鎸夐挳*/
+ .layui-btn{
+	background-color: #0D4F92;
+ }
+ .layui-btn-primary {
+	background-color: #fff;
+ }
+ .layui-layer .layui-layer-btn .layui-layer-btn0 {
+    border-color: #0D4F92;
+    background-color: #0D4F92;
+}
+/*琛ㄥ崟鍏冪礌*/
+.layui-form-item {
+    height: 50px;
+    margin-bottom: 10px;
+}
+ .layui-btn-primary:hover{
+	border-color: #0D4F92;
+ }
+ .layui-form-checked[lay-skin=primary] i {
+    border-color: #0D4F92;
+    background-color: #0D4F92;
+ }
+ .layui-form-checked[lay-skin=primary] i:hover{
+	border-color: #0D4F92;
+ }
+ .layui-form-onswitch {
+    border-color: #0D4F92;
+    background-color: #0D4F92;
+}
+.layui-form-checked{
+    border-color: #0D4F92;
+}
+.layui-form-checked, .layui-form-checked:hover {
+    border-color: #0D4F92;
+}
+.layui-form-checked span {
+    background-color: #0D4F92;
+}
+/*.layui-form-checked span, .layui-form-checked:hover span {
+    background-color: #0D4F92;
+}*/
+.layui-form-checked i, .layui-form-checked:hover i {
+    color: #0D4F92;
+}
+.layui-form-radio i:hover, .layui-form-radioed i {
+    color: #0D4F92;
+}
+.layui-form-select dl dd.layui-this {
+    background-color: #0D4F92;
+}
+.form-left .layui-input-block,.form-right .layui-input-block{
+    /*width: 240px;*/
+}
+.layui-form-label {
+    padding: 10px 0px;
+    width: 100px;
+}
+/*鏃堕棿鎺т欢*/
+body .layui-laydate .layui-this {
+    background-color: #0D4F92!important;
+}
+
+

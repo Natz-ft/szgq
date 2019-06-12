@@ -1,0 +1,82 @@
+body{
+	font-size:12px;
+	background-color:#198bc9;
+	margin:0;
+	padding:0;
+}
+a{
+	text-decoration:none;
+}
+td{
+	font-size:12px;white-space:nowrap
+}
+.top{
+	background:url(../Images/04.jpg) repeat-x;
+	float:left;
+	font-size:12px;
+	line-height:30px;
+	text-align:center;
+}
+.top a{
+	color:#FFFFFF;
+	text-decoration:none;
+}
+.top a:hover{
+	color:#FFFFFF;
+	font-weight:bold;
+}
+.xiao_top{
+	color:#3a8fb6; 
+	text-align:center;
+}
+.xiao_top a{
+	color:#3a8fb6; 
+}
+.xiao_top a:hover{
+	font-weight:bold;
+}
+.left a{
+	font-weight:bold;
+	color:#085589;
+}
+.list{
+	text-align:center; 
+	height:22px; 
+	line-height:22px;
+}
+.list a{
+	font-weight:normal;
+	color:#085589;
+}
+.text{
+	border:1px solid #aec5d3;
+	border-top:2px solid #639ab9;
+	border-left:2px solid #639ab9;
+	
+}
+.datagrid{
+	background:url(images/30.jpg) repeat-x;
+	color:#075587;
+}
+.datagrid td{
+	height:27px;
+	line-height:27px;
+}
+.b{
+   border-bottom:1px solid #c5dbe2;
+   border-right:1px solid #c5dbe2;
+}
+.bb{
+   border-bottom:1px solid #c5dbe2;
+}
+.bbb{
+   border-right:1px solid #c5dbe2;
+}
+.value0{
+	background-color:#f9fcfd;
+}
+
+
+
+
+

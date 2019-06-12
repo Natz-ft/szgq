@@ -1,0 +1,778 @@
+/****************  公共样式  **********************/ /*
+ * 页面公用背景(body引用样式:<body class="bodybg">)	
+ */
+ 
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address,
+big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, b, u, i, center, dl,textarea,
+dt, dd, ol, ul, fieldset, form, label, legend {	
+margin: 0; padding: 0;border: 0; font-style: normal;font-size: 12px;vertical-align: baseline;
+font-family:Microsoft YaHei,宋体,Verdana,Tahoma,Arial,helvetica,sans-serif;
+}
+li a{
+font-size: 14px;
+}
+ 
+ html{
+
+   -moz-osx-font-smoothing:grayscale;
+   -webkit-font-smoothing:antialiased;
+   text-rendering:optimizeLegibility;
+}
+
+.bodybg { 
+     margin:0px 0px 0px 0px; 
+        padding:0;
+	 background-image:url(bodybg.gif); 
+	
+}
+
+.bodybg1 { 
+     margin:0px 0px 0px 0px;
+        padding:0;
+	
+}
+form{
+  display:inline;
+}
+
+
+
+/*
+ * 表头文字样式
+ */
+.TitleText {
+	padding-left:12px;
+	padding-right:12px;
+	font-weight:bold;
+	text-decoration:none;
+	color: #007bce;
+	vertical-align: middle;
+}
+
+/** 必填项标识符样式 */
+.star {
+	color: #ff0000;
+	vertical-align: middle;
+	padding-left:5px;
+}
+/** 描述文字样式 */
+.description
+{
+	color: #ff0000;
+	vertical-align: left;
+	padding-left:5px;
+}
+
+/** 普通文字样式 */
+.tdText {
+	color: #585858;
+}
+
+/** 翻页文字样式*/
+.pagetext {
+	text-decoration:none;
+	color: #266ad7;
+}
+.pagetext:Hover {
+	text-decoration:none;
+	color: #ff0000;
+}
+
+/*导航栏上二级菜单中间竖线文字样式*/
+
+.TdTextdaohang {
+	color: #0d2678;
+}
+
+
+/** 带连接文字样式*/
+.TdTextlj {
+	text-decoration:none;
+	color: #0d2678;
+}
+.TdTextlj:Hover {
+	text-decoration:underline;
+	color: #ff0000;
+}
+
+.TextljLine {
+	text-decoration:underline;
+	color: #0d2678;
+}
+.TextljLine:Hover {
+	text-decoration:underline;
+	color: #ff0000;
+}
+
+/*********************** 控件样式 **********************************/ /*
+ * 录入框样式（inputText）
+ * <h:inputText ... styleClass="inputText">
+ */
+select{
+	
+  display:inline;
+     border:1px solid #7f9db9;
+
+ 
+}
+select option{
+  color:#585858;
+}
+.inputText {
+	height: 18px;
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-bottom: 1px;
+	color: #000000;
+	background: #ffffff;
+	border: 1px solid #7f9db9;
+	vertical-align: middle;
+	
+}
+
+/*
+ * 录入框样式（inputNum）
+ * <h:inputText ... styleClass="inputNum">
+ */
+.inputNum {
+	text-align: right;
+	height: 16px;
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-top: 2px;
+	padding-bottom: 1px;
+	color: #000000;
+	background: #ffffff;
+	border: 1px solid #7f9db9;
+	vertical-align: middle;
+}
+
+/*
+ * 录入框样式（txtArea）
+ * <h:inputText ... styleClass="txtArea">
+ */
+.txtArea {
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-top: 2px;
+	padding-bottom: 1px;
+	color: #000000;
+	background: #ffffff;
+	border: 1px solid #7f9db9;
+	vertical-align: middle;
+}
+
+
+
+/*
+ * 通用DataTable不含border
+ */
+
+.DataTablenoborder {
+	width: 98%;
+	border:0; 
+	align:center;
+	margin-top:3px;
+	cellSpacing:0px;
+	cellPadding:0px;
+}
+
+/*
+ * 通用DataTable含border
+ */
+.DataTable {
+width:100%;
+text-align:center;
+border:1px solid #f1f1f1; 
+border-collapse:collapse;
+word-break : break-all;
+}
+
+.DataTable td {
+	
+	vertical-align: middle;
+}
+.SubDataTable
+{
+	width:100%;
+	border:1px solid #ffffff; 
+	text-align:center;
+	border-collapse:collapse;
+	word-break : break-all;
+	margin-top:3px;
+	align:center;
+}
+.SubDataTable td {
+	color: #000000;
+	vertical-align: middle;
+}
+
+.header {
+	border-bottom:1px solid #f1f1f1; 
+	border-right:1px solid #f1f1f1;
+	background-color:#eef7ff; 
+	text-align:center; 
+	color:#027ad1; 
+	height:26px;
+}
+
+.rich-table-subheadercell{
+border-right:solid 1px #f1f1f1;
+}
+.rich-table-subheadercell a{
+	color:#4ca0c1;
+}
+.rich-table-cell{
+border-right:solid 1px #f1f1f1;
+border-bottom:solid 1px #f1f1f1;
+align:center
+
+}
+/*
+ * 下拉框样式 宽度：50px;
+ */
+.list50 {
+	width: 50px;
+	vertical-align: baseline;
+	background:#ffffff;
+	
+}
+
+/*
+ * 下拉框样式 宽度：100px;
+ */
+.list100 {
+	width: 100px;
+	vertical-align: baseline;
+	background:#ffffff;
+}
+
+/*
+ * 下拉框样式 宽度：150px;
+ */
+.list150{
+	width: 150px;
+	vertical-align: baseline;
+	background:#ffffff;
+}
+
+/*
+ * 下拉框样式 宽度：200px;
+ */
+.list200 {
+	width: 200px;
+	vertical-align: baseline;
+	background:#ffffff;
+}
+
+/*
+ * 下拉框样式 宽度：300px;
+ */
+.list300 {
+	width: 300px;
+	vertical-align: baseline;
+	background:#ffffff;
+}
+
+
+/**DataTable中 汉字/数据显示**/ /* 中文汉字显示：居左 距边框5px 自动换行 */
+.TxtLeft {
+	border-bottom:1px solid #f1f1f1;
+    border-right:1px solid #f1f1f1;
+	padding:3px 5px 3px 5px;
+	height:20px;
+	text-align:left;
+	
+}
+
+/* 文字居中显示：居中 */
+
+.TxtCenter {
+	border-bottom:1px solid #f1f1f1;
+    border-right:1px solid #f1f1f1;
+	padding:3px 5px 3px 5px;
+	height:20px;
+	text-align:center;
+	
+}
+
+/* 数字显示：居右 距边框5px new*/
+
+.TxtRight {
+	border-bottom:1px solid #f1f1f1;
+    border-right:1px solid #f1f1f1;
+	padding:3px 5px 3px 15px;
+	height:20px;
+	text-align:left;
+	letter-spacing:2px;
+}
+
+
+
+/*********************** 翻页样式 **********************************/
+	/**翻页样式：距页面左侧边框20px*/
+.page {
+	padding-left: 20px;
+	text-align:right;
+	padding-top:1px;
+}
+
+	/*
+  　第二部分，全局样式定义	 
+*/ /*
+   页面体
+*/
+body {
+	color: black;
+	margin-left: 0px;
+	margin-top: 0px;
+	padding: 0px;
+	margin: 0px;
+	scrollbar-face-color: #82B1DD;
+	scrollbar-highlight-color: #ECF0F3;
+	scrollbar-shadow-color: #cfcfcf;
+	scrollbar-3dlight-color: #6CA1CF;
+	scrollbar-arrow-color: #0A418A;
+	scrollbar-track-color: #ECF0F3;
+	scrollbar-darkshadow-color: #0A418A;
+	overflow:auto;
+	
+}
+
+
+/*按钮样式表*/
+.btn {
+	
+	background:#4B98B7;
+	padding:1px 4px;
+	color:#fff;
+	height:25px;
+	text-align:center;
+	border:0;
+	cursor:pointer;
+	/**圆角*/
+  	-moz-border-radius:3px;
+    -webkit-border-radius:3px;
+   	border-radius:3px 3px 3px 3px;
+   	font-size:14px;
+	
+}
+.btn:hover{
+	color:#fecf2f;
+}
+
+.MoveOverBtn {
+		
+	background:#4B98B7;
+	padding:1px 4px;
+	color:#fecf2f;
+	height:25px;
+	text-align:center;
+	border:0;
+	cursor:pointer;
+   	/**圆角*/
+  	-moz-border-radius:3px;
+    -webkit-border-radius:3px;
+   	border-radius:3px;
+	font-size:14px;
+}
+
+.MoveOutBtn {
+	
+	background:#4B98B7;
+	padding:1px 4px;
+	color:#fff;
+	height:25px;
+	text-align:center;
+	border:0;
+	cursor:pointer;
+   /**圆角*/
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+	font-size:14px;
+
+}
+/*=========================查询条件界面===================================*/
+	/*
+ * 查询条件Table样式(不含Calendar的查询条件Table): 参考用户管理及用户组管理主界面
+ */
+.searchTable {
+	width: 98%;
+	border-bottom:0px; 
+	border-left:1px solid #f1f1f1; 
+	border-right:1px solid #f1f1f1; 
+	text-align:left;
+	border-collapse:collapse;
+	word-break : break-all;
+	background-color:#FFFFFF;
+	margin-top:3px;
+}
+
+.searchTable td {
+	color: #000000;
+}
+
+.searchTabletop {
+	height: 25px;
+	width:100%;
+	background-image:url(searchTableHead.gif);
+	border-right: 0px solid #cfcfcf;
+	border-bottom: 0px solid #cfcfcf;
+	text-align: left;
+}
+
+.searchTablebottom {
+	height: 41px;
+	width:100%;
+	text-align:center;
+	vertical-align:center;
+	background-image:url(searchbg02.gif);
+	border-right: 0px solid #cfcfcf;
+	border-bottom: 0px solid #cfcfcf;
+}
+
+/*连接文字按钮中间空格*/
+.LinkRichSpacer{
+	width:5px;
+}
+
+.BtnRichSpacer{
+	width:5px;
+}
+
+.partitionList {
+	height: 200px;
+	width:380px;
+	padding-left: 3px;
+	padding-right: 2px;
+	padding-bottom: 1px;
+	color: #000000;
+	background: #ffffff;
+	border:none;
+	vertical-align: middle
+}
+/*datagrid的头标签样式*/
+.rich-table-subheadercell{
+font-size:13px;
+color:#4ca0c1;
+
+}
+/*翻页样式*/
+
+.rich-dtascroller-table{
+	border: none;
+	background-color: #ffffff;
+}
+	
+.rich-datascr-button-dsbld{
+	border: none;
+	background-color: #ffffff;
+	color: #000000;
+}
+.rich-datascr-button{
+	border:none;
+	background-color:#ffffff;
+	width:10px;
+	color: #000000;
+}
+.rich-datascr-act {
+	word-break:keep-all;
+	border-top-color:#ffffff;
+	color: #266ad7;
+	border-top:0;
+}
+.rich-datascr-inact{
+	border-top:0;
+	word-break:keep-all;
+}
+/*设置分页控件中的显示分页数字的连接宽度*/
+.rich-dtascroller-renderPages{
+	width:150px;
+}
+/*设置分页控件中的显示分页标签的宽度*/
+.rich-datascr-label
+{
+	width:300px;
+}
+
+/***页面TABLE转到第一页***/
+.pageFirst {
+	background:url(page1.gif) no-repeat center center;
+	border:0;
+	width:10px;
+	height:8px;
+	text-align: center;
+}
+/***页面TABLE转到前一页***/
+.pagePre {
+	background:url(page2.gif) no-repeat center center;
+	border:0;
+	width:10px;
+	height:8px;
+	text-align: center;
+}
+/***页面TABLE转到下一页***/
+.pageNext {
+	background:url(page3.gif) no-repeat center center;
+	border:0;
+	width:10px;
+	height:8px;
+	text-align: center;
+}
+/***页面TABLE转到最后***/
+.pageLast {
+	background:url(page4.gif) no-repeat center center;
+	border:0;
+	width:10px;
+	height:8px;
+	text-align: center;
+}
+/***页面TABLE跳转链接图标***/
+.pageGo {
+	background:url(go.jpg) no-repeat center center;
+	border:0;
+	width:15px;
+	height:15px;
+	text-align: center;
+	cursor:hand;
+}
+/***页面TABLE跳转录入框***/
+.inputGo {
+	height: 15px;
+	width:  30px;
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-bottom: 1px;
+	color: #000000;
+	background: #ffffff;
+	border: 1px solid #7f9db9;
+	vertical-align: middle;
+}
+/***页面TABLE***/
+.scrollSumLabel {
+	width:250px;
+	margin-right:0px;
+	text-align:right;
+}
+
+
+/*页面左右背景阴影样式*/
+
+.leftbgdiv {
+	background:url(leftbg.jpg) no-repeat top right;
+	height:2000px;
+	/*border:1px solid;*/
+	text-align: right;
+}
+
+.rightbgdiv {
+	background:url(rightbg.jpg) no-repeat top left;
+	height:2000px;
+	/*border:1px solid;*/
+	text-align: left;
+}
+
+
+/*登录页面按钮样式*/
+
+.loginsyb {
+   background:url(login-syb.jpg) no-repeat;
+   cursor: hand;
+   width:76px;
+   height:24px;
+   border:none;
+}
+
+.loginxyb {
+	background:url(login-xyb.jpg) no-repeat;
+	cursor: hand;
+    width:76px;
+    height:24px;
+    border:none;
+}
+
+.logindl {
+	background:url(login-dl.jpg) no-repeat;
+	cursor: hand;
+    width:76px;
+    height:24px;
+    border:none;
+}
+
+.loginqr {
+	background:url(login-qr.jpg) no-repeat;
+	cursor: hand;
+    width:76px;
+    height:24px;
+    border:none;
+}
+
+
+.logininput {
+	height: 20px;
+	width:150px;
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-bottom: 1px;
+	color: #000000;
+	background: #ffffff;
+	border: 1px solid #b7b7b7;
+	vertical-align: middle;
+}
+
+
+/* 内容tab */
+.rich-tab-active-main {
+	background:#52b3f5;
+	color:#ffffff;
+	height:20px;
+	border:none;
+	cursor: pointer;
+	top:0px;
+
+}
+.rich-tab-bottom-line-main {
+	background:#cbf1fc;
+	height:20px;
+	border:1px;
+	border-color:#bed6f8;
+}
+
+.rich-tab-content-main {			
+	border-width: 1px 0px 0px 0px;
+	background-color: transparent;
+	display:none;
+}
+/*进度条颜色*/
+.rich-progress-bar-completed {
+	background-image: url(daohangbg.gif);
+	background-color:#40E0D0;
+}
+.rich-mpnl-content {
+   border:0;
+   background-color:none;
+   border-width:0;
+   
+}
+.rich-progress-bar-shell-dig{
+border:0;
+margin:0;
+font-size:14px;
+
+}
+.rich-mpnl-body{ 
+
+ padding:0;
+}
+
+.tdwidth {
+	width:30%;
+}
+
+.MouseOverRow {
+	background-color:#dbecb1;
+}
+
+.MouseOutRow {
+	background-color:#ffffff;
+}
+
+.TabPanelBG {
+	background-image:url(daohangbg.gif);
+	width:99%;
+}
+  .RadioNoBorder {
+	height: 24px;
+	background: #ffffff;
+	border: 0px #ffffff;
+}
+
+.rich-calendar-exterior{
+   color:#585858;
+}
+/**日期控件隐藏第几周**/
+.rich-calendar-week{
+width:0px;
+text-indent:-9999em;
+}
+
+/*
+日期控件，非本月的日期置灰
+*/
+.rich-calendar-boundary-dates{
+background-color:#DCDCDC;
+}
+/*
+日期控件，节假日置黄色
+*/
+.rich-calendar-holly{
+background-color:#BED6F8;
+color:#363636;
+}
+.rich-calendar-weekends{
+color:#fa565a;
+}
+
+/*=========================布局样式===================================*/
+
+/***td中控件间距***/
+.zeroLayOut
+{
+	padding:0px;
+	margin:0px;
+}
+
+
+ 
+/***带横向滚动的table控件所在的contentarea的样式***/
+.scrollContentArea{
+    overflow-x:scroll;
+    width:950px;
+}
+/***带横向滚动的table控件***/
+.scrollDataTable {
+	width: 1800px;
+	border:1px solid #e3e3e3; 
+	text-align:center;
+	border-collapse:collapse;
+	word-break : break-all;
+	margin-top:0px;
+	align:center;
+   cellpadding:0px;
+   cellspacing:0px;
+}
+
+/*richpanel的样式*/
+.rich-panel{
+border-style:none;
+padding:0px;
+}
+/* new */
+.rich-panel-header{
+  font-size:14px;
+  color:#4ca0c1 ;
+  background-image: url('');
+  background-color:#e8f1f6;
+  border-color:#e3e3e3;
+  padding-left:0px;
+}
+/***richpanel类型的内容区域的样式***/
+.rich-panel-body{
+padding:0px;
+font-size:12px;
+}
+
+.rich-messages
+{
+font-family:Microsoft YaHei,宋体,Verdana,Tahoma,Arial,helvetica,sans-serif;
+
+}
+/***richpanelpanel类型的内容区域折叠的样式***/
+.foldRichPanel {
+        height:10px;
+        overflow:auto;
+}
+
+
+

@@ -1,0 +1,164 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+ <head>
+    <title>信用评分</title>
+    <meta name="renderer" content="ie-comp" />  
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+     <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/static/style/creditscore/page.css" >
+    <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/static/style/creditscore/css.css" >
+     <script src="../static/script/jquery-1.9.1.min.js" ></script>
+     
+    <style media="print" type="text/css">
+	.skg{text-align:left;}
+	.DataTable {
+	width:100%;
+	text-align:center;
+	border:1px solid #f1f1f1; 
+	border-collapse:collapse;
+	word-break : break-all;
+	}
+	.DataTable td {
+		vertical-align: middle;
+	}
+</style>
+<script type="text/javascript" language="javascript">   
+function iFrameHeight(obj) {   
+var id = obj.id;
+var ifm= document.getElementById(id);   
+var subWeb = document.frames ? document.frames[id].document : ifm.contentDocument;   
+if(ifm != null &amp;&amp; subWeb!=null ) {
+   ifm.height = subWeb.body.scrollHeight;
+   ifm.width = subWeb.body.scrollWidth;
+}   
+}   
+</script>
+</head>
+ <body>
+         <input type="hidden"   id='radarResult'  value='${creditScoreBean.radarResult}'  />
+         <input type="hidden"   id='lineData'   value='${creditScoreBean.lineData}'  />
+         <input type="hidden"  id='barParam'  value='${creditScoreBean.barParam}' />
+         <input type="hidden"   id='score'  value="${creditScoreBean.creditscore}" />
+         <input type="hidden"   id='level'  value="${creditScoreBean.level}" />
+	     <input type="hidden"   id='allData'         value='${creditScoreBean.allData}'/>
+		 <input type="hidden"   id='trateData'     value='${creditScoreBean.tradeData}' />
+		 <input type="hidden"   id='areaData'      value='${creditScoreBean.areaData}' />
+		 <input type="hidden"   id='scaleData'         value='${creditScoreBean.scaleData}'/>
+		 <input type="hidden"   id='entiData'     value='${creditScoreBean.entiData}' />
+		 <input type="hidden"   id='investmentData'      value='${creditScoreBean.investmentData}' />
+		 
+		   
+         <table id="table7ecef1f9-5fc0-4b3d-a9ac-6476d3f6659b" class="DataTable"  >
+			<tr id="tr90c77a44-4256-412f-8714-ed17b1ebd5cc" >
+					  <td  >
+						  <table  border="0">
+	                          <tr>
+	                            <th  height="49" scope="col"> <div style="border-radius:60px;width:40px;margin:0 auto;"><font style="font-size:10px;">信用分</font></div>
+										     <p><div style="width:90px;"><font style="font-size:40px;">${creditScoreBean.creditscore }</font>分</div></p>
+										    <p><div style="background:#FF933C;border-radius:50px;width:40px;color:#ffffff;margin:0 auto; azimuth: center;">${creditScoreBean.rating}</div></p></th>
+	                            <th  rowspan="3" scope="col" ><iframe id="radar" src="${pageContext.request.contextPath}/portal/report/creditScoreRadar.html"  style="height:400px;width:500px;" scrolling="no" frameborder="0"   ></iframe></th>
+	                          </tr>
+	                          <tr>
+	                            <td ></td>
+	                          </tr>
+	                          <tr>
+	                            <td></td>
+	                          </tr>
+	                       </table>
+					  </td>
+                      <td  id="tdui90c77a44-4256-412f-8714-ed17b1ebd5cc" >
+	                      <table  class="table table-c">
+								<thead  style="padding-right:3px;">
+								<tr>
+									<th width="9%" >评级</th>
+									<th width="50%" >评级含义</th>
+									<th width="11%" >评分范围</th>
+									<th width="13%" >参考违约率</th>
+								</tr></thead><tbody>
+								<tr>
+									<td>优秀</td>
+									<td class="skg" style="text-align: left;">企业具有较强的还款能力，不存在明显的负面记录，在经营环境、财务水平、经营水平、管理水平等方面具有较好的表现，抵御风险能力较强。</td>
+									<td>700分(含)以上</td>
+									<td>0.10%</td>
+								</tr>
+								<tr>
+									<td>良好</td>
+									<td class="skg" style="text-align: left;">企业具有良好的还款能力，但弱于优秀企业，在经营环境、财务水平、经营水平、管理水平等方面弱于优秀企业，不利的外部经济环境变化，可能会影响企业的偿债能力。</td>
+									<td>(645,700)</td>
+									<td>0.50%</td>
+								</tr>
+								<tr>
+									<td>一般</td>
+									<td class="skg" style="text-align: left;">企业还款能力一般，经营管理水平、财务水平等方面表现一般，缺乏明显的竞争优势，发展前景容易受到外部环境变化的影响，存在一定的偿债风险。</td>
+									<td>(600,645)</td>
+									<td>2%</td>
+								</tr>
+								<tr>
+									<td>较弱</td>
+									<td class="skg" style="text-align: left;">企业还款能力较弱，企业的财务水平和经营水平存在负面的风险因素，可能导致企业未来的偿债能力进一步恶化，存在短期和中期的违约可能。</td>
+									<td>(550,600)</td>
+									<td>8%</td>
+								</tr>
+								<tr>
+									<td>最弱</td>
+									<td class="skg" style="text-align: left;">企业还款能力很弱，财务水平和经营水平具有明显的负面风险因素，抗风险能力差，信用基本面很弱，发展前景不乐观，违约可能性很大。</td>
+									<td>550分以下</td>
+									<td>40%</td>
+								</tr></tbody>
+							</table>
+                    </td>
+             </tr>
+             
+			 <tr>
+					<td id="tdui90c77a44-4256-432f-8714-ed17b1ebd5cc" >
+							<table>
+								<tr>
+								     <td align="center">
+											<span>
+					                          <input id="all"   type="button" value="全部" name="all" class="btn" style="width:90px;height:30px;white-space:normal;font-size: 12px;"></input>
+											</span>
+											<span>
+												<input id="trade"   type="button" value="行业" name="trade" class="btn" style="width:90px;height:30px;white-space:normal;font-size: 12px;"></input>
+							                </span>
+											<span>
+												<input id="area"   type="button" value="区域" name="area" class="btn" style="width:90px;height:30px;white-space:normal;font-size: 12px;"></input>
+							                </span>
+							                <span>
+					                          <input id="scale"   type="button" value="规模" name="scale" class="btn" style="width:90px;height:30px;white-space:normal;font-size: 12px;"></input>
+											</span>
+											<span>
+					                          <input id="enti"   type="button" value="企业性质" name="enti" class="btn" style="width:90px;height:30px;white-space:normal;font-size: 12px;"></input>
+											</span>
+											<span>
+					                          <input id="investment"   type="button" value="投资类型" name="investment" class="btn" style="width:90px;height:30px;white-space:normal;font-size: 12px;"></input>
+											</span>
+						                </td>
+				                </tr>
+				                 <tr>
+				                 	<td>
+				                 			<iframe id="radar" src="${pageContext.request.contextPath}/portal/report/creditScoreBar.html" scrolling="no" frameborder="0"   style="height:450px;width:550px"></iframe>
+								   </td>
+								</tr>
+								<tr>
+									<td align="center">
+										  <div id="allbar">
+											  <span>
+												该企业得分为${creditScoreBean.creditscore } 优于 ${creditScoreBean.rankPercent } 的企业
+							                   <br/>
+												中位数企业：${creditScoreBean.midName } ,    ${creditScoreBean.midScore } 分
+											   </span>
+										   </div>
+									</td>
+								</tr>
+							</table>
+	                </td>
+					<td>
+							<iframe  id="line" src="${pageContext.request.contextPath}/portal/report/creditScoreLine.html"   scrolling="no" frameborder="0"    style="height:450px;width:550px" ></iframe>
+					</td>	
+			</tr>
+		</table>
+</body>
+</html><SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

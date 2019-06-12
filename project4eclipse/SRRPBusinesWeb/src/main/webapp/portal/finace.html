@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+     <meta name="renderer" content="webkit|ie-comp|ie-stand"/> 
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>苏州股权融资服务平台</title>
+    <link rel="shortcut icon" href="common/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="common/style/reset.css">
+    <link rel="stylesheet" type="text/css" href="common/style/common.css">
+    <link rel="stylesheet" type="text/css" href="common/script/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="finance/style/finance.css">
+    <script src="common/script/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="common/script/layui/layui.js" type="text/javascript"></script>
+    <script src="common/script/common.js" type="text/javascript"></script>
+    <script src="finance/script/finance.js" type="text/javascript"></script>
+</head>
+<body>
+<!--头部信息开始-->
+<!--头部logo以及登录注册开始-->
+<div class="logo clearfix">
+    <div class="logoRight">
+    	<c:if test="${!empty sessionScope.user}">
+        <a href="/creditplatformweb/success">进入业务系统</a><a href="/creditplatformweb/logout">退出登陆</a>
+    </c:if>
+    <c:if test="${empty sessionScope.user}">
+    	<a href="register.html"> 注&nbsp;&nbsp;&nbsp;&nbsp;册 </a>
+        <a href="/creditplatformweb/logout"> 登&nbsp;&nbsp;&nbsp;&nbsp;录 </a>
+    </c:if></div>
+          <div class="logoLeft">
+	        <a href="index.html">
+	            <p></p>
+	            <p></p>
+	        </a>
+	     </div>
+</div>
+<!--头部logo以及登录注册结束-->
+<!-- 操作菜单开始 -->
+<div class="header">
+    <ul class="nav clearfix">
+        <li><a href="index.html"> 首 页 </a></li>
+        <li><a href="investevent.html"> 投融事件 </a></li>
+        <li class="active"><a href="finace.html"> 融资需求 </a></li>
+        <li><a href="news.html"> 新闻动态 </a></li>
+        <li><a href="result.html"> 运行成果 </a></li>
+        <li><a href="investor.html"> 投资机构 </a></li>
+        <li><a href="relate.html"> 联系我们 </a></li>
+    </ul>
+</div>
+<!-- 操作菜单结束-->
+<!--头部信息结束-->
+<!--页面主体开始-->
+<div class="main-background">
+    <div class="mainwraper">
+        <div class="current-position">
+            当前位置：首页&gt;融资需求
+        </div>
+        <div class="sub-c">
+            <!--<h4 class="center-dotted">-->
+            <!--<span>您可以针对某个融资需求搜索</span>-->
+            <!--</h4>-->
+            <!--<div class="GridBox">-->
+            <!--<table class="queryTable">-->
+            <!--<tbody>-->
+            <!--<tr>-->
+            <!--<td class="title">融资机构名称：</td>-->
+            <!--<td><input type="text" class="default-input" placeholder=""></td>-->
+            <!--<td class="title">融资需求名称：</td>-->
+            <!--<td><input type="text" class="default-input mr20"-->
+            <!--placeholder=""></td>-->
+            <!--<td width="110"><a class="query-btn">搜索</a></td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+            <!--</table>-->
+            <!--</div>-->
+            <div class="query-condition">
+                <!--<h2 class="subTitle">融资需求筛选条件:</h2>-->
+<!--                 <dl> -->
+<!--                     <dt> -->
+<!--                         <span>融资方式</span>： -->
+<!--                     </dt> -->
+<!--                     <dd type="finance_way"> -->
+<!--                         <a href="javascript:void(0);" name="0" class="current">全部</a> -->
+<!--                         <a href="javascript:void(0);" name="1">债权融资</a> -->
+<!--                         <a href="javascript:void(0);" name="2">股权融资</a> -->
+<!--                         <a href="javascript:void(0);" name="3">整理转让</a> -->
+<!--                         <a href="javascript:void(0);" name="4">其他融资</a> -->
+<!--                     </dd> -->
+<!--                 </dl> -->
+                <dl>
+                    <dt>
+                        <span>行业</span>：
+                    </dt>
+                    <dd type="industry" id="industry">
+<!--                         <a href="javascript:void(0);" name="0" class="current">全部</a> -->
+<!--                         <a href="javascript:void(0);" name="1">房地产</a> -->
+<!--                         <a href="javascript:void(0);" name="2">矿产冶金</a> -->
+<!--                         <a href="javascript:void(0);" name="3">金融投资</a> -->
+<!--                         <a href="javascript:void(0);" name="4">农林牧渔</a> -->
+<!--                         <a href="javascript:void(0);" name="5">能源</a> -->
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                        <span>融资轮次</span>：
+                    </dt>
+                    <dd type="finacingTurn" id="finacingTurn">
+<!--                         <a href="javascript:void(0);" name="0" class="current">全部</a> -->
+<!--                         <a href="javascript:void(0);" name="1">姑苏区</a> -->
+<!--                         <a href="javascript:void(0);" name="2">工业园区</a> -->
+<!--                         <a href="javascript:void(0);" name="3">新区</a> -->
+<!--                         <a href="javascript:void(0);" name="4">相城区</a> -->
+<!--                         <a href="javascript:void(0);" name="5">吴中区</a> -->
+<!--                         <a href="javascript:void(0);" name="6">吴江区</a> -->
+<!--                         <a href="javascript:void(0);" name="7">昆山市</a> -->
+<!--                         <a href="javascript:void(0);" name="8">张家港市</a> -->
+                    </dd>
+                </dl>
+
+<!--                 <dl> -->
+<!--                     <dt> -->
+<!--                         <span>企业规模</span>： -->
+<!--                     </dt> -->
+<!--                     <dd type="finance_scale"> -->
+<!--                         <a href="javascript:void(0);" name="0" class="current">全部</a> -->
+<!--                         <a href="javascript:void(0);" name="1">50人以下</a> -->
+<!--                         <a href="javascript:void(0);" name="2">50-100人</a> -->
+<!--                         <a href="javascript:void(0);" name="3">100-200人</a> -->
+<!--                         <a href="javascript:void(0);" name="4">200人以上</a> -->
+<!--                     </dd> -->
+<!--                 </dl> -->
+
+                <!-- <dl>
+                    <dt>
+                        <span>经营年限</span>：
+                    </dt>
+                    <dd type="enterprisePeriod" id="enterprisePeriod">
+                        <a href="javascript:void(0);" name="" class="current">全部</a>
+                        <a href="javascript:void(0);" name="1">1年之内</a>
+                        <a href="javascript:void(0);" name="2">1-2年</a>
+                        <a href="javascript:void(0);" name="3">3-5年</a>
+                        <a href="javascript:void(0);" name="4">5-10年</a>
+                        <a href="javascript:void(0);" name="5">10-20年</a>
+                        <a href="javascript:void(0);" name="6">20年以上</a>
+                    </dd>
+                </dl> -->
+
+                <!-- <dl>
+                    <dt>
+                        <span>融资金额</span>：
+                    </dt>
+                    <dd type="financeAmout" id="financeAmout">
+                        <a href="javascript:void(0);" name="0" class="current">全部</a>
+                        <a href="javascript:void(0);" name="1">1万-10万</a>
+                        <a href="javascript:void(0);" name="2">10万-50万</a>
+                        <a href="javascript:void(0);" name="3">5万-100万</a>
+                        <a href="javascript:void(0);" name="4">100万-500万</a>
+                        <a href="javascript:void(0);" name="5">500万-1000万</a>
+                    </dd>
+                </dl> -->
+                <h4 class="center-dotted mt10">
+					<span>共计<b><a id="record_totle"></a></b>条融资需求数据
+					</span>
+                </h4>
+            </div>
+            <!--列表内容开始-->
+            <div>
+                <form id="formid" name="form" method="post" action="#" ></form>
+                <!--分页组件-->
+                <div style="text-align: center;">
+                    <div id="common-page-ui"></div>
+                </div>
+            </div>
+            <!--列表内容结束-->
+        </div>
+    </div>
+    <div>&nbsp;</div>
+</div>
+<!--页面主体结束-->
+<!--底部信息开始-->
+<div id="foot"></div>
+<!--底部信息结束-->
+</body>
+</html>

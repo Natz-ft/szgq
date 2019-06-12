@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html xmlns="http://www.w3.org/1999/html">
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/> 
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>苏州股权融资服务平台</title>
+    <link rel="shortcut icon" href="common/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="common/style/reset.css">
+    <link rel="stylesheet" type="text/css" href="common/style/common.css">
+    <link rel="stylesheet" type="text/css" href="common/script/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="melte/style/meltedetail.css">
+    <script src="common/script/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="common/script/layui/layui.js" type="text/javascript"></script>
+    <script src="common/script/common.js" type="text/javascript"></script>
+    <script src="common/script/qrcode/qrcode.js" type="text/javascript"></script>
+    <script src="common/script/ajax.js" type="text/javascript"></script>
+    
+</head>
+<body>
+<!--头部信息开始-->
+<!--头部logo以及登录注册开始-->
+<div class="logo clearfix">
+    <div class="logoRight" style="display: none;" id="login">
+        <a href="/creditplatformweb/success">进入业务系统</a><a href="/creditplatformweb/logout">退出登陆</a>
+    	
+    </div>
+    <div class="logoRight" style="display: none;" id="nologin">
+    	<a href="register.html"> 注&nbsp;&nbsp;&nbsp;&nbsp;册 </a>
+        <a href="/creditplatformweb/logout"> 登&nbsp;&nbsp;&nbsp;&nbsp;录 </a>
+    </div>
+          <div class="logoLeft">
+	        <a href="index.html">
+	            <p></p>
+	            <p></p>
+	        </a>
+	     </div>
+</div>
+<!--头部logo以及登录注册结束-->
+<!-- 操作菜单开始 -->
+<div class="header">
+    <ul class="nav clearfix">
+        <li class="active"><a href="index.html"> 首 页 </a></li>
+        <li><a href="investevent.html"> 投融事件 </a></li>
+        <li><a href="finace.html"> 融资需求 </a></li>
+        <li><a href="news.html"> 新闻动态 </a></li>
+        <li><a href="result.html"> 运行成果 </a></li>
+        <li><a href="investor.html"> 投资机构 </a></li>
+        <li><a href="relate.html"> 联系我们 </a></li>
+    </ul>
+</div>
+<!-- 操作菜单结束-->
+<!--头部信息结束-->
+<!--页面主体开始-->
+<div class="main-background">
+    <div class="mainwraper">
+        <div class="current-position">
+            当前位置： 首页 &gt; 投资动态 &gt; 详情
+        </div>
+        <div class="sub-c">
+            <div class="pro-list">
+                <h3>不公开的项目名</h3>
+            </div>
+            <div>
+                <table class="detail-table">
+                    <tbody>
+                    <tr>
+                        <td class="meltedetailtitle"></td>
+                        <td>
+						 <div>
+                            <span class="meltedetail-invest">不公开的投资者</span>
+                            <span class="meltedetail-money">
+                                <img src="melte/images/meltedetail.png" alt=""/>
+                            </span>
+                             <span class="meltedetail-byinvest">不公开的企业</span>
+                            </div>
+							<!--箭头设置开始-->
+							<div>
+	                            <div class="meltedetail-datapoint"></div>
+	                            <div class="meltedetail-datapointsymbol1"></div>
+	                            <div class="meltedetail-datapointsymbol2"></div>
+	                            <div class="meltedetail-datapointexplain">投资</div>
+	
+	                            <!--箭头设置结束-->
+	                            <div class="meltedetail-moneydata">
+	                                <span>RMB1,000万元</span>
+	                            </div>
+							</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="meltedetailtitle">企业名称：</td>
+                        <td>不公开的企业</td>
+                    </tr>
+                    <tr>
+                        <td class="meltedetailtitle">机构名称：</td>
+                        <td>不公开的投资者</td>
+                    </tr>
+                    <tr>
+                        <td class="meltedetailtitle">投资时间：</td>
+                        <td>2019-03-12</td>
+                    </tr>
+                    <tr>
+                        <td class="meltedetailtitle">地区：</td>
+                        <td>相城区</td>
+                    </tr>
+                    <tr>
+                        <td class="meltedetailtitle">投资金额：</td>
+                        <td>RMB1,000万元</td>
+                    </tr>
+<!--                     <tr> -->
+<!--                         <td class="meltedetailtitle">投资阶段：</td> -->
+<!--                         <td>--</td> -->
+<!--                     </tr> -->
+                    <tr>
+                        <td class="meltedetailtitle">投资轮次：</td>
+                        <td>种子轮</td>
+                    </tr>
+                    <!-- <tr>
+                        <td class="meltedetailtitle">股权：</td>
+                        <td>0,0.1%~1%</td>
+                    </tr> -->
+                    <tr>
+                        <td class="meltedetailtitle">描述：</td>
+                        <td colspan="3">
+                            111111111111
+                            <br>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="meltedetailinvestor">投资方信息</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="meltedetail-investor-border">
+                                <div class="meltedetail-investor">
+                                    <a class="meltedetail-investorstylefirst">投资机构</a>
+                                    <a class="meltedetail-investorstyle">机构类型</a>
+                                    <a class="meltedetail-investorstyle">投资金额</a>
+                                    <a class="meltedetail-investorstyle">资本类型</a>
+                                </div>
+										<div class="border-bottom-line"></div>
+				                        <div class="meltedetail-investordata">
+                               	    		<a class="meltedetail-investorstylefirst">不公开的投资者</a>
+                                   			<a class="meltedetail-investorstyle">早期投资机构</a>
+                                   			<a class="meltedetail-investorstyle">1,000万元</a>
+                                   			<a class="meltedetail-investorstyle">内资</a>
+                                  		</div>
+										<div class="border-bottom-line"></div>
+				                        <div class="meltedetail-investordata">
+                               	    		<a class="meltedetail-investorstylefirst">不公开的投资者</a>
+                                   			<a class="meltedetail-investorstyle">早期投资机构</a>
+                                   			<a class="meltedetail-investorstyle">1,000万元</a>
+                                   			<a class="meltedetail-investorstyle">内资</a>
+                                  		</div>
+                           	</div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="return-area">
+                     <a class="return-btn" href="index.html"> 返回 </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>&nbsp;</div>
+</div>
+<!--页面主体结束-->
+<!--底部信息开始-->
+<div id="foot"></div>
+<!--底部信息结束-->
+</body>
+</html>

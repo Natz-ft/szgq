@@ -1,0 +1,53 @@
+/*表单样式*/
+.boxWrap .formWrap {
+    padding: 20px 80px;
+}
+
+.boxWrap .formWrap .form-left {
+    width: 52%;
+    float: left;
+}
+
+.boxWrap .formWrap .form-right {
+    width: 40%;
+    float: right;
+}
+
+.star {
+    color: #e4398c;
+}
+
+.boxWrap .formWrap .formEleSplice {
+    width: 120px;
+}
+
+.boxWrap .formWrap .formEleSpliceUnit {
+    width: 80px;
+
+}
+
+.boxWrap .formWrap .inputSign {
+    width: 280px;
+}
+
+.boxWrap .formWrap .formEleSign {
+    width: 20px;
+    margin-right: 0;
+}
+
+.boxWrap .formWrap .warnNote {
+    color: #FF6838;
+}
+
+.boxWrap .formWrap .form-title {
+    width: 20%;
+    height: 100%;
+}
+
+.boxWrap .formWrap .form-title span {
+    font-size: 16px;
+    padding: 5px 10px;
+    color: #0D4F92;
+    /*border-bottom: 3px solid #0D4F92;*/
+}
+

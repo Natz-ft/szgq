@@ -1,0 +1,832 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>审核投资机构</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/details.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+    
+    <style>
+        .detailsTxt p {
+            max-width: 100%;
+            width:46%;
+        }
+		
+        .detailsTxt p img {
+            max-width: 20%;
+            cursor: pointer;
+        }
+
+        .audit-content {
+            margin-left: 65px;
+        }
+
+        .audit-oper {
+            margin-left: -5px;
+        }
+
+        .audit-not-title {
+            margin-left: -150px;
+        }
+
+        .audit-not-content {
+            margin-left: -2px;
+        }
+        .fontStyle{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<form class="layui-form" action="">
+   <div class="boxWrap" style="width: 100%">
+		<p class="boxTitle">
+		    <c:choose>  
+               <c:when test='${investor.flagMap.nameFlag=="1"}'><big class="fontStyle">${investor.name}(修改)</big></c:when> 
+               <c:otherwise><span>${investor.name}</span></c:otherwise>
+            </c:choose>
+		</p>
+		<div class="boxContent" style="margin-left: -6%;width: 100%;">
+			<div class="detailsCon">
+				<div class="detail-title-name">
+					<span>基本信息</span>
+				</div>
+				<div class="detailsTxt clearfix">
+					<p>
+					   <c:choose>  
+                          <c:when test='${investor.flagMap.certtypeFlag=="1"}'> 证件代码类型：<strong class="fontStyle">${investor.certtypeDicname}</strong></c:when> 
+                          <c:otherwise>证件代码类型：<span>${investor.certtypeDicname}</span></c:otherwise>
+                       </c:choose>
+					</p>
+					<p>
+					   <c:choose>  
+                          <c:when test='${investor.flagMap.certnoFlag=="1"}'> 证件代码：<strong class="fontStyle">${investor.certno}</strong></c:when> 
+                          <c:otherwise> 证件代码：<span>${investor.certno}</span></c:otherwise>
+                       </c:choose>
+					</p>
+					<p>
+					  <c:choose>  
+                          <c:when test='${investor.flagMap.organizationalFormFlag=="1"}'>组织形式：<strong class="fontStyle">${investor.organizationalFormDicname}</strong></c:when>
+                          <c:otherwise>组织形式：<span>${investor.organizationalFormDicname}</span></c:otherwise>
+                      </c:choose>
+					</p>
+					<p>
+					  <c:choose>  
+                         <c:when test='${investor.flagMap.registeTimeFlag=="1"}'> 注册时间：<strong class="fontStyle">${investor.registeTime}</strong></c:when> 
+                         <c:otherwise>成立日期：<span><fmt:formatDate value='${investor.registeTime}' pattern="yyyy-MM-dd"/></span></c:otherwise>
+                      </c:choose>
+					</p>
+					<p>
+					   <c:choose>  
+                         <c:when test='${investor.flagMap.areaCodeFlag=="1"}'> 所属地区：<strong class="fontStyle">${investor.areaName}</strong></c:when> 
+                         <c:otherwise>所属地区：<span>${investor.areaName}</span></c:otherwise>
+                      </c:choose>
+					</p>
+					<p>
+					 <c:choose>  
+                        <c:when test='${investor.flagMap.registeredCapitalFlag=="1" or investor.flagMap.regCurrencyFlag=="1"}'>
+						注册资本(万)：<strong class="fontStyle"><fmt:formatNumber value="${investor.registeredCapital}" pattern="####.##" />&nbsp; ${investor.regCurrencyDicname}</strong></c:when> 
+					   <c:otherwise>注册资本(万)：<span><fmt:formatNumber value="${investor.registeredCapital}" pattern="####.##" />&nbsp; ${investor.regCurrencyDicname}</span></c:otherwise>
+					 </c:choose>
+					</p>
+					<p>
+					 <c:choose>  
+                        <c:when test='${investor.flagMap.paidCapitalFlag=="1" or investor.flagMap.pcCurrencyFlag=="1"}'>
+						实缴资本(万)：<strong class="fontStyle"><fmt:formatNumber value="${investor.paidCapital}" pattern="####.##" />&nbsp; ${investor.pcCurrencyDicname}</strong></c:when>
+					   <c:otherwise>实缴资本(万)：<span class="fontStyle"><fmt:formatNumber value="${investor.paidCapital}" pattern="####.##" />&nbsp; ${investor.pcCurrencyDicname}</span></c:otherwise>
+					 </c:choose>
+					</p>
+					<p>
+					 <c:choose>  
+                        <c:when test='${investor.flagMap.orgTypeFlag=="1"}'>机构类型：<strong class="fontStyle">${investor.orgTypeDicname}</strong></c:when> 
+                        <c:otherwise>机构类型：<span>${investor.orgTypeDicname}</span></c:otherwise>
+                     </c:choose>
+					</p>
+					<p>
+					 <c:choose>  
+                        <c:when test='${investor.flagMap.capitalTypeFlag =="1"}'>资本类型：<strong class="fontStyle">${investor.capitalTypeDicname}</strong></c:when>
+						<c:otherwise>资本类型：<span>${investor.capitalTypeDicname}</span></c:otherwise>
+					 </c:choose>
+					</p>
+					<p>
+						操作时间：<span>${investor.OPERDATEStr}</span>
+					</p>
+					<p>
+						状态：<span>${investor.stopFlagDicname}</span>
+					</p>
+					<p>
+					<c:choose>  
+                        <c:when test='${investor.flagMap.legalRepresentativeFlag=="1"}'>
+						法定代表人/执行事务合伙人：<strong class="fontStyle">${investor.legalRepresentative}</strong></c:when>
+						<c:otherwise>法定代表人/执行事务合伙人：<span>${investor.legalRepresentative}</span></c:otherwise>
+				    </c:choose>
+					</p>
+					<p>
+					<c:choose>  
+                        <c:when test='${investor.flagMap.legalRepresentativeCallFlag=="1"}'>
+						法定代表电话/执行事务合伙人电话：<strong class="fontStyle">${investor.legalRepresentativeCall}</strong></c:when>
+						<c:otherwise>法定代表电话/执行事务合伙人电话：<span>${investor.legalRepresentativeCall}</span></c:otherwise>
+				    </c:choose>
+					</p>
+					<p>
+						审核状态：<span>${investor.auditStatusDicname}</span>
+					</p>
+					<p style="width: 100%;">
+					 <c:choose>  
+                        <c:when test='${investor.flagMap.registeredAddressFlag=="1"}'>
+						注册地址：<strong class="fontStyle">${investor.registeredAddress}</strong></c:when>
+						<c:otherwise>注册地址：<span>${investor.registeredAddress}</span></c:otherwise>
+					 </c:choose>
+					</p>
+					<p style="width: 100%;">
+					  <c:choose>  
+                        <c:when test='${investor.flagMap.officeAddressFlag=="1"}'>
+						办公地址：<strong  class="fontStyle">${investor.officeAddress}</strong></c:when>
+						<c:otherwise>办公地址：<span>${investor.officeAddress}</span></c:otherwise>
+					 </c:choose>
+					</p>
+					<!-- <p class="aloneRow">
+					   <c:choose>  
+                          <c:when test='${investor.flagMap.licensePathFlag=="1"}'><label>营业执照：</label> 
+                             <span id="layer-photos" style="color:red;"><img  layer-src=${investor.licensePath} src=${investor.licensePath} alt="营业执照"/>(修改)</span>
+                          </c:when> 
+                          <c:otherwise><label>营业执照：</label> 
+                             <span id="layer-photos"><img layer-src=${investor.licensePath} src=${investor.licensePath} alt="营业执照"/></span>
+                         </c:otherwise>
+                       </c:choose>
+					</p> -->
+				</div>
+			</div>
+			<div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>日常联系人</span></div>
+            <div class="detailsTxt clearfix">
+                <p>
+                   <c:choose>  
+                          <c:when test='${investor.flagMap.relNameFlag=="1"}'>姓名：<strong class="fontStyle">${investor.relName}</strong></c:when>
+                          <c:otherwise>姓名：<span>${investor.relName}</span></c:otherwise>
+                   </c:choose>   
+                </p>
+                <p>
+                   <c:choose>  
+                      <c:when test='${investor.flagMap.postFlag=="1"}'>职务：<strong class="fontStyle">${investor.post}</strong></c:when>
+                      <c:otherwise>职务：<span>${investor.post}</span></c:otherwise>
+                  </c:choose>
+                </p>
+                <p>
+                    <c:choose>  
+                      <c:when test='${investor.flagMap.relPhoneFlag=="1"}'>联系电话：<strong class="fontStyle">${investor.relPhone}</strong></c:when>
+                      <c:otherwise>联系电话：<span>${investor.relPhone}</span></c:otherwise>
+                   </c:choose>
+                </p>
+                <p>
+                    <c:choose>  
+                      <c:when test='${investor.flagMap.emailFlag=="1"}'>电子邮箱：<strong class="fontStyle">${investor.email}</strong></c:when>
+                      <c:otherwise>电子邮箱：<span>${investor.email}</span></c:otherwise>
+                    </c:choose>
+               </p>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>运营资质</span></div>
+            <div class="detailsTxt clearfix">
+                <p style="width: 100%">
+                <c:choose>  
+                      <c:when test='${investor.flagMap.operationQualification2Flag=="1"}'>是否在中国证券基金业协会履行基金管理人登记手续：
+                         <c:choose>  
+                            <c:when test='${not empty investor.operationQualification2}'><strong class="fontStyle">是</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基金管理人登记编号：<span>${investor.operationQualification2}</span></c:when> 
+                             <c:otherwise> <strong class="fontStyle">否</strong></c:otherwise>
+                          </c:choose>
+                      </c:when>
+                       <c:otherwise>是否在中国证券基金业协会履行基金管理人登记手续：
+                         <c:choose>  
+                             <c:when test='${not empty investor.operationQualification2}'><span>是</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基金管理人登记编号：<span>${investor.operationQualification2}</span></c:when> 
+                            <c:otherwise> <span>否</span></c:otherwise>
+                          </c:choose></c:otherwise>
+               </c:choose>
+              </p>
+              <p style="width: 100%">
+                 <c:choose>  
+                      <c:when test='${investor.flagMap.operationQualification3Flag=="1"}'>机构是否有过不良诚信记录 ：<strong class="fontStyle">${investor.operationQualification3Dicname}</strong></c:when>
+                      <c:otherwise>机构是否有过不良诚信记录 ：<span>${investor.operationQualification3Dicname}</span></c:otherwise>
+                  </c:choose>
+                </p>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>团队成员</span></div>
+            <div class="detailsTxt clearfix">
+                <p style="width: 100%">
+                    <c:choose>  
+                      <c:when test='${investor.flagMap.teamCountFlag=="1"}'>团队总人数：<strong class="fontStyle">${investor.teamCount}</strong></c:when>
+                      <c:otherwise>团队总人数：<span>${investor.teamCount}</span></c:otherwise>
+                   </c:choose>
+                </p>
+                <p style="width: 100%">
+                  <c:choose>  
+                      <c:when test='${investor.flagMap.seniorManagementFlag=="1"}' >从事股权投资且具备3年以上相关工作经验的人员数量（获得基金从业资格证）：<strong class="fontStyle">${investor.seniorManagement}</strong></c:when>
+                      <c:otherwise> 从事股权投资且具备3年以上相关工作经验的人员数量（获得基金从业资格证）：<span>${investor.seniorManagement}</span></c:otherwise>
+                 </c:choose>
+              </p>
+                <p style="width: 100%">
+                    <c:choose>  
+                      <c:when test='${investor.flagMap.creditUnhealthyFlag=="1"}' >团队成员是否有过不良诚信记录：<strong class="fontStyle">${investor.creditUnhealthyDicname}</strong></c:when>
+                      <c:otherwise>团队成员是否有过不良诚信记录：<span>${investor.creditUnhealthyDicname}</span></c:otherwise>
+                    </c:choose>
+                </p>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>管理机制</span>
+				</div>
+				<div class="detailsTxt clearfix">
+					<p style="width: 100%">
+						 <c:choose>  
+                      <c:when test='${investor.flagMap.creditUnhealthyFlag=="1"}' >是否具备严格合理的投资决策程序、风险控制机制以及健全的财务管理制度：<strong class="fontStyle">${investor.mechanismDicname}</strong></c:when>
+                      <c:otherwise>是否具备严格合理的投资决策程序、风险控制机制以及健全的财务管理制度：<span>${investor.mechanismDicname}</span></c:otherwise>
+                    </c:choose>
+					</p>
+				</div>
+		</div>
+		<div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>综合实力</span>
+				</div>
+				<div class="detailsTxt clearfix aloneDiv">
+				  <c:choose>  
+                        <c:when test='${investor.flagMap.corepersonnelFlag=="1"}' >
+					        <pre><strong style="font-family: Microsoft YaHei;font-size: 14px; display: inline;" class="fontStyle">${investor.corepersonnel}</strong></pre>
+					    </c:when>
+					    <c:otherwise>
+					        <pre><p style="font-family: Microsoft YaHei; color: #333; font-size: 14px; display: inline;">${investor.corepersonnel}</p></pre>
+					    </c:otherwise>
+				  </c:choose>
+				</div>
+		</div>
+			<div class="detailsCon clearfix">   
+			   <div class="detail-title-name">
+					<span>核心团队</span>
+				</div>
+				<div class="detailsTxt clearfix aloneDiv">
+				  <c:choose>  
+                        <c:when test='${investor.flagMap.coreteamFlag=="1"}' >
+					      <pre><strong style="font-family: Microsoft YaHei;font-size: 14px; display: inline;"class="fontStyle">${investor.coreteam}</strong></pre>
+					    </c:when>
+					    <c:otherwise>
+					      <pre><p style="font-family: Microsoft YaHei; color: #333; font-size: 14px; display: inline;">${investor.coreteam}</p></pre>
+					    </c:otherwise>
+				  </c:choose>
+				</div>
+			</div>
+			<div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>投资策略</span>
+				</div>
+				<div class="detailsTxt clearfix">
+					<p style="width: 100%;">
+					  <c:choose>  
+                       <c:when test='${investor.flagMap.capitalMinFlag=="1" or investor.flagMap.currencyDicnameFlag=="1"}' >
+						  管理资本量(亿)：<strong class="fontStyle" >${investor.capital} 
+							</strong></c:when>
+					       <c:otherwise>
+	                         管理资本量(亿)：<span>${investor.capital} 
+							</span>				       
+					       </c:otherwise>
+					  </c:choose>
+					</p>
+					<p style="width: 100%;">
+					  <c:choose>  
+                        <c:when test='${investor.flagMap.financeStageFlag=="1"}' >
+						  主要投资阶段：<strong class="fontStyle">${investor.financeStageDicname}</strong></c:when>
+						 <c:otherwise>主要投资阶段：<span>${investor.financeStageDicname}</span></c:otherwise>
+					  </c:choose>
+					</p>
+					<p style="width: 100%;">
+					  <c:choose>  
+                        <c:when test='${investor.flagMap.financeTradeFlag=="1"}' >
+						 主要投资领域：<strong class="fontStyle">${investor.financeTradeDicname}</strong></c:when>
+						 <c:otherwise> 主要投资领域：<span>${investor.financeTradeDicname}</span></c:otherwise>
+					  </c:choose>
+					</p>
+				</div>
+			</div>
+						<div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>影像信息：</span>
+				</div>
+				<div class="detailsTxt clearfix">
+					 				<p style="width: 100%">
+						 营业执照：<span style="color: red"><a  name = "preview" download="${investor.fileName}" style="cursor:pointer;" href="${investor.licensePath}">${investor.fileName}</a>
+					 <c:choose>  
+                        <c:when test='${investor.flagMap.licensePathFlag=="1"}' > 
+                            <strong style="color: red;">（修改）</strong> 
+					    </c:when>
+					 </c:choose>
+					 </span>
+					</p>
+					<p style="width: 100%">
+						注册申请表：<span> <a  name = "preview" download="${investor.registerAutographName}" style="cursor:pointer;" href="${investor.registerAutographPath}">
+								      ${investor.registerAutographName}</a>
+						<c:choose>  
+	                        <c:when test='${investor.flagMap.registerPathFlag=="1"}' > 
+	                        <strong style="color: red;">（修改）</strong> 
+						    </c:when>
+						 </c:choose>
+								      </span>
+					</p>
+					<p style="width: 100%">
+						   授权书：<span><a  name = "preview" download="${investor.creditAuthorizationName}" style="cursor:pointer;" href="${investor.creditAuthorizationPath}">${investor.creditAuthorizationName}</a>
+						 <c:choose>  
+	                        <c:when test='${investor.flagMap.authorizationPathFlag=="1"}' > 
+	                            <strong style="color: red;">（修改）</strong> 
+						    </c:when>
+						 </c:choose> 
+						 </span>
+					</p>
+					<p style="width: 100%">
+						  LOGO：<span><a  name = "preview" download="${investor.logoName}" style="cursor:pointer;" href="${investor.logoPath}">${investor.logoName}</a></span>
+						  <c:choose>  
+	                        <c:when test='${investor.flagMap.logoPathFlag=="1"}' > 
+	                        <strong style="color: red;">（修改）</strong> 
+						    </c:when>
+						 </c:choose>
+					</p>
+				</div>
+			</div>
+			<div class="detailsCon clearfix">
+			   <c:choose>
+				   <c:when test='${investor.manageUpdateFlag=="01"}'>
+				       <div class="detail-title-name1"><span style="font-size: 16px;float: right;margin-right: 76%; color: #0D4F92;padding: 5px 10px;">管理业绩 
+		               <strong><font style="color:red; font-size: 12px;">(内容有修改)</font></strong></span></div>
+				   </c:when>
+				   <c:otherwise>
+				   <div class="detail-title-name"><span>管理业绩</span></div>
+				   </c:otherwise>
+			   </c:choose>   
+					<c:choose>
+					<c:when test='${manageAchievementList!="[]"}'>
+						<div  id="manageAchievementDiv">
+							<div style="margin-left: 11%;width: 90%;">
+									<table align="center" id="manageAchievementGrid"
+										lay-filter="manageAchievementGrid"></table>
+							</div>
+						</div>
+						</c:when>
+						<c:otherwise>
+
+							<div class="detailsTxt clearfix">
+								<p style="width: 100%">
+									管理业绩：<span>无</span>
+								</p>
+								<p style="width: 100%">
+									未填写原因：<span>${investor.manageAchievementDesc}</span>
+								</p>
+
+							</div>
+						</c:otherwise>
+					</c:choose>
+			</div>
+			<div class="detailsCon clearfix">
+			   <c:choose>
+				   <c:when test='${investor.achieveUpdateFlag=="01"}'>
+				       <div class="detail-title-name1"><span style="font-size: 16px;float: right;margin-right: 76%; color: #0D4F92;padding: 5px 10px;">投资业绩 
+		               <strong><font style="color:red; font-size: 12px;">(内容有修改)</font></strong></span></div>
+				   </c:when>
+				   <c:otherwise>
+				   <div class="detail-title-name"><span>投资业绩</span></div>
+				   </c:otherwise>
+			   </c:choose>
+				<!-- ==============================================================  -->
+						<c:choose>
+						<c:when test='${investorAchievements!="[]"}'>
+					<div id="investorAchievementDiv">
+						<div style="margin-left: 11%;width: 90%;">
+									<table align="center" id="investorAchievementGrid"
+										lay-filter="investorAchievementGrid"></table>
+					</div>
+						</div>					
+								</c:when>
+								<c:otherwise>
+									<div class="detailsTxt clearfix">
+								<p style="width: 100%">
+									投资业绩：<span>无</span>
+								</p>
+								<p style="width: 100%">
+									未填写原因：<span>${investor.achievementDesc}</span>
+								</p>
+
+							</div>
+								</c:otherwise>
+							</c:choose>
+				</div>
+      
+			<div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>审核记录</span>
+				</div>
+<!-- 				<div class="detailsCon clearfix"> -->
+					<div style="margin-left: 11%;width: 90%;">
+						<table align="center" id="investorGrid" lay-filter="investorGrid"></table>
+					</div>
+<!-- 				</div> -->
+			</div>
+			<div class="detailsTxt clearfix aloneDiv">
+                <input type="hidden" name="investorId" value="${investor.investorId}">
+                <div class="layui-input-block audit-oper">
+                <c:if test='${investor.auditStatus=="1" || investor.auditStatus=="4"}'>
+                    <input type="radio" name="auditResult" id="auditResult1" value="2" title="审核通过" lay-filter="auditResult" checked>
+                    <input type="radio" name="auditResult" id="auditResult2" value="3" title="审核不通过"  lay-filter="auditResult">
+                </c:if>
+                 <c:if test='${investor.auditStatus=="2"}'>
+                    <input type="radio" name="auditResult" id="auditResult1" value="2" title="激活" lay-filter="auditResult" checked>
+                    <input type="radio" name="auditResult" id="auditResult2" value="3" title="激活不通过"  lay-filter="auditResult">
+                </c:if>
+                    
+                </div>
+		   </div>
+		</div>
+		<div class="detailsCon clearfix" style=" margin-left: -10%;display: none;"  id="auditContentDiv">
+			<div class="detail-title-name">
+				<span>审核意见</span>
+			</div>
+		    <div class="detail-table">
+			     <div><textarea name="auditContent" placeholder="请输入审核意见" class="layui-textarea" lay-verify="auditContent"></textarea> </div>
+		    </div>
+		</div>
+		<input type="hidden" id ="certno" value="${investor.certno}" >
+        <input type="hidden" id ="name" value="${investor.name}" >
+			<div class="buttonWrap">
+<!-- 			<button class="layui-btn viewCreditReportBtn">&nbsp;&nbsp;征信报告</button> -->
+			<button class="layui-btn submit" lay-submit lay-filter="formAudit">&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;交&nbsp;&nbsp;</button>
+			<button class="layui-btn closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>
+			</div>
+		</div>
+</form>
+
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script>
+var has_showModalDialog = !!window.showModalDialog;//定义一个全局变量判定是否有原生showModalDialog方法  
+if(!has_showModalDialog &&!!(window.opener)){         
+    window.onbeforeunload=function(){  
+        window.opener.hasOpenWindow = false;        //弹窗关闭时告诉opener：它子窗口已经关闭  
+    }  
+}  
+//定义window.showModalDialog如果它不存在  
+if(window.showModalDialog == undefined){  
+    window.showModalDialog = function(url,mixedVar,features){  
+        if(mixedVar) var mixedVar = mixedVar;  
+        //因window.showmodaldialog 与 window.open 参数不一样，所以封装的时候用正则去格式化一下参数  
+        if(features) var features = features.replace(/(dialog)|(px)/ig,"").replace(/;/g,',').replace(/\:/g,"=");  
+        
+        var left = (window.screen.width - parseInt(features.match(/width[\s]*=[\s]*([\d]+)/i)[1]))/2;  
+    	var top = (window.screen.height - parseInt(features.match(/height[\s]*=[\s]*([\d]+)/i)[1]))/2;  
+        window.myNewWindow = window.open(url,"_blank",features);  
+    }  
+}
+function ityzl_SHOW_LOAD_LAYER(){
+		return  layer.load(1, {shade: [0.6, '#f5f5f5']}) ;
+
+	}
+	function ityzl_CLOSE_LOAD_LAYER(index){
+		layer.close(index);
+	}
+$(function () {
+        // 表单控件
+        var form = layui.form;
+        var status="${investor.auditStatus}";
+        if(status == "1"){
+        	$("#auditResult1").attr("value","2");
+        	$("#auditResult2").attr("value","3");
+        }else if(status=="4"){
+        	$("#auditResult1").attr("value","5");
+        	$("#auditResult2").attr("value","6");
+        }else if (status=="2"){
+        	$("#auditResult1").attr("value","2");
+        	$("#auditResult2").attr("value","3");
+        	$("#auditResult1").attr("title","激活");//激活
+        	$("#auditResult2").attr("title","激活不通过");//激活未通过
+        }
+        //自定义验证规则
+        form.verify({
+            auditContent: function (value, item) { //value：表单的值、item：表单的DOM对象
+            	
+                    //监听提交
+                    form.on('submit(formAudit)', function (data) {
+                    	var status=data.field.status;
+                    	var auditContent =data.field.auditContent;
+                    	  var id = $("input[name='auditResult']:checked").val();
+                    	if((id==='3'||id==='6' )&& auditContent===''){
+                    		layer.msg("请输入不通过的理由");
+                    		return false;
+                    		}
+                    	if (/^\d+\d+\d$/.test(auditContent)) {
+                            layer.msg("不通过理由不能全为数字");
+                            return false;
+                        }
+                    	if(auditContent>500){
+                    		layer.msg("审核理由不能大于500个字符");
+                    		return false;
+                    		}
+                        var data = JSON.stringify(data.field);
+                        audit_submit(data)
+                        return false;
+                    });
+            }
+        });
+      //查看信用报告
+//         $(".viewCreditReportBtn").on("click", function () {
+//             var code = "${investor.certno}";
+//             var name = "${investor.name}";
+//             var url="/SRRPBusinesWeb/creditscore/queryReport?certno=" +  code + "&name=" + name;
+//             url = encodeURI(encodeURI(url));
+//       	    window.showModalDialog(url ,"1","dialogWidth:"+window.screen.width+"px;dialogHeight:"+window.screen.height+"px;");
+//         });
+        //点击进行关闭操作
+        $(".closeBtn").on("click", function () {
+            var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+            parent.layer.close(index); //关闭layer(关闭当前窗口)
+        });
+        //监听审核按钮
+        form.on('radio(auditResult)', function (data) {
+            var id = $("input[name='auditResult']:checked").val();
+            var divV = document.getElementById("auditContentDiv");
+            if (id == 2 || id==5) {//审核通过
+                if (divV.style.display == "inline") {
+                    divV.style.display = 'none';//隐藏审核意见
+                    $('#auditContent').val('');
+                }
+            } else if (id == 3 || id==6) {//审核不通过
+                if (divV.style.display == "none") {
+                    divV.style.display = 'inline';//展示审核意见
+                }
+            }
+        });
+
+        //提交审核
+        function audit_submit(data) {
+        	var i;
+            $.ajax({
+                type: "post",
+                url: "/SRRPBusinesWeb/investorManage/auditSubmit",
+                beforeSend: function () {//加载前
+                  	 i = ityzl_SHOW_LOAD_LAYER();
+                   },
+                   complete: function () {//加载后
+                  	 ityzl_CLOSE_LOAD_LAYER(i);
+                   },
+                data: {
+                    "investorAudit": data
+                },// 你的formid
+                success: function (data) {
+                    data = JSON.parse(data);
+                    if (data.code=='00000') {
+                		layer.alert('提交成功，审核结果已提交', function () {
+                			 parent.location.reload();
+                        });
+                    }else if(data.code=='400'){
+                    	layer.alert(data.msg, {
+                            title: '错误信息'
+                        })
+                        return false;
+                    } else {
+                        layer.alert('提交失败', {
+                            title: '最终的提交信息'
+                        })
+                        return false;
+                    }	
+                }
+            });
+        }
+        
+        
+        //数据表格
+        layui.use('table', function () {
+            var table = layui.table;
+            // 赋值数据实际使用为后台获取数据
+            var gridData = ${investorAuditRecords};
+            table.render({
+                id: 'investorGrid',
+                elem: '#investorGrid', //指定原始表格元素选择器（推荐id选择器）
+                 data: gridData
+                ,page: true
+                , limits: [5, 10, 20, 50]
+                , limit: 5,
+                cols: [[ //标题栏
+                    {
+                    	field : 'auditorName',
+						title : '审核人',
+						align : 'center',
+						width : '22%'
+					}, {
+						field : 'auditTimeStr',
+						title : '审核时间',
+						align : 'center',
+						width : '15%'
+					}, {
+						field : 'auditResultDicname',
+						title : '审核结果',
+						align : 'center',
+						width : '15%'
+					}, {
+						field : 'auditContent',
+						title : '审核意见',
+						align : 'center',
+						width : '43.2%'
+                    }]]
+            });
+        });
+        layui.use('table', function() {
+			var table = layui.table;
+			// 赋值数据实际使用为后台获取数据
+			var manageData = ${manageAchievementList};
+			var investorData = ${investorAchievements};
+			//管理业绩列表
+			table.render({
+					id : 'manageAchievementGrid',
+					elem : '#manageAchievementGrid' //指定原始表格元素选择器（推荐id选择器）
+					,page: true
+	                , limits: [5, 10, 20, 50]
+	                , limit: 5,
+					data : manageData,
+					cols : [ [ //标题栏
+					{
+						field : 'fundName',
+						title : '管理基金名称',
+						align : 'center',
+						width :'12%'
+					}, {
+						field : 'registDateString',
+						title : '注册时间',
+						align : 'center',
+						width : '9%'
+					}, {
+                        field: 'trusteeship',
+                        title: '托管机构',
+                        align: 'center',
+                        width: '10%'
+                    }, {
+						field : 'registAddressStr',
+						title : '注册地',
+						align : 'center',
+						width : '10%'
+					}, {
+						field : 'manageCapital',
+						title : '管理资金规模(万)',
+						align : 'center',
+						width : '15%'
+					}, {
+						field : 'iccFilingNo',
+						title : '基金编号(中基协)',
+						align : 'center',
+						width : '16%'
+					}, {
+						field : 'foundTypeDicname',
+						title : '基金类型',
+						align : 'center',
+						width :'12%',
+					}, {
+						field : 'financeTradeDicname',
+						title : '投资行业定位',
+						align : 'center',
+						width : '12%'
+					}, {
+						field : 'financeStageDicname',
+						title : '投资阶段定位',
+						align : 'center',
+						width : '14%'
+					}, {
+						field : 'investmentProjects',
+						title : '投资项目数量',
+						align : 'center',
+						width : '12%'
+					}, {
+						field : 'cumulativeInvestment',
+						title : '累计投资金额（万）',
+						align : 'center',
+						width : '16%'
+					}, {
+						field : 'implementExitProject',
+						title : '实现退出项目数量',
+						align : 'center',
+						width :'15%'
+					} ] ]
+				});
+		    //投资业绩列表
+			table.render({
+				id : 'investorAchievementGrid',
+				elem : '#investorAchievementGrid', //指定原始表格元素选择器（推荐id选择器）
+				page: true
+                , limits: [5, 10, 20, 50]
+                , limit: 5,
+				data : investorData,
+				cols : [ [ //标题栏
+				{
+					field : 'investmentFunds',
+					title : '投资基金名称',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'investedEnterprise',
+					title : '已投企业名称',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'investedEnterpriseIndustryStr',
+					title : '已投企业行业',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'investedEnterpriseAreaStr',
+					title : '已投企业所属区域',
+					align : 'center',
+					width : '16%'
+				}, {
+					field : 'ecCurrencyStr',
+					title : '已投企业注册资本(万)',
+					align : 'center',
+					width : '17%'
+				}, {
+					field : 'investmentTimeStr',
+					title : '投资时间',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'iaCurrencyStr',
+					title : '投资金额(万)',
+					align : 'center',
+					width : '13%'
+				}, {
+					field : 'shareRatio',
+					title : '股权比例(%)',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'roundOfInvestmentStr',
+					title : '投资轮次',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'investmentStageStr',
+					title : '投资阶段',
+					align : 'center',
+					width : '12%'
+				},{
+                    field: 'signOutStr',
+                    title: '是否退出',
+                    align: 'center',
+                    width: '12%'
+                }, {
+					field : 'exitTimeStr',
+					title : '退出时间',
+					align : 'center',
+					width : '12%'
+				}, {
+					field : 'rateOfReturnStr',
+					title : '回报率(%)',
+					align : 'center',
+					width : '12%'
+				} ] ]
+			});
+		 });
+        $('#layer-photos').on('click', function () {
+	    	var contet='<div style="text-align: center; "><img src="'+$('#imgHidden').attr('src')+'" width="350px;" height="300px;"/></div>';
+	        layer.open({
+	                type: 1,
+	                title: false, //不显示标题栏
+	                closeBtn: true,
+	                shade: 0.1,
+	                id: 'LAY_layui', //设定一个id，防止重复弹出
+	                btn: ['关闭'],
+	                btnAlign: 'c',
+	                moveType: 1,//拖拽模式，0或者1
+	                content:contet,
+	                success: function (layero) {
+	                }
+	            });
+	    });
+        //后端程序通过Jquery+Ajax将结果返回值提供给用户。
+        function update_successprocess(data) {
+            if (data.code == "00000") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        //点击进行关闭操作
+        $(".closeBtn").on("click", function () {
+            var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+            parent.layer.close(index); //关闭layer(关闭当前窗口)
+        });
+    });
+
+	</script>
+</body>
+</html>

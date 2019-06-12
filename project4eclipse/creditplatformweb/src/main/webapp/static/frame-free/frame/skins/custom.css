@@ -1,0 +1,14 @@
+{
+ .flexigrid div.fbutton .add
+    background: url(../images/add.png) no-repeat center left;
+}	
+.flexigrid div.fbutton .delete
+{
+    background: url(../images/close.png) no-repeat center left;
+}	
+		
+.pngFixSample1{
+	background-image: url(../images/demo/img2.png);
+	width:256px;
+	height:256px;
+}	

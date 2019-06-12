@@ -1,0 +1,192 @@
+.main-background{
+    background: #EEF3F9 url(../image/login/loginlight.jpg) no-repeat center center;
+}
+.container {
+    height: 500px;
+    position: relative;
+}
+
+/*页面主体*/
+.main {
+    position: relative;
+    width: 100%;
+    height: 60%;
+}
+
+
+/*登陆框*/
+.login-box{
+    width:350px;
+    height:370px;
+    position: absolute;
+    top: 50px;
+    background: #FFFFFF;
+    left: 20%;
+    font-family: Microsoft Yahei; 
+    box-shadow: 2px 4px 8px #333;
+}
+.login-box #loginForm{
+    width: 300px;
+    margin: 0 auto;
+}
+.login-box .inputRow{
+    height: 40px;
+    margin: 20px 0;
+    border: 1px solid #BDBDBD;
+}
+.login-box .login-title{
+    border-bottom: 1px solid #f4f4f4;
+}
+.login-box .login-title p{
+    color: #333;
+    padding: 15px 0;
+    font-size: 28px;
+    text-align: center;
+}
+/* .login-box .login-title span{
+    color: #999;
+    font-size: 18px;
+    margin-left: 20px;
+} */
+.login-box .inputRow label {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    border-right: 0;
+    float: left;
+    background: no-repeat center center;
+    background-color: #ccc;
+}
+/* .login-box .username label{
+    padding-top: 3px;
+    padding-bottom: 2px;
+} */
+.login-box .username label{
+    background-image: url(../image/login/user.png);
+}
+.login-box .psw label{
+    background-image: url(../image/login/password.png);
+}
+.login-box .imageCode{
+
+}
+.login-box .imageCode label{
+    background-image: url(../image/login/text.png);
+}
+.login-box .value .imageCode {
+    width: 180px;
+    float: left;
+    margin: 0;
+}
+.login-box .inputRow .cone {
+    color: #fff;
+    height: 36px;
+    font-size: 36px;
+    padding-top: 5px;
+}
+.login-box .psw .cone{
+    font-size: 32px;
+}
+.login-box .inputRow input {
+    width: 257px;
+    height: 40px;
+    *line-height: 39px;
+    border: none;
+    border-left: 1px solid #BDBDBD;
+    outline: none;
+}
+.login-box .validate{
+    margin-top: 20px;
+    margin-bottom: 35px;
+}
+.login-box #imageCode{
+    width: 139px;
+    height: 40px;
+    /*text-align: center;*/
+    /*vertical-align:middle;*/
+}
+.login-box .yzmimg{
+    height: 40px;
+    float: right;
+    border: 1px solid #eef;
+    vertical-align:middle;
+}
+.login-box .value{
+    position: relative;
+}
+.login-box .value .err {
+    display: inline-block;
+    width: auto;
+    color: #EB4C0F;
+    position: absolute;
+    left: 0;
+    bottom: -24px;
+}
+.loginButton input {
+    width: 100%;
+    height: 39px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    background: #0D4F92;
+    color: #FFFFFF;
+    border: 1px solid #0D4F92;
+    border-radius: 3px;
+}
+
+.loginButton input:hover {
+    opacity: 0.8;
+}
+/*增加忘记密码与注册结束*/
+.forget-psw {
+	cursor:pointer;
+	margin-left: 35%;
+    /*width: 40%;*/
+     height: 39px; 
+    /* border: none; */
+    /* outline: none; */
+    /* cursor: pointer; */
+    font-size: 12px;
+    font-weight: bold;
+    background: #FFFFFF;
+    color: #0D81FF;
+    border: 1px solid #FFFFFF;
+    /*padding-right: 40%;*/
+    /* border-radius: 3px; */
+}
+
+.go-register {
+	cursor:pointer;
+    /*margin-left: 47%;*/
+    /* width: 60%; */
+    height: 39px;
+    /* border: none; */
+    /* outline: none; */
+    /* cursor: pointer; */
+    font-size: 12px;
+    font-weight: bold;
+    background: #FFFFFF;
+    color: #0D81FF;
+    border: 1px solid #FFFFFF;
+    /* padding-right: 40%; */
+    /* border-radius: 3px; */
+}
+
+.forget-psw:hover, .go-register:hover {
+    color: #0D4F92;
+}
+/*增加忘记密码与注册结束*/
+input{
+    font-family: Arial,Microsoft YaHei;
+    text-indent: 5px;
+    font-size: 16px;
+    color:#333;
+    line-height: 40px;
+    /*border: 1px solid #ccc; */
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #fdfbfe inset !important;
+}

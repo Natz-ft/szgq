@@ -1,0 +1,108 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+     <meta name="renderer" content="webkit|ie-comp|ie-stand"/> 
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">d>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>苏州股权融资服务平台</title>
+    <link rel="stylesheet" type="text/css" href="common/style/reset.css">
+    <link rel="stylesheet" type="text/css" href="common/style/common.css">
+    <link rel="stylesheet" type="text/css" href="common/script/layui/css/layui.css">
+    <script src="common/script/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="common/script/layui/layui.js" type="text/javascript"></script>
+    <script src="common/script/common.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="login/script/login.css"/>
+    <link rel="stylesheet" href="login/script/font-awesome.min.css"/>
+    <script type="text/javascript">
+        //生成验证码方法
+        function loadimage() {
+            document.getElementById("randImage").src = "image.jsp?" + Math.random();
+        }
+    </script>
+</head>
+<body>
+<!--头部信息开始-->
+<!--头部logo以及登录注册开始-->
+<div class="logo clearfix">
+    <div class="logoRight">
+    	<c:if test="${!empty sessionScope.user}">
+        <a href="/creditplatformweb/success">进入业务系统</a><a href="/creditplatformweb/logout">退出登陆</a>
+    </c:if>
+    <c:if test="${empty sessionScope.user}">
+    	<a href="register.html"> 注&nbsp;&nbsp;&nbsp;&nbsp;册 </a>
+        <a href="/creditplatformweb/logout"> 登&nbsp;&nbsp;&nbsp;&nbsp;录 </a>
+    </c:if></div>
+          <div class="logoLeft">
+	        <a href="index.html">
+	            <p></p>
+	            <p></p>
+	        </a>
+	     </div>
+</div>
+<!--头部logo以及登录注册结束-->
+<!-- 操作菜单开始 -->
+<div class="header">
+    <ul class="nav clearfix">
+        <li class="active"><a href="index.html"> 首 页 </a></li>
+        <li><a href="investevent.html"> 投融事件 </a></li>
+        <li><a href="finace.html"> 融资需求 </a></li>
+        <li><a href="news.html"> 新闻动态 </a></li>
+        <li><a href="index.html"> 运行成果 </a></li>
+        <li><a href="invest.html"> 投资机构 </a></li>
+        <li><a href="relate.html"> 联系我们 </a></li>
+    </ul>
+</div>
+<!-- 操作菜单结束-->
+<!--头部信息结束-->
+<!-- 位置说明开始 -->
+
+<div class="main-background">
+    <!--<div>&nbsp;</div>-->
+    <div class="container">
+        <div class="main">
+            <div class="login-box">
+                <form>
+
+                    <div class="input logintitle">
+                        <div class="loginfont">
+                            <label class="loginfontzh">会员登录</label>&nbsp;&nbsp;&nbsp;
+                            <label>Login</label>
+                        </div>
+                    </div>
+                    <div class="input username">
+                        <label><i class="fa fa-user cone"></i></label>
+                        <input type="text"/>
+                    </div>
+                    <div class="input psw" id="psw">
+                        <label for="password"><i class="fa fa-key cone"> </i></label>
+                        <input type="password" id="password"/>
+                    </div>
+                    <div class="input validate" id="validate">
+                        <div class="value">
+                            <tr>
+                                <td>
+                                    <input size=8 type=text value="1234" name="imageCode" id="imageCode">
+                                    <img class="yzmimg" onclick="javascript:loadimage();" title="换一张试试"
+                                         name="randImage" id="randImage" src="image.jsp" width="115">
+                                </td>
+                            </tr>
+                        </div>
+                    </div>
+                    <div class="loginButton">
+                        <input type="button" class="button" value="登录"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--<div>&nbsp;</div>-->
+</div>
+<!-- 页面主题结束 -->
+<!--底部信息开始-->
+<div id="foot"></div>
+<!--底部信息结束-->
+</body>
+</html>

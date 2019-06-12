@@ -1,0 +1,283 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>企业榜单</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+    <style>
+        .history-btn {
+            margin-left: 10px;
+            background: #0D4F92;
+            border: 1px solid #0D4F92;
+            border-radius: 5px;
+            color: #FFFFFF;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            font-size: 14px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            width: 50px;
+        }
+        .history-btn:hover {
+            border: 1px solid #bbc2c6;
+            color: #FFFFFF;
+            background: #bbc2c6;
+        }
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+  <div class="boxWrap">
+    <p class="boxTitle"><span>企业榜单</span></p>
+    <div class="boxContent">
+        <!-- 统计条件 -->
+        <div class="queryTerms">
+<!-- 2018年1月5日 12:09:19 LIWCH        更改查询条件位置 -->
+           <div class="termsWrap clearfix">
+                <div class="termsType">
+                    <span>融资轮次：</span>
+                    <a class="queryAll" id="finacingTurnAll">全部</a>
+                </div>
+                <div class="termsList" id="finacingTurn">
+                    <ul class="clearfix">
+                    </ul>
+                </div>
+                <div class="termsType" style="margin-top:5px;">
+					<a class="queryMore"  href="javascript:void(0);">更多<img id="showMoreId"  style="height: 22px;width: 22px;" src="../static/images/search_down.png"><i></i></a>
+                </div>
+            </div>
+            <div class="termsWrap clearfix">
+                <div class="termsType">
+                    <span>投资月份：</span>
+                </div>
+                <div class="termsList  termsList-query-date" >
+                   <input type="text" name="search_Myfinacing_operDate_beginTime" 
+                          onfocus=" WdatePicker({dateFmt:'yyyy-MM',maxDate:'#F{$dp.$D(\'endTimeStr\')||\'%y-%M\'}'})"
+						  style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;"
+						  onkeydown="if(event.keyCode==13){event.keyCode=0;return false}"
+						  id="beginTimeStr"/>&nbsp;
+				         至&nbsp;&nbsp;
+                   <input type="text" name="search_Myfinacing_operDate_endTime" 
+                          onfocus=" WdatePicker({dateFmt:'yyyy-MM',maxDate:'%y-%M',minDate:'#F{$dp.$D(\'beginTimeStr\')}'})"
+						  style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;"
+						  onkeydown="if(event.keyCode==13){event.keyCode=0;return false}"
+						  id="endTimeStr"/>
+				</div>
+                <a href="javascript:void(0);" class="select-botton">统计</a>
+				<!--<input type="button" id="queryId" value="统计" class="select-botton"/>-->
+
+                <input type="button" id="exportId" value="导出" style="margin-left: 10px;" class="history-btn" />
+
+            </div>
+        </div>
+        <!-- 统计条件END-->
+        <!-- 企业榜单统计表格 -->
+        <div>
+            <table id="companiesListGrid" lay-filter="companiesListfilter"></table>
+            <div id="showFlagId"><span style="color:red;font-size: 12px;margin-left:5%;" id="showSpan">注：企业榜单默认统计至当前时间的数据，榜单默认按照融资金额大小进行排序</span></div>
+            <!-- 分页组件 -->
+            <div class="table-page">
+               <div id="paged" class="page"></div>
+            </div>
+        </div>
+    </div>
+  </div>
+         <!-- 企业榜单统计表格 END-->
+   <script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+   <script src="../static/script/layui-v2.2.5/layui.all.js" type="text/javascript"></script>
+<script type="text/javascript">
+    layui.config({
+        base: '../static/script/layui_exts/'
+    }).extend({
+        excel: 'excel'
+    });
+</script>
+<script>
+    $(function () {
+        var type, name;
+        var arr = [];
+        var arrData = {};
+        var data = {};
+        var allData,condition;
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var gridData;
+        //页面默认初始化操作
+        init('');
+        initDD();
+        //添加更多按钮
+		$(".queryMore").on("click", function () {
+            list = $(this).parent().siblings(".termsList");
+            showAll = list.find("ul").height();
+            showOne = list.height();
+            $(this).addClass("active");
+            list.find("li").removeClass("active");
+			var element = document.getElementById('showMoreId');
+            if (showOne < showAll) {
+                list.animate({height: showAll});
+				element.src = "../static/images/search_up.png";
+            } else {
+                list.animate({height: 30});
+				element.src = "../static/images/search_down.png";
+            }
+        });
+        function init(queryCondition) {
+        	$.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/enterpriseStatistics/companiesList",
+                data : {"queryCondition" : JSON.stringify(queryCondition)},// 查询条件
+                success: function (data) {
+                	if(data != null && data != '' && data != undefined){
+                		data = JSON.parse(data);
+                        createPage(data);
+
+                        allData=data;condition=queryCondition;
+                	}
+                }
+            });
+    	  }
+          // 字典值初始化
+          function initDD() {
+		    var finacingTurnHtml='';
+		    $.ajax({
+		        type: "post",
+		        url: "/SRRPBusinesWeb/initInfo/getDDList",//url地址
+				data : {"name" : "finacingTurn"},// 查询条件
+				async: false,//使用同步的方式,true为异步方式
+		        success: function (data) {
+		        	data = JSON.parse(data);
+					for (var i = 0; i < data.length; i++) {
+						var _json = data[i];
+						finacingTurnHtml += "<li><a value=\"" + _json.dicCode + "\">" + _json.dicName + "</a></li>";
+					}
+					$("#finacingTurn ul").append(finacingTurnHtml);
+		        }
+		    });
+		}
+         //装配列表数据
+         function createPage(gridData) {
+                table.render({
+                    id: 'companiesListGrid',
+                    elem: '#companiesListGrid', //指定原始表格元素选择器（推荐id选择器）
+                    width: 745,
+//                     height: 450,//容器高度
+                    data: gridData,
+                    cols: [[ //标题栏
+	                         {type:'numbers',title: '名次',align:'center',width: 120},
+
+//                              { field: 'rank',title: '名次 ',align: 'center',width: 120, sort: true},
+                             { field: 'name',title: '企业名称',align: 'center',width: 260},
+                             {field: 'couAmount', title: '融资金额(万)',align: 'center', width: 240, sort: true,templet:function(d){
+                                 return (d.couAmount*100).toFixed(0);
+                             }},
+                             {field: 'cou', title: '上榜次数',align: 'center', width: 120, sort: true}
+                    ]],
+                    limit:Number.MAX_VALUE  //重要,否则数据不会全部渲染,默认10
+                });
+            }
+            //点击a标签时触发选中事件(此事件放在字典值赋值之后)
+            $(".termsList ul li a").on("click", function () {
+    	        var dicType = $(this).parents(".termsList").attr("id");
+    	        data[dicType] = $(this).attr("value");
+                data[dicType+"Name"] = $(this).text();
+            })
+            // 查询条件展开
+            var list, showOne, showAll;
+            $(".queryAll").on("click", function () {
+                list = $(this).parent().siblings(".termsList");
+                var queryAllId = list.context.id;
+                showAll = list.find("ul").height();
+                if(queryAllId != 'finacingTurnAll'){
+                	showAll = list.find("ul").height();
+    			}
+                showOne = list.height();
+                $(this).addClass("active");
+                list.find("li").removeClass("active");
+                if(queryAllId != 'finacingTurnAll'){
+                if (showOne < showAll) {
+                    list.animate({height: showAll});
+                } else {
+                    list.animate({height: 30});
+                }
+                }
+            });
+            //点击全部时去掉前面所选的    
+    	    $("#finacingTurnAll").on("click", function () {
+    	        delete eval(data).finacingTurn;
+    	    }) 
+    	    //点击统计按钮时触发条件查询
+            $(".select-botton").on("click", function () {
+            	var dicType = $("#beginTimeStr").attr("id");
+     	        data[dicType] = $("#beginTimeStr").val();
+            	var dicType = $("#endTimeStr").attr("id");
+     	        data[dicType] = $("#endTimeStr").val();
+     	       document.getElementById("showSpan").innerHTML="注：榜单默认按照融资金额大小进行排序";
+    	        init(data);
+            })
+            // 查询条件选择高亮
+            var queryAll;
+            $(".boxWrap .boxContent .termsList li a").on("click", function () {
+                queryAll = $(this).parents(".termsWrap").find(".queryAll");
+                var t = $(this);
+                if (queryAll.hasClass("active")) {
+                    queryAll.removeClass("active");
+                }
+                if (!$(this).parent().hasClass("active")) {
+                    $(this).parent().addClass("active").siblings().removeClass("active");
+                }
+            });
+
+        //导出excel
+        $("#exportId").on("click", function () {
+
+            layui.use(['excel'], function(){
+                var excel = layui.excel;
+                var v1 = condition.finacingTurnName!=undefined?condition.finacingTurnName:"全部"
+                var v21 = condition.beginTimeStr!=undefined?condition.beginTimeStr:"";
+                var v22 = condition.endTimeStr!=undefined?condition.endTimeStr:"";
+                var c1 = {rank:"融资轮次：" + v1};
+                var c2 = {rank:"投资月份：" +  v21+ "--" +v22 };
+
+                var data = excel.filterExportData(allData, {
+                    rank:'rank',
+                    name:'name',
+                    couAmount:function(value, line, data) {
+                        return value * 100;
+                    },
+                    cou:'cou'
+                });
+                data.unshift({rank: '名次',name: '企业名称', couAmount: '融资金额(万)',cou:"上榜次数"})
+                data.unshift(c2);
+                data.unshift(c1);
+                var colConf = excel.makeColConfig({'A':80,'B':200,'C':120,'D':80});
+                var mergeConf = excel.makeMergeConfig([
+                    ['A2', 'D2'],['A1', 'D1']
+                ]);
+                excel.exportExcel(
+                    {
+                        企业榜单: data
+                    },
+                    '企业榜单.xlsx',
+                    'xlsx',
+                    {
+                        extend: {
+                            '!cols': colConf,
+                            '!merges': mergeConf
+                        }
+                    }
+                );
+            });
+        });
+    })
+</script>
+</body>
+</html>

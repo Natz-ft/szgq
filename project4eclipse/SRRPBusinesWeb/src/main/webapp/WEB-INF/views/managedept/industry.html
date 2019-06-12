@@ -1,0 +1,328 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/> 
+        <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../static/script/checkTree/css/checktree.css" type="text/css">
+    <link rel="stylesheet" href="../static/script/checkTree/css/zTreeStyle.css" type="text/css">
+    <script src="../static/script/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../static/script/checkTree/js/jquery.ztree.core.js" type="text/javascript"></script>
+    <script src="../static/script/checkTree/js/jquery.ztree.excheck.js" type="text/javascript"></script>
+    <script src="../static/script/checkTree/js/jquery.ztree.exhide.js" type="text/javascript"></script>
+    <script src="../static/script/checkTree/js/jquery.ztree.exedit.js" type="text/javascript"></script>
+    
+    <title>行业分类选择</title>
+    <script type="text/javascript">
+        //树图基本配置
+        var setting = {
+            view: {
+                selectedMulti: false
+            },
+            check: {
+                enable: true
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onCheck: onCheck,
+            }
+        };
+var  showStr;
+        //选择数据样式
+        var code, check_data;
+        var index = 1;
+        var industrySelectIndex = 0;
+
+        //oncheck全选反选核心算法
+        function onCheck(e, treeId, treeNode) {
+            var treeType = index;
+            var treeObj;
+            var treeType;
+            if (index == 1) {
+                treeType = "industry";
+                treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+            }
+            var nodes = treeObj.getCheckedNodes(true);
+            var treeNodeArr = [];
+            $('#' + treeType + 'Result').attr("class", "tj_jg_result")
+            var str = '';
+            var ids = [], names = [], data_arr = [];
+            str += '<div class="tj_fan tj_jg tj_tck2_result">';
+            str += '<ul id="' + treeType + '_ul">';
+            for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].isParent) {
+                    //本身是父节点,并且是全选的父节点 则不管子节点
+                    if (nodes[i].getCheckStatus().half) {//半选父节点
+                    } else {//全选节点(本身是父节点) 查看他的父节点是不是全选
+                        var parent = nodes[i].getParentNode();
+                        if (parent == null) {
+                            //本身父节点为空 表示是全选根节点 应该存储
+                            str += '<li id="' + nodes[i].id + '" name="'+nodes[i].name+'" onclick="delLi('  +"'"+ nodes[i].id +"'"+',' + index + ')">' + nodes[i].name + '<a><img src="../static/script/checkTree/img/data_delete.jpg"/></a></li>';
+                            data_arr.push(nodes[i].id)
+                            ids.push(nodes[i].id);
+                            names.push(nodes[i].name);
+                        } else {//判断父节点不为空
+                            if (!parent.getCheckStatus().half) {
+                            } else {
+                                str += '<li id="' + nodes[i].id + '" name="'+nodes[i].name + '" onclick="delLi(' +"'"+ nodes[i].id +"'"+ ',' + index + ')">' + nodes[i].name + '<a><img src="../static/script/checkTree/img/data_delete.jpg"/></a></li>';
+                                ids.push(nodes[i].id);
+                                data_arr.push(nodes[i].id)
+                                names.push(nodes[i].name);
+                                var childs = nodes[i].children;
+                                var childIds = '';
+                                if (childs) {
+                                    //获得所有子节点
+                                    for (var j = 0; j < childs.length; j++) {
+                                        childIds += " id=" + childs[j].id + " name=" + childs[j].name;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    //本身是叶子节点 父节点选中，则不存 父节点半选或者不选 则存下来
+                    var parent = nodes[i].getParentNode();
+                    if (parent == null) {//全选叶子节点 父节点为空 即只有一个根节点 保存
+                        $("#message").append("--<span style='color:red;'>" + nodes[i].name + "</span>是全选叶子节点。 父节点为空，即只有一个根节点 保存 <br>");
+                        str += '<li id="' + nodes[i].id + '" name="'+nodes[i].name + '" onclick="delLi(' +"'"+ nodes[i].id +"'"+ ',' + index + ')">' + nodes[i].name + '<a><img src="../static/script/checkTree/img/data_delete.jpg"/></a></li>';
+                        ids.push(nodes[i].id);
+                        data_arr.push(nodes[i].id)
+                        names.push(nodes[i].name);
+                    } else {
+                        //全选叶子节点 有父节点
+                        if (parent.getCheckStatus().half) {//父节点半选 存储
+                            ids.push(nodes[i].id);
+                            data_arr.push(nodes[i].id)
+                            names.push(nodes[i].name);
+                            str += '<li id="' + nodes[i].id + '" name="'+nodes[i].name + '" onclick="delLi(' +"'"+ nodes[i].id +"'"+ ',' + index + ')">' + nodes[i].name + '<a><img src="../static/script/checkTree/img/data_delete.jpg"/></a></li>';
+                        } else {
+                            //父节点全选 不存储
+                        }
+                    }
+                }
+            }
+            if (index == 1) {
+                var industry = names
+                selectIndustry = industry.unique3();
+                sleectIndustryId = data_arr;
+            }
+            str += '</ul></div></div>';
+            showStr=str;
+            $('#check_data').html(str);
+        }
+
+        //数组去重
+        Array.prototype.unique3 = function () {
+            var res = [];
+            var json = {};
+            for (var i = 0; i < this.length; i++) {
+                if (!json[this[i]]) {
+                    res.push(this[i]);
+                    json[this[i]] = 1;
+                }
+            }
+            return res;
+        }
+
+        //弹出窗右侧删除操作
+        function delLi(id, index) {
+            var treeType = index;
+            var treeObj;
+            //var domId = e.currentTarget.id;
+            var treeType;
+            if (index == 1) {
+                treeType = "industry";
+                treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                for (var i = 0; i < selectIndustry.length; i++) {
+                    if (selectIndustry[i] == id.toString()) {
+                        selectIndustry.splice(i, 1);
+                    }
+                }
+            }
+            var industryIdArr = $('#' + treeType).val();
+            var nodes = treeObj.getCheckedNodes(true);
+            for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].id == id) {
+                    nodes[i].checked = false;
+                    if (nodes[i].isParent) {
+                        var childrenList = nodes[i].children;
+                        for (var j = 0; j < childrenList.length; j++) {
+                            if (childrenList[j].isParent) {
+                                for (var m = 0; m < childrenList[j].children.length; m++) {
+                                    childrenList[j].children[m].checked = false;
+                                    treeObj.updateNode(childrenList[j].children[m]);
+                                }
+                            }
+                            childrenList[j].checked = false;
+                            treeObj.updateNode(childrenList[j]);
+                        }
+                    }
+                    treeObj.updateNode(nodes[i]);
+                    break;
+                }
+            }
+            treeObj.setting.callback.onCheck();
+            window.parent.delLi(id,index);
+        }
+       var industryJsonData=${industryJsonData};
+       var zNodes= industryJsonData;
+        var industryNameArr = [];
+        var industryArr = [];
+        var selectIndustry = [];
+        var hiddenNodes=[]; 
+        var treeObj;
+        $(function () {
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            treeObj=$.fn.zTree.getZTreeObj("treeDemo");
+            initShow('1');
+            //行业弹窗取消键
+            $("#industryCancle").click(function () {
+            	closeIndustryWindow();
+            });
+            //$("#search-bt").click(filter);
+            //展示弹出窗的确认按钮事件
+            $(".tj_tck_btn1").click(function () {
+                //监听选中的行业id
+                $('#industry_ul li').each(function () {
+                    var id = $(this).attr("id");
+                    var name = $(this).attr("name");
+                    industryArr.push(id);
+                    industryNameArr.push(name);
+                });
+                parent.$('#industryArr').val(industryArr);
+                parent.$('#industryNameArr').val(industryNameArr);
+                parent.$('#selectIndustryArr').val(showStr);
+                parent.$('#check_data').html(showStr);
+                window.parent.addhtml($('#industry_ul li'));
+                window.parent.addIndustData(industryArr);
+                closeIndustryWindow();
+            });
+        });
+      //过滤ztree显示数据
+        function filter(){
+        	//显示上次搜索后背隐藏的结点
+        	//查找不符合条件的叶子节点
+        	treeObj.showNodes(hiddenNodes);
+        	hiddenNodes=treeObj.getNodesByFilter(filterFunc,false);
+        	function filterFunc(node){
+        		var _keywords=$("#keyword").val();
+        		
+        		if(node.isParent||node.name.indexOf(_keywords)!=-1){
+        			var node1 = treeObj.getNodeByParam("id",node.id );
+        			treeObj.selectNode(node1,true);
+        			return true
+        		}else{
+        			return false
+        		}
+        	};
+        	//treeObj.hideNodes(hiddenNodes);
+
+        	//获取不符合条件的叶子结点
+        	
+        	//隐藏不符合条件的叶子结点
+        };
+        function initShow(index) {
+        	 var treeType = index;
+             
+             //var domId = e.currentTarget.id;
+             var treeType;
+             if (index == 1) {
+                 treeType = "industry";
+                 for (var i = 0; i < selectIndustry.length; i++) {
+                     if (selectIndustry[i] == id.toString()) {
+                         selectIndustry.splice(i, 1);
+                     }
+                 }
+             }
+             var industryIdArr = $('#' + treeType).val();
+             var nodes = treeObj.getNodes();
+            var idArrayStr= window.parent.getIndustryIdArray();
+            var idArray=[];
+            if(idArrayStr!=null&&idArrayStr.length!=null&&idArrayStr.length>0){
+            	idArray=idArrayStr.split(",");
+                 for (var item = 0; item < idArray.length; item++) {
+                 	var id=idArray[item];
+                  for (var i = 0; i < nodes.length; i++) {
+                 	 var idNode = treeObj.getNodeByParam("id", id);
+                 	 if(idNode.id.length==2){
+                 		 if (nodes[i].id == id) {
+                              nodes[i].checked = true;
+                                  var childrenList = nodes[i].children;
+                                  if(childrenList!=null&&childrenList.length!=null&&childrenList.length>0){
+                                 	 for (var j = 0; j < childrenList.length; j++) {
+                                          if (childrenList[j].isParent) {
+                                              for (var m = 0; m < childrenList[j].children.length; m++) {
+                                                  childrenList[j].children[m].checked = true;
+                                                  treeObj.updateNode(childrenList[j].children[m]);
+                                              }
+                                          }
+                                          childrenList[j].checked = true;
+                                          treeObj.updateNode(childrenList[j]);
+                                      }
+                                  }
+                              treeObj.updateNode(nodes[i]);
+                              break;
+                 		 }
+                 	 }else{
+                 		 var childrenList = nodes[i].children;
+                          if(childrenList!=null&&childrenList.length!=null&&childrenList.length>0){
+                         	 for (var j = 0; j < childrenList.length; j++) {
+                                  if (childrenList[j].id==id) {
+                                 	 childrenList[j].getParentNode().checked = true;
+                                 	 treeObj.updateNode(childrenList[j].getParentNode());
+                                 	 childrenList[j].checked = true;
+                                      treeObj.updateNode(childrenList[j]);
+                                      break;
+                                  }
+                              }
+                 	 }
+                     
+                  }
+                 }
+                  treeObj.setting.callback.onCheck();
+                 }    
+            }
+            
+           
+             
+        }
+        //点击确认或取消关闭当前页面
+        function closeIndustryWindow() {
+            var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+            parent.layer.close(index); //关闭layer(关闭当前窗口)
+        }
+
+
+    </script>
+</head>
+
+<body>
+
+<div class="content_wrap" id="industryNav">
+    <div class="zTreeDemoBackground left">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+    <div class="right" style="margin-top: -370px; margin-left: 308px;">
+        <ul class="info">
+            <li class="title">
+            <li>
+                <p>
+                <ul id="check_data" class="check_data" style="height:130px;"></ul>
+                </p>
+            </li>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tj_tck_btn tj_tck2_btn">
+        <input name="" type="button" value="确认" class="tj_tck_btn1">
+        <input id="industryCancle" name="" type="button" value="取消" class="tj_tck_btn2">
+    </div>
+</div>
+</body>
+</html>

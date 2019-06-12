@@ -1,0 +1,117 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>企业信息</title>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/details.css">
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/my97/WdatePicker.js"
+            type="text/javascript"></script>
+   <style>
+   .infotitle {
+               margin: 19px 294px;
+			   width: 322px;
+			   height: 0px;
+   }
+   .infotitle span{
+   color: #EB4C0F;
+   }
+
+   </style>         
+</head>
+<body>
+<div class="boxWrap">
+    <p class="boxTitle"><span>${companyBase.name}</span></p>
+    <div class="boxContent">
+       <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>基本信息</span></div>
+            <div class="detailsTxt clearfix">
+                <p>证件类型：<span>${companyBase.codetypeDicname}</span></p>
+	                <p>证件号码：<span>${companyBase.code}</span></p>
+	                <p>股权事宜联系人姓名：<span>${companyBase.stockName}</span></p>
+	                 <p>股权事宜联系人手机号：<span>${companyBase.stockCal}</span></p>
+	                <p>注册时间：<span>${companyBase.redate}</span></p>
+	                  <p>审核状态：<span>
+	                  <c:choose>
+	                      <c:when test='${companyBase.auditStatus=="11"}'>注册初审通过</c:when>
+	                      <c:when test='${companyBase.auditStatus=="14"}'>注册初审通过</c:when>
+	                      <c:when test='${companyBase.auditStatus=="15"}'>修改审核通过</c:when>
+	                      <c:when test='${companyBase.auditStatus=="21"}'>注册复审通过</c:when>
+	                      <c:otherwise>${companyBase.auditStatusDicName}</c:otherwise>
+	                  </c:choose>
+	                  
+	                  </span></p>
+	                 <p style="width:100%;">注册地址：<span>${companyBase.registArea}</span></p> 
+            </div>
+        </div>
+        <div class="buttonWrap" align="center">
+            <input type="button" value="补充信息" id="button_onclick" class="layui-btn" />
+        </div>
+    </div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script>
+var layer = layui.layer;
+$("#button_onclick").on("click", function () {
+	layer.open({
+        title: '补充企业信息',
+        content: "/SRRPBusinesWeb/enterprise/enterpriseDetailSupplement" ,
+        area: ['100%', '100%'],
+        offset: ['0%', '0%'],
+        type:2,
+        scrollbar: false,
+        end: function () {           //关闭弹出层触发
+// 			var selectIndustryArr=$("#selectIndustryArr").val();
+// 			$('#check_data').html(selectIndustryArr);
+          }
+    });
+
+});
+//     function button_onclick() {
+// //        layerOpen("demoId", "500", "750", "补充企业信息", "/SRRPBusinesWeb/enterprise/enterpriseDetailSupplement", 2)
+//         layer.open({
+//             title: '补充企业信息',
+//             content: "/SRRPBusinesWeb/enterprise/enterpriseDetailSupplement" ,
+//             area: ['100%', '100%'],
+//             offset: ['0%', '0%'],
+//             type:2,
+//             scrollbar: false,
+//         });
+//     }
+    var isShow="${isShow}";
+    if (isShow == "true") {
+    	layer.open({
+    	    type: 1
+    	    ,title: false //不显示标题栏
+    	    ,closeBtn: false
+    	    ,area: '300px;'
+    	    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+    	    ,btn: ['补充信息']
+    	    ,btnAlign: 'c'
+    	    ,moveType: 1 //拖拽模式，0或者1
+    	    ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">你好，由于您首次登陆苏州股权金融服务平台，需补充缺少的必填项信息</div>'
+    	    ,success: function(layero){
+    	      var btn = layero.find('.layui-layer-btn');
+    	      btn.find('.layui-layer-btn0').attr({
+    	        href: '/SRRPBusinesWeb/enterprise/enterpriseDetailSupplement'
+    	      });
+    	    }
+    	  });
+    }
+//     function edit_onclick() {
+//       layer.open({
+//           title: '',
+//           content: "/SRRPBusinesWeb/enterprise/editEnterpriseDetail" ,
+//           area: ['100%', '100%'],
+//           offset: ['0%', '0%'],
+//           type:2,
+// //           scrollbar: false,
+//       });
+//   }
+</script>
+</body>
+</html>

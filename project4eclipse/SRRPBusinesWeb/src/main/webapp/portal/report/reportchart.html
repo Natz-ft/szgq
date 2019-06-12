@@ -1,0 +1,104 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="${pageContext.request.contextPath}/static/script/echarts/echarts.js"></script>
+    <script src="${pageContext.request.contextPath}/static/script/jquery-1.9.1.min.js" ></script>
+</head>
+<body>
+	<div>
+	<table width="800px;">
+		<tr>
+			<td width="50%" align="left"><div id="mainMap1" style="width:400px;height:300px;border:0px solid #ccc;"></div></td>
+			<td align="left"><div id="mainMap2" style="width:400px;height:300px;border:0px solid #ccc;"></div></td>
+		</tr>
+		<tr>
+			<td><div id="mainMap3" style="width:400px;height:300px;border:0px solid #ccc;"></div></td>
+			<td><div id="mainMap4" style="width:400px;height:300px;border:0px solid #ccc;"></div></td>
+		</tr>
+		<tr>
+			<td><div id="mainMap5" style="width:400px;height:300px;border:0px solid #ccc;"></div></td>
+			<td><div id="mainMap6" style="width:400px;height:300px;border:0px solid #ccc;"></div></td>
+		</tr>
+	</table>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+
+</div>
+    <script type="text/javascript">
+		var $ = jQuery.noConflict();
+		var lineChart1 = echarts.init(document.getElementById('mainMap1'));
+		var lineChart2 = echarts.init(document.getElementById('mainMap2'));
+		var lineChart3 = echarts.init(document.getElementById('mainMap3'));
+		var lineChart4 = echarts.init(document.getElementById('mainMap4'));
+		var lineChart5 = echarts.init(document.getElementById('mainMap5'));
+		var lineChart6 = echarts.init(document.getElementById('mainMap6'));
+		
+		function createLine(inputId1,inputId2,obj,divId) {
+			var result1 = getJson(inputId1,divId);
+			var result2 = getJson(inputId2,divId);
+			var xAxisName ;
+			var xAxisData;
+			if(result2!=null&&result2.length==0){
+				xAxisName = result2;
+				xAxisDate = result2;
+			}else{
+				xAxisName = result2[0].name;
+				xAxisData = result2[0].data;
+			}
+			obj.setOption( {
+				tooltip : {
+					trigger :'axis'
+				},
+				grid: {
+	    	       x:80
+	    	    },
+				legend : {
+					y : 'bottom',
+					data : [xAxisName]
+				},
+				xAxis : [ {
+					type : 'category',
+					boundaryGap : false,
+					data : result1,
+					axisLabel : {
+						show : true,
+						interval : 0,
+						rotate : 25
+					}
+				} ],
+				yAxis : [ {
+					type :'value',
+					axisLabel : {
+						formatter :'{value}'
+					}
+				} ],
+				series : [ {
+					name : xAxisName,
+					type :'line',
+					data : xAxisData
+				} ]
+			});
+		}
+		function getJson(inputId,divId){
+			var jsonStr = $("input[id$='"+inputId+"']",parent.document).val();
+			if(jsonStr == null || jsonStr ==""){
+				jsonStr = "[]";
+			}
+			var result = $.parseJSON(jsonStr);
+			if(result.length<=0){
+				document.getElementById(divId).style.display="none";
+			}
+			return result;
+		}
+		createLine("yysrcate","yysrsery",lineChart1,'mainMap1');
+		createLine("jlrcate","jlrsery",lineChart2,'mainMap2');
+		createLine("zzyecate","zzyesery",lineChart3,'mainMap3');
+		createLine("gsrscate","gsrssery",lineChart4,'mainMap4');
+		createLine("dfcate","dfsery",lineChart5,'mainMap5');
+		createLine("xdrzyecate","xdrzyesery",lineChart6,'mainMap6');
+	</script>
+
+</body>
+</html>

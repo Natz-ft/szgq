@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/> 
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>苏州股权融资服务平台</title>
+    <link rel="shortcut icon" href="common/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="common/style/reset.css">
+    <link rel="stylesheet" type="text/css" href="common/style/common.css">
+    <link rel="stylesheet" type="text/css" href="common/script/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="news/style/newsdetail.css">
+    <script src="common/script/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="common/script/layui/layui.js" type="text/javascript"></script>
+    <script src="common/script/common.js" type="text/javascript"></script>
+    <script src="common/script/qrcode/qrcode.js" type="text/javascript"></script>
+     <script src="common/script/ajax.js" type="text/javascript"></script>
+    
+</head>
+<body>
+<!--头部信息开始-->
+<!--头部logo以及登录注册开始-->
+<div class="logo clearfix">
+    <div class="logoRight" style="display: none;" id="login">
+        <a href="/creditplatformweb/success">进入业务系统</a><a href="/creditplatformweb/logout">退出登陆</a>
+    	
+    </div>
+    <div class="logoRight" style="display: none;" id="nologin">
+    	<a href="register.html"> 注&nbsp;&nbsp;&nbsp;&nbsp;册 </a>
+        <a href="/creditplatformweb/logout"> 登&nbsp;&nbsp;&nbsp;&nbsp;录 </a>
+    </div>
+          <div class="logoLeft">
+	        <a href="index.html">
+	            <p></p>
+	            <p></p>
+	        </a>
+	     </div>
+</div>
+<!--头部logo以及登录注册结束-->
+<!-- 操作菜单开始 -->
+<div class="header">
+    <ul class="nav clearfix">
+        <li class="active"><a href="index.html"> 首 页 </a></li>
+        <li><a href="investevent.html"> 投融事件 </a></li>
+        <li><a href="finace.html"> 融资需求 </a></li>
+        <li ><a href="news.html"> 新闻动态 </a></li>
+        <li><a href="result.html"> 运行成果 </a></li>
+        <li><a href="investor.html"> 投资机构 </a></li>
+        <li><a href="relate.html"> 联系我们 </a></li>
+    </ul>
+</div>
+<!-- 操作菜单结束-->
+<!--头部信息结束-->
+<!--页面主体开始-->
+<div style="background:#EEF3F9 ">
+    <div class="mainwraper">
+        <div class="current-position">
+            当前位置：首页&gt;>新闻动态明细
+        </div>
+		<div  style="display:none" id="infoId">452</div>
+        <!--明细内容开始-->
+<!--         <div class="sub-c"> -->
+<!--             <div class="pro-list"> -->
+<!--                 <h3>助推小微企业发展 “小微创业贷”上线苏州综合金融服务平台</h3> -->
+<!--                 <b>2019-4-3 13:26:05</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>阅读量:<a id="readAmout"></a></b> -->
+<!--             </div> -->
+
+<!--             <div><p><img src="http://mail.163.com/js6/s?func=mbox:getMessageData&amp;sid=VCSMifUjQQYywrnhhQjjLxtKwtfzNPZN&amp;mid=77:1tbiTRY-V1c7HQ4z4gAAsd&amp;part=3" orgwidth="1128" orgheight="752" data-image="1">&nbsp; &nbsp;</p><div><span lang="EN-US">1</span>月<span lang="EN-US">15</span>日下午，苏州市财政局、苏州市地方金融监督管理局与中国工商银行苏州分行共同举办政银企合作助力普惠新发展暨“小微创业贷”三年三十亿战略合作签约仪式。江苏省财政厅金融处副处长陶敬东，苏州市财政局副局长沈璐、苏州市地方金融监督管理局党组成员、副局长宋继峰，中国工商银行苏州分行行长邱亚光，人民银行苏州中心支行、苏州工业园区企业发展服务中心相关处室负责人，以及各板块财政局负责人和企业代表出席本次活动。</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src="http://mail.163.com/js6/s?func=mbox:getMessageData&amp;sid=VCSMifUjQQYywrnhhQjjLxtKwtfzNPZN&amp;mid=77:1tbiTRY-V1c7HQ4z4gAAsd&amp;part=4" orgwidth="1151" orgheight="767" data-image="1"></div><div><p class="MsoNormal">江苏省财政厅金融处副处长陶敬东对“小微创业贷”提出三点意见，第一，坚持“小微创业贷”服务实体经济的初心、使命不动摇；第二，保持“小微创业贷”门槛低、成本少、效率高的鲜明特点不褪色；第三，落实“小微创业贷”投放规模和信用贷款的目标不放松，保证小微企业融资难、融资贵问题得到进一步解决。<span lang="EN-US"><o:p></o:p></span></p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src="http://mail.163.com/js6/s?func=mbox:getMessageData&amp;sid=VCSMifUjQQYywrnhhQjjLxtKwtfzNPZN&amp;mid=77:1tbiTRY-V1c7HQ4z4gAAsd&amp;part=5" orgwidth="1066" orgheight="711" data-image="1"></div><div><br></div><div><br></div><div>苏州市地方金融监督管理局党组成员、副局长宋继峰表示，近年来，苏州积极建立“苏州综合金融服务平台”、“苏州股权融资服务平台”和“苏州地方征信平台”等金融基础设施，出台专项金融扶持政策，形成了具有苏州特色的“股权<span lang="EN-US">+</span>债权”的综合金融服务机制，受到广泛的认可。此次战略合作签约仪式是金融支持苏州区域经济发展的又一重要举措，有利于推动金融支持实体经济转型升级。</div><div><img src="http://mail.163.com/js6/s?func=mbox:getMessageData&amp;sid=VCSMifUjQQYywrnhhQjjLxtKwtfzNPZN&amp;mid=77:1tbiTRY-V1c7HQ4z4gAAsd&amp;part=6" orgwidth="1123" orgheight="749" data-image="1"></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span style="text-align: center;">“小微创业贷”上线苏州综合金融服务平台启动仪式</span></div><p class="MsoNormal" align="center" style="text-align: center;"><span lang="EN-US"><o:p></o:p></span></p><div>苏州综合金融服务平台采用“线上<span lang="EN-US">+</span>线下”金融服务模式，平台可以发布小微企业融资需求和金融机构创新产品等信息，充分依靠市场配置，实现企业与银行双向选择、自主对接。据了解，自<span lang="EN-US">2015</span>年<span lang="EN-US">6</span>月推出以来，“小微创业贷”已服务了<span lang="EN-US">1200</span>多户苏州小微企业，累计投放<span lang="EN-US">40</span>多亿信贷资金，实现了小微企业增信基础上的互惠合作，受到社会各界的高度认可。&nbsp;“小微创业贷”在苏州综合金融服务平台上线后，将继续发挥其“受众广、利率低、额度大、时效强”的优势，为“两无四有”的小微企业提供信用融资。</div><div><br></div><div><img src="http://mail.163.com/js6/s?func=mbox:getMessageData&amp;sid=VCSMifUjQQYywrnhhQjjLxtKwtfzNPZN&amp;mid=77:1tbiTRY-V1c7HQ4z4gAAsd&amp;part=7" orgwidth="1085" orgheight="723" data-image="1"></div><div><p class="MsoNormal" align="center" style="text-align: center;">苏州市地方金融监督管理局、苏州工行战略合作签约<span lang="EN-US"><o:p></o:p></span></p><p class="MsoNormal" align="left"><span lang="EN-US">&nbsp;</span></p><p class="MsoNormal" align="left">接下来，苏州综合金融服务平台将与苏州工行展开进一步合作，实现融资需求共享和普惠金融资源的优势互补，推动金融支持苏州区域经济发展，引导更多资金流向实体经济、流向创新产业。</p></div></div> -->
+<!--             <div class="return-area"> -->
+<!--                 <a href="index.html" class="return-btn"> 返回 </a> -->
+<!--             </div> -->
+<!--         </div> -->
+ <div class="sub-c">
+            <div class="pro-list">
+                <h3>助推小微企业发展 “小微创业贷”上线苏州综合金融服务平台</h3>
+                <div class="clearfix" style="height: 30px;line-height: 30px;">
+                	<b class="floatL">2019-03-21</b>
+					<b class="floatL">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;阅读量:<a id="readAmout"></a></b>
+                	<a class="floatR return-btn" href="index.html"> 返回 </a>
+                </div>
+            </div>
+            <div style="margin:0 auto;margin-top:20px;width:90%"><p><img src="http://mail.163.com/js6/s?func=mbox:getMessageData&amp;sid=VCSMifUjQQYywrnhhQjjLxtKwtfzNPZN&amp;mid=77:1tbiTRY-V1c7HQ4z4gAAsd&amp;part=3" orgwidth="1128" orgheight="752" data-image="1">&nbsp; &nbsp;</p><div><span lang="EN-US">1</span>月<span lang="EN-US">15</span>日下午，苏州市财政局、苏州市地方金融监督管理局与中国工商银行苏州分行共同举办政银企合作助力普惠新发展暨“小微创业贷”三年三十亿战略合作签约仪式。江苏省财政厅金融处副处长陶敬东，苏州市财政局副局长沈璐、苏州市地方金融监督管理局党组成员、副局长宋继峰，中国工商银行苏州分行行长邱亚光，人民银行苏州中心支行、苏州工业园区企业发展服务中心相关处室负责人，以及各板块财政局负责人和企业代表出席本次活动。</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src="http://mail.163.com/js6/s?func=mbox:getMessageData&amp;sid=VCSMifUjQQYywrnhhQjjLxtKwtfzNPZN&amp;mid=77:1tbiTRY-V1c7HQ4z4gAAsd&amp;part=4" orgwidth="1151" orgheight="767" data-image="1"></div><div><p class="MsoNormal">江苏省财政厅金融处副处长陶敬东对“小微创业贷”提出三点意见，第一，坚持“小微创业贷”服务实体经济的初心、使命不动摇；第二，保持“小微创业贷”门槛低、成本少、效率高的鲜明特点不褪色；第三，落实“小微创业贷”投放规模和信用贷款的目标不放松，保证小微企业融资难、融资贵问题得到进一步解决。<span lang="EN-US"><o:p></o:p></span></p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src="http://mail.163.com/js6/s?func=mbox:getMessageData&amp;sid=VCSMifUjQQYywrnhhQjjLxtKwtfzNPZN&amp;mid=77:1tbiTRY-V1c7HQ4z4gAAsd&amp;part=5" orgwidth="1066" orgheight="711" data-image="1"></div><div><br></div><div><br></div><div>苏州市地方金融监督管理局党组成员、副局长宋继峰表示，近年来，苏州积极建立“苏州综合金融服务平台”、“苏州股权融资服务平台”和“苏州地方征信平台”等金融基础设施，出台专项金融扶持政策，形成了具有苏州特色的“股权<span lang="EN-US">+</span>债权”的综合金融服务机制，受到广泛的认可。此次战略合作签约仪式是金融支持苏州区域经济发展的又一重要举措，有利于推动金融支持实体经济转型升级。</div><div><img src="http://mail.163.com/js6/s?func=mbox:getMessageData&amp;sid=VCSMifUjQQYywrnhhQjjLxtKwtfzNPZN&amp;mid=77:1tbiTRY-V1c7HQ4z4gAAsd&amp;part=6" orgwidth="1123" orgheight="749" data-image="1"></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<span style="text-align: center;">“小微创业贷”上线苏州综合金融服务平台启动仪式</span></div><p class="MsoNormal" align="center" style="text-align: center;"><span lang="EN-US"><o:p></o:p></span></p><div>苏州综合金融服务平台采用“线上<span lang="EN-US">+</span>线下”金融服务模式，平台可以发布小微企业融资需求和金融机构创新产品等信息，充分依靠市场配置，实现企业与银行双向选择、自主对接。据了解，自<span lang="EN-US">2015</span>年<span lang="EN-US">6</span>月推出以来，“小微创业贷”已服务了<span lang="EN-US">1200</span>多户苏州小微企业，累计投放<span lang="EN-US">40</span>多亿信贷资金，实现了小微企业增信基础上的互惠合作，受到社会各界的高度认可。&nbsp;“小微创业贷”在苏州综合金融服务平台上线后，将继续发挥其“受众广、利率低、额度大、时效强”的优势，为“两无四有”的小微企业提供信用融资。</div><div><br></div><div><img src="http://mail.163.com/js6/s?func=mbox:getMessageData&amp;sid=VCSMifUjQQYywrnhhQjjLxtKwtfzNPZN&amp;mid=77:1tbiTRY-V1c7HQ4z4gAAsd&amp;part=7" orgwidth="1085" orgheight="723" data-image="1"></div><div><p class="MsoNormal" align="center" style="text-align: center;">苏州市地方金融监督管理局、苏州工行战略合作签约<span lang="EN-US"><o:p></o:p></span></p><p class="MsoNormal" align="left"><span lang="EN-US">&nbsp;</span></p><p class="MsoNormal" align="left">接下来，苏州综合金融服务平台将与苏州工行展开进一步合作，实现融资需求共享和普惠金融资源的优势互补，推动金融支持苏州区域经济发展，引导更多资金流向实体经济、流向创新产业。</p></div>
+               
+            </div>
+        </div>
+        <!--明细内容结束-->
+    </div>
+    <div>&nbsp;</div>
+</div>
+<!--页面主体结束-->
+<!--底部信息开始-->
+<div id="foot"></div>
+<!--底部信息结束-->
+<script>
+	$(function () {
+		var infoId = $("#infoId").html();
+	    $.ajax({
+	        type: "post",
+	        async: true,
+	        url: "/SRRPBusinesWeb/newInfos/addReadAmount",
+	        data: {infoId: infoId},
+	        success: function (data) {
+	        	document.getElementById('readAmout').innerHTML = data;
+	        }
+	    });
+	})
+</script>
+</body>
+</html>

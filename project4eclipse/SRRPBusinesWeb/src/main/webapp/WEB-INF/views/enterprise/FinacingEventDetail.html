@@ -1,0 +1,222 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>融资详情</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/details.css">
+    <style>
+        .page {
+            text-align: center;
+        }
+
+        .page span {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+<!--     <p class="boxTitle"><span><a onclick="showDemand('${finacingInfo.infoId}')">${finacingInfo.projectName}</a></span></p> -->
+<!--         <p class="boxTitle"><span>${finacingInfo.projectName}</span></p> -->
+    <div class="boxContent">
+    <div class="detailsCon">
+         <div class="detailsTxt clearfix">
+            <p> 企业名称 ：<span>${companyBase.name}</span>  </p>
+            <p>行业 ： <span> ${companyBaseSupplement.industryStr}</span></p>
+            <p> 所属区域：<span> ${companyBase.reareaDicname}</span>  </p>
+<!--             <p>项目名称 ：<span><a href="/SRRPBusinesWeb/finacingDemand/findFinancingDemandDetails?demandInfoId=${finacingInfo.infoId}">${finacingInfo.projectName}</a></span> </p> -->
+<!--             <p>项目名称 ：<span><a onclick="showDemand('${finacingInfo.infoId}')">${finacingInfo.projectName}</a></span> </p> -->
+            <p> 融资金额 ： <span>${finacingInfo.amountShow}  万  ${finacingInfo.currencyDicname}</span>  </p>
+            <p>投资日期 ：<span><fmt:formatDate  value="${finacingInfo.operdate}" type="date" /></span></p>
+            <p> 融资轮次 ： <span>${finacingInfo.finacingTurnDicname}</span> </p>
+            <p>股权： <span>${finacingInfo.sellScale}</span></p>
+<!--             <p>融资阶段：<span>${companyBaseSupplement.financingphaseDicname}</span></p> -->
+         </div>
+    </div>
+    <div class="detailsCon clearfix">
+        <div class="detail-title-name"><span>投资方信息</span></div>
+        <div>
+            <div class="detail-table">
+                <div style="margin-left: -6%">
+                    <table align="center"  id="investorsGrid" lay-filter="investorFilter"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="detailsCon clearfix">
+        <div class="detail-title-name"><span>出资信息</span></div>
+        <c:choose>
+        <c:when test='${unionInfoLoanList !="[]"}'>
+	        <div>
+	            <div class="detail-table">
+	                <div style="margin-left: -6%">
+	                    <table align="center" id="loanGrid" lay-filter="loanFilter"></table>
+	                </div>
+	            </div>
+	        </div>
+        </c:when>
+        <c:otherwise>
+	        <div class="detailsTxt clearfix">
+	            <p><span>未发现投资方出资操作记录</span></p>
+	        </div>
+        </c:otherwise>
+        </c:choose>
+        
+     <!-- <p>${eventId}</p> -->
+    </div>
+	<div class="detailsCon clearfix" id="companyComment">
+	    <div class="detail-title-name"><span>评价信息</span></div>
+	    <div class="detail-table">
+	        <div style="margin-left: -6%">
+	            <table align="center" id="commentGrid" lay-filter="CommentFilter"></table>
+	        </div>
+	    </div>
+	     <!-- <p>${eventId}</p> -->
+	</div>
+    <!-- 机构表格 END-->
+    <div class="layui-input-block buttonWrap" align="center">
+         <button class="layui-btn rateBtn" id="rateBtn" lay-submit lay-filter="rateForm">&nbsp;&nbsp;评&nbsp;&nbsp;&nbsp;价&nbsp;&nbsp;</button>       
+         <button type="button " lay-close class="layui-btn layui-btn-primary closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>
+    </div>
+</div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script>
+var rateIndex;
+	$(".rateBtn").on("click", function() {
+  	  rateIndex= layerOpen("rate", "604", "317", "评价", "/SRRPBusinesWeb/companyComment/initCommentHtml?eventId='${eventId}'&infoId='${finacingInfo.infoId}'", 2,callback,true);
+  	 function callback(index) {
+   		parent.layer.close(index); //关闭layer(关闭当前窗口)
+       }
+	});
+    $(".closeBtn").on("click", function(index) {
+    	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    	parent.layer.close(index); //关闭layer(关闭当前窗口)
+	})
+</script>
+
+<script type="text/html" id="barDemo">  
+    {{# if(d.investorgId!=null&&d.investorgId!=""&&d.investorgId!=undefined){ }}
+    	<a style="color:#0D4F92;cursor: pointer;">{{d.investorName}}</a>
+    {{# }else{ }} 
+    	<a>{{d.investorName}}</a>
+    {{# } }}
+</script>
+ 
+<script>
+	function showDemand(demandInfoId){
+		parent.layer.open({
+            title: '融资需求详情',
+            content: "/SRRPBusinesWeb/finacingDemand/findFinancingDemandDetails?demandInfoId="+demandInfoId,
+            area: ['100%', '100%'],
+            offset: ['0%', '0%'],
+            type:2,
+        });
+	}
+    $(function () {
+        //数据表格
+        //投资方信息
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var gridData = ${unioninverstorlist};
+        table.render({
+            id: 'investorsGrid'
+            , elem: '#investorsGrid' //指定原始表格元素选择器（推荐id选择器）
+            , width: 700
+            , data: gridData
+            , cols: [[ //标题栏
+                {field: 'investorName',title: '投资机构名称', width: 285 ,align:'center', event: 'InvestorDetails',toolbar: '#barDemo',}
+                , {field: 'orgTypeDicname', title: '机构类型', align:'center',width: 205}
+                , {field: 'amountShow', title: '投资金额(万)', align:'center',width: 205}
+            ]]
+        });
+        table.on('tool(investorFilter)', function (obj) {
+            var data = obj.data;
+            var investorgId=obj.data.investorgId;
+            if (obj.event === 'InvestorDetails') {
+                if(investorgId!=null){
+                	parent.layer.open({
+                        title: '投资机构详情',
+                        content: "/SRRPBusinesWeb/investor/investorDetail?investorId='"+investorgId+"'&flag='false'",
+                        area: ['100%', '100%'],
+                        offset: ['0%', '0%'],
+                        type:2,
+
+                    });
+                }
+            }
+        });
+    })
+</script>
+<script>
+    $(function () {
+        //数据表格
+        //放款信息表
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var gridData = ${unionInfoLoanList};
+        table.render({
+            id: 'loanGrid'
+            , elem: '#loanGrid' //指定原始表格元素选择器（推荐id选择器）
+            , width: 700
+            , data: gridData
+            , cols: [[ //标题栏
+                {field: 'investorName', title: '投资机构名称', width: 285 ,style: 'color:#0D4F92;cursor: pointer;', align:'center',event: 'InvestorDetails'}
+                , {field: 'loanDate', title: '出资日期', width: 205,align:'center',sort: true}
+                , {field: 'amountStrShow', title: '出资金额(万)', width: 205,align:'center'}
+            ]]
+        });
+        table.on('tool(loanFilter)', function (obj) {
+            var data = obj.data;
+            var investorId=data.investorId;
+            if (obj.event === 'InvestorDetails') {
+//                function callback() {
+//                }
+//                layerOpen("demoId", "800", "600", "投资机构详情", "/SRRPBusinesWeb/investor/investorDetail?investorId="+investorId, 2, callback)
+                parent.layer.open({
+                    title: '投资机构详情',
+                    content: "/SRRPBusinesWeb/investor/investorDetail?investorId="+investorId+"&flag='false'",
+                    area: ['100%', '100%'],
+                    offset: ['0%', '0%'],
+                    type:2,
+
+                });
+
+            }
+        });
+    })
+</script>
+<script>
+    $(function () { 
+        var table = layui.table;
+        var gridData = ${companyCommentList};
+        if(gridData.length <= 0){
+        	$("#rateBtn").show();
+        	$("#companyComment").hide();
+        }else{
+        	$("#rateBtn").hide();
+	        table.render({
+	            id: 'commentGrid'
+	            , elem: '#commentGrid' //指定原始表格元素选择器（推荐id选择器）
+	            , width: 700
+	            , data: gridData
+	            , cols: [[ //标题栏
+	                {field: 'stars', title: '评价星级', align: 'center', width:100 }
+	                , {field: 'operDate', title: '评价时间', align: 'center', width: 160}
+	                , {field: 'evacontent', title: '评价内容', align: 'center', width: 435}
+	            ]]
+	        });
+        }
+    })
+</script>
+</body>
+</html>

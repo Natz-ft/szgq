@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+     http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+     http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd 
+     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd ">
+
+	<bean id="constants" class="com.icfcc.SRRPService.Constants">
+		<property name="dicTypeMap">
+			<map> 
+				<entry key="RZJD" value="机构融资阶段" /> 
+				<entry key="TZHY" value="投资行业"/>
+				<entry key="JGLX" value="机构类型"/>
+				<entry key="HBLX" value="货币类型"/>
+				<entry key="TZLC" value="投资轮次"/>
+				<entry key="ZBLX" value="资本类型"/>
+				<entry key="DMLX" value="机构代码类型"/>
+				<entry key="SJJD" value="融资事件阶段"/>
+				<entry key="XXPL" value="信息披露类型"/>
+				<entry key="SHJG" value="审核结果"/>
+			</map>
+		</property>
+		<property name="userType">
+			<map>
+				<entry key="enterprise" value="企业用户" /> 
+				<entry key="org" value="机构用户"/>
+				<entry key="charge" value="主管部门"/>
+				<entry key="admin" value="管理员"/>
+			</map>	
+		</property>
+	</bean>
+	
+	<bean id="configuration" class="com.icfcc.SRRPService.util.Configuration">
+		<property name="lengthFinancingInfo" value="100"></property>
+		<property name="lengthFinancingEvent"  value="100"></property>
+		<property name="lengthInvestor"  value="100"></property>
+	</bean>
+
+
+</beans>

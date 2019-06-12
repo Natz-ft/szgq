@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+     http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+     http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd 
+     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+     http://www.springframework.org/schema/task  http://www.springframework.org/schema/task/spring-task-3.1.xsd">
+
+	<context:component-scan base-package="com.icfcc.*" />
+<!-- 	定时器开关   -->
+    <task:annotation-driven /> 
+    <bean id="schedulerJobStart" class="com.icfcc.srrptask.start.SchedulerJobStart"></bean>   
+    <task:scheduled-tasks>  
+<!--          这里表示的是每隔五秒执行一次    0 */3 * * * ?-->
+        <task:scheduled ref="schedulerJobStart" method="startTask" cron="0/1 * * * * ? " />  
+    </task:scheduled-tasks>  
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" >
+      <property name="jobFactory" ref="jobFactory"></property> 
+     </bean>
+<!-- 	<context:property-placeholder ignore-unresolvable="true" location="/conf/db.properties" /> -->
+    <context:property-placeholder ignore-unresolvable="true" location="classpath*:/db.properties" />
+	<bean id="jobFactory" class="com.icfcc.srrptask.util.AppFactory"></bean>
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<!-- Connection Info -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- Connection Pooling Info -->
+		<property name="maxActive" value="${jdbc.dbcp.maxActive}" />
+		<property name="minIdle" value="${jdbc.dbcp.minIdle}" />
+		<property name="defaultAutoCommit" value="true" />
+		<!-- 连接Idle一个小时后超时 -->
+		<!-- <property name="timeBetweenEvictionRunsMillis" value="3600000" /> -->
+		<!-- <property name="minEvictableIdleTimeMillis" value="3600000" /> -->
+		
+		<!-- 连接120s后超时 -->
+		<property name="timeBetweenEvictionRunsMillis" value="120000" />
+		<property name="minEvictableIdleTimeMillis" value="120000" />
+		<!-- 这里建议配置为TRUE，防止取到的连接不可用 --> 
+		<property name="testOnBorrow" value="true" /> 
+		<property name="testOnReturn" value="false" />
+		<property name="filters" value="stat" />
+	</bean>
+	
+	<bean id="dataSource1" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<!-- Connection Info -->
+		<property name="driverClassName" value="${jdbc1.driver}" />
+		<property name="url" value="${jdbc1.url}" />
+		<property name="username" value="${jdbc1.username}" />
+		<property name="password" value="${jdbc1.password}" />
+		<!-- Connection Pooling Info -->
+		<property name="maxActive" value="${jdbc1.dbcp.maxActive}" />
+		<property name="minIdle" value="${jdbc1.dbcp.minIdle}" />
+		<property name="defaultAutoCommit" value="true" />
+		<!-- 连接Idle一个小时后超时 -->
+		<!-- <property name="timeBetweenEvictionRunsMillis" value="3600000" /> -->
+		<!-- <property name="minEvictableIdleTimeMillis" value="3600000" /> -->
+		
+		<!-- 连接120s后超时 -->
+		<property name="timeBetweenEvictionRunsMillis" value="120000" />
+		<property name="minEvictableIdleTimeMillis" value="120000" />
+		<!-- 这里建议配置为TRUE，防止取到的连接不可用 --> 
+		<property name="testOnBorrow" value="true" /> 
+		<property name="testOnReturn" value="false" />
+		<property name="filters" value="stat" />
+	</bean>
+	
+	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
+	<context:component-scan base-package="com">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter" />
+		<property name="packagesToScan" value="com.icfcc.SRRPDao.s.*" />
+		<property name="jpaProperties">
+			<props>
+				<!-- 命名规则 My_NAME->MyName -->
+				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+				<prop key="hibernate.show_sql">false</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="entityManagerFactory1"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource1" />
+		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter1" />
+		<property name="packagesToScan" value="com.icfcc.SRRPDao.s1.*" />
+		<property name="jpaProperties">
+			<props>
+				<!-- 命名规则 My_NAME->MyName -->
+				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+				<prop key="hibernate.show_sql">false</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="hibernateJpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="databasePlatform">
+			<bean factory-method="getDialect" class="com.icfcc.SRRPService.util.HibernateUtil"> 
+				<constructor-arg ref="dataSource" />
+			</bean>
+		</property>
+		<property name="showSql" value="false" />
+	</bean>
+
+	<bean id="hibernateJpaVendorAdapter1"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="databasePlatform">
+			<bean factory-method="getDialect" class="com.icfcc.SRRPService.util.HibernateUtil"> 
+				<constructor-arg ref="dataSource1" />
+			</bean>
+		</property>
+		<property name="showSql" value="false" />
+	</bean>
+	
+	<!--factory-class 配置接收DAO的信息 -->
+	<jpa:repositories base-package="com.icfcc.SRRPDao.s"
+		transaction-manager-ref="transactionManager"
+		factory-class="com.icfcc.SRRPService.util.jpa.CommonRepositoryFactoryBean"
+		entity-manager-factory-ref="entityManagerFactory" />
+	<jpa:repositories base-package="com.icfcc.SRRPDao.s1"
+		transaction-manager-ref="transactionManager1"
+		factory-class="com.icfcc.SRRPService.util.jpa.CommonRepositoryFactoryBean"
+		entity-manager-factory-ref="entityManagerFactory1" />
+
+	<!-- Jpa 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	<!-- Jpa 事务配置 -->
+	<bean id="transactionManager1" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory1" />
+	</bean>
+
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager1"
+		proxy-target-class="true" />
+
+
+	<!-- Ehcache 配置 开始 -->
+<!-- 	<bean id="cacheManager" -->
+<!-- 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"> -->
+<!-- 		<property name="configLocation" value="classpath:shiro/ehcache.xml" /> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="cache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"> -->
+<!-- 		<property name="cacheManager" ref="cacheManager" /> -->
+<!-- 		<property name="cacheName" value="dictCache" /> -->
+<!-- 	</bean> -->
+	<!--Ehcache 配置 结束 -->
+
+	<!-- AOP配置 -->
+	<!-- 激活组件扫描功能,在包cn.ysh.studio.spring.aop及其子包下面自动扫描通过注解配置的组件 -->
+	<!-- <context:component-scan base-package="com.icfcc.SRRPTask.service" /> -->
+	<!-- 激活自动代理功能 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<!-- AOP配置结束 -->
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>  
+
+
+
+
+</beans>

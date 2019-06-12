@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+    <title>苏州股权融资服务平台</title>
+    <link rel="shortcut icon" href="common/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="common/style/reset.css">
+    <link rel="stylesheet" type="text/css" href="common/style/common.css">
+    <link rel="stylesheet" type="text/css" href="index/style/index.css">
+    <link rel="stylesheet" type="text/css" href="common/script/layui/css/layui.css">
+    <script src="common/script/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="common/script/layui/layui.js" type="text/javascript"></script>
+    <script src="common/script/common.js" type="text/javascript"></script>
+    <script src="index/script/index.js" type="text/javascript"></script>
+    <script src="common/script/ajax.js" type="text/javascript"></script>
+    <script src="inform/script/move_port.js" type="text/javascript"></script>
+    
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<!--头部logo以及登录注册开始-->
+<div class="logo clearfix">
+    <div class="logoRight" style="display: none;" id="login">
+        <a href="/creditplatformweb/success">进入业务系统</a><a href="/creditplatformweb/logout">退出登陆</a>
+    	
+    </div>
+    <div class="logoRight" style="display: none;" id="nologin">
+    	<a href="register.html"> 注&nbsp;&nbsp;&nbsp;&nbsp;册 </a>
+        <a href="/creditplatformweb/logout"> 登&nbsp;&nbsp;&nbsp;&nbsp;录 </a>
+    </div>
+<div class="logoLeft">
+	        <a href="index.html">
+	            <p></p>
+	            <p></p>
+	        </a>
+	    </div>
+</div>
+<!--头部logo以及登录注册结束-->
+<!--头部logo以及登录注册结束-->
+<!-- 操作菜单开始 -->
+<div class="header">
+    <ul class="nav clearfix">
+        <li class="active"><a href="index.html"> 首 页 </a></li>
+        <li><a href="investevent.html"> 投融事件 </a></li>
+        <li><a href="finace.html"> 融资需求 </a></li>
+        <li><a href="news.html"> 新闻动态 </a></li>
+        <li><a href="result.html"> 运行成果 </a></li>
+        <li><a href="investor.html"> 投资机构 </a></li>
+        <li><a href="relate.html"> 联系我们 </a></li>
+    </ul>
+</div>
+<!-- 操作菜单结束-->
+<!--幻灯片开始-->
+<div class="layui-carousel" id="carousel">
+ <div style="display: none;" id="success">
+    	<a  href="/creditplatformweb/success"><img src="index/images/banner.jpg" alt=""></a>
+    </div>
+    <div  style="display: none;" id="logout">
+        <a  href="/creditplatformweb/logout"><img src="index/images/banner.jpg" alt=""></a>
+    </div>
+<!--   <div carousel-item> -->
+<!--         <img src="index/images/banner.jpg" alt=""> -->
+<!--         <div> -->
+<!--              <a class="item" target="_blank" href="/creditplatformweb/logout"style="background-image: url(index/images/banner.jpg)"><img  -->
+<!--                      src="index/images/banner.jpg" alt=""></a> -->
+<!--         </div> -->
+<!--         <div> -->
+<!--             <a class="item" target="_blank" href="" style="background-image: url(index/images/banner.jpg)"><img -->
+<!--                     src="index/images/banner.jpg" alt=""></a> -->
+<!--         </div> -->
+<!--         <div> -->
+<!--             <a class="item" target="_blank" href="" style="background-image: url(index/images/banner.jpg)"><img -->
+<!--                     src="index/images/banner.jpg" alt=""></a> -->
+<!--         </div> -->
+<!--         <div> -->
+<!--             <a class="item" target="_blank" href="" style="background-image: url(index/images/banner.jpg)"><img -->
+<!--                     src="index/images/banner.jpg" alt=""></a> -->
+<!--         </div> -->
+<!--         <div> -->
+<!--             <a class="item" target="_blank" href="" style="background-image: url(index/images/banner.jpg)"><img -->
+<!--                     src="index/images/banner.jpg" alt=""></a> -->
+<!--         </div> --> 
+<!--   </div> -->
+</div>
+<!--幻灯片结束-->
+<!--三个总量开始-->
+ <div class="i_totle">
+    <ul class="clearfix">
+        <li>
+            <div>
+                <img src="index/images/i_totle-01.png" alt="平台融资总量">
+                <span>
+                    <p>平台融资总量（RMB）</p>
+                    <p class="bold"><#if gataWayStatic??> ${gataWayStatic.finacCount!}亿 <#else> 0亿 </#if></p>   
+                </span>
+
+            </div>
+        </li>
+        <li>
+            <div>
+                <img src="index/images/i_totle-02.png" alt="平台企业数">
+                <span>
+                    <p>平台企业数（家）</p>
+                    <p class="bold"> <#if gataWayStatic??> ${gataWayStatic.enterpriseCount!} <#else> 0 </#if> </p>
+                </span>
+            </div>
+        </li>
+        <li style="padding-left:0;">
+            <div>
+                <img src="index/images/i_totle-03.png" alt="平台机构数">
+                <span>
+                    <p>平台机构数（家）</p>
+                    <p class="bold"> <#if gataWayStatic??>${gataWayStatic.investorCount!}<#else> 0</#if></p>
+                </span>
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- 三个总量结束 -->
+<!-- 融资需求开始 -->
+<div class="grayBg">
+    <div>
+        <div class="neednum clearfix">
+            <div class="neednuml">
+                <div class="need_about">
+                    <div class="need_name">
+                        <p> 融资需求 </p> 
+                        <a href="finace.html"> <#if gataWayStatic??>${gataWayStatic.finacingCount!}条<#else> 0 条</#if></a>
+                    </div>
+                    <a href="finace.html">
+                    	<div class="need_more"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="i_need">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>项目名称</th>
+                            <th>融资金额(RMB)</th>
+                            <th>出让股权</th>
+                            <th>轮次</th>
+                            <th width="120" align="center">详情</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	<#if listGataDemands??>
+							<#list listGataDemands as proj>
+								<tr>
+		                             <#if proj.projectName ? exists!>
+		                              <td> ${proj.projectName!}</td>
+		                              <td>${proj.financingPurposes!}</td>
+		                              <td>${proj.scale!}</td>
+		                              <td>${proj.finacing_turnStr!}</td>
+		                              <td><a href="detailfinace${proj.infoId!}.html" class="on_data">  详情</a></td>
+		                            <#else>
+		                            <td></td>
+		                            <td></td>
+		                            <td></td>
+		                            <td></td>
+		                            <td></td>
+		                            </#if>
+		                        </tr>
+		                        
+							</#list>
+						</#if>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- 融资需求结束 -->
+        <!-- 新闻动态以及最新投资信息开始 -->
+        <div class="newsAndInvest clearfix">
+            <div class="newsList newsAndInvestFmt">
+                <p class="clearfix">
+                    <span>新闻动态</span>
+                    <a href="news.html">更多</a>
+                </p>
+                <table>
+                	<#if listGataWayNews??>
+						<#list listGataWayNews as news>
+		                	<tr>
+		                        <td>
+		                            <a href="detailnewsidx${news.newsId!}.html">
+		                                <p>${news.newTilePortal!}</p>
+		                                <span>${news.newSummaryPortal!}</span>
+		                            </a>
+		                        </td>
+		                        <td><span class="date">${news.newCreateDate?string("MM/dd")}</span></td>
+		                    </tr>
+						</#list>
+					</#if>
+                </table>
+            </div>
+            <div class="investList newsAndInvestFmt">
+                <p class="clearfix">
+                    <span>最新投资动态</span>
+                    <a href="investevent.html">更多</a>
+                </p>
+                <div id="invest_roll">
+	                <table>
+						<#if listGWInvestorInfo??>
+							<#list listGWInvestorInfo as invests>
+			                	<tr>
+			                        <td>
+			                            <a href="detailinvestevent${invests.eventId!}.html">
+			                                <p title="${invests.showInfosA!}">${invests.showInfos!}</p>
+			                                <span>行业：${invests.industryName!}</span>
+			                            </a>
+			                        </td>
+			                        <td><span class="date">${invests.awayFromNow!}</span></td>
+			                    </tr>
+							</#list>
+						</#if>                
+	                </table>
+                </div>
+            </div>
+        </div>
+        <!-- 新闻动态以及最新投资信息结束 -->
+        <!-- 合作伙伴以及友情链接开始 -->
+        <div class="friendlyLinks">
+            <div class="linksBtn">
+                 <a href="javascript:void(0);" id="click_friendlylink" class="active"> 友情链接 </a>
+                <a href="javascript:void(0);" id="click_partners" > 合作伙伴 </a>
+            </div>
+            <div class="linksWrap">
+               
+                <!-- 友情链接元素 -->
+                <div id="obj_friendlylink" style="display: inline;" >
+                    <ul class="clearfix">
+	                	<#if listGataWayLinks??>
+							<#list listGataWayLinks as friendlyLink>
+								<li>
+		                    		<a href="${friendlyLink.linksUrl!}" target="_blank" style="background-image: url(${friendlyLink.linksPicture!});background-size:74px 74px">&nbsp;&nbsp;&nbsp;&nbsp;${friendlyLink.linksName!}</a>
+		                    	</li>	
+							</#list>
+						</#if>                     
+                    </ul>
+                </div>
+                 <!-- 合作伙伴元素 -->
+                <div id="obj_partners" style="display: none;">
+                    <ul class="clearfix">
+	                    <#if listGataWayPartners??>
+							<#list listGataWayPartners as partners>
+								<li>
+			                    	<a href="${partners.partnetLink!}" target="_blank" style="background-image: url(${partners.partnetLogo!});background-size:74px 74px" >${partners.partnetName!}</a>
+			                    </li>	
+							</#list>
+						</#if>  
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 合作伙伴以及友情链接结束 -->
+<!--底部信息开始-->
+<div id="foot"></div>
+<!--底部信息结束-->
+<!-- 悬浮菜单开始 -->
+<div class="fixMenu">
+    <h3>快捷菜单</h3>
+    <ul>
+        <li>
+            <a id="shortcut_notice" href="javascript:void(0);" class="notice clearfix">
+                <span class="icon"></span><span>公告通知</span></a>
+        </li>
+        <li>
+            <a id="shortcut_question" href="javascript:void(0);" class="question clearfix">
+                <span class="icon"></span><span>常见问题</span></a>
+        </li>
+        <li>
+            <a id="shortcut_online" href="javascript:void(0);" class="online clearfix">
+                <span class="icon"></span><span>在线提问</span></a>
+        </li>
+        <li>
+            <a href="../static/files/sqxy/AuthorizationLetter2.pdf" download="企业用户操作说明.pdf" class="needposted clearfix">
+                <span class="icon"></span><span>企业用户操作说明</span></a>
+        </li>
+        <li>
+            <a href="../static/files/sqxy/AuthorizationLetter1.pdf" download="机构用户操作说明.pdf" class="needposted clearfix">
+                <span class="icon"></span><span>机构用户操作说明</span></a>
+        </li>
+    </ul>
+    <a class="backTop"><span></span>TOP</a>
+</div>
+<!-- 悬浮菜单结束 -->
+<!-- 悬浮广告 -->
+<div class="move_div">
+  <div class="move_div_body">股权平台政策<span style="font-size:22px;">申报通知</span></div>
+</div>
+<script type="text/javascript">
+/*调用移动浮窗方法并按顺序传入正确参数["obj",x,y,l,t,m],obj必填*/
+move_obj(".move_div");
+$(".move_div_body").click(function(){
+	window.open("inform.html","_self");
+});
+</script>
+<!-- 悬浮广告结束 -->
+</body>
+</html>

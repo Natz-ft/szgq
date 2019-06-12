@@ -1,0 +1,61 @@
+@charset "utf-8";
+/*覆盖top中的相同样式*/
+a {
+    color: #000000;
+}
+
+li {
+    list-style: none;
+}
+
+/*设置整体大小开始*/
+.mainwraper {
+    width: 990px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/*设置整体大小结束*/
+/*当前位置开始说明等样式开始*/
+
+
+/*当前位置开始说明等样式结束*/
+/*页面主题样式开始*/
+.sub-c {
+    background: #fff;
+    padding: 15px;
+    overflow: hidden;
+    min-height: 350px;
+    line-height: 33px;
+}
+/*详细内容开始*/
+.sub-c ul li.pro-list {
+    border-bottom: none;
+}
+
+.sub-c ul li.pro-list h3 {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.sub-c > .pro-list {
+    padding: 0 10px 10px 0;
+}
+
+.pro-list {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #d2d2d2;
+    padding: 5px 0;
+}
+
+.pro-list h3 {
+    color: #004F8A;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+/*详细内容结束*/
+/*页面主题样式结束*/

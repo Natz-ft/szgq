@@ -1,0 +1,746 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>投资机构管理</title>
+<link rel="stylesheet" type="text/css"
+	href="../static/style/page/investOrgQuery.css">
+<script src="../static/script/autoload.js" type="text/javascript"></script>
+<script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+<script src="../static/script/my97/WdatePicker.js"
+	type="text/javascript"></script>
+	<style>
+.boxTitlespan {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #0D4F92;
+    padding: 5px 10px;
+    border-bottom: 2px solid #0D4F92;
+}
+.boxTitle1 {
+    margin-top: 10px;
+/*     background-color: #EAF3F8; */
+}
+.layui-nav {
+    position: relative;
+    padding: 0 20px;
+    color: #0D4F92;
+    border-radius: 2px;
+     font-size: 18px;
+    box-sizing: border-box;
+    background-color: #EAF3F8;
+    border-bottom: 2px solid #0D4F92;
+}
+.show_img{
+    position: absolute;
+    right: 1px;
+    top: 0px;
+    height: 31px;
+}
+</style>
+	
+</head>
+<body>
+	<div class="boxWrap">
+
+<c:if test='${ userType=="03" }'>
+	<p class="boxTitle">
+		<span>投资机构管理</span>
+	</p>
+</c:if>
+<c:if test='${ userType=="04" || userType=="06"}'>
+<ul class="layui-nav" style="width:20%">
+  <li class="layui-nav-item">
+    <c:if test='${ messageNum==0}'>
+        <a href="javascript:;">投资机构管理</a>
+    </c:if>
+    <c:if test='${ messageNum!=0}'>
+		<a href="javascript:;">投资机构管理<span class="layui-badge" style=" margin-left: 24px;">${messageNum}</span></a>
+	    <dl class="layui-nav-child">
+	    <c:forEach items="${messageAlertInfos}" var="message">
+	      <dd><a href="javascript:void(0);" onclick="dissentDetil('${message.companyId}')">${message.meassgeContent}<span class="layui-badge-dot"></span></a></dd>
+		</c:forEach>
+	    </dl>   
+     </c:if>
+    
+  </li>
+</ul>
+</c:if>	
+		<div class="boxContent">
+		<input type="hidden" name="password" value="${password}" id="password">
+			<form enctype="multipart/form-data" id="list_form_id"
+				name="list_form_name">
+				<!-- 查询条件 -->
+				<div class="queryTerms">
+					<div class="termsWrap clearfix">
+						<div style="margin-left: 30px;">
+							<span>投资机构名称/证件号码：</span> <input type="text" name="nameOrCode"
+								lay-verify="name" autocomplete="off" placeholder="请输入名称或证件号码"
+								class="query-blank-input">  <label style="margin-left: 30px;">审核状态：</label> <select
+								name="auditStatus" id="auditStatus" lay-verify="required"
+								style="border: 1px solid #8DBDDC; border-radius: 5px;">
+								<option value="">全部</option>
+								<c:forEach items="${ddStatus}" var="ddas">
+									<option value="${ddas.dicCode}">${ddas.dicName}</option>
+								</c:forEach>
+							</select> <label
+								style="margin-left: 30px;">状态：</label> <select name="stopFlag"
+								lay-verify="required" lay-search="" id="dd_stopFlag"
+								style="border: 1px solid #8DBDDC; border-radius: 5px;">
+								<option value="">全部</option>
+							</select> <a href="javascript:void(0);" class="select-botton">查询</a>
+						</div>
+					</div>
+				</div>
+			</form>
+			<c:if test='${ isHaveMessage == "1" }'>
+				<div  style="margin-left: 5%;height: 27px; width: 100px;">
+				    <button class="layui-btn layui-btn-sm" id="cancelMessageAll" style="height: 26px;line-height: 26px;margin-top: 1px;">全部已读</button>
+				</div>
+			</c:if>
+			<!-- 机构表格 -->
+			<c:choose>
+				<c:when test="${'03' eq userType}">
+					<div style="width:100%;">
+						<table id="newOrgGrid" lay-filter="test"></table>
+						<div class="table-page">
+							<div id="paged" class="page"></div>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div style="width:100%;">
+						<table id="orgGrid" lay-filter="test"></table>
+						<div class="table-page">
+							<div id="paged" class="page"></div>
+						</div>
+					</div>
+				</c:otherwise>
+			</c:choose>
+<!-- 			<div> -->
+<!-- 				<table id="orgGrid" lay-filter="test"></table> -->
+<!-- 				<div class="table-page"> -->
+<!-- 					<div id="paged" class="page"></div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+			<!-- 分页组件 -->
+
+			<!-- 机构表格 END-->
+		</div>
+	</div>
+	<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+	<script type="text/html" id="barDemo">
+ {{#  if(d.userType != '03'){ }}
+      {{#  if(d.auditStatus == '1' || d.auditStatus == '4'){ }}
+       		 {{#  if(d.userType=='04' ||d.userType=='06'){ }}
+                <a lay-event="showAuditinvestor" style="color:#0D4F92;cursor: pointer;">审核</a>&nbsp;&nbsp;
+        	 {{# } }}
+        {{# } }}
+ 		{{# if(d.auditStatus == '21'){ }}
+      	    {{#  if(d.userType == '05'){ }}
+              <a lay-event="showAuditinvestor" style="color:#0D4F92;cursor: pointer;">激活</a>&nbsp;&nbsp;
+       	    {{# } }}
+   	    {{# } }}
+		 
+        <a lay-event="resetPassword" style="color:#0D4F92;cursor: pointer;">重置密码</a>
+       <a lay-event="setStatus" id="{{d.investorId}}" style="color:#0D4F92;cursor: pointer;">
+        	{{# if(d.stopFlag == 2){ }}
+       		 	启用
+       		 {{# } else { }}
+        		停用
+        	{{# } }}
+       </a>
+{{# } }}    
+
+  {{#  if( d.userType =='03' ){ }}
+       {{#  if( d.idHaveDissent =='0' ){ }}
+             <a lay-event="callDissent" style="color:#0D4F92;cursor: pointer;">新增异议</a>&nbsp;&nbsp;
+       {{# } }}
+       {{#  if( d.idHaveDissent =='2' ){ }}
+             <a lay-event="callDissent" style="color:#0D4F92;cursor: pointer;">修改异议</a>&nbsp;&nbsp;
+       {{# } }}
+    
+   {{# } }}
+    {{#  if( d.userType =='04' || d.userType =='06' ){ }}
+         {{#  if( d.idHaveDissent =='1' ){ }}
+                
+                <a lay-event="showDissent" style="color:#0D4F92;cursor: pointer;">
+                查看异议 {{#  if( d.isReadDissent =='1' ){ }}
+                     <span class="layui-badge-dot"></span>
+                {{# } }}
+                                                    </a>&nbsp;&nbsp;
+          {{# } }}
+
+   {{# } }}
+</script>
+	<script type="text/html" id="barDemo1">
+   {{#  if( d.userType =='03' ){ }}
+       {{#  if( d.isReadDissent =='1' ){ }}
+            <a lay-event="showInvestorDetails" style="color:#0D4F92;cursor: pointer;">
+      <img  class ="show_img"  style="display:inline" id="{{d.investorId}}" src="../static/images/new.png">
+     {{d.name}}</a>&nbsp;&nbsp;
+       {{# } }}
+       {{#  if( d.isReadDissent !='1' ){ }}
+              <a lay-event="showInvestorDetails" style="color:#0D4F92;cursor: pointer;">{{d.name}}</a>
+       {{# } }}
+    
+   {{# } }}
+  {{#  if( d.userType !='03' ){ }}
+    <a lay-event="showInvestorDetails" style="color:#0D4F92;cursor: pointer;">{{d.name}}</a>&nbsp;&nbsp;
+   {{# } }}
+</script>
+
+	<script type="text/html" id="creditReportBar">
+    <a lay-event="showCreditReport"  style="color:#0D4F92;cursor: pointer;">征信报告</a>
+</script>
+	<script type="text/html" id="barDemo2">
+
+    {{#  if(d.score == null){ }}
+    &nbsp;&nbsp;
+    {{# } else { }}
+    <a lay-event="showScoreDetails" style="color:#0D4F92;cursor: pointer;">{{d.score}}</a>&nbsp;&nbsp;
+    {{# } }}
+</script>
+	<script>
+		var has_showModalDialog = !!window.showModalDialog;//定义一个全局变量判定是否有原生showModalDialog方法  
+		if (!has_showModalDialog && !!(window.opener)) {
+			window.onbeforeunload = function() {
+				window.opener.hasOpenWindow = false; //弹窗关闭时告诉opener：它子窗口已经关闭  
+			}
+		}
+		//定义window.showModalDialog如果它不存在  
+		if (window.showModalDialog == undefined) {
+			window.showModalDialog = function(url, mixedVar, features) {
+				if (mixedVar)
+					var mixedVar = mixedVar;
+				//因window.showmodaldialog 与 window.open 参数不一样，所以封装的时候用正则去格式化一下参数  
+				if (features)
+					var features = features.replace(/(dialog)|(px)/ig, "")
+							.replace(/;/g, ',').replace(/\:/g, "=");
+
+				var left = (window.screen.width - parseInt(features
+						.match(/width[\s]*=[\s]*([\d]+)/i)[1])) / 2;
+				var top = (window.screen.height - parseInt(features
+						.match(/height[\s]*=[\s]*([\d]+)/i)[1])) / 2;
+				window.myNewWindow = window.open(url, "_blank", features);
+			}
+		}
+		function dissentDetil(enterpriseId) {
+			layer.open({
+              	  type: 2,
+              	  title: '异议',
+              	  shadeClose: true,
+              	  maxmin: true,	
+              	  scrollbar: false,
+              	  shade: 0,
+            	  area: ['80%', '85%'],
+              	  content: "/SRRPBusinesWeb/dissent/dissentDetails?enterpriseId="
+						+ enterpriseId,
+						end : function() {
+							location.reload();
+						}
+              	});  
+		}
+		$(function() {
+			var type, name;
+			var data = {};
+            var userType='${userType}';
+			//数据表格
+			var table = layui.table;
+			// 赋值数据实际使用为后台获取数据
+			var gridData;
+			var dataCount;//数据总条数
+			init();//页面默认初始化操作
+			initDD();//查询条件 字典值初始化
+			//查询按钮点击查询
+			$(".select-botton").on("click", function() {
+				init();
+			})
+			//全部已读 
+			$("#cancelMessageAll").on("click", function() {
+				layer.confirm('是否全部已读？若确认全部已读，将清除所有企业新增标识。', {icon: 3, title:'提示',btnAlign: 'c',shade: 0}, function(index){
+					$.ajax({//修改启用停用
+						type : "post",
+						async : false,
+						url : "/SRRPBusinesWeb/dissent/cancelMessageAll",
+						data : {
+							"type" : "03"
+						},// 你的formid
+						success : function(data) {
+							window.location.reload();
+						}
+					});
+				});
+			})
+			$(document).keypress(function(e) {
+                var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+                  if (eCode == 13){
+        	       init();
+        	       return false;
+                   //自己写判断操作
+               }
+			});
+
+			// 点击name弹窗
+			table
+					.on(
+							'tool(test)',
+							function(obj) {
+
+								var data = obj.data;
+								var codetype = data.certtype;
+								var code = data.certno;
+								var code1= encodeURIComponent(encrypt(code));
+								var codetype1=encodeURIComponent(encrypt(codetype));
+								var name = data.name;
+								var investorId = data.investorId;
+								var stopFlag = data.stopFlag;
+								var number = data.contactnumber;
+								var userType = data.userType;
+								var status = data.auditStatus;
+								var type="02"; 
+								if (obj.event === 'showInvestorDetails') {//投资机构详情
+								//                function callback() {
+								//                }
+								//                layerOpen("demoId", "930", "600", "投资机构页面", "/SRRPBusinesWeb/investorManage/investorDetails?investorId=" + investorId, 2, callback)
+									if(userType=="03"){
+										 if($("#"+investorId).length>0){
+											 if ($("#"+investorId).css("display") == "block") {
+												 $("#"+investorId).css("display","none");
+											 }
+										 }
+									}
+									layer
+											.open({
+												title : '投资机构页面',
+												content : "/SRRPBusinesWeb/investorManage/investorDetails?investorId="
+														+ investorId,
+												area : [ '100%', '100%' ],
+												offset : [ '0%', '0%' ],
+												type : 2,
+												scrollbar : false,
+											});
+								}
+								if (obj.event == 'showCreditReport') {//查看信用报告
+									if(userType=="03"){
+										 if($("#"+investorId).length>0){
+											 if ($("#"+investorId).css("display") == "block") {
+												 $("#"+investorId).css("display","none");
+											 }
+										 }
+									}
+					            	var url="/SRRPBusinesWeb/creditscore/queryReport?certtype=" + codetype1 + "&certno=" + code1 + "&name='" + name + "'";
+									url = encodeURI(encodeURI(url));
+									window.showModalDialog(url, "1",
+											"dialogWidth:"
+													+ window.screen.width
+													+ "px;dialogHeight:"
+													+ window.screen.height
+													+ "px;");
+								}
+								if (obj.event == 'showScoreDetails') {//评分页面
+									// function callback() {
+									//}
+									//rateIndex = layerOpen("score", "1200", "600", "评分", "/SRRPBusinesWeb/creditscore/queryScore?certtype=" + codetype + "&certno=" + code 2, callback, true)
+									//             	 layer.open({
+									//                      title: '信用评分',
+									//                      content: "/SRRPBusinesWeb/creditscore/queryScore?certtype=" + codetype + "&certno=" + code,
+									//                      area: ['100%', '100%'],
+									//                      offset: ['0%', '0%'],
+									//                      type:2,
+									//                      scrollbar: false,                                                                                
+									//                  });
+									if(userType=="03"){
+										 if($("#"+investorId).length>0){
+											 if ($("#"+investorId).css("display") == "block") {
+												 $("#"+investorId).css("display","none");
+											 }
+										 }
+									}
+									window.showModalDialog(
+											"/SRRPBusinesWeb/creditscore/queryScore?certtype="
+													+ codetype1 + "&certno="
+													+ code1, "1", "dialogWidth:"
+													+ window.screen.width
+													+ "px;dialogHeight:"
+													+ window.screen.height
+													+ "px;");
+
+								}
+								if (obj.event == 'showAuditinvestor') {//进入审核页面
+								//                function callback() {
+								//                }
+								//                layerOpen("investorId", "930", "600", "审核机构", "/SRRPBusinesWeb/investorManage/auditInvestor?investorId=" + investorId, 2, callback);
+									layer
+											.open({
+												title : '审核机构',
+												content : "/SRRPBusinesWeb/investorManage/auditInvestor?investorId="
+														+ investorId,
+												area : [ '100%', '100%' ],
+												offset : [ '0%', '0%' ],
+												type : 2,
+												scrollbar : false,
+											});
+								}
+								if (obj.event == 'setStatus') {//设置机构状态
+									var confrimin;
+									if (stopFlag == "1") {//修改为停用
+										var status = "2";//停用
+										confrimin = "停用";
+										//$("#"+ investorId).text('启用');
+									} else {//修改为启用
+										var status = "1";//启用
+										confrimin = "启用";
+										//$("#"+ investorId).text('禁用');
+									}
+
+									layer
+											.msg(
+													'您是否' + confrimin + name,
+													{
+														time : 0 //不自动关闭
+														,
+														btn : [ '是', '否' ],
+														yes : function(index) {
+
+															$
+																	.ajax({//修改启用停用
+																		type : "post",
+																		async : false,
+																		url : "/SRRPBusinesWeb/investorManage/updateStatus",
+																		data : {
+																			"investorId" : investorId,
+																			"stopFlag" : status
+																		},// 你的formid
+																		success : function(
+																				data) {
+																			window.location
+																					.reload();
+																		}
+																	});
+															window.location
+																	.reload();
+															layer.close(index);
+														}
+													});
+								}
+								if (obj.event == 'resetPassword') {//重置密码页面
+									var password=$("#password").val();
+									layer.confirm('是否确定重置密码？', {icon: 3, title:'提示',btnAlign: 'c',shade: 0}, function(index){
+										  $.ajax({//修改启用停用
+												 type : "post",
+												 async : false,
+												 url : "/SRRPBusinesWeb/investorManage/resetPassword",
+												data : {"userName" : code},// 你的formid
+												success : function() {
+				 									layer.confirm('密码重置成功，初始化密码为'+password+'', {icon: 1, title:'提示',btnAlign: 'c',shade: 0}, function(index1){
+			 										  layer.close(index1);
+			 										 window.location.reload();
+			 										});
+																}
+																	});
+										  layer.close(index);
+										});
+									
+
+								}
+								if (obj.event == 'setlock') {//重置密码页面
+									layer
+											.msg(
+													'您确定要解锁用户',
+													{
+														time : 0 //不自动关闭
+														,
+														btn : [ '是', '否' ],
+														
+														yes : function(index) {
+															$
+																	.ajax({//修改启用停用
+																		type : "post",
+																		async : false,
+																		url : "/SRRPBusinesWeb/investorManage/setLock",
+																		data : {
+																			"userName" : code
+																		},// 你的formid
+																		success : function(
+																				data) {
+																			window.location
+																					.reload();
+																		}
+																	});
+															window.location
+																	.reload();
+															layer.close(index);
+														}
+													});
+
+								}
+								if (obj.event === 'callDissent') {//查询机构详情
+					                layer.open({
+					              	  type: 2,
+					              	  title: '异议',
+					              	  shadeClose: true,
+					              	  maxmin: true,	
+					              	  scrollbar: false,
+					              	  shade: 0,
+					            	  area: ['80%', '85%'],
+					              	  content: "/SRRPBusinesWeb/dissent/callCompanyDissent?enterpriseId="
+											+ investorId + "&type="
+											+ type
+					              	});  
+					            }
+								if (obj.event === 'showDissent') {//查询企业异议详情
+					                layer.open({
+					              	  type: 2,
+					              	  title: '异议',
+					              	  shadeClose: true,
+					              	  maxmin: true,	
+					              	  scrollbar: false,
+					              	  shade: 0,
+					            	  area: ['80%', '85%'],
+					              	  content: "/SRRPBusinesWeb/dissent/dissentDetails?enterpriseId="
+											+ investorId+ "&type="
+											+ type,
+											end : function() {
+												location.reload();
+											}
+					              	});  
+					            }
+
+							});
+
+			//展示列表信息
+			function init() {
+				$.ajax({
+					type : "post",
+					async : false,
+					url : "/SRRPBusinesWeb/investorManage/initInfo",
+					data : $('#list_form_id').serialize(),// 查询条件
+					success : function(data) {
+						data = JSON.parse(data);
+						dataCount = data.recordCnt;
+						createPage(data.list);
+					}
+				});
+				//分页调用
+				layui.use('laypage', function() {
+					var laypage = layui.laypage;
+					//执行一个laypage实例
+					laypage.render({
+						elem : 'paged', //注意,这里的paged是分页调用ID,不用加#号
+						count : dataCount,//注意,再操作分页功能时,必须获取到数据总条数(条件查询);
+						layout : [ 'count', 'prev', 'page', 'next', 'limit',
+								'skip' ],
+						limits : [ 10, 20, 50 ],//每页可选值,默认值确保与最小值相同
+						limit : data.maxSize,//默认每页10条数据
+						skip : true,
+						jump : function(obj, first) {
+							if (!first) {
+								getPageInfo(obj);
+							}
+						}
+					});
+				});
+			}
+
+			//查询条件列表字典展示
+			function initDD() {
+				//状态下拉框展示
+				var stopFlagHtml = '';
+				$
+						.ajax({
+							type : "post",
+							url : "/SRRPBusinesWeb/initInfo/getDDList",//url地址
+							data : {
+								"name" : "stopFlag"
+							},// 查询条件
+							async : false,//使用同步的方式,true为异步方式
+							success : function(data) {
+								data = JSON.parse(data);
+								for (var i = 0; i < data.length; i++) {
+									var _json = data[i];
+									stopFlagHtml += "<option value=\"" + _json.dicCode + "\">"
+											+ _json.dicName + "</option>";
+								}
+								$("#dd_stopFlag").append(stopFlagHtml);
+							}
+						});
+				//审核状态下拉框展示
+				//             var auditStatusHtml = '';
+				//             $.ajax({
+				//                 type: "post",
+				//                 url: "/SRRPBusinesWeb/initInfo/getDDList",//url地址
+				//                 data: {"name": "auditStatus"},// 查询条件
+				//                 async: false,//使用同步的方式,true为异步方式
+				//                 success: function (data) {
+				//                     data = JSON.parse(data);
+				//                     for (var i = 0; i < data.length; i++) {
+				//                         var _json = data[i];
+				//                         auditStatusHtml += "<option value=\"" + _json.dicCode + "\">" + _json.dicName + "</option>";
+				//                     }
+				//                     $("#dd_auditStatus").append(auditStatusHtml);
+				//                 }
+				//             });
+			}
+
+			//装配列表数据
+			function createPage(gridData, gridlimit) {
+				table.render({
+					id : 'orgGrid',
+					elem : '#orgGrid', //指定原始表格元素选择器（推荐id选择器）
+// 					width : 970,
+					data : gridData,
+					limit : gridlimit,
+					cols : [ [ //标题栏
+					{
+						title : '投资机构名称',
+						align : 'center',
+						width : '28%',
+						toolbar : '#barDemo1'
+					}, {
+						title : '评分',
+						align : 'center',
+						width : '6%',
+						sort : true,
+						field : 'score',
+						templet : '#barDemo2'
+					}, {
+						title : '征信报告',
+						align : 'center',
+						width : '7%',
+						toolbar : '#creditReportBar'
+					}, {
+						field : 'certno',
+						title : '证件号码',
+						align : 'center',
+						width : '19%',
+					}, {
+						field : 'orgTypeDicname',
+						title : '机构类型',
+						align : 'center',
+						width : '10%',
+						sort : true,
+					}, {
+						field : 'stopFlagDicname',
+						title : '状态',
+						align : 'center',
+						width : '6%'
+// 						sort : true,
+					},  {
+						field : 'createTimeStr',
+						title : '注册时间',
+						align : 'center',
+						width : '9%',
+						sort : true,
+					}, {
+						field : 'auditStatusDicname',
+						title : '审核状态',
+						align : 'center',
+						width : '9%',
+						sort : true,
+					}, {
+						title : '操作',
+						fixed: 'right',
+						align : 'center',
+						width : '22%',
+						toolbar : '#barDemo'
+					}
+
+					] ]
+				});
+				table.render({
+					id : 'newOrgGrid',
+					elem : '#newOrgGrid', //指定原始表格元素选择器（推荐id选择器）
+// 					width : 970,
+					data : gridData,
+					limit : gridlimit,
+					cols : [ [ //标题栏
+					{
+							title : '投资机构名称',
+							align : 'center',
+							width : '28%',
+							toolbar : '#barDemo1'
+						}, {
+							title : '评分',
+							align : 'center',
+							width : '8%',
+							sort : true,
+							field : 'score',
+							templet : '#barDemo2'
+						}, {
+							title : '征信报告',
+							align : 'center',
+							width : '10%',
+							toolbar : '#creditReportBar'
+						}, {
+							field : 'certno',
+							title : '证件号码',
+							align : 'center',
+							width : '18%',
+						}, {
+							field : 'orgTypeDicname',
+							title : '机构类型',
+							align : 'center',
+							width : '9%',
+							sort : true,
+						},  {
+							field : 'createTimeStr',
+							title : '注册时间',
+							align : 'center',
+							width : '9%',
+							sort : true,
+						}, 
+						{
+							field : 'stopFlagDicname',
+							title : '状态',
+							align : 'center',
+							width : '9%',
+							sort : true,
+						}, {
+							field : 'auditStatusDicname',
+							title : '审核状态',
+							align : 'center',
+							width : '9%',
+							sort : true,
+					}, {
+						title : '操作',
+						fixed: 'right',
+						align : 'center',
+						width : '12%',
+						toolbar : '#barDemo'
+					}
+					] ]
+				});
+			}
+
+			//只操作分页数据
+			function getPageInfo(obj) {
+				var curPage = obj.curr;//当前页(跳转页也是当前页)
+				var limit = obj.limit;//每页多少条数
+				var queryCondition = $('#list_form_id').serialize();
+				$.ajax({
+					type : "post",
+					async : false,
+					url : "/SRRPBusinesWeb/investorManage/initInfo?"
+							+ queryCondition,
+					data : {
+						start : curPage,
+						limit : limit,
+						queryCondition : queryCondition
+					},
+					success : function(data) {
+						data = JSON.parse(data);
+						createPage(data.list, limit);//装配列表数据
+					}
+				});
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+body,td,th,div,thead,ul,p {
+	font: 13px arial, font-family:'Microsoft YaHei', tahoma;
+	overflow: hidden;
+}
+
+body {
+	margin: 0px;
+	background: url(../Images/login-bg.jpg) repeat-x #005B94;
+	text-align: center;
+}
+
+ol,ul {
+	list-style: none
+}
+
+li {
+	font-size: 13px;
+	margin-top: 5px;
+	padding-left: 30px;
+}
+
+.loginCon {
+	width: 541px;
+	height: 281px;
+	text-align: left;
+	background: url(../Images/slogin-bg.jpg) no-repeat;
+	border: 0px solid #ccc;
+}
+
+.loginUl {
+	margin: 90px 0 0 120px;
+}
+
+.btLogin {
+	width: 64px;
+	height: 20px;
+	background: url(../Images/login.gif);
+	cursor: hand;
+	border-style: none;
+}
+.btIndex{
+	width: 64px;
+	height: 20px;
+	background: url(../Images/index.gif);
+	cursor: hand;
+	border-style: none;
+}
+.btClose {
+	width: 64px;
+	height: 20px;
+	background: url(../Images/close.gif);
+	cursor: hand;
+	border-style: none;
+}
+
+.sysTitle {
+	text-align: left;
+	font-size: 30px;
+	font-family: »ªÎÄÐÐ¿¬;
+	color: #3274AD
+}
+
+.err {
+	color: red;
+}
+
+#cas {
+	padding: 220px 0 0 0;
+}
+
+#header {
+	margin: 0px;
+	text-align: center;
+}
+
+#footer {
+	margin: 0px;
+	text-align: center;
+	color: #999;
+	display: none;
+}
+
+#mainCas {
+	margin: 0px;
+	background: #3274AD;
+	text-align: center;
+}
+
+.mainCon {
+	text-align: left;
+}

@@ -1,0 +1,81 @@
+.icon-add{
+	background:url('icons-suit-a/add.png') no-repeat center center;
+}
+.icon-archive{
+	background:url('icons-suit-a/archive.png') no-repeat center center;
+}
+.icon-calendar{
+	background:url('icons-suit-a/calendar.png') no-repeat center center;
+}
+.icon-cancel{
+	background:url('icons-suit-a/cancel.png') no-repeat center center;
+}
+.icon-copy{
+	background:url('icons-suit-a/copy.png') no-repeat center center;
+}
+.icon-cut{
+	background:url('icons-suit-a/cut.png') no-repeat center center;
+}
+.icon-check{
+	background:url('icons-suit-a/check.png') no-repeat center center;
+}
+.icon-delete{
+	background:url('icons-suit-a/delete.png') no-repeat center center;
+}
+.icon-disable{
+	background:url('icons-suit-a/disable.png') no-repeat center center;
+}
+.icon-edit{
+	background:url('icons-suit-a/edit.png') no-repeat center center;
+}
+.icon-find{
+	background:url('icons-suit-a/find.png') no-repeat center center;
+}
+.icon-folder{
+	background:url('icons-suit-a/folder.png') no-repeat center center;
+}
+.icon-group{
+	background:url('icons-suit-a/group.png') no-repeat center center;
+}
+.icon-help{
+	background:url('icons-suit-a/help.png') no-repeat center center;
+}
+.icon-information{
+	background:url('icons-suit-a/information.png') no-repeat center center;
+}
+.icon-key{
+	background:url('icons-suit-a/key.png') no-repeat center center;
+}
+.icon-new{
+	background:url('icons-suit-a/new.png') no-repeat center center;
+}
+.icon-paste{
+	background:url('icons-suit-a/paste.png') no-repeat center center;
+}
+.icon-redo{
+	background:url('icons-suit-a/redo.png') no-repeat center center;
+}
+.icon-remove{
+	background:url('icons-suit-a/remove.png') no-repeat center center;
+}
+.icon-save{
+	background:url('icons-suit-a/save.png') no-repeat center center;
+}
+.icon-search{
+	background:url('icons-suit-a/search.png') no-repeat center center;
+}
+.icon-settings{
+	background:url('icons-suit-a/settings.png') no-repeat center center;
+}
+.icon-undo{
+	background:url('icons-suit-a/undo.png') no-repeat center center;
+}
+.icon-user{
+	background:url('icons-suit-a/user.png') no-repeat center center;
+}
+
+
+/*add*/
+.icon-user{background:none;}
+.window div.icon-add{ display:none;}
+.window .icon-edit{ display:none;}

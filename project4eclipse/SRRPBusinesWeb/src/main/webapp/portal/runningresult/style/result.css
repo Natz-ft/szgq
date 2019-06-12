@@ -1,0 +1,912 @@
+@CHARSET "UTF-8";
+/*总的大小以及样式背景色*/
+.mainwraper {
+    width: 992px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.sub-c {
+    background: #fff;
+    /*padding: 15px;*/
+    overflow: hidden;
+    min-height: 570px;
+    border: 1px solid #BCC3CB;
+    background: url(../images/running_result_bg.jpg) no-repeat;
+}
+
+/*第一阶菜单开始*/
+/*初始化*/
+.result-first-menu-init {
+    height: 60px;
+    width: 197px;
+    float: left;
+    text-align: center;
+    line-height: 60px;
+    vertical-align: middle;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #BCC3CB;
+}
+/*初始化时历史数据特殊处理*/
+.result-first-menu-history-init {
+    height: 60px;
+    width: 197px;
+    float: left;
+    text-align: center;
+    line-height: 60px;
+    vertical-align: middle;
+    /*border-right-style: solid;*/
+    /*border-right-width: 1px;*/
+    /*border-right-color: red;*/
+}
+/*点击变换背景色*/
+.result-first-menu {
+    background: #F2F6F6;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #BCC3CB;
+}
+
+.result-first-blank {
+    height: 60px;
+    width: 80px;
+    float: left;
+    /*border: 1px solid #BFC7CB;*/
+    background: #F2F6F6;
+    text-align: center;
+    line-height: 60px;
+    vertical-align: middle;
+}
+
+/*第一阶菜单结束*/
+/*第二阶菜单开始*/
+/*平台用户二级开始*/
+.user-menu {
+    margin-top: 60px;
+    width: 300px;
+    display: inline-block;
+    *display: inline;
+    border: 2px solid #FF5C58;
+    border-radius: 50px;
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.user-menu a:hover {
+    color: #FF5B56;
+}
+
+.platform-company-menu {
+    color: #808080;
+    font-size: 20px;
+    font-weight: normal;
+    margin-left: 30px;
+    width: 120px;
+    float: left;
+}
+
+.platform-org-menu {
+    color: #808080;
+    font-size: 20px;
+    font-weight: normal;
+    width: 120px;
+    float: left;
+}
+
+/*项目需求二级开始*/
+.project-menu {
+    margin-top: 60px;
+    width: 480px;
+    display: inline-block;
+    *display: inline;
+    border: 2px solid #FF5C58;
+    border-radius: 50px;
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.finance-menu-project {
+    color: #808080;
+    font-size: 20px;
+    font-weight: normal;
+    margin-left: 30px;
+    width: 120px;
+    float: left;
+}
+
+.area-menu-project {
+    color: #808080;
+    font-size: 20px;
+    font-weight: normal;
+    width: 120px;
+    float: left;
+}
+
+.industry-menu-project {
+    color: #808080;
+    font-size: 20px;
+    font-weight: normal;
+    width: 80px;
+    float: left;
+}
+
+.project-menu a:hover {
+    color: #FF5B56;
+}
+
+/*项目需求二级结束*/
+/*投融事件二级开始*/
+.event-menu {
+    /*margin-left: 110px;*/
+    margin-top: 60px;
+    width: 480px;
+    /*color: #E43C4B;*/
+    display: inline-block;
+    *display: inline;
+    border: 2px solid #FF5C58;
+    border-radius: 50px;
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.finance-menu-event {
+    color: #808080;
+    font-size: 20px;
+    font-weight: normal;
+    margin-left: 30px;
+    width: 120px;
+    float: left;
+    /*background: #ffffff;*/
+    /*border-right-style: solid;*/
+    /*border-right-width: 1px;*/
+    /*border-right-color: #FF5B56;*/
+}
+
+.area-menu-event {
+    color: #808080;
+    font-size: 20px;
+    font-weight: normal;
+    width: 120px;
+    /*padding-left: 30px;*/
+    float: left;
+    /*background: #ffffff;*/
+    /*border-right-style: solid;*/
+    /*border-right-width: 1px;*/
+    /*border-right-color: #FF5B56;*/
+}
+
+.industry-menu-event {
+    color: #808080;
+    font-size: 20px;
+    font-weight: normal;
+    width: 80px;
+    /*padding-left: 30px;*/
+    float: left;
+}
+
+.event-menu a:hover {
+    color: #FF5B56;
+}
+
+/*投融事件二级结束*/
+/*榜单排名二级开始*/
+.rank-menu {
+    /*margin-left: 110px;*/
+    margin-top: 60px;
+    width: 680px;
+    display: inline-block;
+    *display: inline;
+    border: 2px solid #FF5C58;
+    border-radius: 50px;
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.rank-menu-company {
+    color: #808080;
+    font-size: 20px;
+    font-weight: normal;
+    margin-left: 30px;
+    width: 120px;
+    float: left;
+}
+
+.rank-menu-org {
+    color: #808080;
+    font-size: 20px;
+    font-weight: normal;
+    width: 120px;
+    float: left;
+}
+
+.rank-menu-area {
+    color: #808080;
+    font-size: 20px;
+    font-weight: normal;
+    width: 180px;
+    float: left;
+}
+
+.rank-menu-industry {
+    color: #808080;
+    font-size: 20px;
+    font-weight: normal;
+    width: 180px;
+    float: left;
+}
+
+.rank-menu a:hover {
+    color: #FF5B56;
+}
+
+.result-first-menu-click {
+    background: #ffffff;
+}
+
+.rank-menu-click {
+    background: #FFE9E5;
+}
+
+/*榜单排名二级结束*/
+
+/*第二级菜单结束*/
+
+/*第三阶明细数据开始*/
+/*榜单排名开始*/
+/*榜单排名-企业榜单-明细开始*/
+.rank-menu-company-detail-div {
+    margin-top: 30px;
+    margin-left: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/*标题*/
+.rank-menu-company-detail-title-rank {
+    background: #9FC6EA;
+    padding: 15px;
+    width: 60px;
+    color: #3A7FBF;
+}
+
+.rank-menu-company-detail-title-company {
+    background: #B9D7F6;
+    padding: 15px;
+    width: 430px;
+    color: #3A7FBF;
+}
+
+.rank-menu-company-detail-title-amount {
+    background: #B9D7F6;
+    padding: 15px;
+    width: 150px;
+    color: #3A7FBF;
+}
+
+.rank-menu-company-detail-title-num {
+    background: #B9D7F6;
+    padding: 15px;
+    width: 150px;
+    color: #3A7FBF;
+}
+
+/*数据*/
+.rank-menu-company-detail-data-rank {
+    background: #E6EEFB;
+    padding: 15px;
+    width: 60px;
+    text-align: center;
+}
+
+.rank-menu-company-detail-data-company {
+    background: #F7FAFF;
+    padding: 15px;
+    width: 430px;
+    text-align: center;
+}
+
+.rank-menu-company-detail-data-amount {
+    background: #F7FAFF;
+    padding: 15px;
+    width: 150px;
+    text-align: center;
+}
+
+.rank-menu-company-detail-data-num {
+    background: #F7FAFF;
+    padding: 15px;
+    width: 150px;
+    text-align: center;
+}
+
+/*榜单排名-企业榜单-明细结束*/
+
+/*榜单排名-机构榜单-明细开始*/
+.rank-menu-org-detail-div {
+    margin-top: 30px;
+    margin-left: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/*标题*/
+.rank-menu-org-detail-title-rank {
+    background: #9FC6EA;
+    padding: 15px;
+    width: 60px;
+    color: #3A7FBF;
+}
+
+.rank-menu-org-detail-title-company {
+    background: #B9D7F6;
+    padding: 15px;
+    width: 300px;
+    color: #3A7FBF;
+}
+
+.rank-menu-org-detail-title-amount {
+    background: #B9D7F6;
+    padding: 15px;
+    width: 150px;
+    color: #3A7FBF;
+}
+
+.rank-menu-org-detail-title-num {
+    background: #B9D7F6;
+    padding: 15px;
+    width: 125px;
+    color: #3A7FBF;
+}
+
+.rank-menu-org-detail-title-need {
+    background: #B9D7F6;
+    padding: 15px;
+    width: 125px;
+    color: #3A7FBF;
+}
+
+/*数据*/
+.rank-menu-org-detail-data-rank {
+    background: #E6EEFB;
+    padding: 15px;
+    width: 60px;
+    text-align: center;
+}
+
+.rank-menu-org-detail-data-company {
+    background: #F7FAFF;
+    padding: 15px;
+    width: 300px;
+    text-align: center;
+}
+
+.rank-menu-org-detail-data-amount {
+    background: #F7FAFF;
+    padding: 15px;
+    width: 150px;
+    text-align: center;
+}
+
+.rank-menu-org-detail-data-num {
+    background: #F7FAFF;
+    padding: 15px;
+    width: 125px;
+    text-align: center;
+}
+
+.rank-menu-org-detail-data-need {
+    background: #F7FAFF;
+    padding: 15px;
+    width: 125px;
+    text-align: center;
+}
+
+/*榜单排名-机构榜单-明细结束*/
+
+/*榜单排名-平台企业区域(行业)-明细开始*/
+.rank-menu-areaindustry-detail-div {
+    margin-top: 30px;
+    margin-left: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/*标题*/
+.rank-menu-areaindustry-detail-title-rank {
+    background: #9FC6EA;
+    padding: 15px;
+    width: 60px;
+    color: #3A7FBF;
+}
+
+.rank-menu-areaindustry-detail-title-other {
+    background: #B9D7F6;
+    padding: 15px;
+    width: 380px;
+    color: #3A7FBF;
+}
+.rank-menu-areaindustry-detail-eventtitle-other {
+    background: #B9D7F6;
+    padding: 15px;
+    width: 190px;
+    color: #3A7FBF;
+}
+/*数据*/
+.rank-menu-areaindustry-detail-data-rank {
+    background: #E6EEFB;
+    padding: 15px;
+    width: 60px;
+    text-align: center;
+}
+
+.rank-menu-areaindustry-detail-data-other {
+    background: #F7FAFF;
+    padding: 15px;
+    width: 380px;
+    text-align: center;
+}
+
+
+.rank-menu-areaindustry-detail-eventdata-other {
+    background: #F7FAFF;
+    padding: 15px;
+    width: 190px;
+    text-align: center;
+}
+/*榜单排名-企业榜单-明细结束*/
+/*榜单排名结束*/
+/*历史记录开始*/
+
+/*查询div*/
+.rank-menu-history-query-div {
+    margin-top: 40px;
+    margin-left: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/*查询框样式*/
+.rank-menu-history-query-input {
+    border: 1px solid #8DBDDC;
+    border-radius: 2px;
+    width: 200px;
+    line-height: 25px;
+    font-size: 16px;
+}
+
+.history-btn {
+    margin-left: 10px;
+    background: #00b268;
+    border: 1px solid #00b268;
+    border-radius: 5px;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    font-size: 14px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    width: 50px;
+}
+
+.history-btn:hover {
+    border: 1px solid #bbc2c6;
+    color: #FFFFFF;
+    background: #bbc2c6;
+}
+
+/*第一个表单开始*/
+.rank-menu-history-first-div {
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/*标题*/
+.rank-menu-history-first-title {
+    background: #9FC6EA;
+    padding: 15px;
+    width: 196px;
+    color: #3A7FBF;
+}
+
+/*数据*/
+.rank-menu-history-first-data {
+    background: #E6EEFB;
+    width: 196px;
+    padding: 15px;
+    text-align: center;
+}
+
+/*第一个表单结束*/
+/*第二个表单开始*/
+.rank-menu-history-second-div {
+    margin-top: 10px;
+    margin-left: 30px;
+    width: 437px;
+    float: left;
+    /*margin-bottom: 10px;*/
+    height: 300px;
+    /*margin-right: 50px;*/
+}
+
+/*标题*/
+.rank-menu-history-second-rank {
+    background: #9FC6EA;
+    padding: 15px;
+    width: 87px;
+    color: #3A7FBF;
+}
+
+.rank-menu-history-second-area {
+    background: #B9D7F6;
+    padding: 15px;
+    width: 260px;
+    color: #3A7FBF;
+}
+
+.rank-menu-history-second-amount {
+    background: #B9D7F6;
+    padding: 15px;
+    width: 150px;
+    color: #3A7FBF;
+
+}
+
+/*数据*/
+
+.rank-menu-history-second-rankdata {
+    background: #E6EEFB;
+    min-width: 60px;
+    padding: 15px;
+    text-align: center;
+}
+
+.rank-menu-history-second-data {
+    background: #E6EEFB;
+    padding: 15px;
+    width: 260px;
+    text-align: center;
+}
+
+.rank-menu-history-second-amountdata {
+    background: #E6EEFB;
+    padding: 15px;
+    width: 150px;
+    text-align: center;
+}
+
+/*企业排名*/
+.rank-menu-company-detail-div-history {
+    /*margin-top: 50px;*/
+    margin-left: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/*机构排名*/
+.rank-menu-org-detail-div-history {
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/*历史记录结束*/
+/*第一阶菜单点击变色开始*/
+.first-click-color {
+    color: #005E94;
+    font-weight: bold;
+}
+
+.first-menu-image {
+    height: 40px;
+    width: 40px;
+}
+
+/*第一阶菜单点击变色结束*/
+/*榜单排名数据分割线开始*/
+.rank-dividing-line {
+    border-bottom: 1px solid #DBE2E8;
+}
+
+/*榜单排名数据分割线结束*/
+/*奇数行背景色开始*/
+.rank-uneven-line {
+    background-color: #FFFFFF;
+}
+
+/*奇数行背景色结束*/
+/*历史数据平台企业区域排名平台企业行业排名背景色开始*/
+.history-short-data-background {
+    background-color: #F7FAFF;
+}
+
+.history-short-title-background {
+    background-color: #B9D7F6;
+}
+
+/*历史数据平台企业区域排名平台企业行业排名背景色结束*/
+
+/*项目需求明细样式开始*/
+/*融资轮次统计柱状图*/
+.finance_project_totle_histogram {
+    height: 500px;
+    max-width: 1000px;
+    margin-left: 0px;
+}
+
+/*行业前十倒置柱状图*/
+.rank_project_totle_downhistogram {
+    height: 500px;
+    max-width: 1000px;
+    margin-left: 0px;
+}
+
+/*平台共发布融资需求 融资共发布融资总额*/
+.finance_project_totle_histogram_div {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+/*项目需求明细样式结束*/
+/*投融事件明细样式开始*/
+/*投融事件轮次统计柱状图*/
+.finance_event_totle_histogram {
+    height: 500px;
+    max-width: 1000px;
+    margin-left: 0px;
+}
+
+/*行业前十倒置柱状图*/
+.rank_event_totle_downhistogram {
+    height: 500px;
+    max-width: 1000px;
+    margin-left: 0px;
+}
+
+/*平台共发布投融事件 投融事件共发布投融总额*/
+.finance_event_totle_histogram_div {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+/*投融事件明细样式结束*/
+/*地图样式开始*/
+
+.tip-green {
+    z-index: 1000;
+    text-align: left;
+    border: 2px solid #87d913;
+    border-radius: 6px;
+    padding: 5px 10px;
+    min-width: 50px;
+    max-width: 300px;
+    color: #444;
+    font-weight: bold;
+    background-color: #f0fcdc;
+}
+
+.tip-green .tip-inner {
+    font: 12px/14px Microsoft YaHei, SimSun;
+    font-weight: normal;
+    text-align: center;
+    /* _width: 260px; */
+}
+
+div.tip-green {
+    position: absolute;
+}
+
+div.tip-green div.tip-arrow {
+    font: 1px/1px sans-serif;
+    overflow: hidden;
+    position: absolute;
+    visibility: hidden;
+}
+
+/* Configure an arrow image - the script will automatically position it on the correct side of the tip */
+.tip-green .tip-arrow-top {
+    margin-top: -10px;
+    margin-left: 6px;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background: url(../images/tip-green_arrows.gif) no-repeat;
+}
+
+.tip-green .tip-arrow-right {
+    margin-top: 6px;
+    margin-left: 0;
+    top: 0;
+    left: 100%;
+    width: 10px;
+    height: 10px;
+    background: url(../images/tip-green_arrows.gif) no-repeat -10px 0;
+}
+
+.tip-green .tip-arrow-bottom {
+    margin-top: 0;
+    margin-left: 6px;
+    top: 100%;
+    left: 18px;
+    width: 10px;
+    height: 10px;
+    background: url(../images/tip-green_arrows.gif) no-repeat -20px 0;
+}
+
+.tip-green .tip-arrow-left {
+    margin-top: 6px;
+    margin-left: -10px;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background: url(../images/tip-green_arrows.gif) no-repeat -30px 0;
+}
+
+.tip-green .tip-inner p span {
+    color: #ff0000;
+    margin-right: 2px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*页面TIP 结束*/
+.tab-p {
+    background: #f3f3f3;
+    margin-left: 0;
+}
+
+.c-o {
+    height: 47px;
+    margin-left: 10px;
+    position: relative;
+}
+
+.right-p .c-o {
+    height: 42px;
+}
+
+.right-p .c-o a {
+    background-position: 0 -58px;
+}
+
+.tab-line {
+    border-radius: 6px;
+    border-top: 10px solid #9d192b;
+}
+
+.c-o a em, .m-e, .m-f, .m-g, .m-h, .m-t {
+    display: inline-block;
+    width: 30px;
+    height: 25px;
+    vertical-align: middle;
+    /*background: url(../images/map_icon.png) no-repeat;*/
+    background: url(../images/guapai.png) no-repeat;
+    margin-right: 3px;
+    /* margin-left:-5px; */
+}
+
+.s-header a .m-e, .s-header a .m-f, .s-header a .m-g, .s-header a .m-h {
+    height: 28px;
+    margin-right: 3px;
+}
+
+.m-t {
+    width: 53px;
+    height: 44px;
+    /*background-position: left -406px;*/
+    margin-right: 5px;
+}
+
+.mapcontent {
+    border-radius: 6px;
+    overflow: hidden;
+    /*background: #fff url(../images/chartbg.jpg) bottom left repeat-x;*/
+    padding-bottom: 10px;
+}
+
+.total-txt {
+    margin-left: 30px;
+}
+
+.total-txt span {
+    color: red;
+    font-size: 16px;
+}
+
+.mapsite {
+    width: 100%;
+    height: 624px;
+    background: url(../images/map.gif) top center no-repeat;
+    position: relative;
+}
+
+@-webkit-keyframes fadeInRight2 {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(30%, 0, 0);
+        transform: translate3d(30%, 0, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fadeInRight2 {
+    0% {
+        opacity: 0;
+        transform: translate3d(30%, 0, 0);
+        transform: translate3d(30%, 0, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* .mapsite .tip-green{opacity:0;} */
+.mapsite div.tip-green:nth-child(1) {
+    -webkit-animation: fadeInRight2 0.5s 0.2s forwards;
+    animation: fadeInRight2 0.5s 0.2s forwards;
+}
+
+.mapsite div.tip-green:nth-child(2) {
+    -webkit-animation: fadeInRight2 0.5s 0.3s forwards;
+    animation: fadeInRight2 0.5s 0.3s forwards;
+}
+
+.mapsite div.tip-green:nth-child(3) {
+    -webkit-animation: fadeInRight2 0.5s 0.4s forwards;
+    animation: fadeInRight2 0.5s 0.4s forwards;
+}
+
+.mapsite div.tip-green:nth-child(4) {
+    -webkit-animation: fadeInRight2 0.5s 0.5s forwards;
+    animation: fadeInRight2 0.5s 0.5s forwards;
+}
+
+.mapsite div.tip-green:nth-child(5) {
+    -webkit-animation: fadeInRight2 0.5s 0.6s forwards;
+    animation: fadeInRight2 0.5s 0.6s forwards;
+}
+
+.mapsite div.tip-green:nth-child(6) {
+    -webkit-animation: fadeInRight2 0.5s 0.7s forwards;
+    animation: fadeInRight2 0.5s 0.7s forwards;
+}
+
+.mapsite div.tip-green:nth-child(7) {
+    -webkit-animation: fadeInRight2 0.5s 0.8s forwards;
+    animation: fadeInRight2 0.5s 0.8s forwards;
+}
+
+.mapsite div.tip-green:nth-child(8) {
+    -webkit-animation: fadeInRight2 0.5s 0.9s forwards;
+    animation: fadeInRight2 0.5s 0.9s forwards;
+}
+
+.mapsite div.tip-green:nth-child(9) {
+    -webkit-animation: fadeInRight2 0.5s 1s forwards;
+    animation: fadeInRight2 0.5s 1s forwards;
+}
+
+.mapsite div.tip-green:nth-child(10) {
+    -webkit-animation: fadeInRight2 0.5s 1.1s forwards;
+    animation: fadeInRight2 0.5s 1.1s forwards;
+}
+
+/*地图样式结束*/
+/*三级菜单点击变色*/
+.third-menu-click {
+    color: #F22B2B;
+}

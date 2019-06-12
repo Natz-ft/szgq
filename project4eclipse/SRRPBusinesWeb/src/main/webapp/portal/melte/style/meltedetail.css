@@ -1,0 +1,295 @@
+/*投融事件明细样式*/
+/*覆盖top样式开始*/
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #444;
+}
+
+a:focus {
+    outline: none;
+}
+
+a:hover, a:active {
+    outline: none;
+    text-decoration: none;
+}
+
+/*覆盖top样式结束*/
+/*设置页面布局开始*/
+.wapper {
+    width: 100%;
+    position: relative;
+}
+
+.mainwraper {
+    width: 990px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/*设置页面布局结束*/
+/*页面标题样式开始*/
+.sub-c ul li.pro-list {
+    border-bottom: none;
+}
+
+.sub-c ul li.pro-list h3 {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.sub-c > .pro-list {
+    padding: 0 10px 10px 0;
+}
+
+.pro-list {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #d2d2d2;
+    padding: 20px 10px 10px 0;
+}
+
+.pro-list h3 {
+    color: #05b;
+    font-size: 16px;
+    font-weight: 700;
+    /* margin-bottom: 20px; */
+}
+
+.pro-list {
+    padding: 5px 0;
+}
+
+/*页面标题样式结束*/
+/*详情数据样式开始*/
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.detail-table tbody tr td {
+    border-bottom: 1px dotted #c4c4c4;
+    padding: 10px 0;
+    word-break: break-all;
+}
+
+.detail-table tbody tr td label {
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 2px;
+}
+
+.detail-table tbody tr td input {
+    margin-right: 5px;
+}
+
+.detail-table tbody tr td .ui-combobox input {
+    margin-right: 0;
+}
+
+.detail-table tbody tr td input.default-input {
+    width: 230px;
+}
+
+.detail-table tbody tr td.tip {
+    color: #ff0000;
+}
+
+.detail-table tbody tr td.meltedetailtitle {
+    font-size: 14px;
+    width: 1%;
+    text-align: left;
+    color: #000;
+    font-weight: bold;
+    white-space: nowrap;
+    padding-left: 50px;
+}
+
+.detail-table tbody tr td.meltedetailinvestor {
+    font-size: 18px;
+    width: 1%;
+    text-align: left;
+    color: #000;
+    font-weight: bold;
+    white-space: nowrap;
+    /*padding-left: 50px;*/
+    border-bottom: 0px dotted #c4c4c4;
+    padding-top: 40px;
+    word-break: break-all;
+}
+
+.detail-table tbody tr td.txt {
+    vertical-align: middle;
+}
+
+.sub-c {
+    background: #fff;
+    padding: 15px;
+    overflow: hidden;
+    min-height: 350px;
+}
+
+.sub-c h1 {
+    color: #0068b7;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px dotted #ccc;
+}
+
+/*详情数据样式结束*/
+/*投资流程开始*/
+.meltedetail-invest {
+    float: left;
+    /*margin-left: 5%;*/
+    color: #ffffff;
+    *display: inline;
+    width: 150px;
+    height: auto;
+    text-align: center; /*数据内容居中展示*/
+    background-color: #428de9;
+    border-radius: 10px;
+    line-height: 30px; /*设置文字行距等于高度height用于上下居中*/
+    padding: 10px 10px;
+}
+
+.meltedetail-byinvest {
+    margin-top: auto;
+    float: left;
+    margin-left: 40%;
+    color: #ffffff;
+    *display: inline;
+    width: 150px;
+    height: auto;
+    text-align: center; /*数据内容居中展示*/
+    background-color: #FF634D;
+    border-radius: 10px;
+    line-height: 30px; /*设置文字行距等于高度height用于上下居中*/
+    padding: 10px 10px;
+}
+
+.meltedetail-datapoint {
+    width: 60%;
+    height: 100px;
+    margin-left: 10%;
+    border-right: 1px dashed #040304;
+    border-left: 1px dashed #040304;
+    border-bottom: 1px dashed #040304;
+}
+
+.meltedetail-money {
+    margin-top: 110px;
+    /*margin-left: 47%;*/
+    margin-left: -365px;
+    width: 10px;
+}
+
+.meltedetail-money img {
+    /*margin-top: -20px;*/
+    /*width: 80px;*/
+    /*height: 70px;*/
+}
+
+.meltedetail-moneydata {
+    margin-top: 30px;
+    margin-left: 32%;
+}
+
+.meltedetail-moneydata span {
+    font-size: 26px;
+    color: red;
+    font-weight: bold; /*字体加粗*/
+}
+
+.meltedetail-datapointsymbol1 {
+    margin-top: -10px;
+    margin-left: 20%;
+    float: left;
+    border-width: 10px;
+    border-style: solid;
+    border-left-color: #eedbc2;
+    border-right-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+
+.meltedetail-datapointsymbol2 {
+    margin-top: -10px;
+    margin-left: 35%;
+    float: left;
+    border-width: 10px;
+    border-style: solid;
+    border-left-color: #eedbc2;
+    border-right-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+
+.meltedetail-datapointexplain {
+    margin-top: -30px;
+    margin-left: 37%;
+    float: left;
+    font-size: 14px;
+    color: #040304;
+    font-weight: bold; /*字体加粗*/
+    height: 45px;
+    width: 45px;
+    text-align: center;
+    line-height: 45px; /*设置文字行距等于高度height用于上下居中*/
+    background-position: 45px 45px;
+    background-color: #efdbc2;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+/*投资流程结束*/
+
+/*投资方信息开始*/
+.meltedetail-investor {
+    width: 100%;
+    background: #f1fdff;
+    height: 50px;
+}
+
+.border-bottom-line {
+    border: 1px solid;
+    border-left-color: #FFFFFF;
+    border-right-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+    border-bottom-color: #e7e5ea;
+}
+
+.meltedetail-investorstylefirst {
+    margin-top: 16px;
+    /*margin-left: 10%;*/
+    display: inline-block;
+    *display: inline;
+    width: 50%;
+    text-align: center; /*数据内容居中展示*/
+
+}
+
+.meltedetail-investorstyle {
+    margin-top: 16px;
+    /*margin-left: 0%;*/
+    display: inline-block;
+    *display: inline;
+    width: 15%;
+    text-align: center; /*数据内容居中展示*/
+}
+
+.meltedetail-investordata {
+    width: 100%;
+    height: 60px;
+}
+
+.meltedetail-investor-border {
+    border: 1px solid #bdc4ca;
+
+}
+
+/*投资方信息结束*/

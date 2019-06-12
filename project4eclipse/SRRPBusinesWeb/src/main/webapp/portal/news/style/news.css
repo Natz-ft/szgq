@@ -1,0 +1,181 @@
+@charset "utf-8";
+/*覆盖top中的相同样式*/
+a {
+    color: #000000;
+}
+
+li {
+    list-style: none;
+}
+
+/*设置整体大小开始*/
+.mainwraper {
+    width: 990px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/*设置整体大小结束*/
+/*当前位置开始说明等样式开始*/
+
+/*当前位置开始说明等样式结束*/
+/*页面主题样式开始*/
+.sub-c {
+    background: #fff;
+    border: 1px solid #ccc;
+    overflow: hidden;
+}
+
+/*五张图片位置开始*/
+.newstable {
+    width: 100%;
+    border: 1px solid #F3F3F3;
+}
+
+.td-left {
+    padding: 6px 0;
+    width: 50%;
+}
+
+.td-center {
+    padding: 0 2px;
+    width: 25%;
+}
+
+.td-right {
+    padding: 0 2px;
+    width: 25%;
+}
+
+/*重置图片占用td的宽度的百分比*/
+.img {
+    width: 100%;
+}
+
+/*图片上文字样式*/
+.imgfont {
+    margin-top: -30px;
+    margin-left: 20px;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+/*五张图片位置结束*/
+/*行业动态与政策指南开始*/
+/*行业动态*/
+.industry-dynamic {
+    background: #E8F6FF;
+    border: 1px solid #8DBDDC;
+    color: #136075;
+    /*border-radio: 10px;*/
+    display: inline-block;
+    font-size: 14px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    width: 87px;
+}
+
+.industry-dynamic:hover {
+    background: #0099EE;
+    border: 1px solid #0099EE;
+    color: #ffffff;
+}
+
+.industry-dynamic-click {
+    background: #0099EE;
+    border: 1px solid #0099EE;
+    color: #ffffff;
+    /*border-radio: 10px;*/
+    display: inline-block;
+    font-size: 14px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    width: 87px;
+
+}
+
+/*政策指南*/
+.policy-guide {
+    background: #E8F6FF;
+    border: 1px solid #8DBDDC;
+    color: #136075;
+    /*border-radio: 10px;*/
+    display: inline-block;
+    font-size: 14px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    width: 87px;
+}
+
+.policy-guide-click {
+    background: #0099EE;
+    border: 1px solid #0099EE;
+    color: #ffffff;
+    /*border-radio: 10px;*/
+    display: inline-block;
+    font-size: 14px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    width: 87px;
+}
+
+.policy-guide:hover {
+    background: #0099EE;
+    border: 1px solid #0099EE;
+    color: #ffffff;
+}
+
+/*行业动态与政策指南结束*/
+/*列表开始*/
+.news-left-tr {
+    height: 50px;
+    width: 90%;
+    border-right: 1px solid #E4E6EA;
+}
+
+.news-right-tr {
+    margin-top: -50px;
+    margin-left: 90%;
+    height: 50px;
+    width: 10%;
+    text-align: center; /*数据内容居中展示*/
+    line-height: 50px;
+}
+
+/*实体字样式开始*/
+.every-news-content {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    display: inline-block;
+    *display: inline;
+    width: 100%;
+    text-align: left; /*数据内容居中展示*/
+    float: left;
+}
+
+/*实体字样式结束*/
+/*虚化字样式开始*/
+.every-news-explain {
+    font-size: 12px;
+    color: #CFCBC6;
+    display: inline-block;
+    *display: inline;
+    width: 100%;
+    text-align: left; /*数据内容居中展示*/
+}
+
+/*虚化字样式结束*/
+/*下划线开始*/
+.every-divide-line {
+    width: 100%;
+    border-bottom: 1px solid #E4E6EA;
+}
+
+/*下划线结束*/
+/*页面主题样式结束*/

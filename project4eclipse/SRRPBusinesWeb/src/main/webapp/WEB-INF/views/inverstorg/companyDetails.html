@@ -1,0 +1,262 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>企业详情信息</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/details.css">
+    <style>
+        .details-company-profile {
+            width: 70%;
+            margin: 0 auto;
+        }
+        .details-company-profile p {
+            color: #0D4F92;
+            float: left;
+            margin-right: 2%;
+            line-height: 34px;
+        }
+
+        .details-company-profile span {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<input type="hidden" id="companyName" value='${companyBase.name}'/>
+<input type="hidden" id="code" value='${companyBase.code}'/>
+<div class="boxWrap">
+    <div class="boxTitle"><span>${companyBase.enterpriseNameShow}</span></div>
+    <div class="boxContent">
+        <div class="detailsCon" style="margin-top: 20px;">
+            <div class="detail-title-name"><span>基本信息</span></div>
+            <div class="detailsTxt clearfix">
+<!--                 <div class="detailsTxt clearfix" style="margin-left: 0px;width: 650px;"> -->
+	                <p>证件类型：<span>${companyBase.codetypeDicname}</span></p>
+	                <p>证件号码：<span>${companyBase.codeShow}</span></p>
+<!-- 	                <p>联系人姓名：<span>${companyBase.contacName}</span></p> -->
+<!--                     <p>联系人手机号：<span>${companyBase.contacCal}</span></p> -->
+	                <p>注册资本(万)：<span><fmt:formatNumber value="${companyBase.regcapital}" pattern="####.##"/>&nbsp;${companyBase.regCurrencyDicname}</span></p>
+	                <p>注册时间：<span>${companyBase.redate}</span></p>
+	                <p>所属区域：<span>${companyBase.reareaDicname}</span></p>
+<!-- 	        </div> -->
+                    <p style="width:100%;">注册地址：<span>${companyBase.registArea}</span></p> 
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>联系方式</span></div>
+            <div class="detailsTxt clearfix">
+                <p>法定代表人姓名：<span>${companyBase.legalName}</span></p>
+                <p>法定代表人手机号：<span>${companyBase.legalCal}</span></p>
+                <p>股权事宜联系人姓名：<span>${companyBase.stockName}</span></p>
+                <p>股权事宜联系人手机号：<span>${companyBase.stockCal}</span></p>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>补充信息</span></div>
+            <div class="detailsTxt clearfix">
+                <p>行业分类：<span>
+              ${companyBaseSupplement.industryStr}
+                </span></p>
+                <p>实收资本(万)：<span><c:if test="${!empty companyBaseSupplement.paidincapital && companyBaseSupplement.paidincapital!=0}"><fmt:formatNumber value='${companyBaseSupplement.paidincapital}'
+                                                pattern="#####.###"/>&nbsp;${companyBaseSupplement.currencyDicname}</c:if></span>
+                </p>
+                <p>是否有股权融资意向:
+	                <span>
+		              <c:choose>  
+		                  <c:when test='${companyBaseSupplement.iSEgggenerator=="0"}'>是</c:when> 
+		                  <c:otherwise>暂不确定</c:otherwise>
+		               </c:choose>
+	                </span></p>
+                <p>是否获得过股权投资:<span>${companyBaseSupplement.iSHiTechParkDicname}</span></p>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>股东信息</span></div>
+            <div class="detailsTxt detailsGrid" style="margin-left: 11%;width:73%;">
+                <table id="stockholderGrid" lay-filter="test"></table>
+            </div>
+        </div>
+        <c:if test="${objections !='[]' }">
+	        <div class="detailsCon clearfix">
+		            <div class="detail-title-name"><span>工商异议</span></div>
+		            <div class="detailsTxt detailsGrid"  style="margin-left: 11%;width:73%;">
+		                <table id="objectionGrid" lay-filter="objectionFilter"></table>
+		            </div>
+	        </div>
+	     </c:if>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>团队成员</span></div>
+            <div class="detailsTxt detailsGrid" style="margin-left: 11%;width:73%;">
+                <table id="memberGrid" lay-filter="memberFilter"></table>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name" ><span>主要技术产品</span></div>
+            <div class="detailsTxt detailsGrid" style="margin-left: 11%;width:73%;">
+                <table id="productGrid" lay-filter="test"></table>
+            </div>
+        </div>
+        <div class="buttonWrap">
+            <input type="button" class="layui-btn" id="demandBtn" value="查看征信报告"/>
+            <input type="button" class="layui-btn" id="closeBtn" value="关  闭"/>
+        </div>
+    </div>
+</div>
+<!-- 主要技术产品证明材料的下载 -->
+<script type="text/html" id="productFileDownload">
+    <a href="{{d.productFileUrl}}" download="{{d.productFileName}}" style="color:#0D4F92;cursor: pointer;">{{d.productFileName}}</a>
+</script>
+<script type="text/html" id="objectionFileDownload">
+{{# if(d.showFlag =='1'){ }}
+   <a href="{{d.objectionfilePath}}" download="{{d.objectionFileName}}" style="color:#0D4F92;cursor: pointer;">{{d.objectionFileName}}</a>
+{{# } else { }}
+   <a  onclick="showdetal();"  style="color:#0D4F92;cursor: pointer;">{{d.objectionFileName}}</a>
+{{# } }}
+    
+</script>
+<script>
+var has_showModalDialog = !!window.showModalDialog;//定义一个全局变量判定是否有原生showModalDialog方法  
+if(!has_showModalDialog &&!!(window.opener)){         
+    window.onbeforeunload=function(){  
+        window.opener.hasOpenWindow = false;        //弹窗关闭时告诉opener：它子窗口已经关闭  
+    }  
+}  
+//定义window.showModalDialog如果它不存在  
+if(window.showModalDialog == undefined){  
+    window.showModalDialog = function(url,mixedVar,features){  
+        if(mixedVar) var mixedVar = mixedVar;  
+        //因window.showmodaldialog 与 window.open 参数不一样，所以封装的时候用正则去格式化一下参数  
+        if(features) var features = features.replace(/(dialog)|(px)/ig,"").replace(/;/g,',').replace(/\:/g,"=");  
+        var left = (window.screen.width - parseInt(features.match(/width[\s]*=[\s]*([\d]+)/i)[1]))/2;  
+    	var top = (window.screen.height - parseInt(features.match(/height[\s]*=[\s]*([\d]+)/i)[1]))/2;  
+        window.myNewWindow = window.open(url,"_blank",features);  
+    }  
+}
+    $(function () {
+        var companyName = $("#companyName").val();
+        var code = $("#code").val();
+        //数据表格
+        var table = layui.table;
+        var flag='${flag}';
+        var showFlag='${showFlag}';
+        if(flag=='true'){
+        	var showFlag='1';
+        }
+        // 赋值数据实际使用为后台获取数据
+        //从后台获取的股东信息(json形式)
+        var stockholderData = ${companyStockholders};
+        //从后台获取的产品信息(json形式)
+        var productData = ${companyProducts};
+        var objectionData=${objections};
+        //获取团队成员的数据
+        var membersData = ${companyMembers};
+        //遍历attachmentsData json数组
+        table.render({
+            id: 'stockholderGrid'
+            , elem: '#stockholderGrid' //指定原始表格元素选择器（推荐id选择器）
+//             , width: 894
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5
+            , data: stockholderData
+            , cols: [[ //标题栏
+                {field: 'holderName', title: '股东名称', align: 'center', width: '33%'}
+                , {field: 'holderTypeDicname', title: '股东类型', align: 'center', width: '22%'}
+                , {field: 'contributionStr', title: '出资额(万)', align: 'center', width: '22%'}
+                , {field: 'ratio', title: '出资比例(%)', align: 'center', width: '19%'}
+            ]]
+        });
+        table.render({
+            id: 'productGrid'
+            , elem: '#productGrid' //指定原始表格元素选择器（推荐id选择器）
+//             , width: 894
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5
+            , data: productData
+            , cols: [[ //标题栏
+                {field: 'name', title: '产品名称', align: 'center', width: '23%'}
+                , {field: 'incomeRatio', title: '产品去年收入(万)', align: 'center', width: '18%'}
+                , {field: 'nativeleadDicname', title: '是否拥有专利或著作权', align: 'center', width: '18%'}
+                , {field: 'nationalleadDicname', title: '是否获得过奖项或政府评价等', align: 'center', width: '21%'}
+                , { title: '技术产品证明材料', align: 'center', width: '26%',toolbar : '#productFileDownload'}
+            ]]
+        });
+        table.render({
+            id: 'memberGrid'
+            , elem: '#memberGrid' //指定原始表格元素选择器（推荐id选择器）
+//             , width: 894
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5
+            , data: membersData
+            , cols: [[ //标题栏
+                {field: 'memberName', title: '团队成员姓名', align: 'center', width: '20%'}
+                , {field: 'port', title: '团队成员职务', align: 'center', width: '20%'}
+                , {field: 'introduction', title: '资历介绍', align: 'center', width:'56%' }
+            ]]
+        });
+        table.render({
+            id: 'objectionGrid'
+            , elem: '#objectionGrid' //指定原始表格元素选择器（推荐id选择器）
+//             , width: 894
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5
+            , data: objectionData
+            , cols : [ [ //标题栏
+                         {//fileName
+                         	field : 'objectionTypeStr',
+                             title : '异议类型',
+                             align:'center',
+                             width : '20%',
+                         },
+                         {
+                             field : 'objection',
+                             title : '异议内容',
+                             align:'center',
+                             width : '20%'
+                         },
+                         {
+                             field : '',
+                             title : '证明材料',
+                             align:'center',
+                             width : '56%',
+                             toolbar : '#objectionFileDownload'
+                         }
+                     ] ]
+        });
+        //查看征信报告
+        $("#demandBtn").on("click", function () {
+        	     var codetype = "${companyBase.codetype}";
+        	     var code = '${companyBase.code}';
+                 codetype=encodeURIComponent(encrypt(codetype));
+    			code= encodeURIComponent(encrypt(code));
+    			if(showFlag=='0'){
+        			var url="/SRRPBusinesWeb/creditscore/queryReport?certtype=" + codetype + "&certno=" + code + "&name='" + companyName + "'";
+    			}else{
+        			var url="/SRRPBusinesWeb/creditscore/queryReport?certtype=" + codetype + "&certno=" + code +"&showFlag="+ showFlag + "&name='" + companyName + "'";
+    			}
+            url = encodeURI(encodeURI(url));
+      	  window.showModalDialog(url ,"1","dialogWidth:"+window.screen.width+"px;dialogHeight:"+window.screen.height+"px;");
+        });
+        $("#closeBtn").on("click", function () {
+            parent.layer.closeAll();
+        });
+        
+    });
+    function showdetal(){
+		layer.msg('企业未披露信息，暂且不能查看',{time:2500});
+	}
+</script>
+</body>
+</html>

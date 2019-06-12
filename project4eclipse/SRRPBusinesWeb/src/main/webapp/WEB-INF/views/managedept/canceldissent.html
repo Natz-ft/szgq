@@ -1,0 +1,190 @@
+
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <title>投资</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+    <style>
+          .boxWrap {
+            width: 896px;
+            margin: 0;
+          }
+          
+
+          .layui-input, .layui-select, .layui-textarea{
+           border:1px solid #8DBDDC;
+           border-radius: 5px;
+           height: 22px;
+		   line-height: 22px;
+           margin-left: 3px;
+           margin-top: 7px;
+          }
+
+          .boxWrap .formWrap {
+/*             padding: 0px 20px; */
+          }
+
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+        <form class="layui-form">
+    <div class="formWrap">
+            <input type="hidden" name ="cancelFilePath" id ="cancelFilePath" value="">
+			<input type="hidden" name ="cancelFileName" id ="cancelFileName" value="">
+		  
+           <div class="form-title" style="width: 21%;margin-top: 2%;margin-left: -1%;">
+				  <span class="star" style="padding: 0 0;color: #e4398c;">*</span >  <span style="padding: 0 0;">解除异议原因:</span>
+			</div>
+			<div class="layui-input-block">
+                   <textarea name="cancelContent" id="cancelContent" style="width:87%;height:150px;margin-left:1%;margin-top: -3%;" required lay-verify="cancelContent" class="layui-textarea">${investor.description}</textarea>
+			</div>
+			<div class="form-title" style="margin-top: 3%; margin-left: -1%;">
+					<span>上传证明材料:</span>
+				</div>
+				<div class="layui-input-block"
+					style="margin-left: 2%; margin-top: -3%;">
+					<div class="layui-input-block clearfix" style="margin-left: 14%">
+						<button type="button"
+							class="layui-btn layui-btn-small uploadButton"
+							id="dissentUploadBtn">
+							<i class="layui-icon">&#xe67c;</i>上传文件
+						</button>
+					     <a  id="dissentUploadFile" name = "dissentUploadFile" download="${dissent.cancelFileName}" style="cursor:pointer;font-weight:bold;color:#0D4F92;text-decoration: underline;" href="${dissent.cancelFilePath}">${dissent.cancelFileName}</a>
+						 <a  id="deleteFile" name = "deleteFile" onclick="deleteFile();return false;" href="void(0);" style="cursor:pointer;font-weight:bold;color:#0D4F92;text-decoration: underline;" target="_blank" ></a>
+						 	
+					</div>
+				</div>
+		</div>  
+<!--             <div class="layui-form-item"> -->
+                <div class="layui-input-block buttonWrap">
+                    <button class="layui-btn submitBtn" lay-submit lay-filter="saveCancelContent">&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;交&nbsp;&nbsp;</button>
+                    <button type="button" lay-close class="layui-btn closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>
+                </div>
+<!--             </div> -->
+        </form>
+    </div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script>
+function deleteFile(){
+    $("#cancelFilePath").attr("value", "");
+    $("#cancelFileName").attr("value", "");
+    $("#dissentUploadFile").text("")
+    $("#dissentUploadFile").attr("href","#");
+    $('#dissentUploadFile').attr('download',"");
+    $("#deleteFile").text("");
+}
+    $(function () {
+    	var table = layui.table;
+        var objectionData;
+    	//调用日期控件
+        var form;
+         layui.use('form', function () {
+        	form = layui.form;
+        	 var lock=true;
+        	 
+        	 form.on('submit(saveCancelContent)', function (data) {
+           	  // 表单验证
+            	  var cancelContent = data.field.cancelContent;
+            	  var cancelFilePath = data.field.cancelFilePath;
+            	  var cancelFileName = data.field.cancelFileName;
+            	  var dissentId="${dissent.dissentId}";
+            	 if(cancelContent==""||cancelContent==null||cancelContent==undefined){
+            		 layer.msg("解除原因不能为空");
+            		 return false;
+            	  }else{
+            		 if(cancelContent.length>500){
+            			layer.msg("解除原因不能超过500个字符");
+               		 return false;
+            		 }
+            	  }
+            	$.ajax({
+                   type: "post",
+                   async: false,
+                   url: "/SRRPBusinesWeb/dissent/updateCancelDissent",
+                   data: {
+                       "cancelContent": cancelContent,"dissentId":dissentId,"cancelFileName":cancelFileName,"cancelFilePath":cancelFilePath
+                   },// 你的formid
+                   success: function (data) {
+                       data = JSON.parse(data);
+                       if (data.code=='00000') {
+                   		layer.alert('提交成功', function () {
+                   			parent.parent.location.reload();
+                   			 parent.layer.closeAll();
+                   			window.parent.closeSelf();
+                   			
+                           });
+                       }else {
+                           layer.alert('提交失败', {
+                               title: '最终的提交信息'
+                           })
+                           return false;
+                       }	
+                      
+                   },error:function(data){
+                   }
+               });
+            	 return false;  	 
+      });
+   });
+         // 上传文件控件
+         var upload = layui.upload;
+         //指定允许上传的主要技术产品证明材料
+         var  creditAuthUpload=upload.render({
+              elem: '#dissentUploadBtn'//绑定元素
+              //, exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf'
+              ,data : {"fileType" : 'zmcl'}//文件类型为披露材料
+              , url: '/SRRPBusinesWeb/index/fileUpload' //上传接口
+              , accept: 'file' //普通文件
+              , auto: false
+              , size: 1024 * 128  //设置文件上传的大小最大为128M
+              , before: function () {
+                  $("#dissentUploadFile").text("文件上传中请稍候…………");
+                  document.getElementById("dissentUploadFile").style.color = '#FF6838';
+              }
+              ,choose: function(obj){
+                  //将每次选择的文件追加到文件队列
+                  var files = obj.pushFile();
+                  //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+                  obj.preview(function(index, file, result){
+                    if(file.size == 0){
+                  	  $("#dissentUploadFile").text("请上传非空文件！");
+                  	  document.getElementById("dissentUploadFile").style.color = '#FF6838';
+                    }else{
+                  	  obj.upload(index, file);
+                    }
+                  });
+                }
+              , done: function (res) {
+                  if (res.code == 0) {
+                      document.getElementById("dissentUploadFile").style.color = 'black';
+                      $("#cancelFilePath").attr("value", res.url);
+                      $("#cancelFileName").attr("value", res.name);
+                      $("#dissentUploadFile").text(res.name)
+                      $("#dissentUploadFile").attr("href",res.url);
+                      $('#dissentUploadFile').attr('download',res.name);
+                      
+                      $("#deleteFile").text("删除");
+
+                  }else{
+                  	$("#dissentUploadFile").text("请上传非空文件！");
+                  }
+              }
+          });
+     
+        $(".closeBtn").on("click", function () {
+        	 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+             parent.layer.close(index); //关闭layer(关闭当前窗口)
+        })
+    })
+</script>
+</body>
+</html>

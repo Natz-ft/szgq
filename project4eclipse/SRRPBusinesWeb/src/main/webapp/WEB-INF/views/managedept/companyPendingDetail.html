@@ -1,0 +1,535 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+<meta name="renderer" content="webkit" />  
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>企业信息</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/details.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+    <style>
+        .page {
+            text-align: center;
+        }
+
+        .page span {
+            background-color: #eee;
+        }
+        .details-company-profile {
+            width: 60%;
+            margin: 0 auto 0 15%;
+        }
+        .details-company-profile p {
+            color: #0D4F92;
+            float: left;
+            margin-right: 2%;
+            line-height: 34px;
+        }
+        .audit-oper {
+            margin-left: -5px;
+        }
+        .details-company-profile span {
+            color: #333;
+        }
+        .detailsTxt p {
+	       max-width: 100%;
+      }
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<form class="layui-form" action="">
+<div class="boxWrap">
+    <p class="boxTitle">
+<!--     enterNameFlag -->
+       <c:choose>  
+          <c:when test='${companyBasePending.flagMap.enterNameFlag=="1"}'><span style="color:red;"><strong>${companyBasePending.name}(修改)</strong></span></c:when> 
+          <c:otherwise><span>${companyBasePending.name}</span></c:otherwise>
+       </c:choose>
+    </p>
+    
+    <div class="boxContent">
+    <div class="detailsCon">
+        <div class="detail-title-name"><span>基本信息</span></div>
+         <div class="detailsTxt clearfix">
+            <p>
+              <c:choose>  
+                  <c:when test='${companyBasePending.flagMap.codetypeFlag=="1"}'> 证件类型：<span style="color:red;"><strong>${companyBasePending.codetypeDicname}(修改)</strong></span></c:when> 
+                  <c:otherwise> 证件类型：<span>${companyBasePending.codetypeDicname}</span></c:otherwise>
+              </c:choose>        
+            </p>
+            <p style="width: 45%">
+              <c:choose>  
+                  <c:when test='${companyBasePending.flagMap.codeFlag=="1"}'>  证件号码 ：<span style="color:red;"><strong>${companyBasePending.code}(修改)</strong></span></c:when> 
+                  <c:otherwise> 证件号码 ： <span> ${companyBasePending.code}</span></c:otherwise>
+              </c:choose>
+            </p>
+<!--             <p>联系人姓名：<span>${companyBasePending.contacName}</span></p> -->
+<!--             <p> 联系人手机号： <span>${companyBasePending.contacCal}</span> </p>   -->
+            <p>
+              <c:choose>  
+                  <c:when test='${companyBasePending.flagMap.regcapitalFlag=="1"}'>  注册资本 (万)：<span style="color:red;"><strong><fmt:formatNumber value="${companyBasePending.regcapital}" pattern="####.##"/>${companyBasePending.regCurrencyDicname}(修改)</strong></span></c:when> 
+                  <c:otherwise>  注册资本(万)：<span><fmt:formatNumber value="${companyBasePending.regcapital}" pattern="####.##"/>&nbsp;${companyBasePending.regCurrencyDicname}</span></c:otherwise>
+              </c:choose>
+            </p>
+            <p>
+              <c:choose>  
+                  <c:when test='${companyBasePending.flagMap.redateFlag=="1"}'> 成立时间 ：<span style="color:red;"><strong>${companyBasePending.redateDicName}(修改)</strong></span></c:when> 
+                  <c:otherwise> 成立时间 ：<span>${companyBasePending.redateDicName}</span></c:otherwise>
+              </c:choose>          
+            </p>
+            <p>
+              <c:choose>  
+                  <c:when test='${companyBasePending.flagMap.reareaFlag=="1"}'> 所属区域 ：<span style="color:red;"><strong>${companyBasePending.reareaDicname}(修改)</strong></span></c:when> 
+                  <c:otherwise> 所属区域 ： <span>${companyBasePending.reareaDicname}</span></c:otherwise>
+              </c:choose>
+            </p>
+            <p>操作时间 ：<span>${companyBasePending.operdateDicName}</span></p>
+             <p style="width:100%;">
+             <c:choose>  
+                  <c:when test='${companyBasePending.flagMap.registAreaFlag=="1"}'> 注册地址：<span style="color:red;"><strong>${companyBasePending.registArea}(修改)</strong></span></c:when> 
+                  <c:otherwise>  注册地址：<span>${companyBasePending.registArea}</span></c:otherwise>
+              </c:choose>
+                                                 
+             </p> 
+         </div>
+    </div>
+        <div class="detail-title-name"><span>联系方式</span></div>
+         <div class="detailsTxt clearfix">   
+            <p>
+              <c:choose>  
+                  <c:when test='${companyBasePending.flagMap.legalNameFlag=="1"}'>法定代表人姓名 ：<span style="color:red;"><strong>${companyBasePending.legalName}(修改)</strong></span></c:when> 
+                  <c:otherwise>法定代表人姓名 ： <span>${companyBasePending.legalName}</span></c:otherwise>
+              </c:choose>        
+            </p>
+            <p>
+                                                法定代表人手机号： <span>${companyBasePending.legalCal}</span>
+             </p>
+            <p>
+                                               股权事宜联系人姓名：<span>${companyBasePending.stockName}</span>
+            </p>
+            <p>
+                                               股权事宜联系人手机号： <span>${companyBasePending.stockCal}</span>
+            </p>
+         </div>
+
+       <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>补充信息</span></div>
+            <div class="detailsTxt clearfix">
+                <p>行业分类：<span>
+                 ${companyBaseSupplement.industryStr}
+                </span></p>
+                <p>实收资本(万)：<span><c:if test="${!empty companyBaseSupplement.paidincapital && companyBaseSupplement.paidincapital!=0}"><fmt:formatNumber value='${companyBaseSupplement.paidincapital}'
+                                                pattern="#####.###"/>&nbsp;${companyBaseSupplement.currencyDicname}</c:if></span>
+                </p>
+                <p>是否有股权融资意向:
+	                <span>
+		              <c:choose>  
+		                  <c:when test='${companyBaseSupplement.iSEgggenerator=="0"}'>是</c:when> 
+		                  <c:otherwise>暂不确定</c:otherwise>
+		               </c:choose>
+	                </span></p>
+                <p>是否获得过股权投资:<span>${companyBaseSupplement.iSHiTechParkDicname}</span></p>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>相关附件</span></div>
+             <div class="detailsTxt clearfix">
+           <p style="width: 80%">营业执照: &nbsp;&nbsp;
+                <c:choose>
+                	<c:when test="${companyBasePending.linceFlag eq '1'}" >
+				   <a onclick="downWarrantImage();return false;" href="void(0);"  download="${companyBasePending.licenseName}">${companyBasePending.licenseName}</a>
+				</c:when>
+				<c:otherwise>
+				     <c:forEach items="${companyAttachmentList}" var="attachment">
+				            <c:if test="${attachment.fileType eq '02'}">
+				               <span>&nbsp;&nbsp;<a download="${attachment.fileName}" href="${attachment.filepath}">${attachment.fileName}</a></span></p>
+				            </c:if>
+             		</c:forEach>
+				</c:otherwise>
+			</c:choose>	
+             
+              <p style="width: 80%">授&nbsp;&nbsp;权&nbsp;&nbsp;书: &nbsp;<span>&nbsp;&nbsp;
+               <c:choose>
+				<c:when test="${companyBasePending.authFlag eq '1'}">
+				   <a onclick="downWarrantPDF();return false;" href="void(0);"  download="${companyBasePending.creditAuthorizationName}">${companyBasePending.creditAuthorizationName}</a>
+				</c:when>
+				<c:otherwise>
+				     <c:forEach items="${companyAttachmentList}" var="attachment">
+				            <c:if  test="${attachment.fileType eq '01' }">
+		           			     <span>&nbsp;&nbsp;<a download="${attachment.fileName}" href="${attachment.filepath}">${attachment.fileName}</a></span></p>
+				            </c:if>
+             		</c:forEach>
+				</c:otherwise>
+			</c:choose>	
+            </div>
+<!--             <div class="detailsTxt clearfix aloneDiv" id="AttachmentsId"> -->
+<!--                 <p><span></span></p> -->
+<!--             </div> -->
+        </div>
+       <div class="detailsCon clearfix"style="display: none"id="showStockholderDiv">
+            <div class="detail-title-name" ><span>股东信息
+            </span></div>
+            <div class="detailsTxt detailsGrid"  style="margin-left: 11%;width:78%;">
+                <table id="stockholderGrid" lay-filter="test"></table>
+            </div>
+        </div>
+	        <div style="display: none;" id="showPendingDiv" class="detailsCon clearfix">
+	            <c:choose> 
+	                <c:when test='${companyBasePending.flagMap.stockholderFlag=="1"}'>
+	                 <div class="detail-title-name1"><span style="font-size: 16px;float: right;margin-right: 76%; color: #0D4F92;padding: 5px 10px;">股东信息 
+	                <strong><font style="color:red; font-size: 12px;">(内容有修改)</font></strong></span></div>
+	                </c:when>
+	                <c:otherwise>
+	                <div class="detail-title-name" ><span>股东信息 </span></div>
+	                </c:otherwise>
+                </c:choose>
+	            <div class="detailsTxt detailsGrid"  style="margin-left: 11%;width:78%;">
+	                <table id="stockholderPendingGrid" lay-filter="test"></table>
+	            </div>
+	        </div>
+	      <c:if test="${companyObjections != '[]'}">
+            <div class="detailsCon clearfix">
+                <c:choose> 
+	                <c:when test='${companyBasePending.flagMap.objectionFlag=="1"}'>
+	                 <div class="detail-title-name1"><span style="font-size: 16px;float: right;margin-right: 76%; color: #0D4F92;padding: 5px 10px;">工商异议
+	                <strong><font style="color:red; font-size: 12px;">(内容有更新)</font></strong></span></div>
+	                </c:when>
+	                <c:otherwise>
+	                <div class="detail-title-name" ><span>工商异议</span></div>
+	                </c:otherwise>
+                </c:choose>
+	            <div class="detailsTxt detailsGrid"  style="margin-left: 11%;width:78%;">
+	                <table id="objectionGrid" lay-filter="objectionFilter"></table>
+	            </div>
+        </div>
+        </c:if>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>团队成员</span></div>
+            <div class="detailsTxt detailsGrid"  style="margin-left: 11%;width:78%;">
+                <table id="memberGrid" lay-filter="memberFilter"></table>
+            </div>
+        </div>
+        <div class="detailsCon clearfix">
+            <div class="detail-title-name"><span>主要技术产品</span></div>
+            <div class="detailsTxt detailsGrid"  style="margin-left: 11%;width:78%;">
+                <table id="productGrid" lay-filter="test"></table>
+            </div>
+        </div>
+			<div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>审核记录</span>
+				</div>
+				<div class="detailsTxt detailsGrid" style="margin-left: 11%;width:78%;">
+				     <table align="center" id="companyAuditGrid" lay-filter="companyAuditGrid"></table>
+				</div>
+			</div>
+		 <div class="detailsCon clearfix">	
+			<div class="detailsTxt clearfix aloneDiv">
+                <input type="hidden" name="enterpriseId" value="${companyBasePending.enterpriseId}">
+                <div class="layui-input-block audit-oper">
+                    
+                <c:if test='${ companyBase.auditStatus!="02"}'>
+                    <input type="radio" name="status" id="status_1" value="2" title="审核通过" lay-filter="status" checked>
+                    <input type="radio" name="status" id="status_0" value="3" title="审核不通过"  lay-filter="status">
+                </c:if>
+                 <c:if test='${ companyBase.auditStatus=="02"}'>
+                   <input type="radio" name="status" id="status_1" value="2" title="激活" lay-filter="status" checked>
+                   <input type="radio" name="status" id="status_0" value="3" title="激活不通过"  lay-filter="status">
+                </c:if>
+                </div>
+		   </div>
+		   <div class="detailsCon clearfix" style="display: none;"  id="auditContentDiv">
+			<div class="detail-title-name">
+				<span>审核意见</span>
+			</div>
+			   <div class="detail-table">
+			   <div>
+				<textarea name="auditContent" id="auditContent" placeholder="请输入审核意见" class="layui-textarea" lay-verify="auditContent"></textarea>
+				</div>
+			</div>
+		</div>
+		</div>
+    <div class="layui-input-block buttonWrap" align="center">
+         <button class="layui-btn submit" lay-submit lay-filter="auditForm">&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;交&nbsp;&nbsp;</button>    
+         <button type="button" lay-close class="layui-btn closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>
+    </div>
+   </div>
+</div>
+</form>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<!-- 主要技术产品证明材料的下载 -->
+<script type="text/html" id="productFileDownload">
+    <a href="{{d.productFileUrl}}" download="{{d.productFileName}}" style="color:#0D4F92;cursor: pointer;">{{d.productFileName}}</a>
+</script>
+<script type="text/html" id="objectionFileDownload">
+    <a href="{{d.objectionfilePath}}" download="{{d.objectionFileName}}" style="color:#0D4F92;cursor: pointer;">{{d.objectionFileName}}</a>
+</script>
+<script>
+    function ityzl_SHOW_LOAD_LAYER(){
+		return  layer.load(1, {shade: [0.6, '#f5f5f5']}) ;
+
+	}
+	function ityzl_CLOSE_LOAD_LAYER(index){
+		layer.close(index);
+	}
+    $(function () {
+    	var form = layui.form;
+        var auditStatus="${companyBase.auditStatus}";//获取查询到的企业的审核状态
+        if(auditStatus === "01"||auditStatus === "02"){
+        	$("#status_1").attr("value","2");//注册审核通过-
+        	$("#status_0").attr("value","3");//注册审核未通过
+        }else if(auditStatus==="04"){
+        	$("#status_1").attr("value","5");//修改审核通过
+        	$("#status_0").attr("value","6");//修改审核未通过
+        }else if(auditStatus === "02"){
+        	$("#status_1").attr("value","2");//激活
+        	$("#status_0").attr("value","3");//激活未通过
+        	
+        }
+        $(".closeBtn").on("click", function(index) {
+        	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        	parent.layer.close(index); //关闭layer(关闭当前窗口)
+    	});
+      //监听审核按钮
+        form.on('radio(status)', function  () {
+            var id = $("input[name='status']:checked").val();
+            var divV = document.getElementById("auditContentDiv");
+            if (id == 2||id==5) {//审核通过
+                if (divV.style.display == "inline") {
+                    divV.style.display = 'none';//隐藏审核意见
+                    $('#auditContent').val('');
+                }
+            } else if (id ==3||id==6) {//审核不通过
+                if (divV.style.display == "none") {
+                    divV.style.display = 'inline';//展示审核意见
+                }
+            }
+        });
+        $(".closeBtn").on("click", function(index) {
+        	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        	parent.layer.close(index); //关闭layer(关闭当前窗口)
+    	});
+        var auditStatus="${companyBase.auditStatus}";
+        layui.use('form', function () {
+                var form = layui.form;
+                //监听提交
+                form.on('submit(auditForm)', function (data) {
+                	var enterpriseId =data.field.enterpriseId;
+                	var status=data.field.status;
+                	var auditContent =data.field.auditContent;
+                	
+                	if((status==='3'||status==='6')&& auditContent===''){
+                		layer.msg("请输入不通过的理由");
+                		return false;
+                		}
+                	if (/^\d+\d+\d$/.test(auditContent)) {
+                        layer.msg("不通过理由不能全为数字");
+                        return false;
+                    }
+                	if(auditContent>500){
+                		layer.msg("审核理由不能大于500个字符");
+                		return false;
+                		}
+                	 var i ;
+                	$.ajax({
+                        type: "post",
+                        async: true,
+                        url: "/SRRPBusinesWeb/companyManage/auditCompany",
+                        beforeSend: function () {//加载前
+                       	 i = ityzl_SHOW_LOAD_LAYER();
+                        },
+                        complete: function () {//加载后
+                       	 ityzl_CLOSE_LOAD_LAYER(i);
+                        },
+                        data: {
+                            enterpriseId:enterpriseId,status:status,auditContent:auditContent
+                        },// 你的formid
+                        success: function (data) {
+                        	data = JSON.parse(data);
+                            if (data.code=='00000') {
+                        		layer.alert('提交成功，审核结果已提交', function () {
+                        			 parent.location.reload();
+                                });
+                            }else if(data.code=='400'){
+                            	layer.alert(data.msg, {
+                                    title: '错误信息'
+                                })
+                                return false;
+                            } else {
+                                layer.alert('提交失败', {
+                                    title: '最终的提交信息'
+                                })
+                                return false;
+                            }	
+                        }
+                    });
+                    return false;
+                });
+            });
+        //数据表格
+        var table = layui.table;
+        var stockholderData = ${companyStockholderList};
+        var stockholderPengdingData = ${stockholderPendingList};
+        var productData = ${companyProductList};
+        var objectionData=${companyObjections};
+        var membersData = ${companyMembers};
+        if(stockholderPengdingData.length!=0){
+        	showPendingDiv.style.display = 'inline';
+        }else{
+        	showStockholderDiv.style.display = 'inline';
+        }
+        table.render({
+            id: 'stockholderGrid'
+            , elem: '#stockholderGrid' //指定原始表格元素选择器（推荐id选择器）
+//             , width: 894
+//             , height: 280 //容器高度
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5
+            , data: stockholderData
+            , cols: [[ //标题栏
+                       {field: 'holderName', title: '股东名称', align: 'center', width: '33%'}
+                       , {field: 'holderTypeDicname', title: '股东类型', align: 'center', width: '22%'}
+                       , {field: 'contributionStr', title: '出资额(万)', align: 'center', width: '22%'}
+                       , {field: 'ratio', title: '出资比例(%)', align: 'center', width: '19%'}
+//                 , {field: 'contributionTypeDicname', title: '出资形式', align: 'center', width: 120}
+            ]]
+        });
+        table.render({
+            id: 'stockholderPendingGrid'
+            , elem: '#stockholderPendingGrid' //指定原始表格元素选择器（推荐id选择器）
+//             , width: 894
+//             , height: 280 //容器高度
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5
+            , data: stockholderPengdingData
+            , cols: [[ //标题栏
+                       {field: 'holderName', title: '股东名称', align: 'center', width: '33%'}
+                       , {field: 'holderTypeDicname', title: '股东类型', align: 'center', width: '22%'}
+                       , {field: 'contributionStr', title: '出资额(万)', align: 'center', width: '22%'}
+                       , {field: 'ratio', title: '出资比例(%)', align: 'center', width: '19%'}
+//                 , {field: 'contributionTypeDicname', title: '出资形式', align: 'center', width: 120}
+            ]]
+        });
+        table.render({
+            id: 'productGrid'
+            , elem: '#productGrid' //指定原始表格元素选择器（推荐id选择器）
+//             , width: 894
+//             , height: 280 //容器高度
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5
+            , data: productData
+            , cols: [[ //标题栏
+                       {field: 'name', title: '产品名称', align: 'center', width: '23%'}
+                       , {field: 'incomeRatio', title: '产品去年收入(万)', align: 'center', width: '15%'}
+                       , {field: 'nativeleadDicname', title: '是否拥有专利或著作权', align: 'center', width: '18%'}
+                       , {field: 'nationalleadDicname', title: '是否获得过奖项或政府评价等', align: 'center', width: '21%'}
+                       , { title: '技术产品证明材料', align: 'center', width: '20%',toolbar : '#productFileDownload'}
+//                 , {field: 'marketRatio', title: '市场份额占有率(%)', align: 'center', width: 120}
+            ]]
+        });
+        table.render({
+            id: 'memberGrid'
+            , elem: '#memberGrid' //指定原始表格元素选择器（推荐id选择器）
+//             , width: 894
+//             , height: 280 //容器高度
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5
+            , data: membersData
+            , cols: [[ //标题栏
+                       {field: 'memberName', title: '团队成员姓名', align: 'center', width: '20%'}
+                       , {field: 'port', title: '团队成员职务', align: 'center', width: '20%'}
+                       , {field: 'introduction', title: '资历介绍', align: 'center', width:'56%' }
+            ]]
+        });
+        table.render({
+            id: 'objectionGrid'
+            , elem: '#objectionGrid' //指定原始表格元素选择器（推荐id选择器）
+//             , width: 894
+//             , height: 280 //容器高度
+            , page: true
+            , limits: [5, 10, 20, 50]
+            , limit: 5
+            , data: objectionData
+            , cols : [ [ //标题栏
+                         {//fileName
+                          	field : 'objectionTypeStr',
+                              title : '异议类型',
+                              align:'center',
+                              width : '20%',
+                          },
+                          {
+                              field : 'objection',
+                              title : '异议内容',
+                              align:'center',
+                              width : '20%'
+                          },
+                          {
+                              field : '',
+                              title : '证明材料',
+                              align:'center',
+                              width : '56%',
+                              toolbar : '#objectionFileDownload'
+                          }
+                     ] ]
+        });
+      //数据表格
+            var gridData = ${auditResults};
+            table.render({
+                id: 'companyAuditGrid',
+                elem: '#companyAuditGrid', //指定原始表格元素选择器（推荐id选择器）
+//                 width: 894, 
+                page: true
+                , limits: [5, 10, 20, 50]
+                , limit: 5,
+                data: gridData,
+                cols: [[ //标题栏
+                    {
+                        field: 'username',
+                        title: '审核人',
+                        align: 'center',
+                        width: '22%'
+                    }, {
+                        field: 'auditTimeStr',
+                        title: '审核时间',
+                        align: 'center',
+                        width: '25%'
+                    }, {
+                        field: 'auditStatusStr',
+                        title: '审核结果',
+                        align: 'center',
+                        width: '15%'
+                    }, {
+                        field: 'auditContent',
+                        title: '审核意见',
+                        align: 'center',
+                        width: '38.2%'
+                    }]]
+            });
+    });
+    function downWarrantPDF() {//导出授权书
+    	var enterpriseId= "${companyBasePending.enterpriseId}";
+		var  creditAuthorizationName ='${companyBasePending.creditAuthorizationName}';
+		parent.location.href = "/SRRPBusinesWeb/enterprise/downWarrantInfor?type="+"01"+ "&name="+ creditAuthorizationName+"&enterpriseId="+enterpriseId;
+	}
+	function downWarrantImage() {//导出授权书
+		var  licenseName ='${companyBasePending.licenseName}';
+    	var enterpriseId= "${companyBasePending.enterpriseId}";
+		parent.location.href = "/SRRPBusinesWeb/enterprise/downWarrantInfor?type="+"02"+ "&name="+ licenseName+"&enterpriseId="+enterpriseId;
+	}
+</script>
+</body>
+</html>

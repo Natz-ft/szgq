@@ -1,0 +1,340 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%@
+taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> <%@
+taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>需求详情</title>
+<script src="../static/script/autoload.js" type="text/javascript"></script>
+<script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css"
+	href="../static/style/page/details.css">
+<style>
+.detailsTxt .layui-collapse p {
+	width: auto;
+	color: #666;
+	float: none;
+}
+
+.detailsTxt .layui-collapse p a {
+	color: #0D4F92;
+}
+
+.investorDiv .layui-collapse p {
+	width: auto;
+	color: #666;
+	float: none;
+}
+
+.investorDiv .layui-collapse p a {
+	color: #0D4F92;
+}
+
+.investorDiv p {
+	color: #0D4F92;
+}
+
+.layui-table td, .layui-table th {
+	position: relative;
+	padding: 3px 10px;
+	min-height: 14px;
+	line-height: 18px;
+	font-size: 14px;
+}
+		.ii {
+			    background: #ffffff;
+			    border-radius: 50%;
+			    width: 17px;
+			    height: 17px;
+			    top: 0px;
+			    position: absolute;
+			    text-align: center;
+			    z-index: 99999;
+			    font-size: 14px;
+			    margin-left: 11%;
+                margin-top: -21%;
+			}
+		 .layui-icon newicon{
+			    margin-right: 200%;
+			    font-size: 18px;
+			    vertical-align: bottom;
+			    }
+		  .layui-icon{
+			    font-weight: bold;
+			    }
+		 .layui-btn-mini i {
+				    font-size: 18px !important;
+				}
+		.layui-badge-dot{
+		    position: relative;
+		    top: -5px;
+		    left: 5px;
+			}
+		
+    </style>
+</head>
+<body>
+	<!--头部logo以及登录注册开始-->
+	<div class="boxWrap">
+		<div class="boxContent">
+			<div class="detailsCon clearfix">
+				<div class="detail-title-name">
+					<span>项目进度</span>
+				</div>
+				<c:if test="${finacingDemandInfo.revokeFlag == 1}">
+				     <div class="detailsTxt clearfix">
+						 <p style="color: red;font-weight: bold;">需求已被主管部门撤回</p>
+						 <p style="width: 100%;">  撤回原因：<span >${finacingDemandInfo.closeReason}</span>  </p>
+					 </div>
+				</c:if>
+				<div style="width: 70%; margin: 0 auto; margin-top: 40px;">
+					<c:if test="${not empty demandInvestorResults}">
+						<div class="layui-collapse" lay-accordion="">
+							<c:forEach items="${demandInvestorResults}" var="deinre"
+								varStatus="status">
+								<div class="layui-colla-item">
+									<h2 class="layui-colla-title layui-input-inline"
+										style="width: 700px;">
+										投资机构：<a style="color:#0D4F92;cursor: pointer;" onclick="investorDetail('${deinre.investorId}');" >${deinre.investorName}</a>&nbsp;&nbsp;<c:if test="${not empty deinre.finacingRecordList}">,&nbsp;&nbsp;当前进度：
+											<c:choose>
+											<c:when  test="${finacingDemandInfo.revokeFlag == 1}"> 撤回 </c:when>
+											<c:otherwise> ${deinre.orgStatus} </c:otherwise>
+											</c:choose>
+										</c:if>
+									</h2>
+										 <c:if test="${not empty deinre.finacingRecordList}">
+											 <c:if test="${(deinre.orgStatus=='关注')&&(deinre.publishFlag!='0') && (deinre.open=='0')}">
+											 <c:if test="${finacingDemandInfo.revokeFlag == 0}">
+												 <a class="layui-btn layui-btn-mini layui-input-inline"
+													onclick="orgPublish_fun('${deinre.eventId}','${deinre.investorId}');"  style="float: right;margin-top: -4%; margin-right: 4%;">
+													披露
+													<c:if test="${(deinre.orgStatus=='关注')&&(deinre.publishFlag=='1') && (deinre.open=='0')}">
+													<span id="msgNum" class="ii"><i class="layui-icon newicon" style="font-size: 30px;color:red;">&#xe60b;</i></span>
+													</c:if></a>
+											</c:if>
+											</c:if>
+											<c:if test="${(deinre.orgStatus=='关注')&&(deinre.publishFlag=='0') && (deinre.open=='0')}">
+											 <c:if test="${finacingDemandInfo.revokeFlag == 0}">
+												 <a class="layui-btn layui-btn-mini layui-input-inline"
+													onclick="orgUnPublish_fun('${deinre.eventId}','${deinre.investorId}');"  style="float: right;margin-top: -4%; margin-right: 4%;">
+													取消披露</a>
+											</c:if>
+											</c:if>
+										</c:if>
+									<div class="layui-colla-content <c:if test="${status.index==0}">layui-show </c:if>">
+					<c:if test="${not empty deinre.finacingRecordList}">
+						<div class="layui-collapse">
+							<table class="layui-table">
+								<tr>
+									<td align="center">操作人</td>
+									<td align="center">操作时间</td>
+									<td align="left">操作内容</td>
+								</tr>
+								<c:forEach items="${deinre.finacingRecordList}" var="finaReco">
+									<tr>
+										<td align="center">${finaReco.operuser}</td>
+										<td align="center">${finaReco.operdate}</td>
+										<td align="left">${finaReco.opercontent}<c:if test="${finaReco.unLook!='0' }"><span class="layui-badge-dot" ></span></c:if></td>
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
+					</c:if>
+					<div class="layui-collapse" lay-accordion="">
+						<c:forEach items="${deinre.finacingEventList}" var="event"
+							varStatus="status1">
+							<c:if test="${not empty event.finacingRecordList}">
+								<div class="layui-colla-item">
+									<h2 class="layui-colla-title" style="width: 660px;">
+										基金名称：${event.realUser}&nbsp;&nbsp;,&nbsp;&nbsp;当前进度：
+										<c:choose>
+										<c:when test="${finacingDemandInfo.revokeFlag == 1}"> 撤回 </c:when>
+										<c:otherwise> ${event.finacingStatusDicname} </c:otherwise>
+										</c:choose>
+									</h2>
+									<c:if test="${(event.status=='11')&&(event.publishFlag!='0') && (deinre.open=='0')}">
+										<c:if test="${finacingDemandInfo.revokeFlag == 0}">
+											<a class="layui-btn layui-btn-mini layui-input-inline" onclick="publish_fun('${event.eventId}','${event.investorgId}');" style="float: right;margin-top: -4%;margin-right: 4%;"
+													>披露
+													<c:if test="${(event.status=='11')&&(event.publishFlag=='1') && (deinre.open=='0')}">
+													<span id="msgNum" class="ii"><i class="layui-icon newicon" style="font-size: 30px;color:red;">&#xe60b;</i></span>
+													</c:if>
+													</a>
+										</c:if>
+									</c:if>
+									<c:if test="${(event.status=='11')&&(event.publishFlag=='0') && (deinre.open=='0')}">
+										<c:if test="${finacingDemandInfo.revokeFlag == 0}">
+											<a class="layui-btn layui-btn-mini layui-input-inline" onclick="unPublish_fun('${event.eventId}','${event.investorgId}');" style="float: right;margin-top: -4%;margin-right: 4%;"
+													>取消披露</a>
+										</c:if>
+									</c:if>
+									<div class="layui-colla-content <c:if test="${status1.index==0}">layui-show</c:if>">
+								 <table class="layui-table">
+								<tr>
+									<td align="center">操作人</td>
+									<td align="center">操作时间</td>
+									<td align="left">操作内容</td>
+								</tr>
+								<c:forEach items="${event.finacingRecordList}" var="finaReco">
+									<tr>
+										<td align="center">${finaReco.operuser}</td>
+										<td align="center">${finaReco.operdate}</td>
+										<td align="left">${finaReco.opercontent}<c:if test="${finaReco.unLook!='0' }"><span class="layui-badge-dot" ></span></c:if></td>
+									</tr>
+								</c:forEach>
+							</table>
+					</div>
+				</div>
+				</c:if>
+				</c:forEach>
+			</div>
+		</div>
+	</div>
+	</c:forEach>
+	</div>
+	</c:if>
+	</div>
+	</div>
+	</div>
+	<div class="buttonWrap">
+		<button class="layui-btn closeBtn">&nbsp;&nbsp;关&nbsp;&nbsp;&nbsp;闭&nbsp;&nbsp;</button>
+	</div>
+	</div>
+	</div>
+	<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+	<script>
+	var demandInfoId='${finacingDemandInfo.infoId}';
+		function publish_fun(eventId,investorgId) {
+			layer.open({
+				  title: '确认披露'
+				  ,content: '是否愿意向该基金及其管理机构披露您的企业信息?'
+				, btn: ['是','否']
+				,yes: function(){
+					 $.ajax({
+		                    type: "post",
+		                    async: false,
+		                    url: "/SRRPBusinesWeb/finacingDemand/publish",
+		                    data:{eventId:eventId,investorgId:investorgId},
+		                    success: function () {
+		                    	layer.confirm('信息披露成功', {icon: 1},function(){
+		                    		window.location.href="/SRRPBusinesWeb/finacingDemand/findprojectProgress?demandInfoId='" + demandInfoId + "'";
+		                    	});
+		                    }
+		                });
+				  }
+				,btn2: function(){
+				}
+				});    
+		}
+		
+		function orgPublish_fun(eventId,investorgId) {
+			layer.open({
+				  title: '确认披露'
+				  ,content: '是否愿意向该机构披露您的企业信息？'
+				, btn: ['是','否']
+				,yes: function(){
+					 $.ajax({
+		                    type: "post",
+		                    async: false,
+		                    url: "/SRRPBusinesWeb/finacingDemand/orgPublish",
+		                    data:{eventId:eventId,investorgId:investorgId},
+		                    success: function () {
+		                    	layer.confirm('信息披露成功', {icon: 1},function(){
+		                    		window.location.href="/SRRPBusinesWeb/finacingDemand/findprojectProgress?demandInfoId='" + demandInfoId + "'";
+		                    	});
+		                    }
+		                });
+				  }
+				,btn2: function(){
+				}
+				});  
+		}
+		
+		
+		function unPublish_fun(eventId,investorgId) {
+			layer.open({
+				  title: '取消披露'
+				  ,content: '是否确定向该基金及其管理机构取消披露您的企业信息？'
+				, btn: ['是','否']
+				,yes: function(){
+					 $.ajax({
+		                    type: "post",
+		                    async: false,
+		                    url: "/SRRPBusinesWeb/finacingDemand/unPublish",
+		                    data:{eventId:eventId,investorgId:investorgId},
+		                    success: function (obj) {
+		                    	var result = JSON.parse(obj);
+		                    	if(result==='0001'){
+		                    		layer.confirm('信息取消披露成功', {icon: 1},function(){
+			                    		window.location.href="/SRRPBusinesWeb/finacingDemand/findprojectProgress?demandInfoId='" + demandInfoId + "'";
+			                    	});
+		                    	}else{
+		                    		layer.confirm('投资者已经进行了启动约谈', {icon: 1},function(){
+			                    		window.location.href="/SRRPBusinesWeb/finacingDemand/findprojectProgress?demandInfoId='" + demandInfoId + "'";
+			                    	});
+		                    	}
+		                    }
+		                });
+				  }
+				,btn2: function(){
+				}
+				});    
+		}
+		
+		function orgUnPublish_fun(eventId,investorgId) {
+			layer.open({
+				  title: '取消披露'
+				  ,content: '是否确定向该机构取消披露您的企业信息？'
+				, btn: ['是','否']
+				,yes: function(){
+					 $.ajax({
+		                    type: "post",
+		                    async: false,
+		                    url: "/SRRPBusinesWeb/finacingDemand/orgUnPublish",
+		                    data:{eventId:eventId,investorgId:investorgId},
+		                    success: function (obj) {
+		                    	var result = JSON.parse(obj);
+		                    	if(result==='0001'){
+		                    		layer.confirm('信息取消披露成功', {icon: 1},function(){
+			                    		window.location.href="/SRRPBusinesWeb/finacingDemand/findprojectProgress?demandInfoId='" + demandInfoId + "'";
+			                    	});
+		                    	}else{
+		                    		layer.confirm('投资者已经进行了启动约谈', {icon: 1},function(){
+			                    		window.location.href="/SRRPBusinesWeb/finacingDemand/findprojectProgress?demandInfoId='" + demandInfoId + "'";
+			                    	});
+		                    	}
+		                    	
+		                    }
+		                });
+				  }
+				,btn2: function(){
+				}
+				});  
+		}
+		function investorDetail(investorgId) {
+			layer.open({
+                title: '投资机构信息详情',
+                content: "/SRRPBusinesWeb/investor/investorDetail?investorId="+investorgId,
+                area: ['100%', '100%'],
+                offset: ['0%', '0%'],
+                type:2,
+                end: function(){
+                	window.location.href="/SRRPBusinesWeb/finacingDemand/findprojectProgress?demandInfoId='" + demandInfoId + "'";
+                }
+            });
+		}
+		$(".closeBtn")
+				.on(
+						"click",
+						function() {
+							window.parent.location.href = "/SRRPBusinesWeb/finacingDemand/demandList"
+							var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+							parent.layer.close(index); //关闭layer(关闭当前窗口)
+						});
+	</script>
+</body>
+</html>

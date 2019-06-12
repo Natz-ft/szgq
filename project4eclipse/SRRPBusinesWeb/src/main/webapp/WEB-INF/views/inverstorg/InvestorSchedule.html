@@ -1,0 +1,191 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>投资进度日历</title>
+<link rel="stylesheet"
+	href="../static/script/schedule/layui/css/layui.css">
+<link rel="stylesheet" href="../static/script/schedule/css/date.css">
+<script src="../static/script/jquery-1.9.1.min.js"
+	type="text/javascript"></script>
+	<style type="text/css">
+	.layui-container {
+	    width: 98%;
+	}
+	.layui-btn {
+	    height: 30px;
+        line-height: 30px;
+        padding: 1px;
+        background: #0D4F92;
+	}
+	.layui-elem-quote {
+	    border-left: 5px solid #0D4F92;
+	}
+	#test-n2 {
+    position: relative;
+    min-height: 327px !important;
+    width: 100% !important;
+    }
+	</style>
+</head>
+<body>
+
+	<!-- 你的HTML代码 -->
+	<div class="layui-container" style="padding: 0px;">
+		<div class="layui-row">
+			<div class="layui-col-md12">
+				<blockquote class="layui-elem-quote">投资进度日历
+<!-- 				<div align="right" style="margin-top: -3%"> -->
+<!-- 					<button class="layui-btn submitBtn" >&nbsp;&nbsp;保&nbsp;&nbsp;存&nbsp;&nbsp;</button> -->
+<!-- 			        <button class="layui-btn closeBtn"  >&nbsp;&nbsp;关&nbsp;&nbsp;闭&nbsp;&nbsp;</button> -->
+<!-- 		        </div> -->
+				</blockquote>
+				<div class="layui-inline" id="test-n2"></div>
+			</div>
+		</div>
+	</div>
+	<script src="../static/script/schedule/layui/layui.js"></script>
+	<script>
+		$(function() {
+			var scheduleJson ='${scheduleJson}';
+			var eventId ='${eventId}';
+			//定义json	
+			if(scheduleJson==''){
+				var data ="{}";
+			}else{
+				var data =${scheduleJson};
+			}
+			layui .use([ 'layer', 'form', 'jquery', 'laydate' ],
+							function() {
+								var layer = layui.layer, $ = layui.jquery, laydate = layui.laydate, form = layui.form;
+								var new_date = new Date();
+								loding_date(new_date, data);
+								//日历插件调用方法  
+								function loding_date(date_value, data) {
+									laydate.render({
+										elem : '#test-n2',
+										type : 'date',
+										theme : 'grid',
+										max : 0,
+										position : 'static',
+										range : false,
+										value : date_value,
+										calendar : false,
+										btns : false,
+										done : function(value, date, endDate) {
+											date_chose(value, data);
+										},
+										mark : data
+									//重要json！
+
+									});
+								}
+								//获取隐藏的弹出层内容
+								var date_choebox = $('.date_box').html();
+
+								//定义弹出层方法
+								function date_chose(obj_date, data) {
+									var index = layer
+											.open({
+												type : 1,
+												skin : 'layui-layer-rim', //加上边框
+												title : '添加记录',
+												area : [ '400px', 'auto' ], //宽高
+												btn : [ '确定', '撤销', '取消' ],
+												content : '<div class="text_box">'
+														+ '<form class="layui-form" action="">'
+														+ '<div class="layui-form-item layui-form-text">'
+														+'<lable>记录日期：'+obj_date+'</lable>'
+														+ ' <textarea id="text_book" maxlength="500" placeholder="请输入内容" style="margin-top: 3%;"  class="layui-textarea"></textarea>'
+														+ '</div>'
+														+ '</form>'
+														+ '</div>',
+												success : function() {
+													$('#text_book').val(data[obj_date])
+												},
+												yes : function() {
+													//调用添加/编辑标注方法
+													if ($('#text_book').val() != '') {
+														chose_moban(obj_date, data);
+														layer.close(index);
+													} else {
+														layer.msg('记录内容不能为空', { icon : 5 });
+													}
+
+												},
+												btn2 : function() {
+													chexiao(obj_date, data);
+												}
+											});
+								}
+								//定义添加/编辑标注方法
+								function chose_moban(obj_date, markJson) {
+									//获取弹出层val
+									var chose_moban_val = $('#text_book').val();
+
+									$('#test-n2').html('');//重要！由于插件是嵌套指定容器，再次调用前需要清空原日历控件
+									//添加属性 
+									markJson[obj_date] = chose_moban_val;
+									$.ajax({
+					                    type: "post",
+					                    async: false,
+					                    url: "/SRRPBusinesWeb/finacingDemand/updateInvestorSchedule",
+					                    data : {"eventId" : eventId ,"scheduleJson":JSON.stringify(markJson)},
+					                    success: function (index) {
+// 					                        	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+// 					            				layer.close(index); //关闭layer(关闭当前窗口) 
+					            				//再次调用日历控件，
+												loding_date(obj_date, markJson);//重要！，再标注一个日期后会刷新当前日期变为初始值，所以必须调用当前选定日期。
+					                    }
+					                });
+								}
+								//撤销选择
+								function chexiao(obj_date, markJson) {
+									//删除指定日期标注
+									delete markJson[obj_date];
+									
+									//原理同添加一致
+									$('#test-n2').html('');
+									 $.ajax({
+						                    type: "post",
+						                    async: false,
+						                    url: "/SRRPBusinesWeb/finacingDemand/updateInvestorSchedule",
+						                    data : {"eventId" : eventId ,"scheduleJson":JSON.stringify(markJson)},
+						                    success: function () {
+// 						                        	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+// 						            				parent.layer.close(index); //关闭layer(关闭当前窗口) 
+						            				//再次调用日历控件，
+													loding_date(obj_date, markJson);//重要！，再标注一个日期后会刷新当前日期变为初始值，所以必须调用当前选定日期。
+						                    }
+						                });
+// 									loding_date(obj_date, markJson);
+
+								}
+
+							});
+			$(".closeBtn").on("click", function() {
+				var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+				parent.layer.close(index); //关闭layer(关闭当前窗口) 
+			});
+			$(".submitBtn").on("click", function() {
+	               $.ajax({
+	                    type: "post",
+	                    async: false,
+	                    url: "/SRRPBusinesWeb/finacingDemand/updateInvestorSchedule",
+	                    data : {"eventId" : eventId ,"scheduleJson":JSON.stringify(data)},
+	                    success: function () {
+	                       layer.confirm('保存融资进度成功？', function (index) {
+	                        	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+	            				parent.layer.close(index); //关闭layer(关闭当前窗口) 
+	                       });
+	                    }
+	                });
+		});
+		});
+	</script>
+</body>
+</html>

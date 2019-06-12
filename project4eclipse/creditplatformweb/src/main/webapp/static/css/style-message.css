@@ -1,0 +1,96 @@
+@CHARSET "UTF-8";
+body{
+	font-size:12px;
+	margin:0;
+	padding:0;
+	background-color: #fefefe;
+	font-family: Arial,Microsoft YaHei;
+}
+a{
+	color: #0D4F92;
+	text-decoration:none;
+	display:inline-block;
+	height: 24px;
+	line-height: 24px;
+	vertical-align: middle;
+}
+a:hover{
+	color: #0F6CE6;
+}
+a img{
+	margin-top:3px;
+}
+td{
+	font-size:12px;
+}
+
+
+#bodyTable {
+	width:100%;
+	
+	filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eef6f9,endcolorstr=#ffffff,gradientType=0);
+	/*margin-top:10px;text-align: center;	*/
+}
+#selectTable{
+	font-weight:bold; 
+	color:#075587; 
+	text-align:left;
+}
+.divData {
+}
+
+#listTable{
+	/*background:url(../image/30.jpg) repeat-x;*/
+	color:#666;
+	background-color:#FFF;
+	border:1px solid #ccc; 
+	border-right:none;
+	border-bottom:none;
+	margin-top:5px;
+	text-align:center;
+	width:100%;
+	border-collapse:collapse;
+}
+#listTable thead tr{
+	font-weight:bold; 
+	background:url(../image/list-02.jpg) repeat-x;
+	height:27px;
+	white-space:nowrap;
+}
+#listTable thead td,#listTable thead th{
+	border-right:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	white-space:nowrap;
+}
+#listTable tbody td{
+	height:18px;
+	line-height:18px;
+	word-break:break-all;
+	white-space:nowrap;
+	border-bottom:1px solid #ccc;
+	border-right:1px solid #ccc;
+	text-align:left;
+	padding-top:3px;
+	padding-bottom:3px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+#listTable tbody th{
+	height:18px;
+	line-height:18px;
+	word-break:break-all;
+	white-space:nowrap;
+	border-bottom:1px solid #ccc;
+	border-right:1px solid #ccc;
+	text-align:left;
+	padding-top:3px;
+	padding-bottom:3px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+#listTable a{
+	color:#666;
+}
+#listTable a:hover{
+	color:#0D4F92;
+}

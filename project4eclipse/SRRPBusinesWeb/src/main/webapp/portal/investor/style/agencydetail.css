@@ -1,0 +1,116 @@
+/*����������ϸ��ʽ*/
+/*����top��ʽ��ʼ*/
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #444;
+}
+
+a:focus {
+    outline: none;
+}
+
+a:hover, a:active {
+    outline: none;
+    text-decoration: none;
+}
+
+/*����top��ʽ����*/
+/*����ҳ�沼�ֿ�ʼ*/
+.mainwraper {
+    width: 990px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.sub-c {
+    background: #fff;
+    padding: 15px;
+    overflow: hidden;
+    min-height: 350px;
+}
+
+.investorg-logo {
+    width: 50px;
+    margin-left: 10px;
+    height: auto;
+    float: left;
+    display: inline;
+}
+
+.agency-tablestyeleimg {
+    width: 150px;
+    float: left;
+    margin: 5px;
+}
+
+.investorg-content {
+    margin-left: 125px;
+    margin-bottom:14px;
+    width: 750px;
+    height: auto;
+    float: left;
+    display: inline;
+}
+
+.investorg-content a {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.investorg-content h1 {
+    font-size: 16px;
+    margin-top: 25px;
+}
+
+.investorg-content h2 {
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.investorg-content h3 {
+    margin-top: 10px;
+    border-bottom: 1px dotted #B8B3AD;
+}
+
+.investorg-introduce {
+    width: 750px;
+    height: auto;
+    float: left;
+    display: inline;
+    margin-top: 10px;
+}
+
+.investorg-introduce a {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+investorg-introduce h1 {
+    font-size: 16px;
+}
+
+.investorg-winstory {
+    width: 750px;
+    height: auto;
+    float: left;
+    display: inline;
+    margin-top: 10px;
+}
+
+.investorg-winstory a {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.investorg-winstory h1 {
+    font-size: 16px;
+    color: #FF0000;
+}
+
+.investorg-winstory h1 span {
+    padding-left: 50px;
+}
+
+/*����ҳ�沼�ֽ���*/
+

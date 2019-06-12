@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>企业榜单</title>
+    <link rel="stylesheet" type="text/css" href="../../style/page/form.css">
+    <link rel="stylesheet" type="text/css" href="../../result/style/result.css">
+    <script src="../../script/autoload.js" type="text/javascript"></script>
+    <script src="../../script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../../script/autoLoadScript.js" type="text/javascript"></script>
+    <script src="../../result/script/date/my97/WdatePicker.js" type="text/javascript"></script>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <p class="boxTitle">融资统计</p>
+    <div class="formWrap">
+        <!--融资统计开始-->
+        <div class="rank-menu-history-first-div">
+            <table>
+                <thead>
+                <tr>
+                    <th class="rank-menu-history-first-title">名次</th>
+                    <th class="rank-menu-history-first-title">区域</th>
+                    <th class="rank-menu-history-first-title">融资金额(RMB)</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <!--融资统计结束-->
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script type="text/html" id="barDemo">
+</script>
+	<script>
+		$(function() {
+			//页面默认初始化操作
+			init('');
+		
+			function init(form) {
+				$.ajax({
+					type : "post",
+					async : false,
+					url : "/SRRPBusinesWeb/onlineForum/initInfo",
+					data :$('#list_form_id').serialize(),// 查询条件
+					success : function(data) {
+						data = JSON.parse(data);
+						dataCount = data.recordCnt;
+						createPage(data.list);
+					}
+				});
+				//分页调用
+				layui.use('laypage', function() {
+					var laypage = layui.laypage;
+					//执行一个laypage实例
+					laypage.render({
+						elem : 'paged', //注意,这里的paged是分页调用ID,不用加#号
+						count : dataCount,//注意,再操作分页功能时,必须获取到数据总条数(条件查询);
+						layout : [ 'count', 'prev', 'page', 'next', 'limit',
+								'skip' ],
+						limits : [ 10, 15, 20, 25 ],//每页可选值,默认值确保与最小值相同
+						limit : data.maxSize,//默认每页10条数据
+						skip : true,
+						jump : function(obj, first) {
+							if (!first) {
+								getPageInfo(obj, form);
+							}
+						}
+					});
+				});
+			}
+		})
+	</script>
+</body>
+</html>

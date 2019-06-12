@@ -1,0 +1,11 @@
+
+/*弹出层*/
+.popup { border:1px solid #ccc; background:url(../images/b1-bg06.gif) repeat-x left top #fff;padding-bottom:20px;}
+.popup a:hover{ text-decoration:none; color:#fff;}
+.popup-header {height:24px; padding-top:20px; height:33px; line-height:32px;}
+.popup-header h2 {font-size:14px; width:100%; text-align:center;}
+.popup-body { width:100%; padding-top:8px; }
+.popup-body strong{ display:block; text-align:center; font-size:14px; font-weight:normal; margin-bottom:5px;}
+/* .con{ padding:10px; width:93%; height:247px; margin:0 auto 20 auto; overflow:auto; border:1px solid #a4c9e3;} */
+.con{ padding:10px; width:93%; height:288px; margin:0 auto 20px auto; overflow:auto; }
+

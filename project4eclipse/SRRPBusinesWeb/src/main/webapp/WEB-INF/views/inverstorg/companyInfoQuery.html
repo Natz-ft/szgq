@@ -1,0 +1,568 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>企业查询</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+    
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+<input type="hidden" id="industryArr"  readonly="readonly"/>
+<input type="hidden" id="industryNameArr"  readonly="readonly"/>
+    <p class="boxTitle"><span>企业查询</span></p>
+    <div class="boxContent">
+        <!-- 查询条件 -->
+        <div class="queryTerms">
+            <div class="termsWrap clearfix">
+                <div class="termsType">
+                    <span>所属区域：</span>
+                    <a class="queryAll" id="reareaAll">全部</a>
+                </div>
+                <div class="termsList" id="rearea">
+                    <ul class="clearfix" id="dd_rearea">
+
+                    </ul>
+                </div>
+                <div class="termsType" style="margin-top:5px;">
+					<a class="queryMore"  id="ReareaMoreId" href="javascript:void(0);">更多<img id="showReareaMoreId"  style="height: 22px;width: 22px;" src="../static/images/search_down.png"><i></i></a>
+                </div>
+            </div>
+            <div class="termsWrap clearfix">
+                <div class="termsType">
+                    <span>行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业：</span>
+                    <a class="queryAll" id="industryAll">全部</a>
+                </div>
+                <div class="termsList" id="industry">
+                    <ul class="clearfix" id="dd_industry">
+
+                    </ul>
+                </div>
+                <div class="termsType" style="margin-top:5px;">
+					<a class="queryMore1"  id="industryMoreId" href="javascript:void(0);">更多<img id="showIndustryMoreId"  style="height: 22px;width: 22px;" src="../static/images/search_down.png"><i></i></a>
+                </div>
+            </div>
+<!--             <div class="termsWrap clearfix"> -->
+<!--                 <div class="termsType"> -->
+<!--                     <span>现融资阶段：</span> -->
+<!--                     <a class="queryAll" id="financingphaseAll">全部</a> -->
+<!--                 </div> -->
+<!--                 <div class="termsList" id="financingphase"> -->
+<!--                     <ul class="clearfix" id="dd_financingphase"> -->
+
+<!--                     </ul> -->
+<!--                 </div> -->
+<!--             </div> -->
+            <div class="termsWrap clearfix">
+                <div class="termsType">
+                    <span>排序方式：</span>
+                </div>
+                <div class="termsList" style="margin-left:-10px;" id="sortord">
+                    <ul class="clearfix">
+                        <li><a value="02">默认排序</a></li>
+                        <li><a value="01">注册资本</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="termsWrap clearfix">
+                <div class="termsType">
+                    <span>名称/代码：</span>
+                </div>
+                <div class="termsList" id="nameAndCode">
+                    <input type="text" id="dataInput" autocomplete="off" placeholder="请输入公司名称或证件代码" class="query-blank-input"  style="margin-left: -0px;margin-top: 5px;" >
+                </div>
+                <a href="javascript:void(0);" class="select-botton">查询</a>
+                <!--<input type="button" id="queryId" value="查询" class="select-botton" style="margin-top: 5px;"/>-->
+            </div>
+        </div>
+        <!-- 查询条件 END-->
+         <div  >
+            	<span style="margin-left:5%;  color: red;font-size: 14px;"><strong>注意</strong>：因存量企业未补充信息的情况，故部分字段为空。</span>
+            </div>
+        <!-- 企业表格 -->
+        <div>
+                <div style="width:90%;">
+        
+            <table id="companyGrid" lay-filter="test" style="margin-top: 1%;"></table>
+            </div>
+            <!-- 分页组件 -->
+            <div class="table-page">
+                <div id="paged" class="page"></div>
+            </div>
+        </div>
+        <!-- 企业表格 END-->
+    </div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script type="text/html" id="barDemo">
+    <a lay-event="showEnterpriseDetails" style="color:#0D4F92;cursor: pointer;">{{d.name}}</a>&nbsp;&nbsp;
+</script>
+<script type="text/html" id="creditReportBar">
+    <a lay-event="showCreditReport"  style="color:#0D4F92;cursor: pointer;">征信报告</a>
+</script>
+<script>
+    var has_showModalDialog = !!window.showModalDialog;//定义一个全局变量判定是否有原生showModalDialog方法  
+    if(!has_showModalDialog &&!!(window.opener)){         
+         window.onbeforeunload=function(){  
+         window.opener.hasOpenWindow = false;        //弹窗关闭时告诉opener：它子窗口已经关闭  
+       }  
+    }  
+    //定义window.showModalDialog如果它不存在  
+    if(window.showModalDialog == undefined){  
+         window.showModalDialog = function(url,mixedVar,features){  
+         if(mixedVar) var mixedVar = mixedVar;  
+         //因window.showmodaldialog 与 window.open 参数不一样，所以封装的时候用正则去格式化一下参数  
+         if(features) var features = features.replace(/(dialog)|(px)/ig,"").replace(/;/g,',').replace(/\:/g,"=");  
+         //window.open("Sample.htm",null,"height=200,width=400,status=yes,toolbar=no,menubar=no");  
+         //window.showModalDialog("modal.htm",obj,"dialogWidth=200px;dialogHeight=100px");   
+         var left = (window.screen.width - parseInt(features.match(/width[\s]*=[\s]*([\d]+)/i)[1]))/2;  
+         var top = (window.screen.height - parseInt(features.match(/height[\s]*=[\s]*([\d]+)/i)[1]))/2;  
+         window.myNewWindow = window.open(url,"_blank",features);  
+        }  
+     }
+    var industCheckDate=new Array();
+    var industrList=new Array();
+    function addIndustData(industryAaary) {
+    	
+    	for(var i =0;i<industryAaary.length;i++){
+    		industCheckDate.push(industryAaary[i]);
+    	}
+    	industCheckDate=industCheckDate.unique3();
+    	return industCheckDate;
+    }
+    function getIndustryIdArray(){
+    	var str=industCheckDate.toString()
+    	return str;
+    }
+    function addhtml(nodes){
+    	var list =  $(".queryMore1").parent().siblings(".termsList");
+       var index=1;
+    	var industryHtml = '';//行业选项
+
+    	nodes.each(function () {
+            var id = $(this).attr("id");
+            var name = $(this).attr("name");
+            var val=$.inArray(id, industCheckDate) ;
+            if(val=='-1'){
+            	var val1=$.inArray(id, industrList) ;
+            	if(val1=='-1'){
+            		 industryHtml +='<li id="' + id + '" name="'+name + '" class="active" onclick="delLi(' +"'"+ id +"'"+ ',' + index + ')">'+'<a value="'+id + '" >' + name + '</a></li>'
+                    //industryHtml += '<li id="' + id + '" name="'+name + '" onclick="delLi(' +"'"+ id +"'"+ ',' + index + ')">' + name + '<a><i class="layui-icon">&#x1007;</i> </a></li>';
+            	}else{
+            		$('#' +id).addClass("active");
+            	}
+            }
+        });
+    	$("#dd_industry").append(industryHtml);
+    	 var showAll = list.find("ul").height();
+        list.animate({height: showAll});
+
+    }
+    function delLi(id1,index1) {
+    	var val1=$.inArray(id1, industrList) ;
+    	if(val1=='-1'){
+    		$('#' +id1).remove();
+    	}else{
+    		$('#' +id1).removeClass("active");
+    	}
+    	remove(industCheckDate,id1);
+    	var list =  $(".queryMore1").parent().siblings(".termsList");
+    	 var showAll = list.find("ul").height();
+    	   list.animate({height: showAll});
+    }
+    function remove(arr, val) {
+    	  for(var i=0; i<arr.length; i++) {
+    	    if(arr[i] == val) {
+    	      arr.splice(i, 1);
+    	      break;
+    	    }
+    	  }
+    	}
+    //数组去重
+    Array.prototype.unique3 = function () {
+        var res = [];
+        var json = {};
+        for (var i = 0; i < this.length; i++) {
+            if (!json[this[i]]) {
+                res.push(this[i]);
+                json[this[i]] = 1;
+            }
+        }
+        return res;
+    }
+    $(function () {
+        var type, name;
+        var arr = [];
+        var arrData = {};
+        var data = {};
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var gridData;
+        //数据总条数
+        var dataCount;
+        //每月最大条数
+        var maxSize;
+        //页面默认初始化操作
+        init('');
+        initDD();
+
+        function init(queryCondition) {
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/companyInfo/initInfo",
+                data: {"queryCondition": JSON.stringify(queryCondition)},// 查询条件
+                success: function (data) {
+                    data = JSON.parse(data);
+                    dataCount = data.recordCnt;
+                    maxSize = data.maxSize;
+                    createPage(data.list);
+                }
+            });
+            //分页调用
+            layui.use('laypage', function () {
+                var laypage = layui.laypage;
+                //执行一个laypage实例
+                laypage.render({
+                    elem: 'paged', //注意,这里的paged是分页调用ID,不用加#号
+                    count: dataCount, //注意,再操作分页功能时,必须获取到数据总条数(条件查询);
+                    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+                    limits: [10, 20, 50], //每页可选值,默认值确保与最小值相同
+                    limit: maxSize, //默认每页10条数据;
+                    skip: true,
+                    jump: function (obj, first) {
+                        if (!first) {
+                            getPageInfo(obj, queryCondition);
+                        }
+                    }
+                });
+            });
+        }
+
+        // 字典值初始化
+        function initDD() {
+            var industryHtml = '';
+            $.ajax({
+                type: "post",
+                url: "/SRRPBusinesWeb/initInfo/getDDList",//url地址
+                data: {"name": "industry"},// 查询条件
+                async: false,//使用同步的方式,true为异步方式
+                success: function (data) {
+                    data = JSON.parse(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var _json = data[i];
+                        if(i<7){
+                        	industryHtml += "<li id=" + _json.dicCode + "><a value=\"" + _json.dicCode + "\">" + _json.dicName + "</a></li>";
+                        	industrList.push( _json.dicCode);    
+                        }                    }
+                    $("#dd_industry").append(industryHtml);
+                }
+            });
+            var financingphaseHtml = '';
+            $.ajax({
+                type: "post",
+                url: "/SRRPBusinesWeb/initInfo/getDDList",//url地址
+                data: {"name": "financingphase"},// 查询条件
+                async: false,//使用同步的方式,true为异步方式
+                success: function (data) {
+                    data = JSON.parse(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var _json = data[i];
+                        financingphaseHtml += "<li><a value=\"" + _json.dicCode + "\">" + _json.dicName + "</a></li>";
+                    }
+                    $("#dd_financingphase").append(financingphaseHtml);
+                }
+            });
+            var reareaHtml = '';
+            $.ajax({
+                type: "post",
+                url: "/SRRPBusinesWeb/initInfo/getDDList",//url地址
+                data: {"name": "rearea"},// 查询条件
+                async: false,//使用同步的方式,true为异步方式
+                success: function (data) {
+                    data = JSON.parse(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var _json = data[i];
+                        var str=_json.dicCode;
+                        var suzhouArea=str.substring(0,4);
+                        if(suzhouArea=='3205'){
+                        	reareaHtml += "<li><a value=\"" + _json.dicCode + "\">" + _json.dicName + "</a></li>";
+                        }
+                        
+                    }
+                    $("#dd_rearea").append(reareaHtml);
+                }
+            });
+        }
+
+        // 点击name弹窗
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            var code = data.code;
+            var codetype = data.codetype;
+            code= encodeURIComponent(encrypt(code));
+            codetype=encodeURIComponent(encrypt(codetype));
+            var enterpriseId = data.enterpriseId;
+            var enterpriseName = data.name;
+            var score = data.score;
+            if (obj.event === 'showEnterpriseDetails') {
+                layer.open({
+                    title: '企业信息详情',
+                    content: "/SRRPBusinesWeb/companyInfo/companyInfoDetails?enterpriseId=" + enterpriseId,
+                    area: ['100%', '100%'],
+                    offset: ['0%', '0%'],
+                    type:2,
+                    scrollbar: false,
+                });
+
+
+            }
+            if (obj.event == 'showCreditReport') {//查看信用报告
+                var url="/SRRPBusinesWeb/creditscore/queryReport?certtype=" +  codetype + "&certno=" + code + "&name='" + enterpriseName + "'&enterpriseId=" + enterpriseId + "";
+	            url = encodeURI(encodeURI(url));
+          	    window.showModalDialog(url,"1","dialogWidth:"+window.screen.width+"px;dialogHeight:"+window.screen.height+"px;");    
+            }
+            if (obj.event == 'showScoreDetails') {//查看评分页面
+                function callback() {
+                }
+                if (score != null && score != '') {
+                	 window.showModalDialog("/SRRPBusinesWeb/creditscore/queryScore?certtype=" + codetype + "&certno=" + code + "&enterpriseId=" + enterpriseId,"1","dialogWidth:"+window.screen.width+"px;dialogHeight:"+window.screen.height+"px;");    
+                }
+
+            }
+        });
+
+        //只操作分页数据
+        function getPageInfo(obj, queryCondition) {
+            var currentPage = obj.curr;//当前页(跳转页也是当前页)
+            var limit = obj.limit;//每页多少条数
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/companyInfo/initInfo",
+                data: {start: currentPage, limit: limit, queryCondition: JSON.stringify(queryCondition)},
+                success: function (data) {
+                    data = JSON.parse(data);
+                    createPage(data.list,limit);//装配列表数据
+                }
+            });
+        }
+       
+       
+        //装配列表数据
+        function createPage(gridData,gridlimit) {
+            table.render({
+                id: 'companyGrid',
+                elem: '#companyGrid', //指定原始表格元素选择器（推荐id选择器）
+//                 width: 1018,
+                //height: 450,//容器高度
+                data: gridData,
+                limit: gridlimit,
+                cols: [[ //标题栏
+                    {
+                        field: 'name',
+                        title: '企业名称 ',
+                        align: 'center',
+                        width: '25.3%',
+                        style: 'color:#0D4F92;cursor: pointer;',
+                        toolbar: '#barDemo'
+                    },
+                    {
+                        field: 'score',
+                        title: '评分',
+                        align: 'center',
+                        width: '10%',
+                        style: 'color:#0D4F92;cursor: pointer;',
+                        event: 'showScoreDetails',
+                        sort: true
+                    },
+                    {
+                        title: '征信报告',
+                        align: 'center',
+                        width: '10%',
+                        toolbar: '#creditReportBar'
+                    },
+                    {field: 'code', title: '证件代码', align: 'center', width: '12%'},//codeShow
+                    {field: 'regCapitalDicnameShow', title: '注册资本(万)', align: 'center', width: '12%'},
+                    {field: 'reareaDicname', title: '所属区域', align: 'center', width: '12%', sort: true},
+                    {field: 'industryStr', title: '行业', align: 'center', width: '14%'},
+                ]]
+            });
+        }
+
+        //向data中添加选中的键值对
+        $(".termsWrap li a").on("click", function () {
+            var dicType = $(this).parents(".termsList").attr("id");
+            data[dicType] = $(this).attr("value");
+        })
+        //点击全部时去掉前面所选的
+        $("#reareaAll").on("click", function () {
+            delete eval(data).rearea;
+        })
+        $("#industryAll").on("click", function () {
+        	for(var i =0;i<industCheckDate.length;i++){
+        		var val1=$.inArray(industCheckDate[i], industrList) ;
+            	if(val1=='-1'){
+            		$('#' +industCheckDate[i]).remove();
+            	}
+        	}
+        	var list =  $(".queryMore1").parent().siblings(".termsList");
+        	 var showAll = list.find("ul").height();
+        	   list.animate({height: showAll});
+           	industCheckDate.splice(0,industCheckDate.length);
+        })
+        $("#financingphaseAll").on("click", function () {
+            delete eval(data).financingphase;
+        })
+        $("#sortordAll").on("click", function () {
+            delete eval(data).sortord;
+        })
+        // 查询条件选择高亮
+        var queryAll;
+        var valueClient = new Array();//区域
+        var valueClient1 = new Array();//行业
+        var valueClient2 = new Array();//融资阶段
+        $(".boxWrap .boxContent .termsList li a").on("click", function () {
+        	queryAll = $(this).parents(".termsWrap").find(".queryAll");
+            var dicType = $(this).parents(".termsList").attr("id");
+            var t = $(this);
+            if(dicType=='rearea'){
+            	if (queryAll.hasClass("active")) {
+                    queryAll.removeClass("active");
+                    valueClient.splice(0,valueClient.length);
+                }
+                if (!$(this).parent().hasClass("active")) {
+                    $(this).parent().addClass("active");
+                    valueClient.push($(this).attr("value"));
+                    
+                }else{
+               	 $(this).parent().removeClass("active");
+               	 removeByValue(valueClient, $(this).attr("value"));
+                }
+                data[dicType] = valueClient.toString();
+            }else if(dicType=='industry'){
+            	if (queryAll.hasClass("active")) {
+                    queryAll.removeClass("active");
+                }
+                if (!$(this).parent().hasClass("active")) {
+                    $(this).parent().addClass("active");
+                    industCheckDate.push($(this).attr("value"));
+                    
+                }else{
+               	 $(this).parent().removeClass("active");
+               	 removeByValue(industCheckDate, $(this).attr("value"));
+
+                }
+            }else if(dicType=='financingphase'){
+            	if (queryAll.hasClass("active")) {
+                    queryAll.removeClass("active");
+                    valueClient2.splice(0,valueClient2.length);
+                }
+                if (!$(this).parent().hasClass("active")) {
+                    $(this).parent().addClass("active");
+                    valueClient2.push($(this).attr("value"));
+                    
+                }else{
+               	 $(this).parent().removeClass("active");
+               	 removeByValue(valueClient2, $(this).attr("value"));
+                }
+                data[dicType] = valueClient2.toString();
+            }else{
+            	if (queryAll.hasClass("active")) {
+                    queryAll.removeClass("active");
+                }
+                if (!$(this).parent().hasClass("active")) {
+                	 $(this).parent().addClass("active").siblings().removeClass("active");
+                }
+            }
+        });
+        // 查询条件展开
+        var list, showOne, showAll;
+        $(".queryAll").on("click", function () {
+            list = $(this).parent().siblings(".termsList");
+            var queryAllId = list.context.id;
+            if(queryAllId != 'industryAll'&&queryAllId != 'reareaAll'){
+            	showAll = list.find("ul").height();
+			}
+            showOne = list.height();
+            $(this).addClass("active");
+            list.find("li").removeClass("active");
+            if(queryAllId != 'industryAll'&&queryAllId != 'reareaAll'){
+            	if (showOne < showAll) {
+                    list.animate({height: showAll});
+                } else {
+                    list.animate({height: 30});
+                }
+            }
+            
+        });
+        $(".queryMore").on("click", function () {
+            list = $(this).parent().siblings(".termsList");
+			var queryMoreId = $(this).attr("id");
+            showAll = list.find("ul").height();
+            showOne = list.height();
+            $(this).addClass("active");
+            list.find("li").removeClass("active");
+            if (showOne < showAll) {
+                list.animate({height: showAll});
+				if(queryMoreId=="industryMoreId"){
+					document.getElementById('showIndustryMoreId').src = "../static/images/search_up.png";
+				}else if(queryMoreId=="ReareaMoreId"){
+					document.getElementById('showReareaMoreId').src = "../static/images/search_up.png";
+				}
+				
+            } else {
+                list.animate({height: 30});
+				if(queryMoreId=="industryMoreId"){
+					document.getElementById('showIndustryMoreId').src = "../static/images/search_down.png";
+				}else if(queryMoreId=="ReareaMoreId"){
+					document.getElementById('showReareaMoreId').src = "../static/images/search_down.png";
+				}
+            }
+        });
+      //行业添加更多按钮改为弹窗方式
+      //行业添加更多按钮改为弹窗方式
+		$(".queryMore1").on("click", function () {
+			 list = $(this).parent().siblings(".termsList");
+			 $("#industryAll").removeClass("active");
+			 layer.open({
+                    title: '行业分类选择',
+                    //调用行业分类数据接口
+                    content: "/SRRPBusinesWeb/finacingManage/checkIndustry" ,
+                    area: ['680px', '450px'],
+                    offset: ['5%', '20%'],
+                    type:2,
+                    scrollbar: false
+                    });
+			 
+        });
+		function removeByValue(arr, val) {
+      	  for(var i=0; i<arr.length; i++) {
+      	    if(arr[i] == val) {
+      	      arr.splice(i, 1);
+      	      break;
+      	    }
+      	  }
+      	} 
+        $(".select-botton").on("click", function () {
+            var dicType = $(".termsWrap input").parents(".termsList").attr("id");
+            data[dicType] = $("#dataInput").val();
+            if (industCheckDate === undefined || industCheckDate.length == 0) {
+        		data["industry"]='';
+        	}else{
+        		data["industry"]=industCheckDate.toString();
+        	}
+            init(data);
+        });
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<input type="hidden" id="investorId" value='${investor.investorId}'/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>投资机构详情</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/details.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/page/todo.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+    <style>
+/*         .detailsTxt p img { */
+/*             max-width: 50%; */
+/*             cursor: pointer; */
+/*         } */
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <div class="boxContent">
+        <div class="detailsCon clearfix">
+           <div>
+             <div class="detailsTxt detailsGrid" id="eventIdDiv">
+                <div style="margin-left: -6%">
+                    <table align="center" id="investorGrid" lay-filter="test"></table>
+                </div>
+             </div>
+        </div>
+      </div>
+
+    </div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script type="text/html" id="productFileDownload">
+    <a href="{{d.filePath}}" download="{{d.fileName}}" style="color:#0D4F92;cursor: pointer;">{{d.fileName}}</a>
+</script>
+<script type="text/html" id="auditContentBar">
+    <a href="javascript:void(0);" class="layui-table-link" title="{{d.auditContent}}">{{d.auditContent}}</a>
+</script>
+<script>
+    $(function () {
+    	var investorId = $("#investorId").val();
+        //数据表格
+        layui.use('table', function () {
+            var table = layui.table;
+            // 赋值数据实际使用为后台获取数据
+            var gridData = ${manageHisDissentInfor};
+            table.render({
+                id: 'investorGrid'
+                , elem: '#investorGrid' //指定原始表格元素选择器（推荐id选择器）
+                , width: 740
+                , data: gridData
+                , page: true
+                , limits: [5, 10, 20, 50]
+                , limit: 5
+                , cols: [[ //标题栏
+                     {field: 'operUserName', title: '操作用户', width: 160, align:'center'}
+                     ,{field: 'operUpdateDateStr', title: '操作时间', width: 160, align:'center'}
+                    ,{field: 'dissentStatusStr', title: '操作类型', width: 160, align:'center'}
+                    ,{field: 'dissentContent', title: '异议内容', width: '48%', align:'center'}
+                    ,{field: 'fileName', title: '证明材料', width: 160, align:'center',toolbar : '#productFileDownload'}
+                ]]
+            });
+        });
+
+    });
+</script>
+</body>
+</html>

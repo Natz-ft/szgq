@@ -1,0 +1,1090 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>投资需求</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/page/todo.css">
+    <style>
+        .layui-form #layer-photos img {
+            max-width: 200px;
+        }
+        .layui-form .industryCheckbox li {
+            float: left;
+            width: 25%;
+        }
+        .layui-form-label {
+            padding: 6px 0px;
+            width: 110px;
+        }
+        .input-insert-data{
+            width: 180px;
+            height: 22px;
+            border: 1px solid #8DBDDC;
+            border-radius: 3px;
+        }
+          .layui-input1{
+           width: 290px;
+            height: 22px;
+            border: 1px solid #8DBDDC;
+            border-radius: 3px;
+            margin-top:4px;
+        }
+        .layui-input, .layui-select, .layui-textarea {
+          height: 22px;
+        }
+        .boxWrap .formWrap .form-title {
+          height: 100%;
+          padding-top:10px;
+        }
+        .layui-input-block1{
+          padding-top:10px;
+          padding-right:20px;
+        }
+        .layui-form-item1 {
+          height: 30px;
+          margin-bottom: 5px;
+        }
+        .layui-form-item {
+          margin-bottom: 3px;
+        }  
+        .layui-form-select .layui-input {
+         height: 22px;
+        line-height: 22px;
+        padding-right: 30px;
+        cursor: pointer;
+       }
+       
+       ul.ztree {
+		    margin-left: 50px;
+		    margin-top: 10px;
+		    border: 1px solid #999;
+		    background: #fff;
+		    width: 240px;
+		    height: 320px;
+		    overflow-y: scroll;
+		    overflow-x: auto;
+		}
+		
+		ul.log {
+		    border: 1px solid #617775;
+		    background: #f0f6e4;
+		    width: 300px;
+		    height: 170px;
+		    overflow: hidden;
+		}
+		
+		ul.log.small {
+		    height: 45px;
+		}
+		
+		ul.log li {
+		    color: #666666;
+		    list-style: none;
+		    padding-left: 10px;
+		}
+		
+		ul.log li.dark {
+		    background-color: #E3E3E3;
+		}
+		
+		/* ruler */
+		div.ruler {
+		    height: 20px;
+		    width: 220px;
+		    background-color: #f0f6e4;
+		    border: 1px solid #333;
+		    margin-bottom: 5px;
+		    cursor: pointer
+		}
+		
+		div.ruler div.cursor {
+		    height: 20px;
+		    width: 30px;
+		    background-color: #3C6E31;
+		    color: white;
+		    text-align: right;
+		    padding-right: 5px;
+		    cursor: pointer
+		}
+
+      /*��ҵ��ͼ��ʽ*/
+		.tj_one_title {
+		    float: left;
+		    width: 90px;
+		    color: #555555;
+		    padding-top: 15px;
+		}
+		
+		.tj_one_title2 {
+		    color: #a8a8a8;
+		}
+		
+		.tj_one_title3 {
+		    width: 70px;
+		}
+		
+		.tj_fan {
+		    margin-left: 90px;
+		}
+		
+		.tj_fan li {
+		    float: left;
+		    margin-right: 12px;
+		    background: #fef6cf;
+		    border: solid 1px #f0e4b1;
+		    height: 30px;
+		    line-height: 30px;
+		    padding-left: 10px;
+		    margin-top: 10px;
+		    color: #5a5c5b;
+		}
+		
+		.tj_fan li a {
+		    width: 30px;
+		    border-left: dashed 1px #f0e4b1;
+		    padding: 8px 9px;
+		    margin-left: 6px;
+		}
+		
+		.tj_fan li a img {
+		    vertical-align: top;
+		    margin-top: 9px;
+		}
+		
+		.tj_jg_btn, .tj_jg li, .tj_more_btn, .tj_all_lion {
+		    float: left;
+		    padding: 0 10px;
+		    height: 26px;
+		    line-height: 26px;
+		    -moz-border-radius: 5px;
+		    -webkit-border-radius: 5px;
+		    border-radius: 5px;
+		    margin-top: 10px;
+		    margin-right: 12px;
+		}
+		
+		.tj_jg_btn {
+		    background: #f2941a;
+		    border: solid 1px #eb8453;
+		}
+		
+		.tj_jg_btn a {
+		    color: #ffffff;
+		}
+		
+		.tj_jg li {
+		    background: #ffffff;
+		    border: solid 1px #d2d2d2;
+		    color: rgb(13, 79, 146);
+		    padding-right: 0px;
+		    height: auto;
+		}
+		
+		.tj_jg li b {
+		    color: #f2941a;
+		    font-weight: normal;
+		}
+		
+		.tj_jg li span {
+		    color: #6b6b6b;
+		}
+		
+		.tj_jg li a {
+		    border: 0;
+		    padding: 0  5px;
+		    background: #ffffff;
+		}
+		
+		.tj_jg li a img {
+		    margin-top: 8px;
+		    margin-left: 15px;
+		}
+		
+		.tj_tck2_result {
+		    margin-left: 0px;
+		}
+		
+		.tj_tck_btn {
+		    width: 192px;
+		    margin: 15px auto 0 auto;
+		}
+		
+		.tj_tck_btn input {
+		    width: 86px;
+		    height: 32px;
+		    -moz-border-radius: 20px;
+		    -webkit-border-radius: 20px;
+		    border-radius: 20px;
+		    text-align: center;
+		    cursor: pointer;
+		}
+		 .layui-form .industryCheckbox li {
+		    float: left;
+		    width: auto;
+		}      
+    </style>
+</head>
+<body>
+<!--用户启用禁用状态    默认是启用-->
+<input id="stopFlag" type="hidden" value="1"/>
+<input type="hidden" id="industryArr"  readonly="readonly"/>
+<input type="hidden" id="industryNameArr"  readonly="readonly"/>
+<input type="hidden" id="selectIndustryArr"  readonly="readonly"/>
+<input id="financeTrade" type="hidden" value="1"/>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <div class="boxContent">
+       <div class="formWrap">
+         <form class="layui-form"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+<div class="layui-form-item" ><div class="form-title" style="width: 100%;"><span id = "baseId">基本信息 <span style="color:red;margin-left: 23%;">注：基本信息填写完成后，请点击下一步保存信息。</span></span></div></div>
+           <input type="hidden" name="auditStatus" autocomplete="off" class="layui-input" value="${investor.auditStatus}"> 
+           <input type="hidden" name="baseFlag" autocomplete="off" class="layui-input" value="${investor.baseFlag}">    
+           <input type="hidden" name="investorId" autocomplete="off" class="layui-input" value="${investor.investorId}">
+           <input type="hidden"  id="inputId" value="00"> 
+                 <div class="form-left">
+                
+                    <div class="layui-form-item">
+		                <label class="layui-form-label" style="width:110px;"><span class="star">*</span>投资机构名称：</label>
+		                <div class="layui-input-block">
+		                    <input type="text" name="name"  id = 'name' maxlength="50" value='${investor.name}' autocomplete="off" class="form-input layui-input1"   >
+		                </div>
+		         </div>
+		            <div class="layui-form-item">
+		                    <label class="layui-form-label"  style="width:110px;"><span class="star">*</span>证件代码类型：</label>
+		                    <div class="layui-input-block" style="width: 311px;">
+		                       <input type="radio" lay-verify="required" name="certtype" value='${ddcerttype[1].dicCode}'  title="${ddcerttype[1].dicName}"  <c:if test ="${ddcerttype[1].dicCode eq investor.certtype}">checked</c:if>>
+		                       <input type="radio" lay-verify="required" name="certtype" value='${ddcerttype[0].dicCode}'  title="${ddcerttype[0].dicName}" <c:if test ="${ddcerttype[0].dicCode eq investor.certtype}">checked</c:if>>
+		                    </div>
+		            </div>
+                       <!-- --------------------------------------------------------------------------------------------------------------------  -->
+                        <div class="layui-form-item">
+						 <label class="layui-form-label"><span class="star">*</span>注册资本：</label>
+                         <div class="layui-input-block">
+                               <div class="layui-input-inline" style="width: 300px;">
+                                  <input type="text" maxlength="20" name="registeredCapital"  id="registeredCapital"  placeholder="请输入" autocomplete="off" class="form-input"
+                                       value="<fmt:formatNumber value="${investor.registeredCapital}" pattern="####.##"/>" style="width: 70px;height: 22px;float:left;margin-top: 5px; border: 1px solid #8DBDDC; border-radius: 3px;"/>
+                                  <div class="layui-form-mid" style="left:6px;">万</div>
+                                  <div class="layui-input-inline formEleSpliceUnit form-select" style="height: 22px; width: 72px;margin-top: 5px; border: 1px solid #8DBDDC; border-radius: 3px;">
+                                     <select name="regCurrency" id="regCurrency" >
+                                        <option value='' >请选择注册资本币种</option>
+                                        <c:forEach items='${ddCurrency}' var="d">
+                                           <option value='${d.dicCode}' <c:if test ='${d.dicCode eq investor.regCurrency}'>selected</c:if>>${d.dicName}</option>
+                                        </c:forEach>
+                                      </select>
+                                  </div>
+                                 <div style="margin-top: 6px;"><span style=" margin-left: -10px;">(认缴出资总额)</span></div> 
+                                </div>
+                                 
+                          </div>
+                    </div>
+                       
+                       <!-- -------------------------------------------------------------------------------------------------------------------- -->
+                       <div class="layui-form-item">
+			                 <label class="layui-form-label" style="width:110px;"><span class="star">*</span>法定代表人：</label>
+			                 <div class="layui-input-block">
+			                     <input type="text" name="legalRepresentative" id="legalRepresentative" maxlength="50" value='${investor.legalRepresentative}' autocomplete="off" class="form-input input-insert-data"   >(执行事务合伙人)
+			               </div>
+		    		   </div> 
+		              <div class="layui-form-item">
+                          <label class="layui-form-label" style="margin-top:-4px;"><span class="star">*</span>机构类型：</label>
+                          <div class="input-insert-data" style="margin-left: 110px;">
+                                   <select name="orgType" id="orgType" >
+                                        <option value='' >请选择机构类型</option>
+                                        <c:forEach items='${ddOrgType}' var="d">
+                                           <option value='${d.dicCode}' <c:if test ='${d.dicCode eq investor.orgType}'>selected</c:if>>${d.dicName}</option>
+                                       </c:forEach>
+                                  </select>
+                          </div>
+                    </div>
+		            <!-- 左右两列左侧容器 -->
+		            <div class="layui-form-item">
+		                 <label class="layui-form-label" style="width:110px;"><span class="star">*</span>注册地址：</label>
+		                 <div class="layui-input-block">
+		                     <input type="text" name="registeredAddress" id="registeredAddress"  value='${investor.registeredAddress}' autocomplete="off" class="form-input layui-input1"  maxlength="255">
+		                 </div>
+		              </div>
+		             <div class="layui-form-item">
+		                 <label class="layui-form-label" style="width:110px;"><span class="star">*</span>办公地址：</label>
+		                 <div class="layui-input-block">
+		                     <input type="text" name="officeAddress" id="officeAddress" value='${investor.officeAddress}' autocomplete="off" class="form-input layui-input1"  maxlength="255" >
+		                 </div>
+                     </div>
+                   </div>  
+                   
+            <!-- 左右两列右侧容器 -->
+            <div class="form-right">
+             <div class="layui-form-item">
+                  <label class="layui-form-label"style="margin-top:-4px;"><span class="star">*</span>组织形式：</label>
+                  <div class="input-insert-data" style="margin-left: 110px;">
+                      <select name="organizationalForm" id="organizationalForm" >
+                          <option value='' >请选择组织形式</option>
+                        <c:forEach items='${ddOrgform}' var="d">
+                            <option value='${d.dicCode}' <c:if test ='${d.dicCode eq investor.organizationalForm}'>selected</c:if>>${d.dicName}</option>
+                        </c:forEach>
+                        </select>
+                  </div>
+             </div>
+             <div class="layui-form-item">
+                <label class="layui-form-label"  style="width:110px;"><span class="star">*</span>证件号码：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="certno" id="certno" value='${investor.certno}' autocomplete="off" class="form-input input-insert-data"  maxlength="18" style="margin-top:4px;">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                  <label class="layui-form-label"><span class="star">*</span>所属地区：</label>
+                  <div class="input-insert-data" style="margin-left: 110px;">
+                      <select name="areaCode" id="areaCode" lay-search="">
+                         <option value="">直接选择或搜索选择</option>
+                        <c:forEach items='${ddarea}' var="d">
+                            <option value='${d.dicCode}' <c:if test ='${d.dicCode eq investor.areaCode}'>selected</c:if>>${d.dicName}</option>
+                        </c:forEach>
+                        </select>
+                  </div>
+             </div>
+             <div class="layui-form-item">
+                          <label class="layui-form-label"><span class="star">*</span>法定代表电话：</label>
+                          <div class="layui-input-block">
+                                <input type="text" name="legalRepresentativeCall" id="legalRepresentativeCall"  maxlength="11" value='${investor.legalRepresentativeCall}' autocomplete="off" class="form-input input-insert-data"   style="margin-top:4px;width:150px;">（执行事务合伙人）
+                          </div>
+                </div>
+                 <!--   -->
+                  <div class="layui-form-item">
+						 <label class="layui-form-label"><span class="star">*</span>实缴资本：</label>
+                         <div class="layui-input-block">
+                               <div class="layui-input-inline" style="width: 200px;">
+                                  <input type="text" maxlength="20" name="paidCapital"  id="paidCapital"  placeholder="请输入" autocomplete="off" class="form-input"
+                                      style="width: 70px;height: 22px;float:left;margin-top: 5px; border: 1px solid #8DBDDC; border-radius: 3px;" value="<fmt:formatNumber value="${investor.paidCapital}" pattern="####.##"/>" />
+                                  <div class="layui-form-mid" style="left:6px;">万</div>
+                                  <div class="layui-input-inline formEleSpliceUnit form-select" style="height: 22px; width: 72px;margin-top: 5px; border: 1px solid #8DBDDC; border-radius: 3px;">
+                                     <select name="pcCurrency" id="pcCurrency">
+                                       <option value='' >请选择实缴资本币种</option>
+                                        <c:forEach items='${ddCurrency}' var="d">
+                                           <option value='${d.dicCode}' <c:if test ='${d.dicCode eq investor.pcCurrency}'>selected</c:if>>${d.dicName}</option>
+                                        </c:forEach>
+                                      </select>
+                                  </div>
+                                </div>
+                          </div>
+                    </div>
+                 <!-- -->
+               <div class="layui-form-item">
+                    <label class="layui-form-label" style="margin-top:-4px;"><span class="star">*</span>资本类型：</label>
+                    <div class="input-insert-data" style="margin-left: 110px;">
+                        <select name="capitalType" id="capitalType">
+                             <option value='' >请选择资本类型</option>
+                             <c:forEach items='${ddCapitaltype}' var="d">
+                                 <option value='${d.dicCode}' <c:if test ='${d.dicCode eq investor.capitalType}'>selected</c:if>>${d.dicName}</option>
+                             </c:forEach>
+                         </select>
+                     </div>
+                </div>
+                <div class="layui-form-item">
+		                    <label class="layui-form-label" style="width:110px;"><span class="star">*</span>成立日期 ：</label>
+		                    <div class="layui-input-block">
+		                       <input type="text" name="registeTime"  value='${investor.registeTime}' autocomplete="off" class="form-input input-insert-data" id="focusDate" style="margin-top:4px;">
+		                   </div>
+		             </div>
+		       </div>
+            <!-- 左右两列左侧容器 -->
+            <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+               <div class="form-title"><span>联系方式</span></div>
+            </div>
+            <div class="form-left" >
+                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star">*</span>姓名：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="relName" id="relName" value='${investor.relName}' autocomplete="off" class="form-input input-insert-data" maxlength="20" style="margin-top:4px;">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star">*</span>联系电话：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="relPhone" id="relPhone"  value='${investor.relPhone}' autocomplete="off" class="form-input input-insert-data" maxlength="11" style="margin-top:4px;">
+                    </div>
+                </div>
+             </div>
+               <!-- 左右两列右侧容器 -->
+               <div class="form-right">
+                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star">*</span>职务：</label>
+                    <div class="layui-input-block">
+                          <input type="text" name="post" maxlength="20" id="post"  value='${investor.post}' autocomplete="off" class="form-input input-insert-data"  style="margin-top:4px;">
+                    </div>
+                 </div>
+                  <div class="layui-form-item">
+                     <label class="layui-form-label"><span class="star">*</span>电子邮箱：</label>
+                      <div class="layui-input-block">
+                          <input type="text" name="email" maxlength="50" id="email"  value='${investor.email}' autocomplete="off" class="form-input input-insert-data"  style="margin-top:4px;">
+                      </div>
+                   </div>
+              </div>
+             <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+               <div class="form-title"><span>综合介绍</span></div>
+            </div>
+                 <div class="layui-form-item  heightAuto" >
+                   <label class="layui-form-label"><span class="star">*</span>综合实力：</label>
+                <div class="layui-input-block" style="padding-top:12px">
+                    <textarea name="corepersonnel" class="layui-textarea" id="corepersonnel" maxlength="1000"style="border: 1px solid #8DBDDC;width:90%;border-radius: 3px;">${investor.corepersonnel}</textarea>
+<!--                     (主要包括综合实力、经营业绩、突出优势、核心人员) -->
+                </div>
+                 <div class="layui-form-item  heightAuto" >
+                   <label class="layui-form-label"><span class="star">*</span>核心团队：</label>
+                <div class="layui-input-block" style="padding-top:12px">
+                    <textarea name="coreteam" class="layui-textarea" id="coreteam" maxlength="1000"style="border: 1px solid #8DBDDC;width:90%;border-radius: 3px;">${investor.coreteam}</textarea>
+<!--                     (主要包括综合实力、经营业绩、突出优势、核心人员) -->
+                </div>
+                </div>   
+                </div>
+             
+            <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+              <div class="form-title"><span>运营资质</span></div>
+            </div>   
+                        <div id="registerId" class="layui-form-item" >
+                        <label class="layui-form-label" style="margin-top: -2px;"><span class="star" style="margin-left:20px;">*</span>是否登记：</label>
+					    <div class="layui-input-block" style="margin-left: 110px;">
+					        <div class="layui-input-inline" style="width: 800px;">
+					            <div class="layui-input-inline" style="margin-top: 2px; height: 22px;width: 100px;border: 1px solid #8DBDDC;border-radius: 3px">
+                                <select id="operationQualification1Id" name="operationQualification1">
+                                     <option value='' >请选择是否登记</option>
+                                    <option value="0"
+                                    <c:if test="${'0' eq investor.operationQualification1}">selected</c:if>
+                                    >是</option>
+                                    <option value="1"
+                                    <c:if test="${'1' eq investor.operationQualification1}">selected</c:if>
+                                    >否</option>
+                                </select>
+					            </div>
+					                <input id="operationQualification2Id"  name="operationQualification2" maxlength="8" placeholder="请输入"
+					                       <c:if test="${ '1' eq investor.operationQualification1}">type="hidden"</c:if>
+                                           class="form-input" 
+                                          <c:if test="${ '0' eq investor.operationQualification1}"> value="${investor.operationQualification2}" </c:if>
+                                           autocomplete="off" style="width: 170px;float:left;border: 1px solid #8DBDDC;height:22px;margin-top:2px;border-radius: 3px;">
+                                        <div style="margin-top:4px;"> (是否在中国证券基金协会履行基金管理人登记手续  基金管理人登记编号)</div>
+                            </div>
+                        </div>
+                    </div>
+		                 <div class="layui-form-item">
+		                     <label class="layui-form-label" style="width:221px" ><span class="star">*</span>机构是否有过不良诚信记录：</label>
+		                      <div class="layui-input-block">
+		                        <c:forEach items='${ddradio}' var="d">
+		                               <input type="radio" lay-verify="required" name="operationQualification3" id="operationQualification3"  value='${d.dicCode}' title='${d.dicName}' <c:if test ='${d.dicCode eq investor.operationQualification3}'>checked</c:if>>
+		                        </c:forEach>
+		                     </div>
+		                 </div>
+               <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+               <div class="form-title"><span>团队成员</span></div>
+            </div>
+            <div class="form-left" >
+                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star">*</span>成员总人数：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="teamCount" id="teamCount" maxlength="6" value='${investor.teamCount}' autocomplete="off" class="form-input input-insert-data" style="margin-top:4px;">
+                    </div>
+                </div>
+                
+             </div>
+               <!-- 左右两列右侧容器 -->
+               <div class="form-right">
+                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="star">*</span>不良记录情况：</label>
+                    <div class="layui-input-block">
+  							<c:forEach items='${ddradio}' var="d">
+		                       <input type="radio" lay-verify="required" name="creditUnhealthy" id ="creditUnhealthy" value='${d.dicCode}' title='${d.dicName}' <c:if test ='${d.dicCode eq investor.creditUnhealthy}'>checked</c:if>>
+		                  </c:forEach>
+		                  (团队成员)                    
+		                  </div>
+                 </div>
+                  
+              </div>
+              <div class="layui-form-item">
+                    <label class="layui-form-label" style="width:372px"><span class="star">*</span>从事股权投资且具备3年以上相关工作经验的人员数量：</label>
+                    <div class="layui-input-block">
+					<input type="text" name="seniorManagement" id="seniorManagement" maxlength="6" value='${investor.seniorManagement}' autocomplete="off" class="form-input input-insert-data"  style="margin-top:4px;">
+                    （获得基金从业资格证）
+                    </div>
+                </div>
+                 
+             <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+               <div class="form-title"><span>管理机制</span></div>
+            </div> 
+                   <div class="layui-form-item">
+                    <label class="layui-form-label" style="margin-top: 3px;width:527px"><span class="star" style="margin-left:20px;">*</span> 是否具备严格合理的投资决策程序、风险控制机制以及健全的财务管理制度：&nbsp;&nbsp;</label>
+                    <div class="layui-input-block">
+                          <c:forEach items='${ddradio}' var="d">
+		                               <input type="radio" lay-verify="required" id="mechanism" name="mechanism" value='${d.dicCode}' title='${d.dicName}' <c:if test ='${d.dicCode eq investor.mechanism}'>checked</c:if>>
+		                  </c:forEach>
+                    </div>
+                 </div>
+            <div class="layui-form-item" style="border-top: 1px dotted #ccc;heigth:20%;">
+                  <div class="form-title"><span>投资策略</span></div>
+            </div>   
+            <div class="layui-form-item"  style="height: 38px;">
+                   <label class="layui-form-label"><span class="star">*</span>管理规模：</label>
+                   <div class="layui-input-block">
+                        <div class="layui-input-inline" style="width: 320px;">
+                                <input type="text" maxlength="20" name="capitalMin" id="capitalMin" placeholder="请输入" autocomplete="off" class="form-input"
+                                       value="<fmt:formatNumber value="${investor.capitalMin}" pattern="####.##"/>" style="width: 70px;height:22px;float:left;margin-top: 5px; border: 1px solid #8DBDDC; border-radius: 3px;">
+                                <div class="layui-form-mid">~</div>
+                                <input type="text" maxlength="20" name="capitalMax" id="capitalMax" placeholder="请输入" autocomplete="off" class="form-input"
+                                       value="<fmt:formatNumber value="${investor.capitalMax}" pattern="####.##"/>" style="width: 70px;height:22px;float:left;margin-top: 5px; border: 1px solid #8DBDDC; border-radius: 3px;">
+                            <div class="layui-form-mid" style="left:6px;">亿</div>
+                            <div class="layui-input-inline formEleSpliceUnit form-select" style="height: 22px;width: 72px;margin-top: 5px;border: 1px solid #8DBDDC;border-radius: 3px;">
+                                <select name="currency" id="currency" >
+                                       <option value='' >请选择管理规模币种</option>
+                                        <c:forEach items='${ddCurrency}' var="d">
+                                           <option value='${d.dicCode}' <c:if test ='${d.dicCode eq investor.currency}'>selected</c:if>>${d.dicName}</option>
+                                       </c:forEach>
+                                  </select>
+                             </div>
+                         </div>
+                   </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="star">*</span>主要投资阶段：</label>
+                <div class="layui-input-block">
+                  <c:forEach items='${ddfinanceStage}' var="d">
+                    <input type="checkbox" name="financeStage" lay-verify="required" id="financeStage" value='${d.dicCode}' title='${d.dicName}'  lay-skin="primary" <c:if test ='${fn:contains(investor.financeStage, d.dicCode)}'>checked</c:if>>
+                  </c:forEach>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="star">*</span>主要投资行业：</label>
+               <div class="layui-input-block">
+                   <a href="javascript:void(0)"  id="select_investors" style="display:inline-block;padding-top: 6px;color: #ff0000">&nbsp;&nbsp;选择主要投资行业</a>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"></label>
+		          <div class="layui-input-block">
+		               <ul class="clearfix industryCheckbox" id="check_data"> </ul>
+		       </div>
+            </div>
+              <div class="layui-form-item">
+                 <div class="layui-input-block buttonWrap">
+                      <button class="layui-btn submitBtn" id="submitId" lay-submit lay-filter="investor">&nbsp;&nbsp;下&nbsp;一&nbsp;步&nbsp;&nbsp;</button>
+                </div>
+            </div>
+        </form>
+     </div>
+    </div> 
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script>
+    function updateInvestor(){
+    		 document.getElementById("baseId").innerText="基本信息  (基本信息正在审核中，无法进行编辑)";
+    		 $("#baseId").css('color','red');
+    }
+    var industCheckDate=new Array();
+    var industrList=new Array();
+    function addIndustData(industryAaary) {
+    	
+    	for(var i =0;i<industryAaary.length;i++){
+    		industCheckDate.push(industryAaary[i]);
+    	}
+    	industCheckDate=industCheckDate.unique3();
+    	return industCheckDate;
+    }
+    function getIndustryIdArray(){
+    	var str=industCheckDate.toString()
+    	return str;
+    }
+    function addhtml(nodes){
+    	var list =  $(".queryMore1").parent().siblings(".termsList");
+       var index=1;
+    	var industryHtml = '';//行业选项
+
+    	nodes.each(function () {
+            var id ="'"+ $(this).attr("id")+"'	";
+            var name = $(this).attr("name");
+            var val=$.inArray(id, industCheckDate) ;
+            if(val=='-1'){
+            	var val1=$.inArray(id, industrList) ;
+            	if(val1=='-1'){
+                    industryHtml += '<li id="' + id + '" name="'+name + '" onclick="delLi(' +"'"+ id +"'"+ ',' + index + ')">' + name + '<a><i class="layui-icon">&#x1007;</i> </a></li>';
+            	}else{
+            		$('#' +id).addClass("active");
+            	}
+            }
+        });
+    	$("#dd_industry").append(industryHtml);
+    	 var showAll = list.find("ul").height();
+        list.animate({height: showAll});
+
+    }
+    function delLi(id, index,name) {
+    	$('#industry_ul li').each(function (index,element) {
+            var in_id = $(this).attr("id");
+            if(in_id ==id){
+            	  $(this).remove();
+            }
+            remove(industCheckDate,id);
+        });
+    }
+    function remove(arr, val) {
+  	  for(var i=0; i<arr.length; i++) {
+  	    if(arr[i] == val) {
+  	      arr.splice(i, 1);
+  	      break;
+  	    }
+  	  }
+  	}
+  //数组去重
+  Array.prototype.unique3 = function () {
+      var res = [];
+      var json = {};
+      for (var i = 0; i < this.length; i++) {
+          if (!json[this[i]]) {
+              res.push(this[i]);
+              json[this[i]] = 1;
+          }
+      }
+      return res;
+  }
+    //回显行业
+    function showLi() {
+       	 var treeType =0;
+        	var industryVo=${industryVo};
+        	var zNodes= industryVo;
+        	 var str = '';
+             str += '<div class="tj_fan tj_jg tj_tck2_result">';
+             str += '<ul id="industry_ul">';
+                var nodes=industryVo;
+                var index =1;
+                for (var i=0;i<nodes.length;i++){
+                 if(nodes[i].name!="--"){
+                     str += '<li id="' + nodes[i].id + '" name="'+nodes[i].name+'" onclick="delLi(' + "'"+nodes[i].id +"'"+ ',' + index + ')">' + nodes[i].name + '<a><img src="../static/script/checkTree/img/data_delete.jpg"/></a></li>';
+                     industCheckDate.push(nodes[i].id );
+                 }
+                 }  
+             str += '</ul></div></div>';
+             $('#check_data').html(str);
+      }
+    
+    $(function (){
+    	showLi();
+    	var layer=layui.layer;
+    	var industryArr;
+    	//选择行业弹出窗口，返回html
+    	$("#select_investors").on("click", function () {
+    		layer.open({
+                title: '行业分类选择',
+                //调用行业分类数据接口
+                content: "/SRRPBusinesWeb/finacingManage/checkIndustry" ,
+                area: ['680px', '450px'],
+                offset: ['68%', '20%'],
+                type:2,
+                scrollbar: false,
+                end: function () {           //关闭弹出层触发
+//         			var selectIndustryArr=$("#selectIndustryArr").val();
+//         			$('#check_data').html(selectIndustryArr);
+                  }
+                });
+
+        });
+    	var subFlag='0';
+    	var auditStatus = '${investor.auditStatus}';
+    	var certno='${investor.certno}';
+    	if(auditStatus=='4' || auditStatus=='1'  || auditStatus=='2' ){
+    		 document.getElementById("baseId").innerText="基本信息  (基本信息正在审核中，无法进行编辑)";
+    		 $("#baseId").css('color','red');
+    	}
+        //调用日期控件
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#focusDate' //指定元素
+            ,max:0
+        });
+        //调用富文本编辑器控件
+        var layedit = layui.layedit;
+		layui.use('form', function(){
+			 var form = layui.form;
+	         form.on('submit(investor)', function(data){ 
+	        	  var financeStage_value="";
+				  var financeTrade_value="";
+				  var  objRegExp;
+				  var investFlag="";
+				  //获取拟投资阶段复选框选中的值
+				  $("input:checkbox[name='financeStage']:checked").each(function() {
+		    		  var financeStageChecked = $(this).val();
+		    		  if(financeStageChecked == null || financeStageChecked == undefined || financeStageChecked == ''){
+		    			  financeStage_value=financeStageChecked;
+		    		  }else{
+		    			  financeStage_value=financeStageChecked+","+financeStage_value;
+		    		  }
+		    	  });
+				  //获取拟投资行业弹出框选中的值
+				  var new_financeTrade = [];
+		          $('#industry_ul li').each(function (index,element) {
+		              var in_id = $(this).attr("id");
+		              new_financeTrade.push(in_id);
+		          });
+		          financeTrade_value=new_financeTrade.join(",");
+				  data.field.financeTrade=financeTrade_value;
+				  data.field.financeStage=financeStage_value;   
+				  var capitalReg=/^\d{1,9}(\.\d{1,2})?$/;
+	        	 if(data.field.name===''||data.field.name===null||$.trim(data.field.name)==''){
+	        		    parent.layer.alert('投资机构名称不能为空', {icon: 5});
+	                	$("#name").focus();
+						return false;
+				  }
+				  if(data.field.organizationalForm===''||data.field.organizationalForm===null){
+	        		    parent.layer.alert('组织形式名称不能为空', {icon: 5});
+	                	$("#organizationalForm").focus();
+						return false;
+				  }
+	        	 if(data.field.certno===''||data.field.certno===null ||$.trim(data.field.certno)===''){
+	        		 parent.layer.alert('请输入证件代码', {icon: 5});
+	        		 $("#certno").focus();
+		        		return false;
+		           }else{
+		        	   if(data.field.certtype=='1'){
+			        		
+			        			 objRegExp= /[A-Za-z0-9]{8}-[A-Za-z0-9]/;
+			        			 if(!objRegExp.test(data.field.certno)){
+			                    	 parent.layer.alert("组织机构代码格式不正确", {icon: 5});
+			                		 $("#certno").focus();
+			            			 return false;
+			                	 }
+			        	  }else if(data.field.certtype=='2'){
+		                	
+			        			 objRegExp= /[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}/;
+			        			 if(!objRegExp.test(data.field.certno)){
+			                    	 parent.layer.alert("统一社会信用代码格式不正确", {icon: 5});
+			                		 $("#certno").focus();
+			            			 return false;
+			                	 }
+			        	  }
+		        	 if(data.field.certno != certno){
+		        		 $.ajax({
+							   type : "post",
+							  async : false,
+								url : "/SRRPBusinesWeb/index/ajaxValidatorCertNo",
+							   data : {"certno" : data.field.certno},
+							success : function(data) {
+								data = JSON.parse(data);
+								 investFlag=data.code;
+							}
+						 });
+		        		 
+		        		 if (investFlag == '00001') {
+					        	parent.layer.alert("证件码已在股权平台注册,请重新输入", {icon: 5});
+		                		 $("#certno").focus();
+			        			 return false;
+								
+					       	}else if(investFlag == '00002') {
+					       		parent.layer.alert("此证件码基金用户已注册,请重新输入", {icon: 5});
+		                		 $("#certno").focus();
+			        			 return false;
+					       	} 
+		        	 }   
+		        	  
+		           }
+	        	 
+                
+				  if(data.field.registeredCapital===''||data.field.certno===null){
+					  parent.layer.alert("请输入注册资本", {icon: 5});
+					  $("#registeredCapital").focus();
+					  return false;
+			      }
+				  if(data.field.registeredCapital!=''||data.field.certno===null){
+		        	  if(!(capitalReg.test(data.field.registeredCapital))){
+		        		  parent.layer.alert("注册资本只能是最多保留两位小数的数字", {icon: 5});
+		        		  $("#registeredCapital").focus();
+						  return false;
+				      }
+		          }
+		          if(data.field.regCurrency===''||data.field.regCurrency===null){
+					 parent.layer.alert('请选择注册资本币种', {icon: 5});
+					 $("#regCurrency").focus(); 
+					  return false;
+			    }
+			    if(data.field.areaCode===''||data.field.areaCode===null){
+					 parent.layer.alert('请选择所属区域', {icon: 5});
+					 $("#areaCode").focus(); 
+					  return false;
+			    }
+				  if(data.field.legalRepresentative===''||data.field.legalRepresentative===null||$.trim(data.field.legalRepresentative)===''){
+					  parent.layer.alert("请输入法人代表", {icon: 5});
+					  $("#legalRepresentative").focus();
+					  return false;
+			     }
+				  var phoneReg =/^[1][3,4,5,7,8][0-9]{9}$/;
+				  if(data.field.legalRepresentativeCall===''||data.field.legalRepresentativeCall===null){
+					  parent.layer.alert("请输入法人代表电话", {icon: 5});
+					  $("#legalRepresentativeCall").focus();
+					  return false;
+			      }
+				  if(data.field.legalRepresentativeCall!=''||data.field.legalRepresentativeCall===null){
+					  if(!(phoneReg.test(data.field.legalRepresentativeCall))){
+						  parent.layer.alert("法人代表得电话号码无效，请重新输入", {icon: 5});
+						  $("#legaRepresentativeCall").focus();
+						  return false;
+					  }
+				  }
+				  if(data.field.orgType===''||data.field.orgType===null){
+		        	  parent.layer.alert("请选择机构类型", {icon: 5});
+		        	  $("#orgType").focus();
+					  return false;
+				  }
+				  if(data.field.paidCapital===''||data.field.paidCapital===null){
+		        	  parent.layer.alert("请输入实缴资本", {icon: 5});
+		        	  $("#paidCapital").focus();
+					  return false;
+				  }
+		          if(data.field.paidCapital!=''||data.field.paidCapital===null){
+		        	  if(!(capitalReg.test(data.field.paidCapital))){
+		        		  parent.layer.alert("实缴资本只能是最多保留两位小数的数字", {icon: 5});
+		        		  $("#paidCapital").focus();
+						  return false;
+				      }
+		          }
+		          if(data.field.pcCurrency===''||data.field.pcCurrency===null){
+		        	  parent.layer.alert("请选择实缴资本币种类型", {icon: 5});
+		        	  $("#pcCurrency").focus();
+					  return false;
+				  }
+		          if(data.field.registeredAddress===''||data.field.registeredAddress===null||$.trim(data.field.registeredAddress)===''){
+            	      parent.layer.alert("请输入注册地址", {icon: 5});
+            	      $("#registeredAddress").focus();
+					  return false;
+			     }
+			     if(data.field.capitalType===''||data.field.capitalType===null){
+           	      parent.layer.alert("请选择资本类型", {icon: 5});
+           	      $("#capitalType").focus();
+					  return false;
+			     }
+		          if(data.field.officeAddress===''||data.field.officeAddress===null||$.trim(data.field.officeAddress)===''){
+				      parent.layer.alert("请输入办公地址", {icon: 5});
+				      $("#officeAddress").focus();
+					  return false;
+			     }
+		          if(data.field.registeTime===''||data.field.registeTime===null){
+             	     parent.layer.alert("请输入成立时间", {icon: 5});
+             	     $("#focusDate").focus();
+						 return false;
+				  }
+		          if(data.field.relName===''||data.field.relName===null||$.trim(data.field.relName)===''){
+					  parent.layer.alert("请输入联系人姓名", {icon: 5});
+					  $("#relName").focus();
+					  return false;
+				  }
+				  if (data.field.relName.length > 10) {
+						   parent.layer.alert("联系人姓名不能超过10个字符", {icon: 5});
+						   $("#relName").focus();
+				            return false;
+				  }
+                 if(data.field.amacRecord===''){
+	                	 parent.layer.alert("请输入中基协备案号", {icon: 5});
+	                	 $("#amacRecord").focus();
+	                	 return false;
+                 }
+				  if(data.field.post===''||data.field.post===null||$.trim(data.field.post)===''){
+		    	      parent.layer.alert("请输入职务", {icon: 5});
+		    	      $("#post").focus();
+					  return false;
+			      }
+				  if(data.field.relPhone===''||data.field.relPhone===null){
+						  parent.layer.alert("请输入联系人手机号", {icon: 5});
+						  $("#relPhone").focus();
+						  return false;
+				  } 
+				  if (!(phoneReg.test(data.field.relPhone))) {
+					     parent.layer.alert("请输入有效手机号", {icon: 5});
+					     $("#relPhone").focus();
+			             return false;
+			      }
+				  if(data.field.email===''||data.field.email===null){
+					    parent.layer.alert("请输入邮箱", {icon: 5});
+					    $("#email").focus();
+						return false;
+				  }
+				  var emailReg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+				  if(data.field.email!="" && data.field.email!=null){
+					  if(!(emailReg.test(data.field.email))){
+						   parent.layer.alert("请输入正确格式的邮箱", {icon: 5});
+						   $("#email").focus();
+							return false;
+				      }
+				  }
+				  if(data.field.corepersonnel===''||data.field.corepersonnel===null||$.trim(data.field.corepersonnel)===''){
+		        	  parent.layer.alert("请输入综合实力", {icon: 5});
+		        	  $("#corepersonnel").focus();
+		        		return false;
+		          }
+		          if(data.field.coreteam===''||data.field.coreteam===null||$.trim(data.field.coreteam)===''){
+		        	   parent.layer.alert("请输入核心团队",{icon:5});
+		        	   $("#coreteam").focus();
+		        	   return false;
+		          }
+		          if(data.field.operationQualification1===''||data.field.operationQualification1===null){
+		        	  parent.layer.alert("请选择是否有基金管理人登记编号", {icon: 5});
+		        	  $("#operationQualification1").focus();
+		        	  return false;
+		          }
+		          var regIccFilingNo = /^[Pp][A-Za-z0-9]{7}$/;
+				  if(data.field.operationQualification1==='0'){
+					  if(data.field.operationQualification2===''||data.field.operationQualification2===null||$.trim(data.field.operationQualification2)===''){
+						  parent.layer.alert("请输入基金管理人登记编号", {icon: 5});
+						  $("#operationQualification2Id").focus();
+						  return false;
+					  }else{
+						  if(data.field.operationQualification2.length!=8){
+							  parent.layer.alert("请正确输入符合规范的8位基金管理人登记编号",{icon:5});
+					    	  $("#iccFilingNo").focus();
+					    	  return false;
+						  }
+					  }
+					  
+					  if(!(regIccFilingNo.test(data.field.operationQualification2))){
+				    	  parent.layer.alert("请正确输入以P开头的基金管理人登记编号",{icon:5});
+				    	  $("#iccFilingNo").focus();
+				    	  return false;
+				    }
+			      }
+				  if(data.field.operationQualification3==''||data.field.operationQualification3==undefined||data.field.operationQualification3==null){
+				      parent.layer.alert("请选择机构是否有过不良诚信记录", {icon: 5});
+				      $("#operationQualification3").focus();
+				      return false;
+			      }
+				  if(data.field.teamCount===''){
+					    parent.layer.alert("请输入团队成员总人数", {icon: 5});
+					    $("#teamCount").focus();
+		        		return false;
+		          }
+				  if(data.field.teamCount!=''){
+					  if(/[^\d.]/g.test(data.field.teamCount)){
+						   parent.layer.alert("请输入数字", {icon: 5});
+						   $("#teamCount").focus();
+						   return false;
+				    }
+		          } 
+				  if(data.field.creditUnhealthy==''||data.field.creditUnhealthy==undefined||data.field.creditUnhealthy==null){
+					       parent.layer.alert("请选择团队成员是否有过不良诚信记录", {icon: 5});
+					       $("#creditUnhealthy").focus();
+					       return false;
+				  }
+				  if(data.field.seniorManagement===''){
+					   parent.layer.alert("请输入从事股权投资且具备3年以上相关工作经验的人员数量", {icon: 5});
+					   $("#seniorManagement").focus();
+		        		return false;
+		          }  
+				  if(parseInt(data.field.teamCount)<parseInt(data.field.seniorManagement)){
+					  parent.layer.alert("从事股权投资且具备3年以上相关工作经验的人员数量不能超出总员工人数", {icon: 5});
+					   $("#seniorManagement").focus();
+		        		return false;
+				  }
+		          if(data.field.mechanism==''||data.field.mechanism==undefined||data.field.mechanism==null){
+		        	   parent.layer.alert("请选择是否具备严格合理的投资决策程序、风险控制机制以及健全的财务管理制度", {icon: 5});
+		        	   $("#mechanism").focus();
+		        	   return false;
+		          }
+		          if(data.field.capitalMin===''|| data.field.capitalMax===''){
+		        	  parent.layer.alert("请输入管理规模", {icon: 5});
+					  if(data.field.capitalMax===''){
+			        	  $("#capitalMax").focus();
+			          }
+					  if(data.field.capitalMin===''){
+			        	  $("#capitalMin").focus();
+			          }
+					  return false;
+		          }
+		          if(data.field.capitalMin!=''){
+		        	  if(!(capitalReg.test(data.field.capitalMin))){
+		        		  parent.layer.alert("管理规模最小值是最多保留两位小数的数字", {icon: 5});
+		        		  $("#capitalMin").focus();
+						  return false;
+				      }
+		          }
+		          if(data.field.capitalMax!=''){
+		        	  if(!(capitalReg.test(data.field.capitalMax))){
+		        		  parent.layer.alert("管理规模最大值是最多保留两位小数的数字", {icon: 5});
+		        		  $("#capitalMax").focus();
+						  return false;
+				      }
+		          }
+			      if((data.field.capitalMin)*100 >(data.field.capitalMax)*100){
+			    	  parent.layer.alert("管理规模最大值应大于最小值", {icon: 5});
+			    	  $("#capitalMax").focus();
+	                   return false
+	        	  } 
+			      if(data.field.currency===''){
+		        	  parent.layer.alert("请选择管理规模币种", {icon: 5});
+		        	  $("#currency").focus();
+		        		return false;
+		          }
+		          if(data.field.financeStage===''){
+		        	  parent.layer.alert("请选择主投资阶段", {icon: 5});
+		        	  $("#financeStage").focus();
+		        		return false;
+		          }
+		          if(data.field.financeTrade===''){
+		        	  parent.layer.alert("请选择主投资行业", {icon: 5});
+		        	  $("#financeTrade").focus();
+		        		return false;
+		          }  
+				  data.field.stopFlag = $("#stopFlag").val();
+     			  /* var  result=JSON.stringify(data.field);
+     			  c=result;
+     			  if(auditStatus!="4" && auditStatus!="1"){
+     				 window.parent.update_page("112");
+        			  var index = parent.layer.getFrameIndex(window.name);
+        			  parent.layer.close(index);
+     			  }else{
+     				  parent.layer.alert("机构信息正在编辑，无法进行信息录入。");
+     			  } */
+				  if(auditStatus!="4" && auditStatus!="1" && auditStatus!="2"){
+		     			 $.ajax({ 
+							   type : "post",
+								url : "/SRRPBusinesWeb/investor/baseEdit",
+							   data : {"investorData" : JSON.stringify(data.field)},
+							success : function(data) {
+								data = JSON.parse(data);
+			                    var flag = update_successprocess(data);
+			                    if (flag) {
+			                    	        window.parent.document.getElementById("baseFlag").value="1";
+				     			        	window.parent.update_page("112");
+				     			        	var index = parent.layer.getFrameIndex(window.name);
+				     			        	parent.layer.close(index);
+			                    }else{ 
+			                    	  parent.layer.alert('提交失败', {
+			                              title: '最终的提交信息'
+			                          })
+			                              return false;
+			                          }
+							   }
+					    });
+		     		 }else{
+						  parent.layer.alert("机构信息正在审核，无法进行编辑。");
+					  } 
+				          return false;
+					 });
+			   });
+		//后端程序通过Jquery+Ajax将结果返回值提供给用户。
+	   function update_successprocess(data) {
+		            if (data.code == "00000") {
+		                return true;
+		            } else {
+		                return false;
+		            }
+	   }
+	   $("#registerId div dl dd").click(function () {
+	        var options = $("#operationQualification1Id option:selected").val();
+	        if (options == '1') {
+	            $("input[name=operationQualification2]").prop('value',null);
+	            $("input[name=operationQualification2]").prop('type', 'hidden');
+	        } else {
+	            $("input[name=operationQualification2]").removeAttr("type");
+	        }
+	    });
+
+     });
+</script>
+</body>
+</html>

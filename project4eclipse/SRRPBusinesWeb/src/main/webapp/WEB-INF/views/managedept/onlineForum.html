@@ -1,0 +1,240 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>在线提问解答</title>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+</head>
+<body>
+
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <p class="boxTitle"><span>在线提问解答</span></p>
+    <div class="boxContent">
+        <form enctype="multipart/form-data" id="list_form_id" name="list_form_name">
+            <input type="hidden" value="" name="start" id="start">
+            <input type="hidden" value="" name="limit" id="limit">
+            <!-- 查询条件 -->
+            <div class="queryTerms">
+                <div class="termsWrap clearfix">
+                    <div class="termsType">
+                        <span>留言日期：</span>
+                    </div>
+                    <div class="termsList termsList-query-date">
+                        <input type="text" name="search_GTE_messagedate_DATE"
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endTime\')||\'%y-%M-%d\'}'})"
+                               style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;padding-left: 5px;"
+                               onkeydown="if(event.keyCode==13){event.keyCode=0;return false}"
+                               id="beginTime"/>&nbsp;
+                        至&nbsp;&nbsp;
+                        <input type="text" name="search_LTE_messagedate_DATE"
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',minDate:'#F{$dp.$D(\'beginTime\')}'})"
+                               style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;padding-left: 5px;"
+                               onkeydown="if(event.keyCode==13){event.keyCode=0;return false}"
+                               id="endTime"/>
+                    </div>
+                </div>
+                <div class="termsWrap clearfix">
+                    <div class="termsType">
+                        <span>留言状态：</span>
+                    </div>
+                    <div class="termsList" style="padding-top: 10px;">
+                        <input type="radio" id="org_code" name="search_EQ_messagestatus" value="0"/>
+                        <label for="org_code" > 未回复</label>&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="credit_code" name="search_EQ_messagestatus" value="1"/>
+                        <label for="credit_code"> 已回复</label>
+                       
+                    </div>
+                </div>
+                <div class="termsWrap clearfix">
+                    <div class="termsType">
+                        <span>留言主题：</span>
+                    </div>
+                    <input type="text" name="search_LIKE_messagetheme" lay-verify="name" autocomplete="off"
+                               placeholder="请输入标题" class="query-blank-input" style="margin-left: 10px;">
+                    <a href="javascript:void(0);" class="select-botton">查询</a>
+                </div>
+            </div>
+        </form>
+        <!-- 机构表格 -->
+
+        <div>
+            <div>
+                <table id="orgGrid" lay-filter="test"></table>
+                <!-- 分页组件 -->
+                <div class="table-page">
+                    <div id="paged" class="page"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 机构表格 END-->
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-mini">详情</a>
+</script>
+<script>
+    $(function () {
+        var type, name;
+        var arr = [];
+        var arrData = {};
+        var data = {};
+        var table = layui.table;//数据表格
+        var gridData;// 赋值数据实际使用为后台获取数据
+        var dataCount;//数据总条数
+        //页面默认初始化操作
+        init();
+        //查询
+        $(".select-botton").on("click", function () {
+            init();
+        })
+        $("input:radio").click(function(){  
+		    var domName = $(this).attr('name');//获取当前单选框控件name 属性值   
+		    var checkedState = $(this).attr('checked');//记录当前选中状态  
+// 		    $("input:radio[id='" + domName + "']").attr('checked',false);//1.  
+// 		    $(this).attr('checked',true);//2.  
+		    if(checkedState == 'checked'){  
+		    	$("input:radio[name='" + domName + "']").attr('checked',false); //3.  
+		    }  
+		});  
+        // 点击name弹窗
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            var id = data.id;
+            var number = data.contactnumber;
+            if (obj.event === 'showDetails') {
+//                 function callback() {
+//                 }
+
+//                 layerOpen("demoId", "930", "600", "留言详情页面", "/SRRPBusinesWeb/onlineForum/onlineForumDetails?id=" + id, 2, callback)
+                layer.open({
+                    title: '留言详情页面',
+                    content: "/SRRPBusinesWeb/onlineForum/onlineForumDetails?id=" + id,
+                    area: ['100%', '100%'],
+                    offset: ['0%', '0%'],
+                    type:2,
+                    scrollbar: false,
+                });
+            }
+        });
+
+        //查询列表数据
+        function init() {
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/onlineForum/initInfo",
+                data: $('#list_form_id').serialize(),// 查询条件
+                success: function (data) {
+                    data = JSON.parse(data);
+                    dataCount = data.recordCnt;
+                    createPage(data.list);
+                }
+            });
+            //分页调用
+            layui.use('laypage', function () {
+                var laypage = layui.laypage;
+                //执行一个laypage实例
+                laypage.render({
+                    elem: 'paged', //注意,这里的paged是分页调用ID,不用加#号
+                    count: dataCount,//注意,再操作分页功能时,必须获取到数据总条数(条件查询);
+                    layout: ['count', 'prev', 'page', 'next', 'limit',
+                        'skip'],
+                    limits: [10, 20, 50],//每页可选值,默认值确保与最小值相同
+                    limit: data.maxSize,//默认每页10条数据
+                    skip: true,
+                    jump: function (obj, first) {
+                        if (!first) {
+                            getPageInfo(obj);
+                        }
+                    }
+                });
+            });
+        }
+
+        //只操作分页数据
+        function getPageInfo(obj) {
+            var curPage = obj.curr;//当前页(跳转页也是当前页)
+            var limit = obj.limit;//每页多少条数
+            $("#start").value=curPage;
+            $("#limit").value=limit;
+            var curPage = obj.curr;//当前页(跳转页也是当前页)
+            var limit = obj.limit;//每页多少条数
+            var queryCondition = $('#list_form_id').serialize();
+            //                 querycondition[curPage] = currentPage;
+            //                 querycondition[maxSize] = limit;
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/onlineForum/initInfo",
+                data: {
+                	start: curPage,
+                    limit: limit,
+                    queryCondition: queryCondition
+                },
+                success: function (data) {
+                    data = JSON.parse(data);
+                    createPage(data.list,limit);//装配列表数据
+                }
+            });
+
+        }
+
+        //装配列表数据
+        function createPage(gridData,gridlimit) {
+            table.render({
+                id: 'orgGrid',
+                elem: '#orgGrid', //指定原始表格元素选择器（推荐id选择器）
+                width: 880,
+                data: gridData,
+                limit:gridlimit,
+                cols: [[ //标题栏
+                    {
+                        field: 'contacts',
+                        title: '联系人',
+                        align: 'center',
+                        width: '15%'
+                    }, {
+                        field: 'contactnumber',
+                        title: '联系电话',
+                        align: 'center',
+                        width: '13%'
+                    }, {
+                        field: 'messagetheme',
+                        title: '留言主题',
+                        align: 'center',
+                        width: '31%'
+                    }, {
+                        field: 'messagestatusStr',
+                        title: '留言状态',
+                        align: 'center',
+                        width: '12%',
+                        sort: true
+                    }, {
+                        field: 'messagedateStr',
+                        title: '留言日期',
+                        align: 'center',
+                        width: '18%',
+                        sort: true
+                    },{
+                        field: 'right',
+                        title: '操作',
+                        align: 'center',
+                        width: '12%',
+                        toolbar: '#barDemo',
+                        event: 'showDetails'
+                    }]]
+            });
+        }
+
+    })
+</script>
+</body>
+</html>

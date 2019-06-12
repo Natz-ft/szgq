@@ -1,0 +1,148 @@
+17:01:48.640 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+17:01:52.318 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@60b431: startup date [Tue Sep 26 17:01:52 CST 2017]; root of context hierarchy
+17:01:53.933 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+17:01:54.638 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+17:01:55.044 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+17:01:55.390 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+17:01:55.399 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+17:01:55.403 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+17:01:55.405 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+17:01:55.434 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+17:01:55.580 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+17:01:55.662 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+17:01:55.759 [main] WARN  o.s.c.s.GenericApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [applicationContext.xml]: Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build EntityManagerFactory
+17:01:55.763 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+17:01:55.783 [main] ERROR o.s.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@f5a68a] to prepare test instance [com.icfcc.SRRPTask.Test1@1d3956]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.CacheAwareContextLoaderDelegate.loadContext(CacheAwareContextLoaderDelegate.java:99) ~[spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:122) ~[spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109) ~[spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75) ~[spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:312) ~[spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:284) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:88) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174) [spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [applicationContext.xml]: Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build EntityManagerFactory
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628) ~[spring-beans-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555) ~[spring-beans-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1081) ~[spring-context-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:856) ~[spring-context-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542) ~[spring-context-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:120) ~[spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60) ~[spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:100) ~[spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:248) ~[spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.CacheAwareContextLoaderDelegate.loadContextInternal(CacheAwareContextLoaderDelegate.java:64) ~[spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.test.context.CacheAwareContextLoaderDelegate.loadContext(CacheAwareContextLoaderDelegate.java:91) ~[spring-test-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	... 25 common frames omitted
+Caused by: javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build EntityManagerFactory
+	at org.hibernate.ejb.Ejb3Configuration.buildEntityManagerFactory(Ejb3Configuration.java:924) ~[hibernate-entitymanager-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.ejb.Ejb3Configuration.buildEntityManagerFactory(Ejb3Configuration.java:899) ~[hibernate-entitymanager-4.2.5.Final.jar:4.2.5.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateEjbPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateEjbPersistenceProvider.java:51) ~[spring-orm-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:353) ~[spring-orm-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:370) ~[spring-orm-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:359) ~[spring-orm-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687) ~[spring-beans-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624) ~[spring-beans-4.3.7.RELEASE.jar:4.3.7.RELEASE]
+	... 40 common frames omitted
+Caused by: org.hibernate.AnnotationException: No identifier specified for entity: com.icfcc.SRRPDao.s.jpa.entity.portal.FinacingDemandDetail
+	at org.hibernate.cfg.InheritanceState.determineDefaultAccessType(InheritanceState.java:277) ~[hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.cfg.InheritanceState.getElementsToProcess(InheritanceState.java:224) ~[hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.cfg.AnnotationBinder.bindClass(AnnotationBinder.java:665) ~[hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.cfg.Configuration$MetadataSourceQueue.processAnnotatedClassesQueue(Configuration.java:3533) ~[hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.cfg.Configuration$MetadataSourceQueue.processMetadata(Configuration.java:3487) ~[hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.cfg.Configuration.secondPassCompile(Configuration.java:1376) ~[hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1777) ~[hibernate-core-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.ejb.EntityManagerFactoryImpl.<init>(EntityManagerFactoryImpl.java:96) ~[hibernate-entitymanager-4.2.5.Final.jar:4.2.5.Final]
+	at org.hibernate.ejb.Ejb3Configuration.buildEntityManagerFactory(Ejb3Configuration.java:914) ~[hibernate-entitymanager-4.2.5.Final.jar:4.2.5.Final]
+	... 47 common frames omitted
+17:02:18.199 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+17:02:18.470 [main] INFO  o.s.c.s.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@60b431: startup date [Tue Sep 26 17:02:18 CST 2017]; root of context hierarchy
+17:02:18.833 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+17:02:18.966 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+17:02:19.177 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+17:02:19.278 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+17:02:19.282 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+17:02:19.284 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+17:02:19.285 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+17:02:19.302 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+17:02:19.376 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+17:02:19.405 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+17:02:19.628 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+17:02:19.641 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+17:02:20.657 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+17:02:20.663 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+17:02:20.666 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-2} inited
+17:02:20.704 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+17:02:20.705 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+17:02:20.706 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+17:02:20.711 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+17:02:20.712 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+17:02:20.712 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+17:02:20.713 [main] WARN  o.h.e.i.EntityManagerFactoryRegistry - HHH000436: Entity manager factory name (default) is already registered.  If entity manager will be clustered or passivated, specify a unique value for property 'hibernate.ejb.entitymanager_factory_name'
+17:02:20.713 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+17:02:21.190 [main] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+17:02:21.255 [Thread-1] INFO  o.s.c.s.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@60b431: startup date [Tue Sep 26 17:02:18 CST 2017]; root of context hierarchy
+17:02:21.256 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+17:02:21.260 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-2} closed
+17:02:21.261 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+17:02:21.264 [Thread-1] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+17:02:45.846 [main] INFO  o.s.c.s.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@93dd95: startup date [Tue Sep 26 17:02:45 CST 2017]; root of context hierarchy
+17:02:45.900 [main] INFO  o.s.b.f.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [applicationContext.xml]
+17:02:46.539 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+17:02:46.675 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+17:02:46.886 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+17:02:46.991 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+17:02:46.995 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.2.5.Final}
+17:02:46.997 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+17:02:46.998 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+17:02:47.015 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+17:02:47.088 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+17:02:47.116 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+17:02:47.217 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+17:02:47.220 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+17:02:47.514 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+17:02:47.521 [main] ERROR c.a.d.pool.DruidAbstractDataSource - maxIdle is deprecated
+17:02:47.525 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-2} inited
+17:02:47.554 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+17:02:47.554 [main] INFO  org.hibernate.ejb.Ejb3Configuration - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+17:02:47.555 [main] INFO  o.h.s.j.c.i.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+17:02:47.560 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+17:02:47.561 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+17:02:47.561 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+17:02:47.562 [main] WARN  o.h.e.i.EntityManagerFactoryRegistry - HHH000436: Entity manager factory name (default) is already registered.  If entity manager will be clustered or passivated, specify a unique value for property 'hibernate.ejb.entitymanager_factory_name'
+17:02:47.562 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+17:02:47.796 [main] INFO  o.s.s.a.ScheduledAnnotationBeanPostProcessor - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing

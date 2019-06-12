@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*core*/
+.core{}
+.table_head{ padding:18px 30px 0px; background-color:#fff;}
+.table_box{ padding:20px 30px 30px;}
+.table{ border:1px solid #e1e6eb; border-bottom:none; border-right:none; width:100%; }
+.table thead th{ padding:16px 5px; border:1px solid #e1e6eb; border-left:none; border-top:none; background-color:#f5f6fa; font-size:14px;color:#777; font-weight:normal;  text-align:center; white-space:normal; word-wrap:break-word}
+.table td{ padding:8px 5px; text-align:center; border:1px solid #e1e6eb; border-left:none; border-top:none; font-size:13px; color:#333; white-space:normal; word-break:break-all}
+.table tr.mouse_color{ background-color:#f9f9f9}
+.a_link{ color:#5b83eb; text-decoration:none}
+.a_link:hover{ color:#0033FF;  text-decoration:underline}
+
+/*.page{background-color:#F5F6FA; border:1px solid #e1e6eb; padding:10px 10px 10px; height:32px; border-top:none; text-align:right }*/
+.page_info{ display:-moz-inline-stack;display:inline-block; margin-top:-31px; vertical-align:middle; *vertical-align:auto; zoom:1; *display:inline; padding:9px 20px 0px; color:#888; font-size:12px; line-height:17.15px; }
+.pagination{ display:inline-block; padding-left:0px; border-radius:4px;}
+.pagination li{ display:inline; font-size:13px;}
+.pagination li a{ cursor:pointer; color:#333;}
+.pagination li a,.pagination li span{ position:relative; float:left; padding:5px 12px 6px; margin-left:-1px; font-size:13px; line-height:1.428571429; text-decoration:none; background-color:#fff; border:1px solid #ddd;}
+.pagination li a:hover{ color:#4B73EC;}
+.pagination li a.active{ background-color:#4B73EC; color:#FFFFFF;}
+.pagination li a.disabled{ color:#bbb; cursor:default}
+.page_handle{ display:inline-block}
+.page_handle select{float:left; padding:4px 4px 4px 4px; height:32px; vertical-align:middle;font-size:13px; line-height:42px;border:1px solid #ddd; font-family:Microsoft Yahei;}

@@ -1,0 +1,210 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>首页待办事项-选择投资机构</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+</head>
+<style>
+    .boxWrap .boxContent .termsList li {
+      margin: 4px 5px;
+    }
+    .table-page {
+      width: 900px;
+    }
+</style>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <div class="boxContent">
+        <!-- 查询条件 -->
+        <div class="queryTerms">
+            <div class="termsWrap clearfix">
+                <div class="termsType">
+                    <span>机构类型:</span>
+                    <a class="queryAll" id="orgTypeAll">全部</a>
+                </div>
+                <div class="termsList" id="orgType">
+                    <ul class="clearfix">
+                        <c:forEach items="${ddOrgType}" var="dorty">
+                            <li><a value="${dorty.dicCode}">${dorty.dicName}</a></li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+            <div class="termsWrap clearfix">
+                <div class="termsType">
+                    <span>投资机构名称:</span>
+                </div>
+                <div class="termsList" id="investorName">
+                    <input id="investorNameType" type="text" name="name" style="height: 20px; width: 300px"/>
+                    <button class="layui-btn layui-btn-small selectBtn">查询</button>
+                </div>
+            </div>
+        </div>
+        <!-- 查询条件 END-->
+        <!-- 机构表格 -->
+        <!-- 分页组件 -->
+        <div class="orgGrid">
+            <table id="orgGrid" style="align:center;" lay-filter="test"></table>
+            <div class="table-page" style="align:center;">
+                <div id="paged" class="page"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 机构表格 END-->
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script type="text/html" id="barDemo">
+    <button class="layui-btn layui-btn-mini" id="selectInvestId" lay-event="selectedId">选中</button>
+</script>
+<script>
+    $(function () {
+        var type, name;
+        var arr = [];
+        var arrData = {};
+        var data = {};
+        var investorIdList = "";
+        var investorNameList = "";
+        var selected = "true";
+        $(".termsWrap a").on("click", function () {
+            var dicType = $(this).parents(".termsList").attr("id");
+            data[dicType] = $(this).attr("value");
+            init(data);
+        });
+
+        $(".layui-btn-small").on("click", function () {
+            function callback() {
+            }
+            var dicType = $("#investorNameType").parents(".termsList").attr("id");
+            data[dicType] = $("#investorNameType").val();
+            init(data);
+        });
+        //点击时去掉所选中的值
+        $("#orgTypeAll").on("click", function () {
+            delete eval(data).orgType;
+            init(data);
+            $(this).addClass("active");
+            $(this).parent().siblings(".termsList").find("li").removeClass("active");
+        });
+        // 查询条件选择高亮
+        var queryAll;
+        $(".boxWrap .boxContent .termsList li a").on("click", function () {
+            queryAll = $(this).parents(".termsWrap").find(".queryAll");
+            var t = $(this);
+            if (queryAll.hasClass("active")) {
+                queryAll.removeClass("active");
+            }
+            if (!$(this).parent().hasClass("active")) {
+                $(this).parent().addClass("active").siblings().removeClass("active");
+            }
+        });
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var gridData;
+        var dataCount;//数据总条数
+        //页面默认初始化操作
+        init('');
+        // 点击选中操作
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            var investorId = obj.data.investorId;
+            var investorName = obj.data.name;
+            if (obj.event === 'selectedId') {
+               window.parent.investorName = investorName;
+               window.parent.investorId = investorId;
+               var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+               parent.layer.close(index); //再执行关闭当前iframe页面
+            }
+        }); 
+        
+        var callbackdata = function () {
+            var data = {
+                username: 'zhangfj'
+            };
+            return data;
+        }
+
+        //只操作分页数据
+        function getPageInfo(obj, queryCondition) {
+            var currentPage = obj.curr;//当前页(跳转页也是当前页)
+            var limit = obj.limit;//每页多少条数
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/investor/selectInvestorListByOrgType",
+                data: {start: currentPage, limit: limit,selected:selected, queryCondition: JSON.stringify(queryCondition)},
+                success: function (data) {
+                    data = JSON.parse(data);
+                    createPage(data.list,limit);//装配列表数据
+                }
+            });
+
+        }
+
+        //装配列表数据
+        function createPage(gridData,gridlimit) {
+            table.render({
+                id: 'orgGrid',
+                elem: '#orgGrid', //指定原始表格元素选择器（推荐id选择器）
+                width: 746,
+                data: gridData,
+                limit:gridlimit,
+                cols: [[ //标题栏
+                    {
+                        field: 'name',
+                        title: '投资机构名称',
+                        width: 306,
+                        align: 'center',
+                    },
+                    {field: 'areaCodeDicname', title: '所属地区', align: 'center', width: 180},
+                    {field: 'orgTypeDicname', title: '机构类型', align: 'center', width: 180},
+                    {field: 'right', title: '操作', align: 'center', width: 80, toolbar: '#barDemo'}
+                ]]
+            });
+        }
+
+        function init(queryCondition) {
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/investor/selectInvestorListByOrgType",
+                data: {"queryCondition": JSON.stringify(queryCondition),"selected":selected},// 查询条件
+                success: function (data) {
+                    data = JSON.parse(data);
+                    dataCount = data.recordCnt;
+                    createPage(data.list);
+                }
+            });
+            //分页调用
+            layui.use('laypage', function () {
+                var laypage = layui.laypage;
+                //执行一个laypage实例
+                laypage.render({
+                    elem: 'paged', //注意,这里的paged是分页调用ID,不用加#号
+                    count: dataCount,//注意,再操作分页功能时,必须获取到数据总条数(条件查询);
+                    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+                    limits: [10, 20, 50],//每页可选值,默认值确保与最小值相同
+                    limit: 10,//默认每页10条数据
+                    skip: true,
+                    jump: function (obj, first) {
+                        if (!first) {
+                            getPageInfo(obj, queryCondition);
+                        }
+                    }
+                });
+            });
+        }
+
+
+    })
+</script>
+</body>
+</html>

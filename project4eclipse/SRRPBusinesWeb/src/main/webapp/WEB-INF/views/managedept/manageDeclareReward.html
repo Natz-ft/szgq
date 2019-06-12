@@ -1,0 +1,432 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>奖励申报查询</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+    	<script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+    
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+
+    <p class="boxTitle"><span>奖励申报查询</span></p>
+    <div class="boxContent">
+<form action="##" method="post" onsubmit="return false" id="form">
+<input type="hidden" name="declareId"  id="inputdeclareId" value="">
+        <!-- 查询条件 -->
+        <div class="queryTerms">
+ 		<c:if test="${userType !='03'}">
+             <div class="termsWrap clearfix">
+                <div class="termsType">
+                    <span>所属区域：</span>
+                    <a class="queryAll" id="reareaAll">全部</a>
+                </div>
+                <div class="termsList" id="rearea">
+                    <ul class="clearfix" id="dd_rearea">
+
+                    </ul>
+                </div>
+                <div class="termsType" style="margin-top:5px;">
+					<a class="queryMore"  id="ReareaMoreId" href="javascript:void(0);">更多<img id="showReareaMoreId"  style="height: 22px;width: 22px;" src="../static/images/search_down.png"><i></i></a>
+                </div>
+            </div>
+          </c:if> 
+           <div class="termsWrap clearfix">
+                    <div class="termsType">
+                        <span>申报状态：</span>
+                        <a class="queryAll" id="declareStatusAll">全部</a>
+                    </div>
+                    <div class="termsList" id="declareStatus">
+                        <ul class="clearfix" id="declareStatus">
+                            <li><a value="00">未接收</a></li>
+                            <li><a value="01">已接收</a></li>
+<!--                             <li><a value="02">撤销</a></li> -->
+                        </ul>
+                    </div>
+            </div>
+            <div class="termsWrap clearfix">
+                    <div class="termsType">
+                        <span>申报单位：</span>
+                        <input type="text" name="declareName" id="declareName" autocomplete="off"
+                               placeholder="请输入申报机构名称或机构代码" class="query-blank-input">
+                    </div>
+           </div>
+           <div class="termsWrap clearfix">
+                    <div class="termsType">
+                        <span>被投企业：</span>
+                        <input type="text" name="companyName" id="companyName" autocomplete="off"
+                               placeholder="请输入被投企业名称或机构代码" class="query-blank-input">
+                    </div>
+           </div>
+            <div class="termsWrap clearfix">
+                    <div class="termsType">
+                        <span>申报期间：</span>
+                    </div>
+                    <div class="termsList termsList-query-date">
+                        <input type="text" name="declare_begin_time" autocomplete="off" 
+			                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endTime\')||\'%y-%M-%d\'}'})"
+			                               style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;padding-left: 5px;"
+			                               onkeydown="if(event.keyCode==13){event.keyCode=0;return false}"
+			                               id="beginTime"/>&nbsp; 至&nbsp;&nbsp;
+					                        <input type="text" name="declare_end_time" autocomplete="off" 
+					                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',minDate:'#F{$dp.$D(\'beginTime\')}'})"
+					                               style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;padding-left: 5px;"
+					                               onkeydown="if(event.keyCode==13){event.keyCode=0;return false}"
+					                               id="endTime"/>
+                    </div>
+                     <a href="javascript:void(0);" class="select-botton">查询</a>
+                </div>
+        </div>
+        <!-- 查询条件 END-->
+        <!-- 企业表格 -->
+        <div>
+        <c:choose>
+				<c:when test="${'03' eq userType}">
+					<div style="width:90%;">
+						<table id="rewarDeclareGrid" lay-filter="test" style="margin-top: 1%;"></table>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div style="width:100%;">
+					  <table id="NewrewarDeclareGrid" lay-filter="test" style="margin-top: 1%;"></table>
+					</div>
+				</c:otherwise>
+			</c:choose>
+			
+            
+            <!-- 分页组件 -->
+            <div class="table-page">
+                <div id="paged" class="page"></div>
+            </div>
+        </div>
+        <!-- 企业表格 END-->
+        </form>
+    </div>
+</div>
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+
+<script type="text/html" id="barDemo">
+     <a lay-event="showDeclareDetails" class="layui-btn layui-btn-mini">查看详情</a>&nbsp;&nbsp;
+{{#  if('${userType}' == '03'){ }}
+   {{# if(d.declareStatus =='00'){ }}
+      <a lay-event="answerDeclare" class="layui-btn layui-btn-mini"> 接收 </a>&nbsp;&nbsp;
+{{# } }}
+ {{# if(d.declareStatus =='01'){ }}
+      <a lay-event="cancleAnswerDeclare" class="layui-btn layui-btn-mini"> 取消接收 </a>&nbsp;&nbsp;
+{{# } }}
+   {{# } }}
+</script>
+<script type="text/html" id="barDemo1">
+    <a lay-event="showInvestorDetails" style="color:#0D4F92;cursor: pointer;">{{d.declareName}}</a>&nbsp;&nbsp;
+</script>
+<script>
+    $(function () {
+        var data = {};
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var gridData;
+        //数据总条数
+        var dataCount;
+        //每月最大条数
+        var maxSize;
+        initDD();
+        //页面默认初始化操作
+        init('');
+        
+        //向data中添加选中的键值对
+        $(".termsWrap li a").on("click", function () {
+            var dicType = $(this).parents(".termsList").attr("id");
+            data[dicType] = $(this).attr("value");
+        })
+        //点击全部时去掉前面所选的
+        $("#reareaAll").on("click", function () {
+            delete eval(data).rearea;
+        })
+        //点击全部时去掉前面所选的
+        $("#declareStatusAll").on("click", function () {
+            delete eval(data).declareStatus;
+        })
+        // 查询条件选择高亮
+        var queryAll;
+        var valueClient = new Array();//区域
+        $(".boxWrap .boxContent .termsList li a").on("click", function () {
+        	queryAll = $(this).parents(".termsWrap").find(".queryAll");
+            var dicType = $(this).parents(".termsList").attr("id");
+            var t = $(this);
+            if(dicType=='rearea'){
+            	if (queryAll.hasClass("active")) {
+                    queryAll.removeClass("active");
+                    valueClient.splice(0,valueClient.length);
+                }
+                if (!$(this).parent().hasClass("active")) {
+                    $(this).parent().addClass("active");
+                    valueClient.push($(this).attr("value"));
+                    
+                }else{
+               	 $(this).parent().removeClass("active");
+               	 removeByValue(valueClient, $(this).attr("value"));
+                }
+                data[dicType] = valueClient.toString();
+            }else{
+            	 if (queryAll.hasClass("active")) {
+                     queryAll.removeClass("active");
+                 }
+                 if (!$(this).parent().hasClass("active")) {
+                     $(this).parent().addClass("active").siblings().removeClass("active");
+                     
+                 }else{
+                 	 $(this).parent().removeClass("active");
+                 }
+            }
+        });
+        
+        // 查询条件展开
+        var list, showOne, showAll;
+        $(".queryAll").on("click", function () {
+            list = $(this).parent().siblings(".termsList");
+            var queryAllId = list.context.id;
+            if(queryAllId != 'declareStatusAll'&&queryAllId != 'reareaAll'){
+            	showAll = list.find("ul").height();
+			}
+            showOne = list.height();
+            $(this).addClass("active");
+            list.find("li").removeClass("active");
+            if(queryAllId != 'declareStatusAll'&&queryAllId != 'reareaAll'){
+            	if (showOne < showAll) {
+                    list.animate({height: showAll});
+                } else {
+                    list.animate({height: 30});
+                }
+            }
+            
+        });
+        $(".queryMore").on("click", function () {
+            list = $(this).parent().siblings(".termsList");
+			var queryMoreId = $(this).attr("id");
+            showAll = list.find("ul").height();
+            showOne = list.height();
+            $(this).addClass("active");
+            list.find("li").removeClass("active");
+            if (showOne < showAll) {
+                list.animate({height: showAll});
+				document.getElementById('showReareaMoreId').src = "../static/images/search_up.png";
+            } else {
+                list.animate({height: 30});
+				document.getElementById('showReareaMoreId').src = "../static/images/search_down.png";
+            }
+        });
+        function removeByValue(arr, val) {
+        	  for(var i=0; i<arr.length; i++) {
+        	    if(arr[i] == val) {
+        	      arr.splice(i, 1);
+        	      break;
+        	    }
+        	  }
+        	} 
+        //点击查询按钮时触发条件查询
+        $(".select-botton").on("click", function () {
+        	data.curPage = "";
+        	 var dicType = $("#declareName").attr("name");
+             data[dicType] = $("#declareName").val();
+             var dicType = $("#companyName").attr("name");
+             data[dicType] = $("#companyName").val();
+             
+            var dicType = $("#beginTime").attr("name");
+            data[dicType] = $("#beginTime").val();
+            var dicType = $("#endTime").attr("name");
+            data[dicType] = $("#endTime").val();
+            init(data);
+        });
+       
+        function init(queryCondition) {
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/manageRewardDeclare/DeclareListInitInfo",
+                data: {"queryCondition": JSON.stringify(queryCondition)},// 查询条件
+                success: function (data) {
+                    data = JSON.parse(data);
+                    dataCount = data.recordCnt;
+                    maxSize = data.maxSize;
+                    createPage(data.list);
+                }
+            });
+            //分页调用
+            layui.use('laypage', function () {
+                var laypage = layui.laypage;
+                //执行一个laypage实例
+                laypage.render({
+                    elem: 'paged', //注意,这里的paged是分页调用ID,不用加#号
+                    count: dataCount, //注意,再操作分页功能时,必须获取到数据总条数(条件查询);
+                    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+                    limits: [10, 20, 50], //每页可选值,默认值确保与最小值相同
+                    limit: maxSize, //默认每页10条数据;
+                    skip: true,
+                    jump: function (obj, first) {
+                        if (!first) {
+                            getPageInfo(obj, queryCondition);
+                        }
+                    }
+                });
+            });
+        }
+        // 点击name弹窗
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            var declareId = data.declareId;
+            var investorId = data.investorId;
+            $('#inputdeclareId').val(declareId);
+            if (obj.event === 'answerDeclare') {
+            	layer.confirm('是否确认接收此申报记录？ ', {icon: 3, title:'提示',btnAlign: 'c'}, function(index){	
+	                $.ajax({
+	                    type: "post",
+	                    async: false,
+	                    url: "/SRRPBusinesWeb/manageRewardDeclare/answerDeclare",
+	                    data: {"declareId": declareId,"type":'01'},
+	                    success: function () {
+	                        window.location.reload();
+	                    }
+	                });
+            	});
+            }else if (obj.event === 'cancleAnswerDeclare') {
+            	layer.confirm('是否确认取消接收此申报记录？ ', {icon: 3, title:'提示',btnAlign: 'c'}, function(index){	
+	                $.ajax({
+	                    type: "post",
+	                    async: false,
+	                    url: "/SRRPBusinesWeb/manageRewardDeclare/answerDeclare",
+	                    data: {"declareId": declareId ,"type":'00'},
+	                    success: function () {
+	                        window.location.reload();
+	                    }
+	                });
+            	});
+            }else  if (obj.event === 'showDeclareDetails') {
+                layer.open({
+                    title: '申报信息详情',
+                    content: "/SRRPBusinesWeb/investorRewardDeclare/declareDetail?declareId=" + declareId,
+                    area: ['100%', '100%'],
+                    offset: ['0%', '0%'],
+                    type:2,
+                    scrollbar: false,
+                });
+            }else if(obj.event === 'showInvestorDetails') {
+            	layer
+				.open({
+					title : '投资机构页面',
+					content : "/SRRPBusinesWeb/investorManage/investorDetails?investorId="
+							+ investorId,
+					area : [ '100%', '100%' ],
+					offset : [ '0%', '0%' ],
+					type : 2,
+					scrollbar : false,
+				});
+          }
+            
+        });
+        //只操作分页数据
+        function getPageInfo(obj, queryCondition) {
+            var currentPage = obj.curr;//当前页(跳转页也是当前页)
+            var limit = obj.limit;//每页多少条数
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/manageRewardDeclare/DeclareListInitInfo",
+                data: {start: currentPage, limit: limit, queryCondition: JSON.stringify(queryCondition)},
+                success: function (data) {
+                    data = JSON.parse(data);
+                    createPage(data.list,limit);//装配列表数据
+                }
+            });
+        }
+       
+       
+        //装配列表数据
+        function createPage(gridData,gridlimit) {
+            table.render({
+                id: 'rewarDeclareGrid',
+                elem: '#rewarDeclareGrid', //指定原始表格元素选择器（推荐id选择器）
+                width:980,
+                data: gridData,
+                limit: gridlimit,
+                cols: [[ //标题栏
+                    {title: '申报单位 ',align: 'center',width: '21%',toolbar : '#barDemo1'},
+                    {field: 'certno',title: '机构代码 ',align: 'center',width: '18%'},
+                    {field: 'declareTimeStr', title: '申报期间', align: 'center', width: '20.3%'},
+                    {field: 'declareStatusStr', title: '申报状态', align: 'center', width: '10%'},
+                    {field: 'relName', title: '联系人', align: 'center', width: '10%'},
+                    {field: 'relPhone', title: '联系电话', align: 'center', width: '11%'},
+                    {
+						field : '',
+						fixed: 'right',
+						title : '操作',
+						width : '17%',
+						align : 'center',
+						toolbar : '#barDemo'
+					} 
+                ]]
+            });
+            
+            table.render({
+                id: 'NewrewarDeclareGrid',
+                elem: '#NewrewarDeclareGrid', //指定原始表格元素选择器（推荐id选择器）
+                width:980,
+                data: gridData,
+                limit: gridlimit,
+                cols: [[ //标题栏
+                    {title: '申报单位 ',align: 'center',width: '20%',toolbar : '#barDemo1'},
+                    {field: 'certno',title: '机构代码 ',align: 'center',width: '18%'},
+                    {field: 'declareTimeStr', title: '申报期间', align: 'center', width: '20%'},
+                    {field: 'reareaDicname',title: '申报区域 ',align: 'center',width: '8%'},
+                    {field: 'declareStatusStr', title: '申报状态', align: 'center', width: '8%'},
+                    {field: 'relName', title: '联系人', align: 'center', width: '8%'},
+                    {field: 'relPhone', title: '联系电话', align: 'center', width: '11%'},
+                    {
+						field : '',
+						fixed: 'right',
+						title : '操作',
+						width : '10%',
+						align : 'center',
+						toolbar : '#barDemo'
+					} 
+                ]]
+            });
+        }
+        // 字典值初始化
+        function initDD() {
+           
+            var reareaHtml = '';
+            $.ajax({
+                type: "post",
+                url: "/SRRPBusinesWeb/initInfo/getDDList",//url地址
+                data: {"name": "rearea"},// 查询条件
+                async: false,//使用同步的方式,true为异步方式
+                success: function (data) {
+                    data = JSON.parse(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var _json = data[i];
+                        var str=_json.dicCode;
+                        var suzhouArea=str.substring(0,4);
+                        if(suzhouArea=='3205'){
+                        	reareaHtml += "<li><a value=\"" + _json.dicCode + "\">" + _json.dicName + "</a></li>";
+                        }
+                        
+                    }
+                    $("#dd_rearea").append(reareaHtml);
+                }
+            });
+        }
+        
+
+    })
+</script>
+</body>
+</html>

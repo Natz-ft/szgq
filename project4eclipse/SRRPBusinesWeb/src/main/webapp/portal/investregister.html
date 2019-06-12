@@ -1,0 +1,966 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+     <meta name="renderer" content="webkit|ie-comp|ie-stand"/> 
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <title>苏州股权融资服务平台--企业注册</title>
+    <link rel="shortcut icon" type="image/x-icon" href="common/images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="common/style/reset.css">
+    <link rel="stylesheet" type="text/css" href="common/style/common.css">
+    <link rel="stylesheet" type="text/css" href="common/script/layui/css/layui.css">
+     <link rel="stylesheet" type="text/css" href="investregister/style/investregister.css">
+    <script src="investregister/script/md5.js" type="text/javascript"></script>
+    <script src="common/script/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="common/script/layui/layui.js" type="text/javascript"></script>
+    <script src="common/script/qrcode/qrcode.js" type="text/javascript"></script>
+    <script src="common/script/date/my97/WdatePicker.js" type="text/javascript"></script>
+    <script src="investregister/script/formValidator-4.0.1.min.js" type="text/javascript"></script>
+    <script src="investregister/script/formValidatorRegex.js" type="text/javascript"></script>
+    <script src="common/script/common.js" type="text/javascript"></script>
+    
+    <style type="text/css">
+    .telIcons {
+	    display: inline-block;
+	    color: blue;
+	    height: 21px;
+	    line-height: 21px;
+	}
+	
+	.telIcons:hover {
+	    color: red;
+	}
+	.investregister-hr-class{
+	   /*margin-top: 60px;*/
+	}
+    </style>
+</head>
+
+
+<body>
+<!--头部信息开始-->
+<!--头部信息开始-->
+<!--头部logo以及登录注册开始-->
+<div class="logo clearfix">
+    <div class="logoRight">
+    	<c:if test="${!empty sessionScope.user}">
+        <a href="/creditplatformweb/success">进入业务系统</a><a href="/creditplatformweb/logout">退出登陆</a>
+    </c:if>
+    <c:if test="${empty sessionScope.user}">
+    	<a href="register.html"> 注&nbsp;&nbsp;&nbsp;&nbsp;册 </a>
+        <a href="/creditplatformweb/logout"> 登&nbsp;&nbsp;&nbsp;&nbsp;录 </a>
+    </c:if></div>
+          <div class="logoLeft">
+	        <a href="index.html">
+	            <p></p>
+	            <p></p>
+	        </a>
+	     </div>
+</div>
+<!--头部logo以及登录注册结束-->
+<!--头部logo以及登录注册结束-->
+<!-- 操作菜单开始 -->
+<div class="header">
+    <ul class="nav clearfix">
+        <li class="active"><a href="index.html"> 首 页 </a></li>
+        <li><a href="investevent.html"> 投融事件 </a></li>
+        <li><a href="finace.html"> 融资需求 </a></li>
+        <li><a href="news.html"> 新闻动态 </a></li>
+        <li><a href="result.html"> 运行成果 </a></li>
+        <li><a href="investor.html"> 投资机构 </a></li>
+        <li><a href="relate.html"> 联系我们 </a></li>
+    </ul>
+</div>
+<!-- 操作菜单结束-->
+<!--头部信息结束-->
+<!-- 注册表单信息开始 -->
+<div class="main-background">
+	<input type="hidden" id="enterpriseId" name="enterpriseId" >
+    <div class="currentsite">当前位置：首页>企业注册</div>
+    <div class="reg">
+       
+            <hr/>
+            <div id="first-step" style="display: inline">
+            <form action="" name="addform" id="addform" method="post">
+                <div style="text-align: center;">
+                    <img src="investregister/images/first-step.png" style="width: 600px;height: 46px" alt="第二步"/>
+                </div>
+                <hr/>
+                <dl>
+                	<div class="invest-register-invest-name">
+                        <div style="margin-left: 5%;">
+                                                                                 征信授权书：<a href="../static/files/sqxy/AuthorizationLetter.doc" download="授权协议书.docx" id="user-xy" style="color: #1b66c7;margin-left: 13%;font-size: 16px;">《授权协议书》</a>
+                        	<span style="color: #999;">(点击下载)</span>
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div>
+                            <span class="title-star"><a>*</a>企业名称：</span>
+                            <input class="reg_input" name="name" id="name" type="text" style="width:250px;font-size:12px"/>
+                            <span id="nameTip" class="onshow"></span>
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div>
+                            <span class="title-star"><a>*</a>证件代码类型：</span>
+                            <input type="radio" name="codetype" value="1" checked="checked"/>
+                            <label> 组织机构代码</label>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="codetype" value="2"/>
+                            <label> 统一社会信用代码</label>　
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span class="title-star"><a>*</a>证件代码：</span>
+                            <input class="reg_input" name="code" id="code" type="text" style="width:200px;"/>
+                             <span id="codeTip" class="onshow"></span>
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span class="title-star"><a>*</a>注册资本：</span>
+                            <input class="reg_input" maxlength ="8" name="regcapital" id="regcapital" type="text" style="width:200px;"/>&nbsp;&nbsp;百万
+                            <span id="regcapitalTip" class="onshow"></span>
+                        </div>
+                    </div>
+                     <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span class="title-star"><a>*</a>注册时间：</span>
+                             <input class="reg_input" name="redate" id="redate" type="text" 
+                         			  onfocus="WdatePicker({isShowClear:false,readOnly:true,skin:'whyGreen',maxDate:'%y-%M-%d'})" style="width:156px;"/>
+                     	    <span id="redateTip" class="onshow"></span>
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span class="title-star"><a>*</a>所属区域：</span>
+                             <select class="reg_input" name="rearea" id="rearea" type="text" style="width:170px;">
+                   			 </select>
+                   			 <span id="reareaTip" class="onshow"></span>
+                        </div>
+                    </div>
+                </dl>
+                <dl>
+                    <hr/>
+                    <dt class="heading">联系方式</dt>
+                    <hr/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span class="title-star"><a>*</a>法定代表人姓名：</span>
+                            <input class="reg_input" name="legalName" id="legalName" type="text" style="width:200px;"/>
+                            <span id="legalNameTip" class="onshow"></span>
+                        </div>
+                    </div>
+                     <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span class="title-star"><a>*</a>法定代表人手机号：</span>
+                            <input class="reg_input" name="legalCal" id="legalCal" type="text" maxlength="11" style="width:200px;"/>
+                            <span id="legalCalTip" class="onshow"></span>
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span class="title-star"><a>*</a>联系人姓名：</span>
+                            <input class="reg_input"  name ="contacName" id="contacName" type="text"  style="width:200px;font-size:12px"/>
+                             <span id="contacNameTip" class="onshow"></span>
+                        </div>
+                    </div>
+                     <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span class="title-star"><a>*</a>联系人手机号：</span>
+                            <input class="reg_input"  name="contacCal" id ="contacCal"  type="text" maxlength="11" style="width:200px;"/>
+                            <a class="telIcons" id="click_phone" style="display: inline">获取验证码</a>
+                            <span style="color: red; display: none; " id="countdown"><a id="countdown_value"></a></span>
+                            <span id="contacCalTip" class="onshow"></span>
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span class="title-star"><a>*</a>手机验证码：</span>
+                            <input class="reg_input" name="random" id="random" type="text" style="width:100px;" size="6" autocomplete="off"/>
+                            <span id="randomTip" class="onshow"></span>
+                        </div>
+                    </div>
+                    <hr/>
+                    <dt class="heading">用户密码</dt>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span class="title-star"><a>*</a>用户密码：</span>
+                               <!-- 防止输入框读取缓存 -->
+                            <input type="text" style="display:none">
+                            <input type="password" name="password" style="display:none"/>
+                            <input id="password" type="password" name="password" class="reg_input" style="width:100px;" autocomplete="off"/>
+                            <span id="passwordTip" class="onshow"></span>
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span class="title-star"><a>*</a>确认密码：</span>
+                               <!-- 防止输入框读取缓存 -->
+                            <input type="text" style="display:none">
+                            <input type="password" name="password2" style="display:none"/>
+                            <input id="password2" type="password" name="password2" class="reg_input" style="width:100px;" autocomplete="off"/>
+                            <span id="password2Tip" class="onshow"></span>
+                        </div>
+                    </div>
+                </dl>
+                <hr class="investregister-hr-class"/>
+                <div class="invest-register-invest-name">
+                    <div style="margin-left: 5%;">
+                        <input class="reg-checkbtn" name="" id="agreedeal" type="checkbox"/>
+                        我接受用户服务协议<a href="javascript:void(0);" id="user-deal" class="user-deal">《用户协议》</a>
+                    </div>
+                </div>
+                <hr />
+                <div class="return-area">
+                      <input name="next" class="return-btn" id="next" type="button" value="下一步"></input>
+                </div>
+                </form>
+            </div>
+            
+            <div id="second-step" style="display: none">
+            	<form action="" name="addSuppform" id="addSuppform" method="post">
+                <div style="text-align: center;">
+                    <img src="investregister/images/second-step.png" style="width: 600px;height: 46px" alt="第二步"/>
+                </div>
+                <hr />
+                <dl>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span><a>*</a>行业：</span>
+                            <select class="reg_input invest-register-drop-down-input" id="industry" name="industry" type="text"   style="width: 160px;margin-left: 6%;"  >
+                   			 </select>
+                            <span id="industryTip" class="onshow"></span>
+                        </div>
+                    </div>
+                     <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span><a>*</a>实收资本：</span>
+                            <input class="reg_input" id="paidincapital" name="paidincapital" type="text" style="width: 150px;margin-left: 2.5%;"/>&nbsp;&nbsp;百万
+                            <span id="paidincapitalTip" class="onshow"></span>
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-radio">
+                        <div class="invest-register-radio-left">
+                            &nbsp;<span ><a>*</a>是否属于国家级高新区内：</span>
+                            <input type="radio" name="iSHiTechPark" value="0" checked="checked"/>
+                            <label> 是</label>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="iSHiTechPark" value="1"/>
+                            <label> 否</label>　
+                        </div>
+                    </div>
+                    <div class="invest-register-radio">
+                        <div class="invest-register-radio-right">
+                            <span><a>*</a>是否属于国家级孵化器内：</span>
+                            <input type="radio" name="iSEgggenerator" value="0" checked="checked"/>
+                            <label> 是</label>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="iSEgggenerator" value="1"/>
+                            <label> 否</label>　
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-radio">
+                        <div class="invest-register-radio-left">
+                            &nbsp;<span><a>*</a>是否属于国家级大学科技园内：</span>
+                            <input type="radio" name="iSHiSchool" value="0" checked="checked"/>
+                            <label> 是</label>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="iSHiSchool" value="1"/>
+                            <label> 否</label>　
+                        </div>
+                    </div>
+                    <div class="invest-register-radio">
+                        <div class="invest-register-radio-right">
+                            <span><a>*</a>是否在科技部备案的众创空间内：</span>
+                            <input type="radio" name="iSCreativespace" value="0" checked="checked"/>
+                            <label> 是</label>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="iSCreativespace" value="1"/>
+                            <label> 否</label>　
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-radio">
+                        <div class="invest-register-radio-left">
+                            &nbsp;<span><a>*</a>是否上市公司控股企业：</span>
+                            <input type="radio" name="iSHolding" value="0" checked="checked"/>
+                            <label> 是</label>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="iSHolding" value="1"/>
+                            <label> 否</label>　
+                        </div>
+                    </div>
+                    <div class="invest-register-radio">
+                        <div class="invest-register-radio-right">
+                            <span><a>*</a>是否新三板企业：</span>
+                            <input type="radio" name="iSThreeNewBoard" value="0" checked="checked"/>
+                            <label> 是</label>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="iSThreeNewBoard" value="1"/>
+                            <label> 否</label>　
+                        </div>
+                    </div>
+
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-radio">
+                        <div class="invest-register-radio-left">
+                            &nbsp;<span><a>*</a>是否高新技术企业：</span>
+                            <input type="radio" name="iSHItech" value="0" checked="checked"/>
+                            <label> 是</label>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="iSHItech" value="1"/>
+                            <label> 否</label>　
+                        </div>
+                    </div>
+                    <div class="invest-register-radio">
+                        <div class="invest-register-radio-right">
+                            <span><a>*</a>现融资阶段：</span>
+                            <select class="reg_input invest-register-drop-down-input" id="financingphase" name="financingphase" type="text" style="width: 120px;">
+                   			 </select>
+                            <span id="financingphaseTip" class="onshow"></span>
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span><a>*</a>大专以上科技人员数：</span>
+                            <input class="reg_input" id="hiSchoolNumber" name="hiSchoolNumber" type="text" style="width: 150px;"/>
+                            <span id="hiSchoolNumberTip" class="onshow"></span>
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name">
+                        <div class="invest-register-radio-left">
+                            <span><a>*</a>直接从事研发人员数：</span>
+                            <input class="reg_input" id="developNumber" name="developNumber" type="text" style="width: 150px;"/>
+                            <span id="developNumberTip" class="onshow"></span>
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name" style="height: 100px;">
+                        <div>
+                            <span><a>*</a>企业简介：</span>
+                            <textarea class="register-intruoduce" id="tbdescribes" name="tbdescribes"></textarea>
+                    		<span id="tbdescribesTip" class="onshow"></span>
+                        </div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name" style="height: 90px;">
+                        <div style="height: 20px;">
+			                    <span><a>*</a>营业执照：</span>
+								<button type="button" class="layui-btn" id="uploadBtn" name="uploadBtn" style="height: 28px;">
+								<div style="margin-top: -5px;margin-left: -1px;">
+								 	 <i class="layui-icon">&#xe67c;</i>上传文件
+								</div>
+								</button>
+								<div id="imagediv" name="imagediv" style="margin-left: 27%;margin-top: -3%;"></div>
+								<div id="imageTS" name="imageTS" style="margin-left: 27%;margin-top: -2%;"></div>
+                        </div>
+                        <div style="margin-left: 6%;margin-top: 5%;">格式要求：附件支持jpg/jpeg/png/bmp/gif/txt/TXT/xls/XLS/xlsx/docx/doc/pdf格式，累计个数不能超过5个</div>
+                    </div>
+                    <hr class="investregister-hr-class"/>
+                    <div class="invest-register-invest-name" style="height: 90px;">
+                        <div style="height: 20px;">
+			                    <span><a>*</a>授权协议：</span>
+								<button type="button" class="layui-btn" id="uploadSQtn" name="uploadSQtn" style="height: 28px;">
+								  <div style="margin-top: -5px;margin-left: -1px;">
+								 	 <i class="layui-icon">&#xe67c;</i>上传文件
+								</div>
+								</button>
+								<div id="filediv" name="filediv" style="margin-left: 27%;margin-top: -3%;"></div>
+								<div id="sqts" name="sqts" style="margin-left: 27%;margin-top: -2%;"></div>
+                        </div>
+                        <div style="margin-left: 6%;margin-top: 5%;">格式要求：附件支持jpg/jpeg/png/bmp/gif/txt/TXT/xls/XLS/xlsx/docx/doc/pdf格式，累计个数不能超过5个</div>
+                    </div>
+                </dl>
+                <hr class="investregister-hr-class"/>
+                <div class="return-area">
+                    <input id="confirm" name="confirm" class="return-btn"  type="button" value="提交"></input>
+                </div>
+                </form>
+            </div>
+            
+            <div id="third-step" style="display: none">
+                <div style="text-align: center;">
+                    <img src="investregister/images/finish.png" style="width: 600px;height: 46px" alt="第二步"/>
+                </div>
+                <hr class="investregister-hr-class"/>
+                <div style="text-align: center;margin-top:10%;">
+                    <img src="investregister/images/finish-confirm.png" style="width: 100px;height: 100px" alt="第二步"/>
+                </div>
+
+                <div style="text-align: center;margin-bottom:10%;">
+                    <span style="font-weight: bold;">完成注册！</span>
+                </div>
+            </div>
+    </div>
+    <div>&nbsp;</div>
+</div>
+<!-- 注册表单信息结束 -->
+
+<!--底部信息开始-->
+<div id="foot"></div>
+<!--底部信息结束-->
+</body>
+
+<script>
+    var ddHtml='',finHtml='',industHtml='';
+    var ddValue,finValue,induValue;
+    $.ajax({
+        type: "post",
+        url: "/SRRPBusinesWeb/newCompany/initDD",//url地址
+		async: false,//使用同步的方式,true为异步方式
+        success: function (data) {
+        	data = JSON.parse(data);
+			//机构总部
+			ddHtml = '<option value="">请选择</option>';
+			ddValue = data.area;
+        	ddValue =  JSON.parse(ddValue);
+			for (var i = 0; i < ddValue.length; i++) {
+				var _json = ddValue[i];
+				ddHtml += '<option value="'+_json.dicCode+'">'+_json.dicName+'</option>';
+			}
+			$("#rearea").append(ddHtml);	
+			
+			finHtml = '<option value="">请选择</option>';
+			finValue = data.financeAmout;
+			finValue =  JSON.parse(finValue);
+			for (var i = 0; i < finValue.length; i++) {
+				var _json = finValue[i];
+				finHtml += '<option value="'+_json.dicCode+'">'+_json.dicName+'</option>';
+			}
+			$("#financingphase").append(finHtml);
+			
+			industHtml = '<option value="">请选择</option>';
+			induValue = data.industry;
+			induValue =  JSON.parse(induValue);
+			for (var i = 0; i < induValue.length; i++) {
+				var _json = induValue[i];
+				industHtml += '<option value="'+_json.dicCode+'">'+_json.dicName+'</option>';
+			}
+			$("#industry").append(industHtml);
+			
+        }
+    });
+    
+    $(function () {
+        var height = $(window).height() * 0.6;
+        if ($(window).height() > 900) {
+            $(".reg").css({"min-height": height});
+        }
+    })
+    
+</script>
+
+<script type="text/javascript">
+
+var has_showModalDialog = !!window.showModalDialog;//定义一个全局变量判定是否有原生showModalDialog方法  
+if(!has_showModalDialog &&!!(window.opener)){         
+     window.onbeforeunload=function(){  
+     window.opener.hasOpenWindow = false;        //弹窗关闭时告诉opener：它子窗口已经关闭  
+   }  
+}  
+//定义window.showModalDialog如果它不存在  
+if(window.showModalDialog == undefined){  
+     window.showModalDialog = function(url,mixedVar,features){  
+     if(mixedVar) var mixedVar = mixedVar;  
+     //因window.showmodaldialog 与 window.open 参数不一样，所以封装的时候用正则去格式化一下参数  
+     if(features) var features = features.replace(/(dialog)|(px)/ig,"").replace(/;/g,',').replace(/\:/g,"=");  
+
+     var left = (window.screen.width - parseInt(features.match(/width[\s]*=[\s]*([\d]+)/i)[1]))/2;  
+     var top = (window.screen.height - parseInt(features.match(/height[\s]*=[\s]*([\d]+)/i)[1]))/2;  
+     window.myNewWindow = window.open(url,"_blank",features);  
+    }  
+ }
+function MD5pwd(password){
+	var prekey=$("#"+password).val();
+	var hex=hex_md5(prekey);
+	$("#"+password).val(hex);
+}
+
+    $(function () {
+    	var count=0,sqcount=0;
+        var layer;
+        layui.use('layer', function () {
+            layer = layui.layer;
+        });
+     	//绑定营业执照上传方法
+    	layui.use('upload', function(){
+    		  var filesYY="",filesSQ="";
+    		  var upload = layui.upload;
+    		  var uploadInst = upload.render({
+    		    elem: '#uploadBtn' //绑定元素
+    		    ,data : {"fileType" : "yyzz"}
+    		    ,url: '/SRRPBusinesWeb/newCompany/fileUpload' //上传接口
+    			,accept: 'images|file' 
+   				,exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf' 
+    			,size: 5120
+    			//,before: function () {
+                  //  $("#imageTS").text("文件上传中请稍候……");
+                   // document.getElementById("imageTS").style.color = '#FF6838';
+               // }
+    			//最大允许上传的文件大小
+    		    ,done: function(data){
+    	        	if(data.code == 0){
+    	        		//$("#imageTS").text("");
+    	        		if(filesYY.indexOf(data.name) >= 0){
+    	        			 alertdata('文件上传重复，请确认后上传！');
+							 return false;
+    	        		}
+    	        		filesYY+=data.name;
+    	        		count++;
+						if(sqcount>5){
+							 alertdata('上传文件不能超过5个！');
+							 return false;
+						}
+    	        		var filehtml='<input type="hidden" name="licensePath" id="licensePath" value='+data.url+'>'+
+    	        		'<input type="hidden" name="fileName" id="fileName" value='+data.name+'>'+
+    	        		'<a  id="preview" name = "preview"  style="margin-right: 4%;">'+data.name+'</a>';
+						$("#imagediv").append(filehtml);
+						
+    	             }
+    		    }
+    		    ,error: function(){
+    		    	alert('add');
+    		    }
+    		  });
+    		  //绑定授权证书
+    		  var uploadInst = upload.render({
+      		    elem: '#uploadSQtn' //绑定元素
+      		    ,data : {"fileType" : "yyzz"}
+      		    ,url: '/SRRPBusinesWeb/newCompany/fileUpload' //上传接口
+     		    ,accept: 'images|file' 
+      	   		,exts: 'jpg|jpeg|png|bmp|gif|txt|TXT|xls|XLS|xlsx|docx|doc|pdf' 
+      			,size: 5120
+      			//,before: function () {
+                    //$("#sqts").text("文件上传中请稍候……");
+                    //document.getElementById("sqts").style.color = '#FF6838';
+               // }
+      			//最大允许上传的文件大小
+      		    ,done: function(data){
+      	        	if(data.code == 0){
+      	        		//$("#sqts").text("");
+      	        		if(filesSQ.indexOf(data.name) >= 0){
+   	        			 	alertdata('文件上传重复，请确认后上传！');
+							return false;
+   	        			}
+      	        		filesSQ+=data.name;
+      	        		sqcount++;
+      	        		if(sqcount>5){
+							 alertdata('上传文件不能超过5个！');
+							 return false;
+						}
+      	        		var filehtml='<input type="hidden" name="licensePath" id="licensePath" value='+data.url+'>'+
+      	        		'<input type="hidden" name="fileName" id="fileName" value='+data.name+'>'+
+      	        		'<a  id="preview" name = "preview" style="margin-right: 4%;">'+data.name+'</a>';
+  						$("#filediv").append(filehtml);
+						
+      	             }
+      		    }
+      		    ,error: function(){
+      		    	alert('add');
+      		    }
+      		  });
+    		  
+    		  
+   		});
+
+    	
+        $('#user-deal').click(function () {
+        	var iHeight="600px";
+        	var iWidth="900px";
+        	// 传递至子窗口的参数
+        	var iTop = (window.screen.availHeight  - iHeight) ;  
+       		var iLeft = (window.screen.availWidth  - iWidth);  
+    		window.showModalDialog("/SRRPBusinesWeb/portal/agreement.html",window,"dialogWidth:"+iWidth+"px;dialogHeight:"+iHeight+"px;dialogTop:150px;dialogLeft:300px;");  
+        })
+        
+
+         //提示信息方法
+        function alertFalse(data) {
+            layer.open({
+                title: '友好提示',
+                type: 1,
+                content: '<div style="padding: 10px 80px;">' + data + '</div>',
+                btn: '关闭',
+                btnAlign: 'c', //按钮居中
+                shade: 0,//不显示遮罩
+                yes: function () {
+                    layer.closeAll();
+                    $('#first-step').css("display", "none");
+                    $('#second-step').css("display", "inline");
+                }
+            });
+        }
+        
+        //提示信息方法
+        function alertdata(data) {
+            layer.open({
+                title: '友好提示',
+                type: 1,
+                content: '<div style="padding: 10px 80px;">' + data + '</div>',
+                btn: '关闭',
+                btnAlign: 'c', //按钮居中
+                shade: 0,//不显示遮罩
+                yes: function () {
+                    layer.closeAll();
+                }
+            });
+        }
+
+        
+        $.formValidator.initConfig({
+        	submitButtonID:"next", debug:true,
+        	onSuccess: function () {
+            	 if ($('#agreedeal').is(':checked')) {
+            		 MD5pwd('password');
+            		var params = $('#addform').serialize();
+                 	$.ajax({
+                         type: "post",
+                         url: "/SRRPBusinesWeb/newCompany/addBascompaseInfo",
+                         async: false,
+                         contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                         data:{"addform" : params},// 你的formid
+                         success: function(data) {
+                        	 if(null != data){
+                        		 data = JSON.parse(data);
+                  	        	if (data.code == '00000') {
+                  	        		 $("#enterpriseId").attr("value",data.msg);//填充内容 
+                  	        		 alertFalse('注册成功，请填写补充信息！');
+                                      return true;
+                  		        }else if (data.code == '00001') {
+                  		        	 alertdata('注册异常！');
+                  		        	 return false;
+                  		       	}
+                        	 }else{
+                        		 return false;
+                        	 }
+                        	
+                         },
+                         error: function(XMLHttpRequest){  
+                             alert( "Error: " + XMLHttpRequest.responseText);  
+                         }  
+                     });
+                 }else{
+                 	alertdata('请选择是否同意《用户协议》！');
+                 }
+            	 return false;
+            },
+            onError: function(msg){
+            	alertdata(msg);
+            	//alertFalse('注册成功，请填写补充信息！');
+                return false;
+	       }
+        });
+        //机构名称
+	    $("#name").formValidator({
+	    	onShow: "(必填)",
+	        onFocus: "",
+	        onCorrect: "ok"
+	    }).inputValidator({
+	        min: 1,
+	        max: 50,
+	        onError: "最多50个字符"
+	    }).regexValidator({ regExp: "^(\\S+)$",onError: "不能包涵空格"});
+	  	//证件号码校验
+        $("#code").formValidator({
+            onShow: "10~18个字符",
+            onfocus: "",
+            onCorrect: "ok"
+        }).functionValidator({
+    		fun : function(val, elem){
+    			var certType =$("input:radio[name='codetype']:checked").val();
+    			var  objregExp;
+    			if(certType == '2'){
+    				objregExp= /[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}/;
+    			}else{
+    				objregExp= /[A-Za-z0-9]{8}-[A-Za-z0-9]{1}/;
+    			}
+    			var valleng=true;
+    			var r = val.match(objregExp); 
+    			if(certType == '1' && val.length!=10 && val.length!=0){
+    				valleng= false;
+    			}else if(certType == '2' && val.length!=18 && val.length!=0){
+    				valleng= false;
+    			}
+    			if(valleng){
+    				if(r==null){
+        				return "格式不正确";
+        			}else{
+        			 	return true;
+        			}
+    			}else{
+    				return "长度不符合要求";
+    			}
+    			
+    			
+    		}, onError: "证件号码不正确!"
+    	}).ajaxValidator({
+            dataType: "text",
+            async: true,
+            url: "/SRRPBusinesWeb/newCompany/ajaxValidatorCertNo",
+            success: function (data) {
+            	if(null != data){
+            		data = JSON.parse(data);
+        	        if (data.code == '00000') {
+        	        	return true; 
+        	        }else if (data.code == '00001') {
+        	        	return false; 
+        	       	}
+            	}else{
+            		return false; 
+            	}
+            },
+            onError: "请勿重复注册!",
+            onwait: ""
+          }); 
+	  	
+      //注册资本
+        $("#regcapital").formValidator({
+            onShow: "(必填)",
+            onFocus: "",
+            onCorrect: "ok"
+        }).inputValidator({
+            min: 1,
+            max:12,  
+            onError: "最多12位数字"  
+        }).regexValidator({regExp:"^(0|[1-9][0-9]{0,11}(.[0-9]{2})?)$",onError: "格式不正确"});
+        
+     	 //验证时间
+		$("#redate").formValidator({ // 验证：发送时间
+			onShow: "(必填)",
+			onFocus: "",
+			onCorrect: "ok"  
+		}).functionValidator({
+			fun : function(val, elem){
+				if(!/^\d{4}-\d{2}-\d{2}/.test(val)){
+					return "请输入时间";
+				}
+				return true;
+			}
+		});
+		$("#rearea").formValidator({onShow:"(必填)",onFocus:"",onCorrect:"ok"}).inputValidator({min:1,onError: "请选择所属区域"});
+        //法人
+        $("#legalName").formValidator({
+            onShow: "(必填)",
+            onFocus: "",
+            onCorrect: "ok"
+        }).inputValidator({
+            min: 1,
+            max: 10,
+            onError: "最多10个字符"
+        }).regexValidator({regExp:"^(\\S+)$",onError: "不能包涵空格"});
+    	//法人手机号
+        $("#legalCal").formValidator({
+            onShow: "(必填)",
+            onFocus: "",
+            onCorrect: "ok"
+        }).inputValidator({
+            min: 1,
+            max: 11,
+            onError: "最多11个字符"
+        }).regexValidator({
+        	regExp: "^(\\d{11})$",
+        	onError: "请输入11位数字"
+		});
+        //联系人
+        $("#contacName").formValidator({
+            onShow: "(必填)",
+            onFocus: "",
+            onCorrect: "ok"
+        }).inputValidator({
+            min: 1,
+            max: 10,
+            onError: "最多10个字符"
+        }).regexValidator({ regExp: "^(\\S+)$",onError: "不能包涵空格"});
+    	//联系人手机号
+        $("#contacCal").formValidator({
+            onShow: "(必填)",
+            onFocus: "",
+            onCorrect: "ok"
+        }).inputValidator({
+            min: 1,
+            max: 11,
+            onError: "最多11个字符"
+        }).regexValidator({
+        	regExp: "^(\\d{11})$",//
+        	onError: "请输入11位数字"
+		});
+     // 验证码
+        $("#random").formValidator({ 
+			onShow: "（必填）",
+			onFocus: "",
+			onCorrect: "ok"
+		}).inputValidator({
+            min: 6,
+            max: 6,
+            onError: "必须为6位"
+        }).regexValidator({
+        	regExp: "^[0-9]*$",
+            onError: "格式错误"
+        }).ajaxValidator({
+			dataType: "text",
+	        async: true,
+	        url: "/SRRPBusinesWeb/newCompany/checkRandom",
+	        success: function(data){
+	        	if(null != data){
+            		data = JSON.parse(data);
+        	        if (data.code == '00000') {
+        	        	return true; 
+        	        }else if (data.code == '00001') {
+        	        	return false; 
+        	       	}
+            	}else{
+            		return false; 
+            	}
+	        },error: function (jqXHR, textStatus,errorThrown) { 
+	        	return errorThrown;
+	        },
+	        onError: "验证码不正确",
+	        onWait: ""
+		});
+     
+        $("#password").formValidator({onShow:"(必填)",onFocus:"密码8~12位",onCorrect:"密码合法"}).inputValidator({min:8,max: 12,onError: "密码8~12位"}).regexValidator({ regExp: "^(\\S+)$",onError: "不能包涵空格"});
+    	$("#password2").formValidator({onShow:"(必填)",onFocus:"密码8~12位",onCorrect:"密码一致"}).inputValidator({min:8,max: 12,onError: "确认密码8~12位"}).regexValidator({ regExp: "^(\\S+)$",onError: "不能包涵空格"}).compareValidator({desID:"password",operateor:"=",onError:"2次密码不一致"});
+      	
+    	
+        $.formValidator.initConfig({
+        	validatorGroup:"2",submitButtonID:"confirm", debug:true,
+        	onSuccess: function () {
+    	    	if(count == 0){
+    	    		alertdata('请上传营业执照！');
+    	    		return false;
+    	    	}
+    	    	if(sqcount == 0){
+    	    		alertdata('请上传授权协议书！');
+    	    		return false;
+    	    	}
+           		var params = $('#addSuppform').serialize();
+           		var entpriseId = $('#enterpriseId').val();
+               	$.ajax({
+                       type: "post",
+                       url: "/SRRPBusinesWeb/newCompany/addBaseSupplementInfo?entpriseId="+entpriseId,
+                       async: false,
+                       contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                       data:{"addSuppform" : params},// 你的formid
+                       success: function(data) {
+                    	   if(null != data){
+                    		   data = JSON.parse(data);
+	               	        	if (data.code == '00000') {
+	               	        		 $('#first-step').css("display", "none");
+	                        	       	 $('#second-step').css("display", "none");
+	                        	       	 $('#third-step').css("display", "inline");
+	                                    return true;
+	               		        }else if (data.code == '00001') {
+	               		        	 alertdata('注册失败，请联系管理人员！');
+	               		        	 return false;
+	               		       	}
+	                       	}else{
+	                       		return false; 
+	                       	}
+                       },
+                       error: function(XMLHttpRequest){  
+                           alert( "Error: " + XMLHttpRequest.responseText);  
+                       }  
+                });
+                return false;
+    	    },
+	        onError: function (msg) {
+	    		alertdata(msg);
+	    		return false;
+	    	}
+    	});
+        
+        
+    	$("#industry").formValidator({validatorGroup:"2",onShow:"(必填)",onFocus:"",onCorrect:"ok"}).inputValidator({min:1,onError: "请选择行业"});
+    	$("#paidincapital").formValidator({validatorGroup:"2",onShow:"(必填)",onFocus:"",onCorrect:"ok"}).inputValidator({min:1,max:12,onError: "最多12个字符"}).regexValidator({ regExp: "^(\\S+)$",onError: "不能包涵空格"});
+    	$("#financingphase").formValidator({validatorGroup:"2",onShow:"(必填)",onFocus:"",onCorrect:"ok"}).inputValidator({min:1,onError: "请选择融资阶段"});
+    	$("#hiSchoolNumber").formValidator({validatorGroup:"2",onShow:"(必填)",onFocus:"",onCorrect:"ok"}).inputValidator({min:1,max:10,onError: "最多10个字符"}).regexValidator({regExp:"intege",dataType:"enum",onError: "请检查输入内容"});
+    	$("#developNumber").formValidator({validatorGroup:"2",onShow:"(必填)",onFocus:"",onCorrect:"ok"}).inputValidator({min:1,max:10,onError: "最多10个字符"}).regexValidator({regExp:"intege",dataType:"enum",onError: "请检查输入内容"});
+    	$("#tbdescribes").formValidator({validatorGroup:"2",onShow:"(必填)",onFocus:"",onCorrect:"ok"}).inputValidator({min:1,max:300,onError: "最多300个字符"}).regexValidator({regExp:"notempty",dataType:"enum",onError:"格式不正确"});
+    	
+    	
+    	
+    	
+    	  //联系人联系方式获取
+        var countdown;
+        var max_countdown = 60;
+        $('#click_phone').click(function () {
+        	var phone=$('#contacCal').val();
+        	if(null == phone || "" == phone){
+        		layer.open({
+                    title: '友好提示',
+                    type: 1,
+                    content: '<div style="padding: 10px 80px;">联系人手机号！</div>',
+                    btn: '关闭',
+                    btnAlign: 'c', //按钮居中
+                    shade: 0,//不显示遮罩
+                    yes: function () {
+                        layer.closeAll();
+                    }
+                });
+        		return false;
+        	}
+            $.ajax({
+         		url:"/SRRPBusinesWeb/newCompany/sendMessage",
+         		type: "POST",
+         		data:{"phone":phone},// 你的formid
+         		success: function(data) {
+         		}
+         	});	
+            $('#click_phone').css("display", "none");
+            $('#countdown').css("display", "inline");
+            countdown = max_countdown;
+            settime(countdown);
+           
+        })
+
+        function settime(countdown) {
+            if (countdown == 0) {
+                countdown = max_countdown;
+            } else {
+                countdown--;
+            }
+            document.getElementById('countdown_value').innerHTML = countdown + "秒重新获取";
+            $('#countdown_value').css({"font-size": "14px"});
+            setTimeout(function () {
+                if (countdown != 0) {
+                    settime(countdown);
+                } else {
+                	 $.ajax({
+                  		url:"/SRRPBusinesWeb/newCompany/checkRandom",
+                  		type: "POST",
+                  		data:{"type":"0"},
+                  		success: function(data) {
+                  		}
+                  	});	
+                    $('#click_phone').css("display", "inline");
+                    $('#countdown').css("display", "none");
+                }
+            }, 1000)
+        }
+    	
+    	
+    	
+    });
+
+</script>
+
+
+
+</html>

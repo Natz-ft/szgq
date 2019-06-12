@@ -1,0 +1,102 @@
+html, body {
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+    overflow-x: hidden;
+    overflow-y: auto;
+    
+}
+
+body {
+    background-color: #EAF3F8;
+}
+
+.floatL {
+    float: left;
+}
+
+.floatR {
+    float: right;
+}
+
+/*取消双击选中*/
+/*div {*/
+    /*-moz-user-select: none; !*火狐*!*/
+    /*-webkit-user-select: none; !*webkit浏览器*!*/
+    /*-ms-user-select: none; !*IE10*!*/
+    /*-khtml-user-select: none; !*早期浏览器*!*/
+    /*user-select: none;*/
+/*}*/
+
+.boxWrap {
+    padding-right: 10px;
+}
+
+.buttonWrap {
+    width: 100%;
+    padding: 15px 0;
+    margin-left: 0px;
+    text-align: center;
+    /*background: #eee;*/
+}
+
+.heightAuto {
+    height: auto;
+}
+
+/*详情页面小标题名称样式*/
+.detail-title-name {
+    width: 22%;
+    height: 100%;
+}
+
+.detail-title-name span {
+    font-size: 16px;
+    float: right;
+    margin-right: 20%;
+    padding: 5px 10px;
+    color: #0D4F92;
+    /*border-bottom: 3px solid #0D4F92;*/
+}
+
+.boxTitle {
+    margin-top: 10px;
+    background-color: #EAF3F8;
+}
+
+.boxTitle span {
+    font-size: 18px;
+    color: #0D4F92;
+    padding: 5px 10px;
+    border-bottom: 2px solid #0D4F92;
+}
+
+/*重写layui-table-tool方法使其在首页待办事项中分页居中显示*/
+.layui-table-tool {
+    width: 100%;
+    padding: 7px 10px 0 0;
+    border-width: 1px 0 0;
+    height: 41px;
+    font-size: 12px;
+    white-space: nowrap;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+/*重新设置分页背景颜色*/
+.layui-laypage .layui-laypage-count, .layui-laypage .layui-laypage-limits, .layui-laypage .layui-laypage-skip {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 0;
+    border: none;
+    background-color: #EAF3F8;
+}
+
+.layui-colla-title {
+    position: relative;
+    height: 42px;
+    line-height: 42px;
+    padding: 0 15px 0 35px;
+    color: #333;
+    background-color: #EAF3F8;
+    cursor: pointer;
+}

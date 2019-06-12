@@ -1,0 +1,406 @@
+@CHARSET "UTF-8";
+/*覆盖top中的相同样式*/
+a {
+    color: #000000;
+}
+
+/*
+a {
+	text-decoration:none;
+	cursor: pointer;
+	color: #444;
+}
+a:focus {
+	outline:none;
+}
+a:hover, a:active {
+	outline: none;
+	text-decoration:none;
+}
+*/
+ul, dl, dd, dt, li, form, h3, h2, h1, form {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 100;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    border: none;
+    vertical-align: top;
+}
+
+a, input, button {
+    outline: medium none;
+}
+
+.hide {
+    display: none;
+}
+
+.clear:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearf {
+    clear: both;
+    overflow: hidden;
+}
+
+.mainwraper {
+    width: 990px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+span.statisticCur:hover {
+    cursor: pointer;
+}
+
+.tac-linkthree {
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.tac-linkthree:hover {
+    text-decoration: underline;
+}
+
+.sub-c > .pro-list {
+    padding: 0 10px 10px 0;
+}
+
+.sub-c ul li.pro-list {
+    /* padding-bottom: 15px; */
+    border-bottom: none;
+}
+
+.sub-c ul li.pro-list h3 {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.sub-c {
+    background: #fff;
+    padding: 15px;
+    overflow: hidden;
+    min-height: 350px;
+}
+
+.sub-c h1, .info-c h1 {
+    color: #0068b7;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px dotted #ccc;
+}
+
+.sub-c .case-header span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #9d192b;
+}
+
+/* .center-dotted { */
+/*     border-bottom: 1px dotted #ccc; */
+/*     width: 100%; */
+/*     position: relative; */
+/*     height: 20px; */
+/*     margin-bottom: 10px; */
+/* } */
+
+/* .center-dotted span { */
+/*     background: #f6f6f6; */
+/*     color: #03081e; */
+/*     left: 50%; */
+/*     margin-left: -100px; */
+/*     padding: 5px 10px; */
+/*     position: absolute; */
+/*     text-align: center; */
+/*     top: 0; */
+/*     width: 200px; */
+/*     font-weight: bold; 字体加粗 */
+/* } */
+
+.GridBox {
+    border: 1px solid #dcdcdc;
+    /* background: #fffeed;
+    border: 1px solid #fc9a01; */
+    display: inline-block;
+    overflow: hidden;
+    padding: 10px 0 10px;
+    width: 100%;
+}
+
+/*查询表格*/
+.queryTable {
+    color: #575757;
+    border-right: none;
+    empty-cells: show;
+    border-collapse: collapse;
+    clear: both;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.queryTable td {
+    padding: 5px 0;
+    text-align: left;
+}
+
+.queryTable td.title {
+    text-align: right;
+    width: 15%;
+    color: #424242;
+}
+
+.queryTable td.tit {
+    text-align: right;
+    width: 20%;
+    color: #424242;
+}
+
+.queryTable td.title span, .queryTable td.tit span {
+    color: red;
+}
+
+.loan-form dl dd .default-input {
+    width: 260px;
+}
+
+.detail-table tbody tr td input.default-input {
+    width: 230px;
+}
+
+.default-input, .s-input, .m-input, .default-input-new {
+    /* left: 0; */
+    font-family: "Microsoft YaHei", "SimSun";
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 3px #ddd;
+    height: 26px;
+    line-height: 23px;
+    padding: 2px 4px;
+    vertical-align: middle;
+}
+
+.default-input {
+    width: 250px;
+}
+
+.default-input-new {
+    width: 180px;
+}
+
+.default-input:focus, .default-input:hover, .texta:focus, .default-input-new:focus, .default-input-new:hover {
+    border-color: #038ac8;
+    box-shadow: 0 0 2px #4e91fe;
+}
+
+.query-condition {
+    margin-top: 10px;
+    border: 1px solid #d3d3d3;
+    margin-bottom: 10px;
+}
+
+.query-condition h2.subTitle {
+    border-bottom: 1px solid #dcdcdc;
+    height: 20px;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.query-condition dl {
+    border-bottom: 1px dotted #d3d3d3;
+    margin: 8px 0 2px;
+    overflow: hidden;
+    padding: 3px 0 8px;
+}
+
+.query-condition dl dt {
+    text-align: right;
+    color: #424242;
+    width: 100px;
+    font-weight: bold;
+    float: left;
+    line-height: 25px;
+    white-space: nowrap;
+}
+
+.query-condition dl dd {
+    line-height: 25px;
+    padding-left: 10px;
+    overflow: hidden;
+}
+
+.query-condition dl dd a {
+    padding: 0 5px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.query-condition .current {
+    background: #00B268;
+    color: #f9f1f2;
+}
+
+.query-condition dl .s-i {
+    width: 150px;
+    height: 24px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+.query-condition dl dd a:hover {
+    background: #00b268;
+    color: #f9f1f2;
+}
+
+.query-condition h5 {
+    border-bottom: 1px dotted #ccc;
+    position: relative;
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 20px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.query-condition h5 span {
+    background-color: #ffffff;
+    position: absolute;
+    left: 40%;
+    width: 220px;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.query-p h2.subTitle {
+    /* border-bottom: 2px solid #0068b7; */
+    height: 20px;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.query-btn {
+    text-decoration: none;
+    cursor: pointer;
+    color: #444;
+    background: #357ce2;
+    background: -moz-linear-gradient(top, #429ffe, #357ce2);
+    background: -o-linear-gradient(top, #429ffe, #357ce2);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#429ffe), to(#357ce2));
+    border: 1px solid #2766c3;
+    border-radius: 2px;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    font-size: 14px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    width: 87px;
+}
+
+.query-btn:hover {
+    background: #429ffe;
+}
+
+.mr20 {
+    margin-right: 20px;
+}
+
+/*列表开始*/
+.agency-tablediv {
+    width: 100%;
+    background: #f1fdff;
+    height: 20px;
+}
+
+.agency-tablestyeleimg {
+    float: left;
+    width: 20%;
+    heigth: 20px;
+    margin: 5px;
+}
+
+.agency-tablestyledatadd1 {
+    float: left;
+    line-height: 1;
+    width: 60%;
+    margin: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    height: 20px;
+}
+
+.agency-tablestyledatadd2 {
+    float: left;
+    line-height: 2;
+    margin: 5px;
+    width: 600px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*详情资料按钮样式*/
+
+.agency-tablestyledatadetaildiv{
+    margin-left: 850px;
+}
+.agency-tablestyledatadetail {
+    float: left;
+    color: #ffffff;
+    display: inline-block;
+    *display: inline;
+    width: 100px;
+    text-align: center; /*数据内容居中展示*/
+    background-color: #E43C4B;
+    border-radius: 10px;
+    font-size: 16px;
+    vertical-align: middle;
+    line-height: 25px;
+}
+
+.agency-tablestyledatadetail:hover {
+    color: #FFFFFF;
+    background: #D43636;
+}
+
+/*列表结束*/
+/*列表数据分割线开始*/
+/*分割线基本设置虚线上下边距*/
+.agencydatadiv {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: left;
+    width:960px;
+}
+
+.datasolidstyle {
+    border: 1px solid #ddd;
+}
+
+/*列表数据分割线结束*/

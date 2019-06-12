@@ -1,0 +1,71 @@
+
+/* Reset&Clearfix */
+*{margin:0;padding:0;}
+img{border:0;}
+ul,li{list-style:none;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{display:inline-block;}
+/*\*/ .clearfix{display:block;} /**/
+body{background:#FFF;color:#333;font:12px/1.6em Helvetica,Arial,sans-serif;}
+a{color:#0287CA;text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+/* 关键样式 */
+.drag{ 
+	width:285px;
+	margin:30px auto;
+	padding-bottom:5px; 
+	border:1px solid #D7D7D7; 
+	background:#F1F1F1; 
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	-khtml-border-radius:5px;
+}
+.drag h3 {
+	padding:8px 0 8px 8px; 
+	font-size:16px; 
+	font-weight:700; 
+	line-height:14px;
+}
+.drag .wrap {
+	height:105px;
+	padding:0 10px;
+}
+.drag .drag_cont { 
+	position:relative;
+	width:265px; 
+	height:95px;
+	overflow:hidden;
+	background:#FFF;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px; 
+	-khtml-border-radius:5px;
+}
+.drag ul.drag_ul { 
+	height:95px; 
+	width:890px;
+	position:absolute;
+	left:0;
+	top:0;
+}
+.drag ul.drag_ul li { 
+	display:inline; 
+	float:left;
+	width:75px; 
+	height:75px;
+	margin:10px 0 0 10px;
+}
+.drag ul.drag_ul li a {
+	display:block;
+}
+.drag ul.drag_ul li a img {
+	width:75px;
+	height:75px;
+}
+.drag .drag_cont_btn {
+	width:245px;
+	margin:6px auto; 
+	position:relative;
+	border-bottom:1px solid #D7D7D7; 
+	height:auto;
+}
