@@ -21,6 +21,22 @@
     <div class="boxContent">
         <!-- 查询条件 -->
         <div class="queryTerms">
+        
+			<div class="termsWrap clearfix">
+                <div class="termsType">
+                    <span>所属区域：</span>
+                    <a class="queryAll" id="reareaAll">全部</a>
+                </div>
+                <div class="termsList" id="rearea">
+                    <ul class="clearfix" id="dd_rearea">
+
+                    </ul>
+                </div>
+                <div class="termsType" style="margin-top:5px;">
+					<a class="queryMore"  id="ReareaMoreId" href="javascript:void(0);">更多<img id="showReareaMoreId"  style="height: 22px;width: 22px;" src="../static/images/search_down.png"><i></i></a>
+                </div>
+            </div>
+            
             <div class="termsWrap clearfix">
                 <div class="termsType">
                     <span>行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业：</span>
@@ -218,6 +234,7 @@ Array.prototype.unique3 = function () {
         var dataCount;//数据总条数
         init('');//页面默认初始化操作
         initDD();//查询条件 字典值初始化
+        initDD2();//查询条件 字典值初始化
         //点击a标签时触发选中事件(此事件放在字典值赋值之后)
         $(".termsList ul li a").on("click", function () {
             var dicType = $(this).parents(".termsList").attr("id");
@@ -309,6 +326,7 @@ Array.prototype.unique3 = function () {
                     });
 			 
         });
+		var valueClient0 = new Array();//地区
         var valueClient = new Array();//行业
         var valueClient1 = new Array();//轮次
         var valueClient2 = new Array();//融资金额
@@ -317,7 +335,21 @@ Array.prototype.unique3 = function () {
             queryAll = $(this).parents(".termsWrap").find(".queryAll");
             var dicType = $(this).parents(".termsList").attr("id");
             var t = $(this);
-            if(dicType=='industry'){
+            if(dicType=='rearea'){
+            	if (queryAll.hasClass("active")) {
+                    queryAll.removeClass("active");
+                    valueClient0.splice(0,valueClient.length);
+                }
+                if (!$(this).parent().hasClass("active")) {
+                    $(this).parent().addClass("active");
+                    valueClient0.push($(this).attr("value"));
+                    
+                }else{
+               	 $(this).parent().removeClass("active");
+               	 removeByValue(valueClient0, $(this).attr("value"));
+                }
+                data[dicType] = valueClient0.toString();
+            }else if(dicType=='industry'){
             	if (queryAll.hasClass("active")) {
                     queryAll.removeClass("active");
                     
@@ -460,7 +492,8 @@ Array.prototype.unique3 = function () {
         	}else{
         		data["industry"]=industCheckDate.toString();
         	}
-            init(data);
+        	console.log(data);
+            //init(data);
         })
         function init(queryCondition) {
             $.ajax({
@@ -633,6 +666,32 @@ Array.prototype.unique3 = function () {
                 ]]
             });
         }
+        
+     	// 字典值初始化
+        function initDD2() {
+           
+            var reareaHtml = '';
+            $.ajax({
+                type: "post",
+                url: "/SRRPBusinesWeb/initInfo/getDDList",//url地址
+                data: {"name": "rearea"},// 查询条件
+                async: false,//使用同步的方式,true为异步方式
+                success: function (data) {
+                    data = JSON.parse(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var _json = data[i];
+                        var str=_json.dicCode;
+                        var suzhouArea=str.substring(0,4);
+                        if(suzhouArea=='3205'){
+                        	reareaHtml += "<li><a value=\"" + _json.dicCode + "\">" + _json.dicName + "</a></li>";
+                        }
+                        
+                    }
+                    $("#dd_rearea").append(reareaHtml);
+                }
+            });
+        }
+        
     })
 </script>
 </body>
