@@ -168,7 +168,7 @@ function getIndustryIdArray(){
 }
 function addhtml(nodes){
 	var list =  $(".queryMore1").parent().siblings(".termsList");
-   var index=1;
+    var index=1;
 	var industryHtml = '';//行业选项
 
 	nodes.each(function () {
@@ -309,6 +309,9 @@ Array.prototype.unique3 = function () {
         $("#statusAll").on("click", function () {
             delete eval(data).status;
         })
+        $("#reareaAll").on("click",function(){
+            delete eval(data).rearea;
+        })
         // 查询条件选择高亮
         var queryAll;
       //行业添加更多按钮改为弹窗方式
@@ -336,18 +339,19 @@ Array.prototype.unique3 = function () {
             var dicType = $(this).parents(".termsList").attr("id");
             var t = $(this);
             if(dicType=='rearea'){
-            	if (queryAll.hasClass("active")) {
+                if (queryAll.hasClass("active")) {
                     queryAll.removeClass("active");
-                    valueClient0.splice(0,valueClient.length);
+                    valueClient0.splice(0,valueClient0.length);
                 }
                 if (!$(this).parent().hasClass("active")) {
                     $(this).parent().addClass("active");
                     valueClient0.push($(this).attr("value"));
-                    
+
                 }else{
-               	 $(this).parent().removeClass("active");
-               	 removeByValue(valueClient0, $(this).attr("value"));
+                    $(this).parent().removeClass("active");
+                    removeByValue(valueClient0, $(this).attr("value"));
                 }
+                //console.log(valueClient0)
                 data[dicType] = valueClient0.toString();
             }else if(dicType=='industry'){
             	if (queryAll.hasClass("active")) {
@@ -492,8 +496,8 @@ Array.prototype.unique3 = function () {
         	}else{
         		data["industry"]=industCheckDate.toString();
         	}
-        	console.log(data);
-            //init(data);
+        	//console.log(data);
+            init(data);
         })
         function init(queryCondition) {
             $.ajax({
@@ -656,6 +660,7 @@ Array.prototype.unique3 = function () {
                     },
                     {field: 'projectNameShow', title: '项目名称', align: 'center', width: '12%' ,sort: true},
                     {field: 'industryStr', title: '行业', align: 'center', width: '12%',sort: true},
+                    {field: 'rearea', title: '所属区域', align: 'center', width: '12%',sort: true},
                     {field: 'finacingTurnDicname', title: '融资轮次', align: 'center', width: '10%',sort: true},
                     {field: 'amountShow', title: '融资金额(万)', align: 'center', width: '13%', sort: true},
                     {field: 'sell', title: '出让股权', align: 'center', width: '8%', sort: true},

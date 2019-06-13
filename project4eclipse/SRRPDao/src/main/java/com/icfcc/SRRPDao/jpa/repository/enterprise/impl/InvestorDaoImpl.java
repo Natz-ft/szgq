@@ -37,7 +37,7 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 
 	@SuppressWarnings("unchecked")
 	public List<InvestorManageResutList> getInvestorsForCharge(
-			String nameOrCode, String status, String auditStatus, int page,
+			String nameOrCode,String rearea, String status, String auditStatus, int page,
 			int size, String userType) {
 		EntityManager entityManager = this.getEntityManager();
 		EntityTransaction entityTransaction = null;
@@ -57,6 +57,13 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 				// 2018年1月8日 15:47:50 LIWCH 给sql传参数的时候，参数不一致没找到参数
 				whereCase.append(" and (e.name like :name ");
 				whereCase.append(" or e.certno = :code )");
+			}
+			if (!StringUtils.isEmpty(rearea)) {
+				if(rearea.equals("1")){
+					whereCase.append(" and e.area_code like '3205%' ");
+				}else if(rearea.equals("2")){
+					whereCase.append(" and e.area_code not like '3205%' ");
+				}
 			}
 			if (!StringUtils.isEmpty(status)) {
 				whereCase.append(" and e.stop_flag = :status ");
@@ -147,7 +154,7 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 		return res;
 	}
 
-	public Object getInvestorsForChargeCount(String nameOrCode, String status,
+	public Object getInvestorsForChargeCount(String nameOrCode,String rearea, String status,
 			String auditStatus, String userType) {
 		EntityManager entityManager = this.getEntityManager();
 		EntityTransaction entityTransaction = null;
@@ -167,6 +174,13 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 				// 2018年1月8日 15:47:50 LIWCH 给sql传参数的时候，参数不一致没找到参数
 				whereCase.append(" and e.name like :name");
 				whereCase.append(" or e.certno = :code");
+			}
+			if (!StringUtils.isEmpty(rearea)) {
+				if(rearea.equals("1")){
+					whereCase.append(" and e.area_code like '3205%' ");
+				}else if(rearea.equals("2")){
+					whereCase.append(" and e.area_code not like '3205%' ");
+				}
 			}
 			if (!StringUtils.isEmpty(status)) {
 				whereCase.append(" and e.stop_flag = :status");

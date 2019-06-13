@@ -1,19 +1,18 @@
 package com.icfcc.SRRPDao.jpa.entity.inverstorg;
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.icfcc.credit.platform.util.SRRPConstant;
+import com.icfcc.ssrp.session.RedisGetValue;
+import com.icfcc.ssrp.util.DigitFormatUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-
-import com.icfcc.credit.platform.util.SRRPConstant;
-import com.icfcc.ssrp.session.RedisGetValue;
-import com.icfcc.ssrp.util.DigitFormatUtil;
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 融资需求详情信息查询列表，返回值类型封装类
@@ -153,7 +152,18 @@ public class FinacingDemandInfoResult implements Serializable {
 	
 	@Transient
 	private String amountShow;
-	
+
+	@Column(name = "rearea")
+	private String rearea;
+
+	public String getRearea() {
+		return rearea;
+	}
+
+	public void setRearea(String rearea) {
+		this.rearea = rearea;
+	}
+
 	public String getProjectNameShow() {
 		Pattern compile = Pattern.compile("(\\d+\\.\\d+)|(\\d+)");
 		String[] str = projectName.split("~");

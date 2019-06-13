@@ -150,13 +150,13 @@ public class InvestorService {
 	 * @param size
 	 * @return
 	 */
-	public List<InvestorManageResutList> getInvestorsForCharge(String nameOrCode, String status, String auditStatus,
+	public List<InvestorManageResutList> getInvestorsForCharge(String nameOrCode,String rearea, String status, String auditStatus,
 			int page, int size,String userType ) {
-		return investorDaoImpl.getInvestorsForCharge(nameOrCode, status, auditStatus, page, size,userType);
+		return investorDaoImpl.getInvestorsForCharge(nameOrCode,rearea, status, auditStatus, page, size,userType);
 	}
 
-	public Object getInvestorsForChargeCount(String nameOrCode, String status, String auditStatus,String userType) {
-		return investorDaoImpl.getInvestorsForChargeCount(nameOrCode, status, auditStatus, userType);
+	public Object getInvestorsForChargeCount(String nameOrCode,String rearea, String status, String auditStatus,String userType) {
+		return investorDaoImpl.getInvestorsForChargeCount(nameOrCode,rearea, status, auditStatus, userType);
 	}
 
 	/**

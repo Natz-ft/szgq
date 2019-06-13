@@ -154,7 +154,19 @@ public class CompanyManagerController extends SRRPBaseController {
 		}
 		
 		String password = config.getConfigValueByName("password");
-		
+
+       //苏州地区
+		List<DD> ddList = RedisGetValue.getDDList("rearea");
+		List<DD> reareas = new ArrayList<>();
+		for(DD dd : ddList){
+			if(dd.getDicCode().startsWith("3205")){
+				reareas.add(dd);
+			}
+		}
+		//是否为区县金融办
+		request.setAttribute("isqxjrb", SRRPConstant.USER_TYPE_03.equals(userType));
+
+		request.setAttribute("reareas", reareas);
 		request.setAttribute("userType", userType);
 		request.setAttribute("password", password);
 		request.setAttribute("ddAuditStatus", ddAuditStatus);

@@ -26,7 +26,7 @@ import io.netty.util.internal.StringUtil;
 @Component
 public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 
-	private String sql = "select fd.*,cb.name,cb.codetype,cb.code,cbs.industry,cc.score, '' as showflag,'' as event_id from ((rp_finacing_demand fd left join rp_company_base cb on fd.enterprise_id = cb.enterprise_id) left join  rp_company_base_supplement cbs on fd.enterprise_id=cbs.enterprise_id) left join  (select o.* from rp_company_creditscores o,(SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) a where o.cop_id = a.cop_id and a.cop_id = (select b.cop_id from (SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) b where a.creditcode = b.creditcode ORDER BY b.mt desc limit 1)) cc on cb.codetype=cc.creditype and cb.`code`=cc.creditcode where 1=1 ";
+	private String sql = "select fd.*,(select name from platform_dic_area where code = cb.rearea) rearea,cb.name,cb.codetype,cb.code,cbs.industry,cc.score, '' as showflag,'' as event_id from ((rp_finacing_demand fd left join rp_company_base cb on fd.enterprise_id = cb.enterprise_id) left join  rp_company_base_supplement cbs on fd.enterprise_id=cbs.enterprise_id) left join  (select o.* from rp_company_creditscores o,(SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) a where o.cop_id = a.cop_id and a.cop_id = (select b.cop_id from (SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) b where a.creditcode = b.creditcode ORDER BY b.mt desc limit 1)) cc on cb.codetype=cc.creditype and cb.`code`=cc.creditcode where 1=1 ";
 //	private String investLookSql = "SELECT de.* FROM (SELECT fd.info_id,fd.enterprise_id,fd.project_name,fd.amountmin,fd.amountmax,fd.currency,fd.follow_time,fd.finacing_turn,fd.sell,fd.scalemin,fd.scalemax,fd.operdate,fd.appoint_investor,fd.open,cb.NAME,cb.codetype,cb.CODE,cbs.industry,cc.score,IFNULL(fd.status,'01') status,CASE WHEN ( rfe.status IS NULL OR rfe.status IN ('12','22','32') ) THEN '0' ELSE '1' END showflag,rfe.event_id FROM rp_finacing_demand fd INNER JOIN rp_company_base cb ON fd.enterprise_id = cb.enterprise_id LEFT JOIN rp_finacing_event rfe ON  fd.info_id = rfe.info_id # LEFT JOIN rp_company_base_supplement cbs ON fd.enterprise_id = cbs.enterprise_id LEFT JOIN rp_company_creditscores cc ON cb.codetype = cc.creditype AND cb.code = cc.creditcode WHERE fd.STATUS NOT IN ('00','99') and fd.`open` = '0')  de WHERE ((follow_time >= CURDATE() AND STATUS='01' ) OR STATUS>'01') ";
 	private String investLookSql = "SELECT de.* FROM (SELECT fd.info_id,fd.enterprise_id,fd.revoke_flag,fd.project_name,fd.amountmin,fd.amountmax,fd.currency,fd.follow_time,fd.finacing_turn,fd.sell,fd.scalemin,fd.scalemax,fd.operdate,fd.appoint_investor,fd.open,cb.NAME,cb.codetype,cb.CODE,cbs.industry,cc.score,IFNULL(fd.status,'01') status,CASE WHEN ( rfe.status IS NULL OR rfe.status IN ('12','22','32','99') ) THEN '0' ELSE '1' END showflag,rfe.event_id FROM rp_finacing_demand fd INNER JOIN rp_company_base cb ON fd.enterprise_id = cb.enterprise_id LEFT JOIN rp_finacing_event rfe ON  fd.info_id = rfe.info_id # LEFT JOIN rp_company_base_supplement cbs ON fd.enterprise_id = cbs.enterprise_id LEFT JOIN (select o.* from rp_company_creditscores o,(SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) a where o.cop_id = a.cop_id and a.cop_id = (select b.cop_id from (SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) b where a.creditcode = b.creditcode ORDER BY b.mt desc limit 1)) cc ON cb.codetype = cc.creditype AND cb.code = cc.creditcode WHERE fd.STATUS NOT IN ('00','99') and fd.`open` = '0' and fd.revoke_flag='0')  de WHERE 1=1  ";
 	@SuppressWarnings("unchecked")
@@ -66,6 +66,9 @@ public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 						whereCase.append(" and cbs.industry in( :industry) ");
 
 					}
+				}
+				if (!StringUtil.isNullOrEmpty(queryCondition.getRearea())) {
+					whereCase.append(" and cb.rearea in (:rearea )");
 				}
 				if (!StringUtil.isNullOrEmpty(queryCondition.getFinacingTurn())) {
 					whereCase.append(" and fd.finacing_turn in (:finacingTurn )");
@@ -151,6 +154,11 @@ public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 					if(list1!=null && list1.size()>0){
 						query.setParameter("industry1", list1);
 					}
+				}
+				if (!StringUtil.isNullOrEmpty(queryCondition.getRearea())) {
+					String[] values = queryCondition.getRearea().toString().split(",");
+					List list = java.util.Arrays.asList(values);
+					query.setParameter("rearea",list);
 				}
 				if (!StringUtil.isNullOrEmpty(queryCondition.getFinacingTurn())) {
 					String[] values = queryCondition.getFinacingTurn().toString().split(",");
@@ -390,6 +398,9 @@ public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 
 					}
 				}
+				if (!StringUtil.isNullOrEmpty(queryCondition.getRearea())) {
+					countSql.append(" and cb.rearea in (:rearea )");
+				}
 				if (!StringUtil.isNullOrEmpty(queryCondition.getFinacingTurn())) {
 					countSql.append(" and fd.finacing_turn in( :finacingTurn) ");
 				}
@@ -444,6 +455,11 @@ public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 					if(list1!=null && list1.size()>0){
 						query.setParameter("industry1", list1);
 					}
+				}
+				if (!StringUtil.isNullOrEmpty(queryCondition.getRearea())) {
+					String[] values = queryCondition.getRearea().toString().split(",");
+					List list = java.util.Arrays.asList(values);
+					query.setParameter("rearea",list);
 				}
 				if (!StringUtil.isNullOrEmpty(queryCondition.getFinacingTurn())) {
 					String[] values = queryCondition.getFinacingTurn().toString().split(",");

@@ -155,6 +155,7 @@ public class InvestorManageController extends SRRPBaseController {
 			String limitStr = request.getParameter("limit");// 获取前台每页显示的最大记录数
 			String startStr = request.getParameter("start");// 获取前台起始页
 			String nameOrCode = request.getParameter("nameOrCode");// 获取投资机构名称或证件代码的查询条件
+			String rearea = request.getParameter("rearea");// 区域
 			String status = request.getParameter("stopFlag");// 获取机构状态的查询条件
 			String auditStatus = request.getParameter("auditStatus");// 获取审核状态的查询条件
 	         String userId = RedisGetValue.getRedisUser(request, "userId");// 用户类型
@@ -165,13 +166,13 @@ public class InvestorManageController extends SRRPBaseController {
 			if (StringUtils.isNotBlank(limitStr)) {
 				page.setMaxSize(Integer.parseInt(limitStr));
 			}
-			// 获取登陆用户的用户类型
+			// 获取审核状态的查询条件
 			if(auditStatus=="21"){
 				auditStatus="2";
 			}
 			// 查询结果集和分页
 			List<InvestorManageResutList> inverstorList = investorService
-					.getInvestorsForCharge(nameOrCode, status, auditStatus,
+					.getInvestorsForCharge(nameOrCode,rearea, status, auditStatus,
 							page.getCurPage(), page.getMaxSize(),userType);
 			for (InvestorManageResutList invest : inverstorList) {
 				invest.setUserType(userType);// 添加一个字段用于判断用户的审核按钮
@@ -233,7 +234,7 @@ public class InvestorManageController extends SRRPBaseController {
 			if (CollectionUtils.isNotEmpty(inverstorList)) {
 				page.setList(inverstorList);
 				page.setRecordCnt(Integer.parseInt(investorService
-						.getInvestorsForChargeCount(nameOrCode, status,
+						.getInvestorsForChargeCount(nameOrCode,rearea, status,
 								auditStatus,userType).toString()));
 				if (StringUtils.isNotBlank(limitStr)) {
 					page.setMaxSize(Integer.parseInt(limitStr));

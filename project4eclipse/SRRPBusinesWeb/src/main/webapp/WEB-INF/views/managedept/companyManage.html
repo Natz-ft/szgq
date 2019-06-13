@@ -89,8 +89,18 @@
 							<span>企业名称/证件号码：</span> <input type="text" id="nameOrCode"
 								name="nameOrCode" lay-verify="name" autocomplete="off"
 								placeholder="请输入名称或证件号码" class="query-blank-input">
-						 <label
-								style="margin-left: 30px;">状态：</label> 
+
+							<!-- 非区县金融办,所属区域可选 -->
+							<c:if test="${!isqxjrb}">
+								<label style="margin-left: 30px;">所属区域：</label>
+								<select name="area" id="area"  lay-search="" style="border: 1px solid #8DBDDC; border-radius: 5px;">
+									<option value="">全部</option>
+									<c:forEach items="${reareas}" var="rearea">
+										<option value="${rearea.dicCode}">${rearea.dicName}</option>
+									</c:forEach>
+								</select>
+							</c:if>
+							<label style="margin-left: 30px;">状态：</label>
 							<select name="stopFlag"
 								id="stopFlag" lay-verify="required" lay-search=""
 								id="dd_stopFlag"
@@ -258,6 +268,8 @@
 				data[dicType] = $("#stopFlag").val();
 				var dicType = $("#auditStatus").attr("id");
 				data[dicType] = $("#auditStatus").val();
+                var dicType = $("#area").attr("id");
+                data[dicType] = $("#area").val();
 				init(data);
 			})
 			//数据表格
