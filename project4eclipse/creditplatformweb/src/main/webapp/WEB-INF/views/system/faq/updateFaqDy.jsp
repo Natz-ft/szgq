@@ -136,10 +136,10 @@ margin-left:-15px;
 	        	 layer.msg('标题不能为空！')
 	    		 return;
 	         }
-	         if(problem.length > 30 ){
-	        	 layer.msg('标题输入长度必须小于30！')
-	    		 return;
-	         }
+	         // if(problem.length > 30 ){
+	        	//  layer.msg('标题输入长度必须小于30！')
+	    		//  return;
+	         // }
 	         if(faqDate == null || faqDate.length == 0 || faqDate == ''){
 	        	 layer.msg('日期不能为空！')
 	    		 return;
@@ -178,12 +178,19 @@ margin-left:-15px;
 	             }
 	         });
 	     });
+
+	     $("#removeFF").click(function(){
+             filepath="none";
+             uplodfileName="none";
+             document.getElementById("showPic").innerText = "";
+         });
 	     
 	     // 调用上传文件控件
 	     //多文件列表示例
 	     var upload = layui.upload;
 	     filepath="${faq.filepath}";
 	     uplodfileName="${faq.filename}";
+	     if(uplodfileName=="none") uplodfileName = "";
 	     document.getElementById("showPic").innerText = uplodfileName;
 	     var id="";
 	     //普通图片上传
@@ -303,7 +310,11 @@ margin-left:-15px;
                 <label class="layui-form-label"><span class="star" id="pictureId"></span>添加附件：</label>
                 <div class="layui-upload">
                    <button type="button" class="layui-btn layui-btn-small uploadButton" id="uplodBtn">添加附件</button>
-                   <div  style="margin-left: 220px;margin-top: -30px"> <a id="showPic" class="img-path-name" ></a></div>   
+                   <div  style="margin-left: 220px;margin-top: -30px">
+                       <a id="showPic" class="img-path-name" ></a>
+                       <i class="layui-icon layui-icon-delete" style="color: red;cursor: pointer;" id="removeFF" title="删除"></i>
+                       <%--<a id="delPic" class="img-path-name" style="color:red;"><i class="layui-icon layui-icon-close-fill"></i></a>--%>
+                   </div>
                 </div>
              </div> 
              

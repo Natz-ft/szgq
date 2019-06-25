@@ -59,7 +59,10 @@ public class GataWayInfosService extends GataWayBaseStaticzeService {
     @Value("${news.newsDetailOutFile}")
     private String newsDetailOutFile;
 
-    // 投资动态路径
+    // 新闻动态路径
+    private String relNewsFilrPath = "relNews.json";
+
+    // 行业动态路径
     @Value("${news.investorinfo.filepath}")
     private String investorinfoFilePath;
 
@@ -110,7 +113,7 @@ public class GataWayInfosService extends GataWayBaseStaticzeService {
                 String tmp = infos.getContent();
                 if (tmp != null && !"".equals(tmp)) {
                 	infos.setContent(StringUtils.substringBefore(tmp,"&&"));
-			}
+			    }
 //                if (tmp != null) {
 //                    if (tmp.length() < 70) {
 //                        infos.setContent(tmp);
@@ -123,6 +126,22 @@ public class GataWayInfosService extends GataWayBaseStaticzeService {
             gataWayInitInfo.setCount(String.valueOf(dataList.size()));
             gataWayInitInfo.setData(dataList);
             writeFile(this.govFilePath, JSON.toJSONString(gataWayInitInfo));
+        }
+
+        //新闻动态
+        List<GataWayNews> newsList = newsDao.findNewsListByType("portal.news");
+        if (newsList != null && newsList.size() > 0) {
+            for (GataWayNews news : newsList) {
+                String tmp = news.getNewsContents();
+                if (tmp != null && !"".equals(tmp)) {
+                    news.setNewsContents(StringUtils.substringBefore(tmp, "&&"));
+                }
+            }
+            GataWayInitInfo gataWayInitInfo = new GataWayInitInfo();
+            gataWayInitInfo.setCount(String.valueOf(newsList.size()));
+            gataWayInitInfo.setData(newsList);
+
+            writeFile(this.relNewsFilrPath, JSON.toJSONString(gataWayInitInfo));
         }
 
     }
@@ -197,6 +216,8 @@ public class GataWayInfosService extends GataWayBaseStaticzeService {
                 this.makeStaticzeHtml(data, modelFile, outFileUrl);
             }
         }
+
+
     }
 
     public List<GataWayInfos> findGataWayInvestorInfo(String infoType) {

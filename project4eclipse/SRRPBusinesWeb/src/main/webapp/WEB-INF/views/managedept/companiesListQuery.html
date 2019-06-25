@@ -53,6 +53,20 @@
 					<a class="queryMore"  href="javascript:void(0);">更多<img id="showMoreId"  style="height: 22px;width: 22px;" src="../static/images/search_down.png"><i></i></a>
                 </div>
             </div>
+            <div class="termsWrap clearfix isqxjrb" style="display: none;">
+                <div class="termsType">
+                    <span>所属区域：</span>
+                    <a class="queryAll" id="reareaAll">全部</a>
+                </div>
+                <div class="termsList" id="area">
+                    <ul class="clearfix" id="dd_rearea">
+
+                    </ul>
+                </div>
+                <div class="termsType" style="margin-top:5px;">
+                    <a class="queryMore"  id="ReareaMoreId" href="javascript:void(0);">更多<img id="showReareaMoreId"  style="height: 22px;width: 22px;" src="../static/images/search_down.png"><i></i></a>
+                </div>
+            </div>
             <div class="termsWrap clearfix">
                 <div class="termsType">
                     <span>投资月份：</span>
@@ -162,6 +176,26 @@
 					$("#finacingTurn ul").append(finacingTurnHtml);
 		        }
 		    });
+              var reareaHtml = '';
+              $.ajax({
+                  type: "post",
+                  url: "/SRRPBusinesWeb/initInfo/getDDList",//url地址
+                  data: {"name": "rearea"},// 查询条件
+                  async: false,//使用同步的方式,true为异步方式
+                  success: function (data) {
+                      data = JSON.parse(data);
+                      for (var i = 0; i < data.length; i++) {
+                          var _json = data[i];
+                          var str=_json.dicCode;
+                          var suzhouArea=str.substring(0,4);
+                          if(suzhouArea=='3205'){
+                              reareaHtml += "<li><a value=\"" + _json.dicCode + "\">" + _json.dicName + "</a></li>";
+                          }
+
+                      }
+                      $("#dd_rearea").append(reareaHtml);
+                  }
+              });
 		}
          //装配列表数据
          function createPage(gridData) {
@@ -213,7 +247,10 @@
             //点击全部时去掉前面所选的    
     	    $("#finacingTurnAll").on("click", function () {
     	        delete eval(data).finacingTurn;
-    	    }) 
+    	    })
+            $("#reareaAll").on("click",function(){
+                delete eval(data).area;
+            })
     	    //点击统计按钮时触发条件查询
             $(".select-botton").on("click", function () {
             	var dicType = $("#beginTimeStr").attr("id");
@@ -235,6 +272,19 @@
                     $(this).parent().addClass("active").siblings().removeClass("active");
                 }
             });
+
+
+            //获取用户类型,区县金融办看自己区域
+        $.ajax({
+            type: "post",
+            async: false,
+            url: "/SRRPBusinesWeb/enterpriseStatistics/getUserType",
+            success: function (data) {
+                if(data != 03){
+                    $(".isqxjrb").show();
+                }
+            }
+        });
 
         //导出excel
         $("#exportId").on("click", function () {

@@ -173,7 +173,7 @@ public class MakePortalIndexJob extends JobObkect {
 		String msg = "";
 		List<PlatformPortalNews> res = null;
 		try {
-			res = newService.NewestRelsult(5);
+			res = newService.NewestRelsult(Integer.MAX_VALUE);
 			newService.saveLatest(res);
 			executeResult = SRRPConstant.EXECUTSUCC;
 			msg="迁移门户首页-新闻动态执行完毕";

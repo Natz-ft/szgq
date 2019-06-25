@@ -87,6 +87,9 @@ $(function(){
 		$("#problem").html(data.problem);
 		$("#answer").html(data.answer);
 		$("#file").html("附件：<a href="+data.faqFilepath+" download="+data.faqFilename+" class='needposted clearfix'><span class='icon'></span><span>"+data.faqFilename+"</span></a>");
+		if(data.faqFilepath=='none'){
+            $("#file").hide();
+		}
 	});
 });
 </script>

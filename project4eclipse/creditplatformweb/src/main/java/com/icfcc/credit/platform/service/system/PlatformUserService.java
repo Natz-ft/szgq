@@ -531,9 +531,8 @@ public class PlatformUserService {
 		String companyInfoJsonStr = AESUtil.encrypt(json.toString(), key);// 加密
 		String typeStr = AESUtil.encrypt(type, key);// 加密
 		// 传参
-		client.replaceQueryParam("companyInfoJsonStr", companyInfoJsonStr).replaceQueryParam("type", typeStr);
-		;
-		result = client.get(String.class);
+		client.replaceQueryParam("companyInfoJsonStr", companyInfoJsonStr).replaceQueryParam("type", typeStr);;
+			result = client.get(String.class);
 		result = AESUtil.decrypt(result, key);// 解密
 		Map maps = (Map) JSON.parse(result); // 转map
 		return maps;

@@ -1,21 +1,19 @@
 package com.icfcc.ssrp.web.gataway;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.icfcc.SRRPService.gataway.staticize.GataWayInfosService;
+import com.icfcc.credit.platform.util.SRRPConstant;
+import com.icfcc.ssrp.session.RedisManager;
+import com.icfcc.ssrp.web.SRRPBaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.icfcc.SRRPService.gataway.staticize.GataWayInfosService;
-import com.icfcc.credit.platform.util.SRRPConstant;
-import com.icfcc.ssrp.session.RedisManager;
-import com.icfcc.ssrp.web.SRRPBaseController;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 门户新闻初始化
@@ -31,7 +29,7 @@ public class GataWayNewsInfoMakerController extends SRRPBaseController {
 	@Autowired
 	private RedisManager redisManager;
 
-	// 行业动态&政策指南
+	// 行业动态&政策指南&新闻动态
 	@Autowired
 	private GataWayInfosService gataWayInfosService;
 

@@ -1,30 +1,5 @@
 package com.icfcc.SRRPService.gataway.staticize;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.converters.SqlDateConverter;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
 import com.icfcc.SRRPDao.jpa.entity.QueryCondition;
 import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyBase;
 import com.icfcc.SRRPDao.jpa.entity.enterprise.Investor;
@@ -32,14 +7,9 @@ import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayEventQueryInvestor;
 import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayFinacingEventQuery;
 import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayInvestorAuditPending;
 import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayInvestorRegiter;
-import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayDemand;
-import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayIndexStatic;
-import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayLinks;
-import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayNews;
-import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayPartner;
+import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.*;
 import com.icfcc.SRRPDao.jpa.entity.inverstorg.InvestorAuditPending;
 import com.icfcc.SRRPDao.jpa.entity.managedept.InvestorHistory;
-import com.icfcc.SRRPDao.jpa.entity.platformContent.PlatformFaq;
 import com.icfcc.SRRPDao.jpa.entity.platformContent.PlatformFaqShow;
 import com.icfcc.SRRPDao.jpa.entity.platformContent.PlatformNews;
 import com.icfcc.SRRPDao.jpa.entity.platformSystem.PlatformUser;
@@ -55,6 +25,24 @@ import com.icfcc.SRRPDao.jpa.repository.paltformSystem.PlatformUserDao;
 import com.icfcc.SRRPService.gataway.GataWayFinacingEventQueryService;
 import com.icfcc.credit.platform.util.SRRPConstant;
 import com.icfcc.ssrp.session.RedisGetValue;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.converters.SqlDateConverter;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Component
 @Transactional(value = "transactionManager")
@@ -234,6 +222,7 @@ public class GataWayIndexService extends GataWayBaseStaticzeService {
 		// 新闻动态
 		List<GataWayNews> listGataWayNews = gataWayNewsService
 				.findGataWayNews("portal.index");
+		listGataWayNews = listGataWayNews.subList(0,Math.min(5,listGataWayNews.size()));
 		if (listGataWayNews != null && listGataWayNews.size() > 0) {
 			for (GataWayNews news : listGataWayNews) {
 				String tmpTile = news.getNewsTile();
@@ -348,6 +337,7 @@ public class GataWayIndexService extends GataWayBaseStaticzeService {
 		// 新闻详细
 		List<GataWayNews> listGataWayNews = gataWayNewsService
 				.findGataWayNews("portal.index");
+		listGataWayNews = listGataWayNews.subList(0,Math.min(5,listGataWayNews.size()));
 		if (listGataWayNews != null && listGataWayNews.size() > 0) {
 			for (GataWayNews gataWayNews : listGataWayNews) {
 				// 详情对象

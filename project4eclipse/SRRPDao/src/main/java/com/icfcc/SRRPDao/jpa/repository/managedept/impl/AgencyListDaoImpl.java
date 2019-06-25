@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class AgencyListDaoImpl extends BaseNativeQueryDao {
 
-	private String sql = "SELECT @rownum \\:= @rownum + 1 AS rank,report_org.* FROM (SELECT e.investorg_id, i.NAME, IFNULL(ROUND(SUM(e.exchange_ratio),2), 0) as amounts , COUNT(DISTINCT e.enterprise_id) as toalid, COUNT(e.info_id) as demands FROM rp_finacing_event e, rp_investor i,rp_finacing_demand d, rp_company_base c WHERE e.amount is not null and e.info_id = d.info_id and e.`investorg_id` = i.`investor_id` AND e.`enterprise_id` = c.enterprise_id  ";
+	private String sql = "SELECT @rownum \\:= @rownum + 1 AS rank,report_org.* FROM (SELECT e.investorg_id, i.NAME,i.area_code, IFNULL(ROUND(SUM(e.exchange_ratio),2), 0) as amounts , COUNT(DISTINCT e.enterprise_id) as toalid, COUNT(e.info_id) as demands FROM rp_finacing_event e, rp_investor i,rp_finacing_demand d, rp_company_base c WHERE e.amount is not null and e.info_id = d.info_id and e.`investorg_id` = i.`investor_id` AND e.`enterprise_id` = c.enterprise_id  ";
 	private String SendInfosql = "SELECT count(*)  as resultnum FROM rp_finacing_event re,rp_finacing_demand rf WHERE re.info_id =rf.info_id  and re.investorg_id  =:investorgId and rf.open='1' ";
 
 	/**
@@ -46,10 +46,20 @@ public class AgencyListDaoImpl extends BaseNativeQueryDao {
 					whereCase
 							.append(" and DATE_FORMAT(e.operdate,'%Y-%m') <= :endTimeStr");
 				}
+				if (StringUtils.isNotEmpty(queryCondition.getRearea())) {
+					String area = queryCondition.getRearea();
+					if(area.equals("-3205")){
+						whereCase.append(" and area_code not like '3205%'");
+					}else if(area.equals("3205")){
+						whereCase.append(" and area_code like '3205%'");
+					}else{
+						whereCase.append(" and area_code = "+area);
+					}
+				}
 			}
 			//LIMIT 0, 10
 			whereCase
-					.append(" GROUP BY e.investorg_id, i.`name` ORDER BY amounts DESC ) report_org,(SELECT  @rownum \\:= 0) AS report_rank ");
+					.append(" GROUP BY e.investorg_id, i.`name`,i.area_code ORDER BY amounts DESC ) report_org,(SELECT  @rownum \\:= 0) AS report_rank ");
 			Query query = entityManager.createNativeQuery(
 					sql + whereCase.toString(), AgencyListResult.class);
 			if (null != queryCondition) {

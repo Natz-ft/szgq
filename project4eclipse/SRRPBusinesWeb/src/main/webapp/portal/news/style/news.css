@@ -96,6 +96,40 @@ li {
 
 }
 
+
+.relNews-dynamic {
+    background: #E8F6FF;
+    border: 1px solid #8DBDDC;
+    color: #136075;
+    /*border-radio: 10px;*/
+    display: inline-block;
+    font-size: 14px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    width: 87px;
+}
+
+.relNews-dynamic:hover {
+    background: #0099EE;
+    border: 1px solid #0099EE;
+    color: #ffffff;
+}
+
+.relNews-dynamic-click {
+    background: #0099EE;
+    border: 1px solid #0099EE;
+    color: #ffffff;
+    /*border-radio: 10px;*/
+    display: inline-block;
+    font-size: 14px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    width: 87px;
+
+}
+
 /*政策指南*/
 .policy-guide {
     background: #E8F6FF;

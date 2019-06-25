@@ -800,20 +800,34 @@ form.on('select(open)', function(data){
     		if(investorIdList==''||investorIdList==undefined||investorIdList==null){
                 layer.msg("请指定投资机构", {icon: 5});
                 return false;
-            } 
+            }
         }
         if (data.field.description === '') {
             layer.msg("请输入需求详情", {icon: 5});
             return false;
-        }
-        if (data.field.description.length > 1000) {
+        }else if (data.field.description.length > 1000) {
             layer.msg("需求详情过长，详情不能超过1000个字符", {icon: 5});
             return false;
+        }else{
+            var isTrue = true;
+            $.ajax({
+                url:'/SRRPBusinesWeb/wordFilter',
+                method:'POST',
+                async:false,
+                data:{words:data.field.description},
+                success:function(res){
+                    if(res.code > 0 )isTrue = false;
+                }
+            });
+            if(!isTrue){
+                layer.msg("需求详情存在敏感词汇,请检查修改", {icon: 5});
+                return false;
+            }
         }
         if (data.field.fileUpdatePath == '') {
             layer.msg("请上传商业企划书", {icon: 5});
             return false;
-        } 
+        }
         return true;
     }
 </script>

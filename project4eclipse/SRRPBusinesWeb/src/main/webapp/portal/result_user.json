@@ -1,1 +1,41 @@
-{"company":"91","data":[{"changShu":"0","gaoXin":"8","gongYeYuan":"0","guSu":"75","id":"402809816b4a6d07016b4a6fb5fc0000","kunShan":"2","monthly":"2019-05","other":"0","staticType":"04","taiCang":"0","wuJiang":"0","wuZhong":"0","xiangCheng":"5","zhangJiaGang":"1"},{"changShu":"0","gaoXin":"3","gongYeYuan":"6","guSu":"9","id":"402809816b4a6d07016b4a6fb6050001","kunShan":"0","monthly":"2019-05","other":"1","staticType":"05","taiCang":"0","wuJiang":"0","wuZhong":"1","xiangCheng":"1","zhangJiaGang":"0"}],"endTotalDate":"2019-05","org":"20","orguser":"0","otherOrg":"1"}
+{
+  "company": "91",
+  "data": [
+    {
+      "changShu": "0",
+      "gaoXin": "8",
+      "gongYeYuan": "0",
+      "guSu": "75",
+      "id": "402809816b632978016b632ba4df0000",
+      "kunShan": "2",
+      "monthly": "2019-05",
+      "other": "0",
+      "staticType": "04",
+      "taiCang": "0",
+      "wuJiang": "0",
+      "wuZhong": "0",
+      "xiangCheng": "5",
+      "zhangJiaGang": "1"
+    },
+    {
+      "changShu": "0",
+      "gaoXin": "3",
+      "gongYeYuan": "6",
+      "guSu": "9",
+      "id": "402809816b632978016b632ba4fc0001",
+      "kunShan": "0",
+      "monthly": "2019-05",
+      "other": "1",
+      "staticType": "05",
+      "taiCang": "0",
+      "wuJiang": "0",
+      "wuZhong": "1",
+      "xiangCheng": "1",
+      "zhangJiaGang": "0"
+    }
+  ],
+  "endTotalDate": "2019-05",
+  "org": "20",
+  "orguser": "0",
+  "otherOrg": "1"
+}
