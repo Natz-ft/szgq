@@ -9,7 +9,7 @@ org.apache.cxf.interceptor.Fault: Could not send Message.
 	at org.apache.cxf.jaxrs.client.WebClient.invoke(WebClient.java:428) [cxf-rt-rs-client-3.0.7.jar:3.0.7]
 	at org.apache.cxf.jaxrs.client.WebClient.get(WebClient.java:611) [cxf-rt-rs-client-3.0.7.jar:3.0.7]
 	at com.icfcc.ws.services.CompanyUserWsClientServices.main(CompanyUserWsClientServices.java:43) [classes/:na]
-Caused by: java.net.ConnectException: ConnectException invoking http://localhost:8180/SRRPWS/cxf/RESTful/getCompanyInfo?companyInfoJsonStr=Wrm/G%2BAQis7593zG0Z7I78%2B/1VKxczshefdCrI4KhVjep5AzsxpIkrMt9sXGh7tVxIeWsZJv7af4jSQDJu70ihD7ehoy8SxO7Zczkv/XkCMkL5HsyKkJBUEK4U7a9XBt3h7Wh6U3ltJs3BjV5gXgviTqv%2ByTylS1LbDb5%2Bj1k1FjyW6e9BDrF3laoSKuvAuWbonij86uuUXaTbnsEszn96SzdFmwiDPkqEHeQCUTzuaq/K5VO8uKNlmDwGJkh9ul%2BStFNmWa1cZiZoXh2XUgGx8ei%2BA72f92KKWOOW/d4SpjPU0/AMd98M1sj5AZ2vsoLkySxH1RqPTRmdLMF2bq1w%3D%3D: Connection refused: connect
+Caused by: java.net.ConnectException: ConnectException invoking http://localhost:8180/SRRPWS/cxf/RESTful/get?JsonStr=Wrm/G%2BAQis7593zG0Z7I78%2B/1VKxczshefdCrI4KhVjep5AzsxpIkrMt9sXGh7tVxIeWsZJv7af4jSQDJu70ihD7ehoy8SxO7Zczkv/XkCMkL5HsyKkJBUEK4U7a9XBt3h7Wh6U3ltJs3BjV5gXgviTqv%2ByTylS1LbDb5%2Bj1k1FjyW6e9BDrF3laoSKuvAuWbonij86uuUXaTbnsEszn96SzdFmwiDPkqEHeQCUTzuaq/K5VO8uKNlmDwGJkh9ul%2BStFNmWa1cZiZoXh2XUgGx8ei%2BA72f92KKWOOW/d4SpjPU0/AMd98M1sj5AZ2vsoLkySxH1RqPTRmdLMF2bq1w%3D%3D: Connection refused: connect
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0_91]
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0_91]
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0_91]
@@ -59,7 +59,7 @@ org.apache.cxf.interceptor.Fault: Could not send Message.
 	at org.apache.cxf.jaxrs.client.WebClient.invoke(WebClient.java:428) [cxf-rt-rs-client-3.0.7.jar:3.0.7]
 	at org.apache.cxf.jaxrs.client.WebClient.get(WebClient.java:611) [cxf-rt-rs-client-3.0.7.jar:3.0.7]
 	at com.icfcc.ws.services.CompanyUserWsClientServices.main(CompanyUserWsClientServices.java:43) [classes/:na]
-Caused by: java.net.SocketTimeoutException: SocketTimeoutException invoking http://localhost:8080/SRRPWS/cxf/RESTful/getCompanyInfo?companyInfoJsonStr=Wrm/G%2BAQis7593zG0Z7I78%2B/1VKxczshefdCrI4KhVjep5AzsxpIkrMt9sXGh7tVxIeWsZJv7af4jSQDJu70ihD7ehoy8SxO7Zczkv/XkCMkL5HsyKkJBUEK4U7a9XBt3h7Wh6U3ltJs3BjV5gXgviTqv%2ByTylS1LbDb5%2Bj1k1FjyW6e9BDrF3laoSKuvAuWbonij86uuUXaTbnsEszn96SzdFmwiDPkqEHeQCUTzuaq/K5VO8uKNlmDwGJkh9ul%2BStFNmWa1cZiZoXh2XUgGx8ei%2BA72f92KKWOOW/d4SpjPU0/AMd98M1sj5AZ2vsoLkySxH1RqPTRmdLMF2bq1w%3D%3D: Read timed out
+Caused by: java.net.SocketTimeoutException: SocketTimeoutException invoking http://localhost:8080/SRRPWS/cxf/RESTful/get?JsonStr=Wrm/G%2BAQis7593zG0Z7I78%2B/1VKxczshefdCrI4KhVjep5AzsxpIkrMt9sXGh7tVxIeWsZJv7af4jSQDJu70ihD7ehoy8SxO7Zczkv/XkCMkL5HsyKkJBUEK4U7a9XBt3h7Wh6U3ltJs3BjV5gXgviTqv%2ByTylS1LbDb5%2Bj1k1FjyW6e9BDrF3laoSKuvAuWbonij86uuUXaTbnsEszn96SzdFmwiDPkqEHeQCUTzuaq/K5VO8uKNlmDwGJkh9ul%2BStFNmWa1cZiZoXh2XUgGx8ei%2BA72f92KKWOOW/d4SpjPU0/AMd98M1sj5AZ2vsoLkySxH1RqPTRmdLMF2bq1w%3D%3D: Read timed out
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0_91]
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0_91]
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0_91]
@@ -100,7 +100,7 @@ org.apache.cxf.interceptor.Fault: Could not send Message.
 	at org.apache.cxf.jaxrs.client.WebClient.invoke(WebClient.java:428) [cxf-rt-rs-client-3.0.7.jar:3.0.7]
 	at org.apache.cxf.jaxrs.client.WebClient.get(WebClient.java:611) [cxf-rt-rs-client-3.0.7.jar:3.0.7]
 	at com.icfcc.ws.services.CompanyUserWsClientServices.main(CompanyUserWsClientServices.java:43) [classes/:na]
-Caused by: java.net.SocketTimeoutException: SocketTimeoutException invoking http://localhost:8080/SRRPWS/cxf/RESTful/getCompanyInfo?companyInfoJsonStr=Wrm/G%2BAQis7593zG0Z7I78%2B/1VKxczshefdCrI4KhVjep5AzsxpIkrMt9sXGh7tVxIeWsZJv7af4jSQDJu70ihD7ehoy8SxO7Zczkv/XkCMkL5HsyKkJBUEK4U7a9XBt3h7Wh6U3ltJs3BjV5gXgviTqv%2ByTylS1LbDb5%2Bj1k1FjyW6e9BDrF3laoSKuvAuWbonij86uuUXaTbnsEszn96SzdFmwiDPkqEHeQCUTzuaq/K5VO8uKNlmDwGJkh9ul%2BStFNmWa1cZiZoXh2XUgGx8ei%2BA72f92KKWOOW/d4SpjPU0/AMd98M1sj5AZ2vsoLkySxH1RqPTRmdLMF2bq1w%3D%3D: Read timed out
+Caused by: java.net.SocketTimeoutException: SocketTimeoutException invoking http://localhost:8080/SRRPWS/cxf/RESTful/get?JsonStr=Wrm/G%2BAQis7593zG0Z7I78%2B/1VKxczshefdCrI4KhVjep5AzsxpIkrMt9sXGh7tVxIeWsZJv7af4jSQDJu70ihD7ehoy8SxO7Zczkv/XkCMkL5HsyKkJBUEK4U7a9XBt3h7Wh6U3ltJs3BjV5gXgviTqv%2ByTylS1LbDb5%2Bj1k1FjyW6e9BDrF3laoSKuvAuWbonij86uuUXaTbnsEszn96SzdFmwiDPkqEHeQCUTzuaq/K5VO8uKNlmDwGJkh9ul%2BStFNmWa1cZiZoXh2XUgGx8ei%2BA72f92KKWOOW/d4SpjPU0/AMd98M1sj5AZ2vsoLkySxH1RqPTRmdLMF2bq1w%3D%3D: Read timed out
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0_91]
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0_91]
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0_91]
@@ -141,7 +141,7 @@ org.apache.cxf.interceptor.Fault: Could not send Message.
 	at org.apache.cxf.jaxrs.client.WebClient.invoke(WebClient.java:428) [cxf-rt-rs-client-3.0.7.jar:3.0.7]
 	at org.apache.cxf.jaxrs.client.WebClient.get(WebClient.java:611) [cxf-rt-rs-client-3.0.7.jar:3.0.7]
 	at com.icfcc.ws.services.CompanyUserWsClientServices.main(CompanyUserWsClientServices.java:43) [classes/:na]
-Caused by: java.net.SocketTimeoutException: SocketTimeoutException invoking http://localhost:8080/SRRPWS/cxf/RESTful/getCompanyInfo?companyInfoJsonStr=Wrm/G%2BAQis7593zG0Z7I78%2B/1VKxczshefdCrI4KhVjep5AzsxpIkrMt9sXGh7tVxIeWsZJv7af4jSQDJu70ihD7ehoy8SxO7Zczkv/XkCMkL5HsyKkJBUEK4U7a9XBt3h7Wh6U3ltJs3BjV5gXgviTqv%2ByTylS1LbDb5%2Bj1k1FjyW6e9BDrF3laoSKuvAuWbonij86uuUXaTbnsEszn96SzdFmwiDPkqEHeQCUTzuaq/K5VO8uKNlmDwGJkh9ul%2BStFNmWa1cZiZoXh2XUgGx8ei%2BA72f92KKWOOW/d4SpjPU0/AMd98M1sj5AZ2vsoLkySxH1RqPTRmdLMF2bq1w%3D%3D: Read timed out
+Caused by: java.net.SocketTimeoutException: SocketTimeoutException invoking http://localhost:8080/SRRPWS/cxf/RESTful/get?JsonStr=Wrm/G%2BAQis7593zG0Z7I78%2B/1VKxczshefdCrI4KhVjep5AzsxpIkrMt9sXGh7tVxIeWsZJv7af4jSQDJu70ihD7ehoy8SxO7Zczkv/XkCMkL5HsyKkJBUEK4U7a9XBt3h7Wh6U3ltJs3BjV5gXgviTqv%2ByTylS1LbDb5%2Bj1k1FjyW6e9BDrF3laoSKuvAuWbonij86uuUXaTbnsEszn96SzdFmwiDPkqEHeQCUTzuaq/K5VO8uKNlmDwGJkh9ul%2BStFNmWa1cZiZoXh2XUgGx8ei%2BA72f92KKWOOW/d4SpjPU0/AMd98M1sj5AZ2vsoLkySxH1RqPTRmdLMF2bq1w%3D%3D: Read timed out
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0_91]
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0_91]
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0_91]
@@ -182,7 +182,7 @@ org.apache.cxf.interceptor.Fault: Could not send Message.
 	at org.apache.cxf.jaxrs.client.WebClient.invoke(WebClient.java:428) [cxf-rt-rs-client-3.0.7.jar:3.0.7]
 	at org.apache.cxf.jaxrs.client.WebClient.get(WebClient.java:611) [cxf-rt-rs-client-3.0.7.jar:3.0.7]
 	at com.icfcc.ws.services.CompanyUserWsClientServices.main(CompanyUserWsClientServices.java:43) [classes/:na]
-Caused by: java.net.SocketTimeoutException: SocketTimeoutException invoking http://localhost:8080/SRRPWS/cxf/RESTful/getCompanyInfo?companyInfoJsonStr=Wrm/G%2BAQis7593zG0Z7I78%2B/1VKxczshefdCrI4KhVjep5AzsxpIkrMt9sXGh7tVxIeWsZJv7af4jSQDJu70ihD7ehoy8SxO7Zczkv/XkCMkL5HsyKkJBUEK4U7a9XBt3h7Wh6U3ltJs3BjV5gXgviTqv%2ByTylS1LbDb5%2Bj1k1FjyW6e9BDrF3laoSKuvAuWbonij86uuUXaTbnsEszn96SzdFmwiDPkqEHeQCUTzuaq/K5VO8uKNlmDwGJkh9ul%2BStFNmWa1cZiZoXh2XUgGx8ei%2BA72f92KKWOOW/d4SpjPU0/AMd98M1sj5AZ2vsoLkySxH1RqPTRmdLMF2bq1w%3D%3D: Read timed out
+Caused by: java.net.SocketTimeoutException: SocketTimeoutException invoking http://localhost:8080/SRRPWS/cxf/RESTful/get?JsonStr=Wrm/G%2BAQis7593zG0Z7I78%2B/1VKxczshefdCrI4KhVjep5AzsxpIkrMt9sXGh7tVxIeWsZJv7af4jSQDJu70ihD7ehoy8SxO7Zczkv/XkCMkL5HsyKkJBUEK4U7a9XBt3h7Wh6U3ltJs3BjV5gXgviTqv%2ByTylS1LbDb5%2Bj1k1FjyW6e9BDrF3laoSKuvAuWbonij86uuUXaTbnsEszn96SzdFmwiDPkqEHeQCUTzuaq/K5VO8uKNlmDwGJkh9ul%2BStFNmWa1cZiZoXh2XUgGx8ei%2BA72f92KKWOOW/d4SpjPU0/AMd98M1sj5AZ2vsoLkySxH1RqPTRmdLMF2bq1w%3D%3D: Read timed out
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0_91]
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0_91]
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0_91]

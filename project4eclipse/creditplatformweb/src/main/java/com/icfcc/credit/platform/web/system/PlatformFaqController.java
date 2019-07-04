@@ -424,7 +424,7 @@ public class PlatformFaqController extends PlatformBasicController {
 			ShiroUser user = getCurrentUser();
 			String createUser=user.getName();
 			faq.setCreateUser(createUser);
-			//systemContentFaqService.save(faq);
+			systemContentFaqService.save(faq);
 			rs = ResultBean.sucessResultBean();
 		}catch(Exception e){
 			rs = new ResultBean(Constant.ERRORCODE,Constant.ERRORMSG);

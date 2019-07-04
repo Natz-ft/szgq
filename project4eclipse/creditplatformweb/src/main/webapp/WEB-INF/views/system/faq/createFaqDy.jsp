@@ -4,7 +4,8 @@
 <head>
 <script src="${pageContext.request.contextPath}/static/js/my97/WdatePicker.js" type="text/javascript" ></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/autoload.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/frame-free/frame/css/framework/reset.css" type="text/css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/script/layui/css/layui.css" type="text/css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/frame-free/frame/css/framework/reset.css" type="text/css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/common.css" type="text/css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/static/frame-free/frame/css/framework/form.css" type="text/css" />
 <style type="text/css">
@@ -165,9 +166,11 @@ margin-left:-15px;
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/static/js/jquery-1.9.1.min.js" type="text/javascript"></script>
- <link href="${pageContext.request.contextPath}/static/Layui-KnifeZ/css/layui.css" rel="stylesheet"/> 
-<script src="${pageContext.request.contextPath}/static/Layui-KnifeZ/layui.js"></script>
-<script src="${pageContext.request.contextPath}/static/Layui-KnifeZ/lay/modules/upload.js"></script>
+ <%--<link href="${pageContext.request.contextPath}/static/Layui-KnifeZ/css/layui.css" rel="stylesheet"/> --%>
+<%--<script src="${pageContext.request.contextPath}/static/Layui-KnifeZ/layui.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/static/Layui-KnifeZ/lay/modules/upload.js"></script>--%>
+<script src="${pageContext.request.contextPath}/static/script/layui/layui.all.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/static/script/layui/layer.cu.js" type="text/javascript"></script>
  
  <script>
  $(function () {
@@ -180,14 +183,17 @@ margin-left:-15px;
 	    var indexUplodfileName="";
         var layer = layui.layer;
         var layedit = layui.layedit;
-        layedit.set({
-           tool: ['strong', 'italic', 'underline', 'del', 
-            		'|','removeformat', 'fontFomatt', 'fontfamily','fontSize',
-            		'|','left', 'center', 'right','|', 'face','table','link', 'unlink'
+        var index = layedit.build('demandDetails',{
+            tool: [
+                'strong','italic','underline','del','|' //分割线
+                ,'left','center','right','link','unlink','image'
             ]
-            , height: '176px'
+            ,height: 220
+            ,uploadImage: {
+                url: '/creditplatformweb/news/uploadImage/'
+                , type: 'post' //默认post
+            }
         });
-        var index = layedit.build('demandDetails');
       	//监听审核按钮
 	     $("#uploadbtnListAction").on('click', function () {
 	    	 var problem=$("#problem").val();

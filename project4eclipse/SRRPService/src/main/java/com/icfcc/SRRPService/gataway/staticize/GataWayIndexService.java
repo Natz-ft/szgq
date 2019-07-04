@@ -173,8 +173,7 @@ public class GataWayIndexService extends GataWayBaseStaticzeService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 		cal.add(Calendar.MONTH, 0);
 		queryDate = sdf.format(cal.getTime());
-		GataWayIndexStatic gataWayStatic = gataWayService
-				.getIndexStaticResultByQueryDate(queryDate);
+		GataWayIndexStatic gataWayStatic = gataWayService.getIndexStaticResultByQueryDate(queryDate);
 		GataWayIndexStatic gataWayStaticCopy = new GataWayIndexStatic();
 		BeanUtils.copyProperties(gataWayStaticCopy,gataWayStatic);
 		data.put("gataWayStatic", gataWayStaticCopy);
@@ -646,8 +645,8 @@ public class GataWayIndexService extends GataWayBaseStaticzeService {
 		dao.changeEnterpriseCount(count);
 	}
 	
-	public PlatformFaqShow findFaqDy() {
-		return gataWayService.findFaqDy();
+	public PlatformFaqShow findFaqDy(String id) {
+		return gataWayService.findFaqDy(id);
 	}
 	
 }

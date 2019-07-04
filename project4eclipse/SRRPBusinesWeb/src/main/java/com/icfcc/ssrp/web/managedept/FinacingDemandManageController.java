@@ -1,49 +1,13 @@
 package com.icfcc.ssrp.web.managedept;
 
-import io.netty.util.internal.StringUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import lombok.extern.slf4j.Slf4j;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.icfcc.SRRPDao.jpa.entity.IndustryVo;
 import com.icfcc.SRRPDao.jpa.entity.QueryCondition;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyAttachment;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyAttachmentPending;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyBase;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyBasePending;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyBaseSupplement;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyBusinessplan;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyMember;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyObjection;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyObjectionPending;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyProduct;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyStockholder;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyStockholderPending;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.FinacingEvent;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.FinacingRecord;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.UnionDemandInvestorResult;
+import com.icfcc.SRRPDao.jpa.entity.enterprise.*;
 import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfo;
 import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResult;
-import com.icfcc.SRRPDao.jpa.entity.managedept.QueryCompanyAuditResult;
+import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResultNew;
 import com.icfcc.SRRPDao.jpa.entity.platformSystem.PlatformUser;
 import com.icfcc.SRRPService.PlatformSystem.PlatformUserService;
 import com.icfcc.SRRPService.enterprise.CompanyInfoService;
@@ -57,6 +21,24 @@ import com.icfcc.credit.platform.util.SRRPConstant;
 import com.icfcc.ssrp.session.DD;
 import com.icfcc.ssrp.session.RedisGetValue;
 import com.icfcc.ssrp.web.SRRPBaseController;
+import io.netty.util.internal.StringUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 
@@ -165,9 +147,9 @@ public class FinacingDemandManageController extends SRRPBaseController {
 			}
 			
 			// 条件查询融资信息列表
-			List<FinacingDemandInfoResult> dataList = infoService.getFinacingDemandInfoList(queryCondition);
+			List<FinacingDemandInfoResultNew> dataList = infoService.getFinacingDemandInfoList(queryCondition);
 			int i = 0;
-			for (FinacingDemandInfoResult finacingDemandInfoResult : dataList) {
+			for (FinacingDemandInfoResultNew finacingDemandInfoResult : dataList) {
 				//System.out.print((++i)+"s----->"+finacingDemandInfoResult.getScore());
 				if (StringUtils.isNotEmpty(finacingDemandInfoResult
 						.getIndustry())) {

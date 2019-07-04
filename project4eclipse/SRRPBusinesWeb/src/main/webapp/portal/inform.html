@@ -82,12 +82,15 @@
 </body>
 <script>
 $(function(){
-	$.get("../index/getFaq",function(data){
+    var id = '';
+    try{id = location.search.split("=")[1].trim();
+	}catch (e) {}
+	$.get("../index/getFaq?id="+id,function(data){
 		$("#faqDate").html(data.faqDate);
 		$("#problem").html(data.problem);
 		$("#answer").html(data.answer);
 		$("#file").html("附件：<a href="+data.faqFilepath+" download="+data.faqFilename+" class='needposted clearfix'><span class='icon'></span><span>"+data.faqFilename+"</span></a>");
-		if(data.faqFilepath=='none'){
+		if(data.faqFilepath=='none'||data.faqFilepath==''){
             $("#file").hide();
 		}
 	});

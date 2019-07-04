@@ -52,6 +52,7 @@ public final class WSWebServiceClient {
 	 * @return
 	 */
 	public String  getCorpInfos(String params,String pageSize,String pageNum){
+		//System.out.println(params);
 		StringBuffer scoreInfos=new StringBuffer();
 		String usernameSys =  AESUtil.encryptSecs(usercode,key);//用户名
 		String paramsSys =  AESUtil.encryptSecs(params,key);//筛选条件

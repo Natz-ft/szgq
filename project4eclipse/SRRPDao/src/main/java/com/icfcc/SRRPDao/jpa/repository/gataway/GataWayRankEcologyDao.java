@@ -1,24 +1,17 @@
 package com.icfcc.SRRPDao.jpa.repository.gataway;
 
-import java.util.List;
-import java.util.Map;
+import com.icfcc.SRRPDao.jpa.entity.gataway.*;
+import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayStatic;
+import com.icfcc.SRRPDao.jpa.entity.platformContent.PlatformFaqShow;
+import com.icfcc.SRRPDao.jpa.repository.BaseNativeQueryDao;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayRankArea;
-import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayRankCompany;
-import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayRankFinacingTurn;
-import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayRankIndustry;
-import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayRankInvestor;
-import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayStatic;
-import com.icfcc.SRRPDao.jpa.entity.platformContent.PlatformFaq;
-import com.icfcc.SRRPDao.jpa.entity.platformContent.PlatformFaqShow;
-import com.icfcc.SRRPDao.jpa.repository.BaseNativeQueryDao;
+import java.util.List;
 
 @Component
 public class GataWayRankEcologyDao extends BaseNativeQueryDao {
@@ -37,7 +30,7 @@ public class GataWayRankEcologyDao extends BaseNativeQueryDao {
 	private String finacTurnSql = "select * from platform_portal_rangking_finacturn where 1=1 ";
 	
 	//首页动态广告
-	private String faqDy = "select * from platform_faq where type = '0003' ORDER BY create_time desc limit 1 ";
+	private String faqDy = "select * from platform_faq where type = '0003' ";
 	
 	
 	
@@ -277,14 +270,19 @@ public class GataWayRankEcologyDao extends BaseNativeQueryDao {
 	
 	
 	@SuppressWarnings("unchecked")
-	public PlatformFaqShow findFaqDy() {
+	public PlatformFaqShow findFaqDy(String id) {
 		EntityManager entityManager = this.getEntityManager();
 		EntityTransaction entityTransaction = null;
 		PlatformFaqShow res = null;
 		try {
 			entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
-			Query query = entityManager.createNativeQuery(faqDy,PlatformFaqShow.class);
+			StringBuffer fqsb = new StringBuffer(faqDy);
+			if(StringUtils.isNotEmpty(id)){
+				fqsb.append(" and id = " + id + " ");
+			}
+			fqsb.append(" ORDER BY create_time desc limit 1 ");
+			Query query = entityManager.createNativeQuery(fqsb.toString(),PlatformFaqShow.class);
 			res = (PlatformFaqShow) query.getSingleResult();
 			entityTransaction.commit();
 		} catch (Exception e) {

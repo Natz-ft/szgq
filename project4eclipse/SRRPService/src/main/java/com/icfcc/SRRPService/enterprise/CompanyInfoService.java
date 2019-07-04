@@ -897,14 +897,11 @@ public class CompanyInfoService {
 		client.path("wsWebService/getICInfo")
 				.accept(MediaType.APPLICATION_JSON)
 				.type(MediaType.APPLICATION_JSON);
-		System.out.println("调用信用报告接口参数(加密前):" + "name:" + reporUser
-				+ ";corpCode;" + corpCode + ";reason:" + reason);
+		System.out.println("调用信用报告接口参数(加密前):" + "name:" + reporUser + ";corpCode;" + corpCode + ";reason:" + reason);
 		String e_userName = AESUtil.encrypt(reporUser, key);
 		String e_corpCode = AESUtil.encrypt(corpCode, key);
-		System.out.println("调用信用报告接口参数(加密后):" + "e_userName:" + e_userName
-				+ ";e_corpCode:" + e_corpCode);
-		client.replaceQueryParam("userName", e_userName).replaceQueryParam(
-				"corpCode", e_corpCode);
+		System.out.println("调用信用报告接口参数(加密后):" + "e_userName:" + e_userName + ";e_corpCode:" + e_corpCode);
+		client.replaceQueryParam("userName", e_userName).replaceQueryParam("corpCode", e_corpCode);
 		result = AESUtil.decrypt(client.get(String.class), key);
 		System.out.println("jiemi ================"+client.get(String.class));
 		System.out.println("调用信用报告接口结束，返回结果:" + result);

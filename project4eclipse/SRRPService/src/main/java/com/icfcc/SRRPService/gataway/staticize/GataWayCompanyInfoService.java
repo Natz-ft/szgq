@@ -66,9 +66,10 @@ public class GataWayCompanyInfoService extends GataWayBaseStaticzeService {
 	// 判定是否注册过业务库
 		public boolean ifRegisteredRC(String certNo) {
 			boolean isExist = false;
+			CompanyBase baseInfo = compdao.queryByCertno(certNo);
 			Investor registerInfo = investorDao.findById(certNo);
 			PlatformUser user=userDao.findByUserName(certNo);
-			if (registerInfo != null || user!=null) {
+			if (baseInfo != null ||registerInfo != null || user!=null) {
 				isExist = true;
 			}
 			return isExist;

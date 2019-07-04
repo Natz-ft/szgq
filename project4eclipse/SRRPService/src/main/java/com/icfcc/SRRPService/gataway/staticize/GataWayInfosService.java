@@ -3,6 +3,7 @@ package com.icfcc.SRRPService.gataway.staticize;
 import com.alibaba.fastjson.JSON;
 import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayInfos;
 import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayNews;
+import com.icfcc.SRRPDao.jpa.entity.platformContent.PlatformFaqShow;
 import com.icfcc.SRRPDao.jpa.repository.gataway.staticize.GataWayInfosQueryEcologyDao;
 import com.icfcc.SRRPDao.jpa.repository.gataway.staticize.GataWayNewsDao;
 import com.icfcc.SRRPDao.pojo.GataWayInitInfo;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +63,9 @@ public class GataWayInfosService extends GataWayBaseStaticzeService {
 
     // 新闻动态路径
     private String relNewsFilrPath = "relNews.json";
+
+    //近期通知路径
+    private String faqFilrPath = "faq.json";
 
     // 行业动态路径
     @Value("${news.investorinfo.filepath}")
@@ -143,6 +148,26 @@ public class GataWayInfosService extends GataWayBaseStaticzeService {
 
             writeFile(this.relNewsFilrPath, JSON.toJSONString(gataWayInitInfo));
         }
+
+        //近期通知
+        List<PlatformFaqShow> faqList = newsDao.findFaqDy();
+        List<Map<String,Object>> listMap = new ArrayList<>();
+        for (PlatformFaqShow faq : faqList) {
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",faq.getId());
+            String problem = faq.getProblem();
+            map.put("title",problem);
+            map.put("problem",problem.substring(0,Math.min(18,problem.length()))+"...");
+//            String answer = faq.getAnswer();
+//            map.put("answer",answer.substring(0,Math.min(18,answer.length())));
+            map.put("faqDate",faq.getFaqDate());
+            listMap.add(map);
+        }
+        GataWayInitInfo faqs = new GataWayInitInfo();
+        faqs.setCount(String.valueOf(listMap.size()));
+        faqs.setData(listMap);
+
+        writeFile(this.faqFilrPath, JSON.toJSONString(faqs));
 
     }
 

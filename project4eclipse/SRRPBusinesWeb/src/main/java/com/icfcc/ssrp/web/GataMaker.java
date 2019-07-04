@@ -1,16 +1,13 @@
 package com.icfcc.ssrp.web;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 
 /**
  * <p>

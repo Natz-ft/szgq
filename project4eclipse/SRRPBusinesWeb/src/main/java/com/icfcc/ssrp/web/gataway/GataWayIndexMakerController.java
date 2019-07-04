@@ -1,32 +1,9 @@
 package com.icfcc.ssrp.web.gataway;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.converters.SqlDateConverter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
 import com.icfcc.SRRPDao.jpa.entity.QueryCondition;
 import com.icfcc.SRRPDao.jpa.entity.enterprise.Investor;
 import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayInvestorRegiter;
 import com.icfcc.SRRPDao.jpa.entity.managedept.InvestorHistory;
-import com.icfcc.SRRPDao.jpa.entity.platformContent.PlatformFaq;
 import com.icfcc.SRRPDao.jpa.entity.platformContent.PlatformFaqShow;
 import com.icfcc.SRRPDao.jpa.entity.platformSystem.InvestorSubaccount;
 import com.icfcc.SRRPDao.jpa.entity.platformSystem.PlatformUser;
@@ -41,6 +18,24 @@ import com.icfcc.credit.platform.util.SRRPConstant;
 import com.icfcc.ssrp.session.RedisGetValue;
 import com.icfcc.ssrp.session.RedisManager;
 import com.icfcc.ssrp.web.SRRPBaseController;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.converters.SqlDateConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * 门户首页
@@ -275,8 +270,8 @@ public class GataWayIndexMakerController extends SRRPBaseController {
 	
 	@ResponseBody
 	@RequestMapping("/getFaq")
-	public Map getFaq() {
-		PlatformFaqShow faq = (PlatformFaqShow) service.findFaqDy();
+	public Map getFaq(@RequestParam(required = false) String id) {
+		PlatformFaqShow faq = (PlatformFaqShow) service.findFaqDy(id);
 		Map<String,Object> map = new HashMap();
 		map.put("problem", faq.getProblem());
 		map.put("answer", faq.getAnswer());

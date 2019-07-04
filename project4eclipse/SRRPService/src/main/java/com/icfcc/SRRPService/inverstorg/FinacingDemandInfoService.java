@@ -1,16 +1,16 @@
 package com.icfcc.SRRPService.inverstorg;
 
-import java.util.List;
-
+import com.icfcc.SRRPDao.jpa.entity.QueryCondition;
+import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResult;
+import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResultNew;
+import com.icfcc.SRRPDao.jpa.entity.inverstorg.QueryFinacingDemandResult;
+import com.icfcc.SRRPDao.jpa.repository.inverstorg.impl.FinacingDemandInfoDaoImpl;
+import com.icfcc.SRRPDao.jpa.repository.inverstorg.impl.UnionFinacingDemandDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.icfcc.SRRPDao.jpa.entity.QueryCondition;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResult;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.QueryFinacingDemandResult;
-import com.icfcc.SRRPDao.jpa.repository.inverstorg.impl.FinacingDemandInfoDaoImpl;
-import com.icfcc.SRRPDao.jpa.repository.inverstorg.impl.UnionFinacingDemandDaoImpl;
+import java.util.List;
 
 @Service
 @Transactional(value = "transactionManager")
@@ -28,9 +28,9 @@ public class FinacingDemandInfoService {
 	 * @param finacingDemand
 	 * @return List<FinacingDemandInfoResult>
 	 */
-	public List<FinacingDemandInfoResult> getFinacingDemandInfoList(QueryCondition queryCondition) {
+	public List<FinacingDemandInfoResultNew> getFinacingDemandInfoList(QueryCondition queryCondition) {
 
-		return (List<FinacingDemandInfoResult>) finacingDemandInfoDaoImpl.getFinacingDemandInfoList(queryCondition);
+		return (List<FinacingDemandInfoResultNew>) finacingDemandInfoDaoImpl.getFinacingDemandInfoList(queryCondition);
 	}
 
 	/**

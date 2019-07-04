@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResultNew;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,11 +39,11 @@ public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 	 * @param finacingDemand
 	 * @return
 	 */
-	public List<FinacingDemandInfoResult> getFinacingDemandInfoList(
+	public List<FinacingDemandInfoResultNew> getFinacingDemandInfoList(
 			QueryCondition queryCondition) {
 		EntityManager entityManager = this.getEntityManager();
 		EntityTransaction entityTransaction = null;
-		List<FinacingDemandInfoResult> res = null;
+		List<FinacingDemandInfoResultNew> res = null;
 		try {
 			entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
@@ -144,7 +145,7 @@ public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 			whereCase.append(this.getPageInfos(queryCondition));
 
 			Query query = entityManager.createNativeQuery(
-					sql + whereCase.toString(), FinacingDemandInfoResult.class);
+					sql + whereCase.toString(), FinacingDemandInfoResultNew.class);
 
 			if (null != queryCondition) {
 				if (!StringUtil.isNullOrEmpty(queryCondition.getIndustry())) {

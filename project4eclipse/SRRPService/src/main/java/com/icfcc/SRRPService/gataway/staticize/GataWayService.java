@@ -1,25 +1,16 @@
 package com.icfcc.SRRPService.gataway.staticize;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-
+import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayIndexStatic;
+import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayStatic;
+import com.icfcc.SRRPDao.jpa.entity.platformContent.PlatformFaqShow;
+import com.icfcc.SRRPDao.jpa.repository.gataway.GataWayRankEcologyDao;
+import com.icfcc.SRRPDao.jpa.repository.gataway.staticize.GataWayStaticDao;
+import com.icfcc.SRRPDao.jpa.repository.gataway.staticize.GataWayStaticIndexDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayIndexStatic;
-import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayStatic;
-import com.icfcc.SRRPDao.jpa.entity.platformContent.PlatformFaq;
-import com.icfcc.SRRPDao.jpa.entity.platformContent.PlatformFaqShow;
-import com.icfcc.SRRPDao.jpa.repository.gataway.GataWayRankEcologyDao;
-import com.icfcc.SRRPDao.jpa.repository.gataway.staticize.GataWayStaticDao;
-import com.icfcc.SRRPDao.jpa.repository.gataway.staticize.GataWayStaticIndexDao;
 
 /**
  * <门户静态化统计>
@@ -79,7 +70,7 @@ public class GataWayService {
 		return null;
 	}
 	
-	public PlatformFaqShow findFaqDy() {
-		return rankDao.findFaqDy();
+	public PlatformFaqShow findFaqDy(String id) {
+		return rankDao.findFaqDy(id);
 	}
 }

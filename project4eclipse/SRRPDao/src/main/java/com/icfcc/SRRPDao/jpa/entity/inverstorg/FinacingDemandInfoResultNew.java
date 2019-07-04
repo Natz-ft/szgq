@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  */
 
 @Entity
-public class FinacingDemandInfoResult implements Serializable {
+public class FinacingDemandInfoResultNew implements Serializable {
 
 	private static final long serialVersionUID = -9182307008368341300L;
 
@@ -153,8 +153,8 @@ public class FinacingDemandInfoResult implements Serializable {
 	@Transient
 	private String amountShow;
 
-	//@Column(name = "rearea")
-	@Transient
+	@Column(name = "rearea")
+	//@Transient
 	private String rearea;
 
 	public String getRearea() {
