@@ -52,13 +52,25 @@ public final class WSWebServiceClient {
 	 * @return
 	 */
 	public String  getCorpInfos(String params,String pageSize,String pageNum){
-		//System.out.println(params);
+		System.out.println("企业查询,调用接口:" + scoreURL);
 		StringBuffer scoreInfos=new StringBuffer();
 		String usernameSys =  AESUtil.encryptSecs(usercode,key);//用户名
 		String paramsSys =  AESUtil.encryptSecs(params,key);//筛选条件
 		String pageSizeSys =  AESUtil.encryptSecs(pageSize,key);//每页记录数
 		String pageNumSys =  AESUtil.encryptSecs(pageNum,key);//查询第几页
 		String sourceSysSys =  AESUtil.encryptSecs(source,key);//系统来源
+//		System.out.println("username:"+usercode);
+//		System.out.println("params:"+params);
+//		System.out.println("pageSize:"+pageSize);
+//		System.out.println("pageNum:"+pageNum);
+//		System.out.println("source:"+source);
+//
+//		System.out.println("usernameSys:"+usernameSys);
+//		System.out.println("paramsSys:"+paramsSys);
+//		System.out.println("pageSizeSys:"+pageSizeSys);
+//		System.out.println("pageNumSys:"+pageNumSys);
+//		System.out.println("sourceSys:"+sourceSysSys);
+
 		try {
 			URL url= new URL(scoreURL);
 			 WSWebService_Service ss = new WSWebService_Service(url, SERVICE_NAME);
