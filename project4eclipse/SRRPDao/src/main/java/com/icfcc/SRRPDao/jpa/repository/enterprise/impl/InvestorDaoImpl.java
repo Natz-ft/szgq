@@ -1,27 +1,23 @@
 package com.icfcc.SRRPDao.jpa.repository.enterprise.impl;
 
-import io.netty.util.internal.StringUtil;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
-
 import com.icfcc.SRRPDao.jpa.entity.QueryCondition;
 import com.icfcc.SRRPDao.jpa.entity.enterprise.Investor;
+import com.icfcc.SRRPDao.jpa.entity.inverstorg.InvestorManageAchievementSub;
 import com.icfcc.SRRPDao.jpa.entity.managedept.InvestorManageResutList;
 import com.icfcc.SRRPDao.jpa.repository.BaseNativeQueryDao;
 import com.icfcc.credit.platform.util.SRRPConstant;
 import com.icfcc.ssrp.session.RedisGetValue;
+import io.netty.util.internal.StringUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -32,7 +28,7 @@ import com.icfcc.ssrp.session.RedisGetValue;
 public class InvestorDaoImpl extends BaseNativeQueryDao {
 //SELS刷考
 	private String unionSQL = "select * from rp_investor e where  e.stop_flag= :stopFlag and(e.audit_status='4' or e.audit_status='5' or e.audit_status= '6' or e.audit_status= '22' )";
-	private String manageInvestSQL = "select e.*,c.score as score,(case e.audit_status WHEN '1' THEN '1' WHEN '2' THEN '2' WHEN '4' THEN '3' WHEN '5' THEN '4' WHEN '22' THEN '3' WHEN '3' THEN '5' WHEN '6' THEN '6' WHEN '23' THEN '6'  end ) status from rp_investor e left join (select o.* from rp_company_creditscores o,(SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) a where o.cop_id = a.cop_id and a.cop_id = (select b.cop_id from (SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) b where a.creditcode = b.creditcode ORDER BY b.mt desc limit 1)) c on e.certno =c.creditcode where  1=1 and e.audit_status != 0 ";
+	private String manageInvestSQL = "select e.*,c.score as score,(case e.audit_status WHEN '1' THEN '1' WHEN '2' THEN '2' WHEN '4' THEN '3' WHEN '5' THEN '4' WHEN '22' THEN '3' WHEN '3' THEN '5' WHEN '6' THEN '6' WHEN '23' THEN '6'  end ) status from rp_investor e left join (select o.* from rp_company_creditscores o,(select cop_id, creditcode,str_to_date(replace(linejson->'$.monthstr[5]','\"',''),'%Y%m') mt from rp_company_creditscores) a where o.cop_id = a.cop_id and a.cop_id = (select b.cop_id from (select cop_id, creditcode,str_to_date(replace(linejson->'$.monthstr[5]','\"',''),'%Y%m') mt from rp_company_creditscores) b where a.creditcode = b.creditcode ORDER BY b.mt desc limit 1)) c on e.certno =c.creditcode where  1=1 and e.audit_status != 0 ";
 	private String manageInvestSQL_ordeby = "ORDER BY status ASC,create_time DESC";
 
 	@SuppressWarnings("unchecked")
@@ -63,6 +59,8 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 					whereCase.append(" and e.area_code like '3205%' ");
 				}else if(rearea.equals("2")){
 					whereCase.append(" and e.area_code not like '3205%' ");
+				}else{
+					whereCase.append(" and e.area_code = '"+rearea+"' ");
 				}
 			}
 			if (!StringUtils.isEmpty(status)) {
@@ -180,6 +178,8 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 					whereCase.append(" and e.area_code like '3205%' ");
 				}else if(rearea.equals("2")){
 					whereCase.append(" and e.area_code not like '3205%' ");
+				}else{
+					whereCase.append(" and e.area_code = '"+rearea+"' ");
 				}
 			}
 			if (!StringUtils.isEmpty(status)) {
@@ -262,15 +262,6 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 
 	/**
 	 * <通过多条件进行投资机构查询>
-	 * 
-	 * @param finacingStage
-	 *            投资阶段
-	 * @param finacingTrade
-	 *            投资行业
-	 * @param orgType
-	 *            机构类型
-	 * @param registerDate
-	 *            注册时间
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -326,7 +317,17 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 				}
 				// 判断投资机构是否为空
 				if (!StringUtil.isNullOrEmpty(queryCondition.getOrgType())) {
-					whereCase.append(" and e.org_type in (:orgType)");
+					//whereCase.append(" and e.org_type in (:orgType)");
+					whereCase.append(" and ( ");
+					String[] values = queryCondition.getOrgType().toString().split(",");
+					for (int i = 0;i<values.length;i++){
+						whereCase.append(" e.org_type like '%" + values[i] + "%'");
+						if(i < values.length-1){
+							whereCase.append(" or ");
+						}else{
+							whereCase.append(" ) ");
+						}
+					}
 				}
 				if (!StringUtil.isNullOrEmpty(queryCondition.getCurrency())) {
 					whereCase.append(" and e.currency in (:currency)");
@@ -381,12 +382,12 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 			query.setParameter("stopFlag", stopFlag);
 			if (null != queryCondition) {
 				// 判断投资机构是否为空
-				if (!StringUtil.isNullOrEmpty(queryCondition.getOrgType())) {
-					String[] values = queryCondition.getOrgType().toString()
-							.split(",");
-					List list = java.util.Arrays.asList(values);
-					query.setParameter("orgType", list);
-				}
+//				if (!StringUtil.isNullOrEmpty(queryCondition.getOrgType())) {
+//					String[] values = queryCondition.getOrgType().toString()
+//							.split(",");
+//					List list = java.util.Arrays.asList(values);
+//					query.setParameter("orgType", list);
+//				}
 				if (!StringUtil.isNullOrEmpty(queryCondition.getCurrency())) {
 					String[] values = queryCondition.getCurrency().toString()
 							.split(",");
@@ -612,14 +613,6 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 
 	/**
 	 * 根据条件查询进行机构信息的查询
-	 * 
-	 * @param investorName
-	 *            机构名
-	 * @param orgType
-	 *            机构类型
-	 * @param pageIndex
-	 * @param pageSize
-	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Investor> listInvestorByOrgType(QueryCondition queryCondition,
@@ -708,6 +701,102 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 					query.setParameter("orgType", queryCondition.getOrgType());
 				}
 			}
+			res = query.getSingleResult();
+			entityTransaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityTransaction.rollback();
+		} finally {
+			this.closeEntityManager(entityManager);
+		}
+		return res;
+	}
+
+
+
+	public List<InvestorManageAchievementSub> getSubInvestorsForCharge(String nameOrCode, String rearea,String isdj, int page, int size) {
+		EntityManager entityManager = this.getEntityManager();
+		EntityTransaction entityTransaction = null;
+		List<InvestorManageAchievementSub> res = null;
+		String sql = "select a.manage_id,a.invest_id,b.name invest_name,a.fund_name,a.regist_date,a.regist_address,a.trusteeship,a.manage_capital_min,a.manage_capital_max,a.currency,a.icc_filing_no,a.fund_type,a.invest_trade,a.invest_stage,a.investment_projects,a.cumulative_investment,a.ci_currency,a.implement_exit_project,c.subac_name,ifnull(c.cnt,0) cnt from rp_investor b,rp_investor_manage_achievement a left join (select su.subac_name,count(1) cnt from rp_finacing_event e,rp_investor_subaccount su where e.fund_id = su.user_id GROUP BY su.subac_name) c on a.fund_name = c.subac_name where a.invest_id = b.investor_id ";
+		try {
+			entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			StringBuffer whereCase = new StringBuffer();
+			if (!StringUtils.isEmpty(nameOrCode)) {
+				whereCase.append(" and (a.fund_name like '%"+nameOrCode+"%' or b.name like '%"+nameOrCode+"%') ");
+			}
+			if (!StringUtils.isEmpty(rearea)) {
+				if(rearea.equals("1")){
+					whereCase.append(" and regist_address like '3205%' ");
+				}else if(rearea.equals("2")){
+					whereCase.append(" and regist_address not like '3205%' ");
+				}else{
+					whereCase.append(" and regist_address = '"+rearea+"' ");
+				}
+			}
+			if (!StringUtils.isEmpty(isdj)) {
+				if(isdj.equals("1")){
+					whereCase.append(" and ifnull(c.cnt,0) > 0 ");
+				}else{
+					whereCase.append(" and ifnull(c.cnt,0) = 0 ");
+				}
+
+			}
+			// 拼接分頁sql
+			whereCase.append(" limit ");
+			if (page == 1) {
+				whereCase.append("0");
+			} else {
+				whereCase.append((page - 1) * size);
+			}
+			whereCase.append("," + size);
+
+			Query query = entityManager.createNativeQuery(sql+ whereCase.toString(), InvestorManageAchievementSub.class);
+
+			res = (List<InvestorManageAchievementSub>) query.getResultList();
+			entityTransaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityTransaction.rollback();
+		} finally {
+			this.closeEntityManager(entityManager);
+		}
+		return res;
+	}
+
+	public Object getSubInvestorsForChargeCount(String nameOrCode,String rearea,String isdj) {
+		EntityManager entityManager = this.getEntityManager();
+		EntityTransaction entityTransaction = null;
+		Object res = null;
+		try {
+			entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			StringBuffer whereCase = new StringBuffer();
+			whereCase.append(" select count(*) as resultnum from ( ");
+			String sql = "select a.manage_id,a.invest_id,b.name invest_name,a.fund_name,a.regist_date,a.regist_address,a.trusteeship,a.manage_capital_min,a.manage_capital_max,a.currency,a.icc_filing_no,a.fund_type,a.invest_trade,a.invest_stage,a.investment_projects,a.cumulative_investment,a.ci_currency,a.implement_exit_project,c.subac_name,ifnull(c.cnt,0) cnt from rp_investor b,rp_investor_manage_achievement a left join (select su.subac_name,count(1) cnt from rp_finacing_event e,rp_investor_subaccount su where e.fund_id = su.user_id GROUP BY su.subac_name) c on a.fund_name = c.subac_name where a.invest_id = b.investor_id ";
+			whereCase.append(sql);
+			if (!StringUtils.isEmpty(nameOrCode)) {
+				whereCase.append(" and (a.fund_name like '%"+nameOrCode+"%' or b.name like '%"+nameOrCode+"%') ");
+			}
+			if (!StringUtils.isEmpty(rearea)) {
+				if(rearea.equals("1")){
+					whereCase.append(" and regist_address like '3205%' ");
+				}else if(rearea.equals("2")){
+					whereCase.append(" and regist_address not like '3205%' ");
+				}else{
+					whereCase.append(" and regist_address = '"+rearea+"' ");
+				}
+			}
+			if (!StringUtils.isEmpty(isdj)) {
+				if(isdj.equals("1")){
+					whereCase.append(" and ifnull(c.cnt,0) > 0 ");
+				}else{
+					whereCase.append(" and ifnull(c.cnt,0) = 0 ");
+				}
+
+			}
+			Query query = entityManager.createNativeQuery(whereCase.toString()+ " ) result");
 			res = query.getSingleResult();
 			entityTransaction.commit();
 		} catch (Exception e) {

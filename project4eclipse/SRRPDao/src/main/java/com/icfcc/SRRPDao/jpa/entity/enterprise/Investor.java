@@ -1,27 +1,16 @@
 package com.icfcc.SRRPDao.jpa.entity.enterprise;
 
-import java.io.Serializable;
-
-import java.io.UnsupportedEncodingException;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.annotations.GenericGenerator;
-
 import com.icfcc.credit.platform.util.SRRPConstant;
 import com.icfcc.ssrp.session.RedisGetValue;
 import com.icfcc.ssrp.util.DigitFormatUtil;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "rp_investor")
@@ -396,7 +385,18 @@ public class Investor implements Serializable {
 	}
 
 	public String getOrgTypeDicname() {
-		return RedisGetValue.getValueByCode(SRRPConstant.DD_ORGTYPE, this.orgType);
+		if(this.orgType == null){
+			return null;
+		}
+		String[] orgTypes = this.orgType.split(",");
+		String typeNames = "";
+		for (String type : orgTypes) {
+			typeNames += RedisGetValue.getValueByCode(SRRPConstant.DD_ORGTYPE, type)+"、";
+		}
+		if(typeNames.contains("、")){
+			typeNames = typeNames.substring(0,typeNames.length()-1);
+		}
+		return typeNames;
 	}
 
 	public String getCerttypeDicname() {

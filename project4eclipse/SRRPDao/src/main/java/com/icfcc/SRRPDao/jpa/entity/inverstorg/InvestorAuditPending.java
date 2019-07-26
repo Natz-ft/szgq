@@ -1,27 +1,16 @@
 package com.icfcc.SRRPDao.jpa.entity.inverstorg;
 
+import com.icfcc.credit.platform.util.SRRPConstant;
+import com.icfcc.ssrp.session.RedisGetValue;
+import com.icfcc.ssrp.util.DigitFormatUtil;
+import lombok.Data;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
-import com.icfcc.credit.platform.util.SRRPConstant;
-import com.icfcc.ssrp.session.RedisGetValue;
-import com.icfcc.ssrp.util.DigitFormatUtil;
-
-import lombok.Data;
 
 /**
  * 投资机构待审核表的实体类
@@ -436,7 +425,15 @@ public class InvestorAuditPending implements Serializable {
 	}
 
 	public String getOrgTypeDicname() {
-		return RedisGetValue.getValueByCode(SRRPConstant.DD_ORGTYPE, this.orgType);
+		String[] orgTypes = this.orgType.split(",");
+		String typeNames = "";
+		for (String type : orgTypes) {
+			typeNames += RedisGetValue.getValueByCode(SRRPConstant.DD_ORGTYPE, type)+"、";
+		}
+		if(typeNames.contains("、")){
+			typeNames = typeNames.substring(0,typeNames.length()-1);
+		}
+		return typeNames;
 	}
 
 	public void setOrgTypeDicname(String orgTypeDicname) {

@@ -1,0 +1,115 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	
+    <title>登陆情况</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+    <style>
+		.page {
+            text-align: center;
+        }
+        .page span {
+            background-color: #eee;
+        }
+        .history-btn {
+            margin-left: 10px;
+    		background: #0D4F92;
+    		border: 1px solid #0D4F92;
+    		border-radius: 5px;
+    		color: #FFFFFF;
+    		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    		display: inline-block;
+    		font-size: 14px;
+   		    height: 25px;
+    		line-height: 25px;
+    	    text-align: center;
+    		width: 50px;
+  	    }
+		.history-btn:hover {
+    		border: 1px solid #bbc2c6;
+    		color: #FFFFFF;
+    		background: #bbc2c6;
+		}
+		.detail-btn {
+            margin-left: 5px;
+        }
+        .boxWrap .boxContent .termsType span {
+            width:170px;
+        }
+        .boxWrap .boxContent .termsList{
+            margin-left: -9px;
+        }
+        .table-a-s{
+            text-decoration: underline;
+            color: blue;
+            cursor: pointer;
+        }
+        .table-a-s:hover{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+  <div class="boxWrap">
+    <div class="boxContent">
+        <!-- 融资统计统计表格 -->
+        <div>
+            <table id="finacingStatisticsGrid" lay-filter="investorListfilter">
+                <thead>
+                    <tr>
+                        <th lay-data="{type:'numbers',align:'center'}">序号</th>
+                        <th lay-data="{field:'area',align:'center'}">区域</th>
+                        <th lay-data="{field:'userName',align:'center'}">用户名</th>
+                        <th lay-data="{field:'nickName',align:'center'}">昵称</th>
+                        <th lay-data="{field:'type',align:'center'}">用户类型</th>
+                        <th lay-data="{field:'cnt',align:'center'}">登陆次数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="user" items="${userList }">
+                        <tr>
+                            <td></td>
+                            <td>${user.area }</td>
+                            <td>${user.userName }</td>
+                            <td>${user.nickName }</td>
+                            <td>${user.type }</td>
+                            <td>${user.cnt }</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+<!-- 融资统计表格 END-->
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script type="text/javascript">
+    layui.config({
+        base: '../static/script/layui_exts/'
+    }).extend({
+        excel: 'excel'
+    }).use('table',function(){
+
+        var table = layui.table;
+        //转换静态表格
+        table.init('investorListfilter', {
+            limits : [5,10],
+            limit : 5,
+            page : true,
+            width: 680
+        });
+
+    });
+
+</script>
+</body>
+</html>

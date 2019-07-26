@@ -1,0 +1,284 @@
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<!-- 防止IE提示允许阻止的内容-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>公开需求查询</title>
+    <script src="../static/script/autoload.js" type="text/javascript"></script>
+    <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
+    <script src="../static/script/my97/WdatePicker.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/page/investOrgQuery.css">
+
+</head>
+<body>
+<!--头部logo以及登录注册开始-->
+<div class="boxWrap">
+    <input type="hidden" id="industryArr"  readonly="readonly"/>
+    <input type="hidden" id="industryNameArr"  readonly="readonly"/>
+    <p class="boxTitle"><span>公开需求</span></p>
+    <div class="boxContent">
+        <!-- 查询条件 -->
+        <div class="queryTerms">
+            <form>
+            <div class="termsWrap clearfix">
+                <div class="termsType">
+                    <span>企业名称：</span>
+                </div>
+                <div class="termsList" id="">
+                    <input type="text" name="name" class="query-blank-input" style="margin-left: -0px;margin-top: 5px;" id="dataInputName" autocomplete="off" placeholder="请输入企业名称">
+                </div>
+            </div>
+            <div class="termsWrap clearfix">
+
+                <div class="termsType">
+                    <span>发布天数：</span>
+                </div>
+                <div class="termsList" id="">
+                    <input type="number" name="timeStart" class="query-blank-input" style="margin-left: -0px;margin-top: 5px;width: 85px;" id="dataInputTimeStart" autocomplete="off" placeholder="">
+                        至
+                    <input type="number" name="timeEnd" class="query-blank-input" style="margin-left: -0px;margin-top: 5px;width: 85px;" id="dataInputTimeEnd" autocomplete="off" placeholder="">
+                </div>
+                <div class="termsType">
+                    <span>所属区域：</span>
+                </div>
+                <div class="termsList" id="">
+                    <select name="rearea" id="rearea"  lay-search="" style="margin-top: 5px;border: 1px solid #8DBDDC; border-radius: 5px;">
+                        <option value="">全部</option>
+                        <c:forEach items="${reareas}" var="rearea">
+                            <option value="${rearea.dicCode}">${rearea.dicName}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <a href="javascript:void(0);" class="select-botton">查询</a>
+            </div>
+            </form>
+        </div>
+        <!-- 查询条件 END-->
+        <!-- 融资需求表格 -->
+        <div>
+            <div style="width:90%;">
+                <table id="finacingDemandGrid" lay-filter="finacingDemandfilter"></table>
+
+            </div>
+            <!-- 分页组件 -->
+            <div class="table-page">
+                <div id="paged" class="page"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 融资需求表格 END-->
+<script src="../static/script/autoLoadScript.js" type="text/javascript"></script>
+<script type="text/html" id="barDemo1">
+    <a lay-event="showEnterpriseDetails" style="color:#0D4F92;cursor: pointer;">{{d.enterpriseNameShow}}</a>&nbsp;&nbsp;
+</script>
+<script type="text/html" id="creditReportBar">
+    <a lay-event="showCreditReport"  style="color:#0D4F92;cursor: pointer;">征信报告</a>
+</script>
+<script>
+    var has_showModalDialog = !!window.showModalDialog;//定义一个全局变量判定是否有原生showModalDialog方法
+    if(!has_showModalDialog &&!!(window.opener)){
+        window.onbeforeunload=function(){
+            window.opener.hasOpenWindow = false;        //弹窗关闭时告诉opener：它子窗口已经关闭
+        }
+    }
+    //定义window.showModalDialog如果它不存在
+    if(window.showModalDialog == undefined){
+        window.showModalDialog = function(url,mixedVar,features){
+
+            if(mixedVar) var mixedVar = mixedVar;
+            //因window.showmodaldialog 与 window.open 参数不一样，所以封装的时候用正则去格式化一下参数
+            if(features) var features = features.replace(/(dialog)|(px)/ig,"").replace(/;/g,',').replace(/\:/g,"=");
+            //window.open("Sample.htm",null,"height=200,width=400,status=yes,toolbar=no,menubar=no");
+            //window.showModalDialog("modal.htm",obj,"dialogWidth=200px;dialogHeight=100px");
+            var left = (window.screen.width - parseInt(features.match(/width[\s]*=[\s]*([\d]+)/i)[1]))/2;
+            var top = (window.screen.height - parseInt(features.match(/height[\s]*=[\s]*([\d]+)/i)[1]))/2;
+            window.myNewWindow = window.open(url,"_blank",features);
+        }
+    }
+
+
+    $(function () {
+        var type, name;
+        var arr = [];
+        var arrData = {};
+        var data = {};
+        //数据表格
+        var table = layui.table;
+        // 赋值数据实际使用为后台获取数据
+        var gridData;
+        //数据总条数
+        var dataCount;
+        //每页最大条数
+        var maxSize;
+        //页面默认初始化操作
+        init('');
+
+        function init(queryCondition) {
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/SRRPBusinesWeb/enterpriseStatistics/companiesListDemand",
+                data: {"queryCondition": JSON.stringify(queryCondition)},// 查询条件
+                success: function (data) {
+                    data = JSON.parse(data);
+                    dataCount = data.recordCnt;
+                    maxSize = data.maxSize;
+                    createPage(data.list);
+                }
+            });
+            //分页调用
+            layui.use('laypage', function () {
+                var laypage = layui.laypage;
+                //执行一个laypage实例
+                laypage.render({
+                    elem: 'paged', //注意,这里的paged是分页调用ID,不用加#号
+                    count: dataCount,//注意,再操作分页功能时,必须获取到数据总条数(条件查询);
+                    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+                    limits: [10, 20, 50],//每页可选值,默认值确保与最小值相同
+                    limit: maxSize,//默认每页10条数据
+                    skip: true,
+                    jump: function (obj, first) {
+                        if (!first) {
+                            getPageInfo(obj, queryCondition);
+                        }
+                    }
+                });
+            });
+        }
+
+        function baiwan2wan(baiwan){
+            var baiwans = baiwan.split("-");
+            var str="";
+            $.each(baiwans,function(i,s){
+                var num = parseInt(s)*100;
+                str+=num+"-";
+            });
+            return str.substring(0, str.length-1)+"万元";
+        }
+
+        // 点击name弹窗
+        // table.on('tool(finacingDemandfilter)', function (obj) {
+        //     var operType = 'focus';
+        //     var data = obj.data;
+        //     var enterpriseId = data.enterpriseId;
+        //     var infoId = data.infoId;
+        //     var code = data.code;
+        //     var codetype = data.codetype;
+        //     code= encodeURIComponent(encrypt(code));
+        //     codetype=encodeURIComponent(encrypt(codetype));
+        //     var name = data.name;
+        //     var score = data.score;
+        //     var status = data.status;
+        //     var eventId = data.eventId;
+        //     var showflag = data.showflag;
+        //     var clickFlag = data.clickFlag;
+        //     var flag=false;
+        //     var changeFlag =data.changeFlag;
+        //     if(changeFlag==true){
+        //         flag=true;
+        //     }
+        //     if (obj.event === 'showEnterpriseDetails') {
+        //         if(clickFlag){
+        //             layer.open({
+        //                 title: '企业信息详情',
+        //                 content: "/SRRPBusinesWeb/companyInfo/companyInfoDetails?enterpriseId=" + enterpriseId+"&flag="+flag,
+        //                 area: ['100%', '100%'],
+        //                 offset: ['0%', '0%'],
+        //                 type:2,
+        //                 scrollbar: false,
+        //             });
+        //         }
+        //     }
+        //     if (obj.event == 'showCreditReport') {//查看信用报告
+        //         if(clickFlag){
+        //             var url="/SRRPBusinesWeb/creditscore/queryReport?certtype=" + codetype + "&certno=" + code + "&name='" + name + "'";
+        //             url = encodeURI(encodeURI(url));
+        //             window.showModalDialog(url,"1","dialogWidth:"+window.screen.width+"px;dialogHeight:"+window.screen.height+"px;");
+        //         }
+        //     }
+        //     if (obj.event === 'infoDetails') {
+        //         var gotoUrl = "finacing";
+        //         if(showflag == '0'){
+        //             gotoUrl = "";
+        //         }
+        //         layer.open({
+        //             title: '需求信息详情',
+        //             content: "/SRRPBusinesWeb/finacingDemand/demandInfoDetails?infoId=" + infoId + "&enterpriseId=" + enterpriseId + "&showflag=" + showflag + "&codetype = " + codetype +"&operType="+operType+"&gotoUrl="+gotoUrl,
+        //             area: ['100%', '100%'],
+        //             offset: ['0%', '0%'],
+        //             type:2,
+        //             scrollbar: false,
+        //         });
+        //     }
+        //
+        //     if (obj.event == 'showScoreDetails') {//查看评分页面
+        //         function callback() {
+        //         }
+        //         if (score != null && score != '') {
+        //             window.showModalDialog("/SRRPBusinesWeb/creditscore/queryScore?certtype=" + codetype + "&certno=" + code,"1","dialogWidth:"+window.screen.width+"px;dialogHeight:"+window.screen.height+"px;");
+        //         }
+        //     }
+        // });
+
+        //只操作分页数据
+        function getPageInfo(obj, queryCondition) {
+            var currentPage = obj.curr;//当前页(跳转页也是当前页)
+            var limit = obj.limit;//每页多少条数
+            $.ajax({
+                type: "post",
+                async: false,
+                //url: "/SRRPBusinesWeb/finacingDemand/initInfo",
+                url: "/SRRPBusinesWeb/enterpriseStatistics/companiesListDemand",
+                data: {start: currentPage, limit: limit, queryCondition: JSON.stringify(queryCondition)},
+                success: function (finacingDemandData) {
+                    data = JSON.parse(finacingDemandData);
+                    createPage(data.list,limit);//装配列表数据
+                }
+            });
+        }
+
+        //装配列表数据
+        function createPage(gridData,gridlimit) {
+            table.render({
+                id: 'finacingDemandGrid',
+                elem: '#finacingDemandGrid', //指定原始表格元素选择器（推荐id选择器）
+                data: gridData,
+                limit:gridlimit,
+                cols: [[ //标题栏
+                    {field: 'name', title: '企业名称', align: 'center'},
+                    {field: 'reareaDicname', title: '所属区域', align: 'center'},
+                    {field: 'projectNameShow', title: '项目名称', align: 'center'},
+                    // {field: 'score',title: '企业评分',align: 'center',style: 'color:#0D4F92;cursor: pointer;',
+                    //     sort: true,event: 'showScoreDetails'},
+                    {field: 'industryStr', title: '行业', align: 'center'},
+                    {field: 'finacingTurnDicname', title: '融资轮次', align: 'center',sort: true},
+                    // {field: 'amountShow', title: '融资金额(万)', align: 'center'},
+                    // {field: 'sell', title: '出让股权', align: 'center'},
+                    {field: 'operdateStr', title: '发布日期', align: 'center',sort: true},
+                    {field: 'isdj', title: '是否有机构对接', align: 'center'}
+                ]]
+            });
+        }
+
+
+        //点击查询按钮时触发条件查询
+        $(".select-botton").on("click", function () {
+            var arr = $("form").serializeArray();
+            var param = {};
+            $.each(arr,function(i,obj){ //将form表单数据封装成json对象
+                param[obj.name] = obj.value;
+            })
+            //console.log(param);
+            init(param);
+        })
+
+    })
+</script>
+</body>
+</html>

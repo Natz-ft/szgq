@@ -1,35 +1,29 @@
 package com.icfcc.SRRPDao.jpa.repository.inverstorg.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-
+import com.icfcc.SRRPDao.jpa.entity.QueryCondition;
+import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResult;
 import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResultNew;
+import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResultSub;
+import com.icfcc.SRRPDao.jpa.repository.BaseNativeQueryDao;
+import com.icfcc.credit.platform.util.SRRPConstant;
+import com.icfcc.ssrp.session.RedisGetValue;
+import io.netty.util.internal.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.icfcc.SRRPDao.jpa.entity.QueryCondition;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResult;
-import com.icfcc.SRRPDao.jpa.repository.BaseNativeQueryDao;
-import com.icfcc.credit.platform.util.SRRPConstant;
-import com.icfcc.ssrp.session.RedisGetValue;
-
-import io.netty.util.internal.StringUtil;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Component
 public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 
-	private String sql = "select fd.*,(select name from platform_dic_area where code = cb.rearea) rearea,cb.name,cb.codetype,cb.code,cbs.industry,cc.score, '' as showflag,'' as event_id from ((rp_finacing_demand fd left join rp_company_base cb on fd.enterprise_id = cb.enterprise_id) left join  rp_company_base_supplement cbs on fd.enterprise_id=cbs.enterprise_id) left join  (select o.* from rp_company_creditscores o,(SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) a where o.cop_id = a.cop_id and a.cop_id = (select b.cop_id from (SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) b where a.creditcode = b.creditcode ORDER BY b.mt desc limit 1)) cc on cb.codetype=cc.creditype and cb.`code`=cc.creditcode where 1=1 ";
+	private String sql = "select fd.*,(select name from platform_dic_area where code = cb.rearea) rearea,cb.name,cb.codetype,cb.code,cbs.industry,cc.score, '' as showflag,'' as event_id from ((rp_finacing_demand fd left join rp_company_base cb on fd.enterprise_id = cb.enterprise_id) left join  rp_company_base_supplement cbs on fd.enterprise_id=cbs.enterprise_id) left join  (select o.* from rp_company_creditscores o,(SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) a where o.cop_id = a.cop_id and a.cop_id = (select b.cop_id from (select cop_id, creditcode,str_to_date(replace(linejson->'$.monthstr[5]','\"',''),'%Y%m') mt from rp_company_creditscores) b where a.creditcode = b.creditcode ORDER BY b.mt desc limit 1)) cc on cb.codetype=cc.creditype and cb.`code`=cc.creditcode where 1=1 ";
 //	private String investLookSql = "SELECT de.* FROM (SELECT fd.info_id,fd.enterprise_id,fd.project_name,fd.amountmin,fd.amountmax,fd.currency,fd.follow_time,fd.finacing_turn,fd.sell,fd.scalemin,fd.scalemax,fd.operdate,fd.appoint_investor,fd.open,cb.NAME,cb.codetype,cb.CODE,cbs.industry,cc.score,IFNULL(fd.status,'01') status,CASE WHEN ( rfe.status IS NULL OR rfe.status IN ('12','22','32') ) THEN '0' ELSE '1' END showflag,rfe.event_id FROM rp_finacing_demand fd INNER JOIN rp_company_base cb ON fd.enterprise_id = cb.enterprise_id LEFT JOIN rp_finacing_event rfe ON  fd.info_id = rfe.info_id # LEFT JOIN rp_company_base_supplement cbs ON fd.enterprise_id = cbs.enterprise_id LEFT JOIN rp_company_creditscores cc ON cb.codetype = cc.creditype AND cb.code = cc.creditcode WHERE fd.STATUS NOT IN ('00','99') and fd.`open` = '0')  de WHERE ((follow_time >= CURDATE() AND STATUS='01' ) OR STATUS>'01') ";
-	private String investLookSql = "SELECT de.* FROM (SELECT fd.info_id,fd.enterprise_id,fd.revoke_flag,fd.project_name,fd.amountmin,fd.amountmax,fd.currency,fd.follow_time,fd.finacing_turn,fd.sell,fd.scalemin,fd.scalemax,fd.operdate,fd.appoint_investor,fd.open,cb.NAME,cb.codetype,cb.CODE,cbs.industry,cc.score,IFNULL(fd.status,'01') status,CASE WHEN ( rfe.status IS NULL OR rfe.status IN ('12','22','32','99') ) THEN '0' ELSE '1' END showflag,rfe.event_id FROM rp_finacing_demand fd INNER JOIN rp_company_base cb ON fd.enterprise_id = cb.enterprise_id LEFT JOIN rp_finacing_event rfe ON  fd.info_id = rfe.info_id # LEFT JOIN rp_company_base_supplement cbs ON fd.enterprise_id = cbs.enterprise_id LEFT JOIN (select o.* from rp_company_creditscores o,(SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) a where o.cop_id = a.cop_id and a.cop_id = (select b.cop_id from (SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) b where a.creditcode = b.creditcode ORDER BY b.mt desc limit 1)) cc ON cb.codetype = cc.creditype AND cb.code = cc.creditcode WHERE fd.STATUS NOT IN ('00','99') and fd.`open` = '0' and fd.revoke_flag='0')  de WHERE 1=1  ";
+	private String investLookSql = "SELECT de.* FROM (SELECT fd.info_id,fd.enterprise_id,fd.revoke_flag,fd.project_name,fd.amountmin,fd.amountmax,fd.currency,fd.follow_time,fd.finacing_turn,fd.sell,fd.scalemin,fd.scalemax,fd.operdate,fd.appoint_investor,fd.open,cb.NAME,cb.codetype,cb.CODE,cbs.industry,cc.score,IFNULL(fd.status,'01') status,CASE WHEN ( rfe.status IS NULL OR rfe.status IN ('12','22','32','99') ) THEN '0' ELSE '1' END showflag,rfe.event_id FROM rp_finacing_demand fd INNER JOIN rp_company_base cb ON fd.enterprise_id = cb.enterprise_id LEFT JOIN rp_finacing_event rfe ON  fd.info_id = rfe.info_id # LEFT JOIN rp_company_base_supplement cbs ON fd.enterprise_id = cbs.enterprise_id LEFT JOIN (select o.* from rp_company_creditscores o,(select cop_id, creditcode,str_to_date(replace(linejson->'$.monthstr[5]','\"',''),'%Y%m') mt from rp_company_creditscores) a where o.cop_id = a.cop_id and a.cop_id = (select b.cop_id from (SELECT cop_id,creditcode,str_to_date(left(right(linejson,9),6),'%Y%m') mt FROM rp_company_creditscores) b where a.creditcode = b.creditcode ORDER BY b.mt desc limit 1)) cc ON cb.codetype = cc.creditype AND cb.code = cc.creditcode WHERE fd.STATUS NOT IN ('00','99') and fd.`open` = '0' and fd.revoke_flag='0')  de WHERE 1=1  ";
 	@SuppressWarnings("unchecked")
 	@Autowired(required = false)
 	/**
@@ -504,6 +498,46 @@ public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 		return res;
 	}
 
+	public List<FinacingDemandInfoResultSub> getOpenFinacingDemandInfosSub(QueryCondition queryCondition) {
+		EntityManager entityManager = this.getEntityManager();
+		EntityTransaction entityTransaction = null;
+		List<FinacingDemandInfoResultSub> res = null;
+		try {
+			entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			StringBuffer whereCase = new StringBuffer();
+			if (null != queryCondition) {
+				if (null != queryCondition.getName()&&!"".equals(queryCondition.getName())) {
+					whereCase.append(" and cb.name like '%"+ queryCondition.getName() +"%' ");
+				}
+				if (null != queryCondition.getRearea()&&!"".equals(queryCondition.getRearea())) {
+					whereCase.append(" and cb.rearea =" + queryCondition.getRearea());
+				}
+				if(!(queryCondition.getTimeStart()==0&&queryCondition.getTimeEnd()==0)){
+					int min = Math.min(queryCondition.getTimeStart(),queryCondition.getTimeEnd());
+					int max = Math.max(queryCondition.getTimeStart(),queryCondition.getTimeEnd());
+					whereCase.append(" and datediff(now(),fd.operdate) >" + min);
+					whereCase.append(" and datediff(now(),fd.operdate) <" + max);
+				}
+			}
+			whereCase.append(" order by cb.name,fd.operdate desc ");
+
+			// 拼接分頁sql
+			whereCase.append(this.getPageInfos(queryCondition));
+			String newsql = "SELECT fd.info_id,fd.enterprise_id,fd.revoke_flag,fd.project_name,fd.amountmin,fd.amountmax,fd.currency,fd.follow_time,fd.finacing_turn,fd.sell,fd.scalemin,fd.scalemax,fd.operdate,fd.appoint_investor,fd.OPEN,cb.NAME,cb.codetype,cb.CODE,cbs.industry,cb.rearea,if(isnull(e.info_id),'是','否') isdj FROM rp_finacing_demand fd INNER JOIN rp_company_base cb ON fd.enterprise_id = cb.enterprise_id LEFT JOIN rp_company_base_supplement cbs ON fd.enterprise_id = cbs.enterprise_id left join rp_finacing_event e on fd.info_id = e.info_id WHERE fd.STATUS NOT IN ( '00', '99' ) AND fd.`open` = '0'  ";
+			Query query = entityManager.createNativeQuery(newsql + whereCase.toString(),FinacingDemandInfoResultSub.class);
+			res = query.getResultList();
+			entityTransaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityTransaction.rollback();
+		} finally {
+			this.closeEntityManager(entityManager);
+		}
+		return res;
+	}
+
+
 	/**
 	 * 获取公开的融资机构信息
 	 * 
@@ -652,6 +686,45 @@ public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 		return res;
 	}
 
+	public Object getOpenFinacingDemandInfoCountSub(QueryCondition queryCondition) {
+		EntityManager entityManager = this.getEntityManager();
+		EntityTransaction entityTransaction = null;
+		Object res = null;
+		try {
+			entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+			// 拼接分頁sql
+			String newsql = "SELECT fd.info_id,fd.enterprise_id,fd.revoke_flag,fd.project_name,fd.amountmin,fd.amountmax,fd.currency,fd.follow_time,fd.finacing_turn,fd.sell,fd.scalemin,fd.scalemax,fd.operdate,fd.appoint_investor,fd.OPEN,cb.NAME,cb.codetype,cb.CODE,cbs.industry,cb.rearea,if(isnull(e.info_id),'是','否') isdj FROM rp_finacing_demand fd INNER JOIN rp_company_base cb ON fd.enterprise_id = cb.enterprise_id LEFT JOIN rp_company_base_supplement cbs ON fd.enterprise_id = cbs.enterprise_id left join rp_finacing_event e on fd.info_id = e.info_id WHERE fd.STATUS NOT IN ( '00', '99' ) AND fd.`open` = '0'  ";
+			StringBuffer countSql = new StringBuffer(
+					" select count(*) as resultnum from ( ");
+			countSql.append(newsql);
+			if (null != queryCondition) {
+				if (null != queryCondition.getName()&&!"".equals(queryCondition.getName())) {
+					countSql.append(" and cb.name like '%"+ queryCondition.getName() +"%' ");
+				}
+				if (null != queryCondition.getRearea()&&!"".equals(queryCondition.getRearea())) {
+					countSql.append(" and cb.rearea =" + queryCondition.getRearea());
+				}
+				if(!(queryCondition.getTimeStart()==0&&queryCondition.getTimeEnd()==0)){
+					int min = Math.min(queryCondition.getTimeStart(),queryCondition.getTimeEnd());
+					int max = Math.max(queryCondition.getTimeStart(),queryCondition.getTimeEnd());
+					countSql.append(" and datediff(now(),fd.operdate) >" + min);
+					countSql.append(" and datediff(now(),fd.operdate) <" + max);
+				}
+			}
+			countSql.append(") result ");
+			Query query = entityManager.createNativeQuery(countSql.toString());
+			res = query.getSingleResult();
+			entityTransaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityTransaction.rollback();
+		} finally {
+			this.closeEntityManager(entityManager);
+		}
+		return res;
+	}
+
 	@SuppressWarnings("unchecked")
 	public Map<String, BigDecimal> sumAmountByEnterpriseId(String enterpriseId,
 			Date start, Date end, Integer limit) {
@@ -754,8 +827,7 @@ public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 	
 	/**
      * 机构下的基金用户数
-     * @param  infoId
-     * @return 
+     * @return
      */
 	public Object getInvestorUserCount(String orgNo) {
 		String hqlString = "select count(*) from system_user where USER_DESC1 = '1' and org_id = '" + orgNo + "'"; 

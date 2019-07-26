@@ -193,7 +193,7 @@ public class FinacingEventCotroller extends SRRPBaseController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping(value = "/finacingDetail")
+	@RequestMapping(value = "/")
 	public String findFinacingEventDetail(HttpServletRequest request,
 			HttpServletResponse response) {
 		try {

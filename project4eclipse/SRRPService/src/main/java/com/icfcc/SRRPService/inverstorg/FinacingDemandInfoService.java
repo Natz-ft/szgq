@@ -3,6 +3,7 @@ package com.icfcc.SRRPService.inverstorg;
 import com.icfcc.SRRPDao.jpa.entity.QueryCondition;
 import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResult;
 import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResultNew;
+import com.icfcc.SRRPDao.jpa.entity.inverstorg.FinacingDemandInfoResultSub;
 import com.icfcc.SRRPDao.jpa.entity.inverstorg.QueryFinacingDemandResult;
 import com.icfcc.SRRPDao.jpa.repository.inverstorg.impl.FinacingDemandInfoDaoImpl;
 import com.icfcc.SRRPDao.jpa.repository.inverstorg.impl.UnionFinacingDemandDaoImpl;
@@ -40,8 +41,11 @@ public class FinacingDemandInfoService {
 	 * @return List<FinacingDemandInfoResult>
 	 */
 	public List<FinacingDemandInfoResult> getOpenFinacingDemandInfos(QueryCondition queryCondition) {
-
 		return (List<FinacingDemandInfoResult>) finacingDemandInfoDaoImpl.getOpenFinacingDemandInfos(queryCondition);
+	}
+
+	public List<FinacingDemandInfoResultSub> getOpenFinacingDemandInfosSub(QueryCondition queryCondition) {
+		return (List<FinacingDemandInfoResultSub>) finacingDemandInfoDaoImpl.getOpenFinacingDemandInfosSub(queryCondition);
 	}
 
 	/**
@@ -66,14 +70,14 @@ public class FinacingDemandInfoService {
 		return finacingDemandInfoDaoImpl.getOpenFinacingDemandInfoCount(queryCondition);
 	}
 
+	public Object getOpenFinacingDemandInfoCountSub(QueryCondition queryCondition) {
+		return finacingDemandInfoDaoImpl.getOpenFinacingDemandInfoCountSub(queryCondition);
+	}
+
 	/**
 	 * 根据企业的id以及多种条件查询需求信息
 	 * 
 	 * @param enterpriseId
-	 * @param projectName
-	 * @param status
-	 * @param beginTime
-	 * @param endTime
 	 * @return
 	 */
 	public List<QueryFinacingDemandResult> findFinacingDemandListById(QueryCondition queryCondition,

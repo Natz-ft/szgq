@@ -1,16 +1,23 @@
 package com.icfcc.ssrp.web.managedept;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.fastjson.JSON;
+import com.icfcc.SRRPDao.jpa.entity.enterprise.Investor;
+import com.icfcc.SRRPDao.jpa.entity.inverstorg.*;
+import com.icfcc.SRRPDao.jpa.entity.platformSystem.PlatformUser;
+import com.icfcc.SRRPDao.jpa.entity.platformSystem.PlatformUserLoginLog;
+import com.icfcc.SRRPDao.jpa.repository.enterprise.ScoreDao;
+import com.icfcc.SRRPService.PlatformSystem.PlatformConfigService;
+import com.icfcc.SRRPService.PlatformSystem.PlatformUserService;
+import com.icfcc.SRRPService.enterprise.InvestorAuditService;
+import com.icfcc.SRRPService.enterprise.InvestorService;
+import com.icfcc.SRRPService.managedept.ManageDissentService;
+import com.icfcc.credit.platform.util.*;
+import com.icfcc.ssrp.session.DD;
+import com.icfcc.ssrp.session.RedisCacheManager;
+import com.icfcc.ssrp.session.RedisGetValue;
+import com.icfcc.ssrp.web.SRRPBaseController;
+import io.netty.util.internal.StringUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.cache.Cache;
@@ -23,51 +30,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
-import com.alibaba.fastjson.JSON;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.Investor;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.InvestorAchievement;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.InvestorAchievementPending;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.InvestorAuditPending;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.InvestorAuditRecord;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.InvestorManageAchievement;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.InvestorManageAchievementPending;
-import com.icfcc.SRRPDao.jpa.entity.managedept.InvestorManageResutList;
-import com.icfcc.SRRPDao.jpa.entity.managedept.ManageDissentInfor;
-import com.icfcc.SRRPDao.jpa.entity.managedept.MessageAlertInfo;
-import com.icfcc.SRRPDao.jpa.entity.platformSystem.PlatformUser;
-import com.icfcc.SRRPDao.jpa.entity.platformSystem.PlatformUserLoginLog;
-import com.icfcc.SRRPDao.jpa.repository.enterprise.ScoreDao;
-import com.icfcc.SRRPService.PlatformSystem.PlatformConfigService;
-import com.icfcc.SRRPService.PlatformSystem.PlatformUserService;
-import com.icfcc.SRRPService.enterprise.InvestorAuditService;
-import com.icfcc.SRRPService.enterprise.InvestorService;
-import com.icfcc.SRRPService.managedept.ManageDissentService;
-import com.icfcc.ssrp.web.SRRPBaseController;
-import io.netty.util.internal.StringUtil;
-import com.icfcc.ssrp.session.DD;
-import com.icfcc.ssrp.session.RedisCacheManager;
-import com.icfcc.ssrp.session.RedisGetValue;
-import com.icfcc.credit.platform.util.Constant;
-import com.icfcc.credit.platform.util.PageBean;
-import com.icfcc.credit.platform.util.ResultBean;
-import com.icfcc.credit.platform.util.SRRPConstant;
-import com.icfcc.credit.platform.util.SysDate;
-import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 
- * @ClassName: ManagedeptOnlineForumController
- * @Description: TODO(在线提问解答功能控制器)
- * @author hugt
- * @date 2017年9月23日 上午9:11:42
+ * create by yx @ 20190715
  *
  */
 @Slf4j
 @Controller
-@RequestMapping(value = "/investorManage")
-public class InvestorManageController extends SRRPBaseController {
-	private static Logger log = LoggerFactory
-			.getLogger(InvestorManageController.class);
+@RequestMapping(value = "/investorSubManage")
+public class InvestorSubManageController extends SRRPBaseController {
+	private static Logger log = LoggerFactory.getLogger(InvestorSubManageController.class);
 	@Autowired
 	private InvestorService investorService;
 	@Autowired
@@ -86,54 +65,9 @@ public class InvestorManageController extends SRRPBaseController {
 	 DecimalFormat df = new DecimalFormat("###.##");
 	/**
 	 * 
-	 * @Title: investorManageInit @Description: TODO(进入投资机构管理页面) @param @param
-	 *         request @param @param response @param @return HTML url @return
-	 *         String 返回类型 @throws
 	 */
-	@RequestMapping(value = "/investorManageInit")
-	public String investorManageInit(HttpServletRequest request,
-			HttpServletResponse response) {
-		String userType = RedisGetValue.getRedisUser(request, "orgNo");
-	      String userId = RedisGetValue.getRedisUser(request, "userId");// 用户类型
-		List<DD> ddAuditStatus2 = RedisGetValue.getDataList(SRRPConstant.DD_AUDITSTATE);
-		List<DD> ddAuditStatus = new ArrayList<DD>();
-		if (SRRPConstant.USER_TYPE_05.equals(userType)) {
-			for(DD dd:ddAuditStatus2){
-				if(dd.getDicCode().equals("21")|| dd.getDicCode().equals("22")  || dd.getDicCode().equals("23")){
-					ddAuditStatus.add(dd);
-				}
-			}	
-		}else if (SRRPConstant.USER_TYPE_04.equals(userType)|| SRRPConstant.USER_TYPE_06.equals(userType)){
-			for(DD dd:ddAuditStatus2){
-				if(!dd.getDicCode().equals("21")&& !dd.getDicCode().equals("22")  && !dd.getDicCode().equals("23")){
-					ddAuditStatus.add(dd);
-				}
-			}	
-			 List<MessageAlertInfo> MessageAlertInfos= manageDissentService.findMessageByMessagType(userId,SRRPConstant.MESSAGE_TYPE_02);
-             request.setAttribute("messageAlertInfos", MessageAlertInfos);
-             int messageNum=0;
-             if(MessageAlertInfos!=null){
-                 messageNum=MessageAlertInfos.size();
-             }
-             request.setAttribute("messageNum", messageNum);
-		}else if(SRRPConstant.USER_TYPE_03.equals(userType)){
-			for(DD dd:ddAuditStatus2){
-				if(!dd.getDicCode().equals("4")&& !dd.getDicCode().equals("5")  && !dd.getDicCode().equals("6")&&!dd.getDicCode().equals("21")){
-					ddAuditStatus.add(dd);
-				}
-			}	
-			for(DD dd:ddAuditStatus2){
-				if(dd.getDicCode().equals("4")|| dd.getDicCode().equals("5")  || dd.getDicCode().equals("6")){
-					ddAuditStatus.add(dd);
-				}
-			}	
-			List<MessageAlertInfo> MessageAlertInfos= manageDissentService.findMessageByMessagType(userId,SRRPConstant.MESSAGE_TYPE_03);
-            String isHaveMessage="0";
-            if(MessageAlertInfos.size()>0){
-                isHaveMessage="1";
-            }
-            request.setAttribute("isHaveMessage", isHaveMessage);
-		}
+	@RequestMapping(value = "/")
+	public String investorManageInit(HttpServletRequest request,HttpServletResponse response) {
 
 		//苏州地区
 		List<DD> ddList = RedisGetValue.getDDList("rearea");
@@ -144,19 +78,11 @@ public class InvestorManageController extends SRRPBaseController {
 			}
 		}
 		request.setAttribute("reareas", reareas);
-		
-		request.setAttribute("ddStatus", ddAuditStatus);
-		request.setAttribute("userType", userType);
-		String password = config.getConfigValueByName("password");
-		request.setAttribute("password", password);
-		return "WEB-INF/views/managedept/investorManage";
+		return "WEB-INF/views/managedept/investorSubManage";
 	}
 
 	/**
 	 * 
-	 * @Title: onlineForumList @Description: TODO(初始化投资机构管理列表数据并条件查询) @param @param
-	 *         model @param @param page @param @param request @param @param
-	 *         response 设定文件 @return void 返回类型 @throws
 	 */
 	@RequestMapping(value = "/initInfo")
 	public void initInfo(Model model, PageBean page,
@@ -164,105 +90,37 @@ public class InvestorManageController extends SRRPBaseController {
 		try {
 			String limitStr = request.getParameter("limit");// 获取前台每页显示的最大记录数
 			String startStr = request.getParameter("start");// 获取前台起始页
-			String nameOrCode = request.getParameter("nameOrCode");// 获取投资机构名称或证件代码的查询条件
+			String nameOrCode = request.getParameter("nameorsubname");// 获取投资机构名称或证件代码的查询条件
 			String rearea = request.getParameter("rearea");// 区域
-			String status = request.getParameter("stopFlag");// 获取机构状态的查询条件
-			String auditStatus = request.getParameter("auditStatus");// 获取审核状态的查询条件
-	         String userId = RedisGetValue.getRedisUser(request, "userId");// 用户类型
-			String userType = RedisGetValue.getRedisUser(request, "orgNo");
+			String isdj = request.getParameter("isdj");// 是否对接过企业
+
 			if (StringUtils.isNotBlank(startStr)) {
 				page.setCurPage(Integer.parseInt(startStr));
 			}
 			if (StringUtils.isNotBlank(limitStr)) {
 				page.setMaxSize(Integer.parseInt(limitStr));
 			}
-			// 获取审核状态的查询条件
-			if(auditStatus=="21"){
-				auditStatus="2";
-			}
 			// 查询结果集和分页
-			List<InvestorManageResutList> inverstorList = investorService
-					.getInvestorsForCharge(nameOrCode,rearea, status, auditStatus,
-							page.getCurPage(), page.getMaxSize(),userType);
-			for (InvestorManageResutList invest : inverstorList) {
-				invest.setUserType(userType);// 添加一个字段用于判断用户的审核按钮
-				if (!invest.getAuditStatus().equals("1")
-						&& !invest.getAuditStatus().equals("3")) {
-					PlatformUser user = userService.findUserByUserName(invest
-							.getCertno());
-					if (user != null) {
-						if (user.getLockFlag() != null) {
-							invest.setLockFlag(user.getLockFlag());
-						}
-					}
-				}
-				//查询企业异议
-                ManageDissentInfor manageDissentInfor=manageDissentService.findDissentBycompanyId(invest.getInvestorId());
-				if (SRRPConstant.USER_TYPE_03.equals(userType)) {
-                    if(manageDissentInfor!=null){
-                        invest.setIdHaveDissent("2");//区县金融办：有异议。标识为2 则显示修改异议，否则显示新增异议
-                        if(SRRPConstant.DISSENT_STATUS_03.equals(manageDissentInfor.getDissentStatus())){
-                            invest.setIdHaveDissent("0");//区县金融办：有异议为解除状态。标识为0显示新增异议
-                        }
-                    }
-                    List<MessageAlertInfo> MessageAlertInfos= manageDissentService.findMessageBycompanyId(invest.getInvestorId(),SRRPConstant.MESSAGE_TYPE_03,userId);
-                    if(MessageAlertInfos!=null){//
-                        if(MessageAlertInfos.size()>0){
-                            invest.setIsReadDissent("1");
-                        }
-                    }
-                   
-                }
-				if (SRRPConstant.USER_TYPE_05.equals(userType)) {
-					if(invest.getAuditStatus().equals("2")){
-						invest.setAuditStatus("21");
-					}
-					if(invest.getAuditStatus().equals("4")||invest.getAuditStatus().equals("5")||invest.getAuditStatus().equals("6")){
-						invest.setAuditStatus("22");
-					}
-				}
-				if (SRRPConstant.USER_TYPE_04.equals(userType) || SRRPConstant.USER_TYPE_06.equals(userType)) {
-					if(invest.getAuditStatus().equals("22") || invest.getAuditStatus().equals("23")){
-						invest.setAuditStatus("2");
-					}
-					//判断每个企业是否有提异议
-                    if(manageDissentInfor!=null){
-                        invest.setIdHaveDissent("1");//有异议。标识为1
-                        List<MessageAlertInfo> MessageAlertInfos= manageDissentService.findMessageBycompanyId(invest.getInvestorId(),SRRPConstant.MESSAGE_TYPE_02,userId);
-                           if(MessageAlertInfos!=null){//判断是否未读
-                               if(MessageAlertInfos.size()>0){
-                                   invest.setIsReadDissent("1");
-                               }
-                           }
-
-                    }
-				}
-				
-
-			}
+			List<InvestorManageAchievementSub> inverstorList = investorService
+					.getSubInvestorsForCharge(nameOrCode,rearea,isdj,page.getCurPage(), page.getMaxSize());
 			page.setList(inverstorList);
 			if (CollectionUtils.isNotEmpty(inverstorList)) {
 				page.setList(inverstorList);
 				page.setRecordCnt(Integer.parseInt(investorService
-						.getInvestorsForChargeCount(nameOrCode,rearea, status,
-								auditStatus,userType).toString()));
+						.getSubInvestorsForChargeCount(nameOrCode,rearea,isdj).toString()));
 				if (StringUtils.isNotBlank(limitStr)) {
 					page.setMaxSize(Integer.parseInt(limitStr));
 				}
 				if (StringUtils.isNotBlank(startStr)) {
 					page.setCurPage(Integer.parseInt(startStr));
 				}
-				page.pageResult(inverstorList, page.getRecordCnt(),
-						page.getMaxSize(), page.getCurPage());
+				page.pageResult(inverstorList, page.getRecordCnt(),page.getMaxSize(), page.getCurPage());
 			}
-			request.setAttribute("userType", userType);
-			
 			// 将数据传输到前端
 			this.writeJson(page, request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
-			// TODO: handle exception
 		}
 	}
 
@@ -379,7 +237,6 @@ public class InvestorManageController extends SRRPBaseController {
 			// TODO: handle exception
 		}
 
-		// InverstorById(httpRequest,investorId);
 		return "WEB-INF/views/managedept/investorDetails";
 
 	}

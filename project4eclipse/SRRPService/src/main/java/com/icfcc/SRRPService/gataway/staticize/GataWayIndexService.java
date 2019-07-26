@@ -454,8 +454,7 @@ public class GataWayIndexService extends GataWayBaseStaticzeService {
 			InvocationTargetException {
 		investorDao.save(registerInfo);
 		InvestorAuditPending auditInfos = new InvestorAuditPending();
-		BeanUtilsBean.getInstance().getConvertUtils()
-				.register(new SqlDateConverter(null), Date.class);
+		BeanUtilsBean.getInstance().getConvertUtils().register(new SqlDateConverter(null), Date.class);
 		BeanUtils.copyProperties(auditInfos, registerInfo);
 		investorAuditPendingDao.save(auditInfos);
 	}

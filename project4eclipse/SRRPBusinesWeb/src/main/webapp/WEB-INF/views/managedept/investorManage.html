@@ -87,6 +87,9 @@
 							<label style="margin-left: 30px;">所属区域：</label>
 							<select name="rearea" id="rearea"  lay-search="" style="border: 1px solid #8DBDDC; border-radius: 5px;">
 								<option value="">全部</option>
+								<c:forEach items="${reareas}" var="rearea">
+									<option value="${rearea.dicCode}">${rearea.dicName}</option>
+								</c:forEach>
 								<option value="1">在苏</option>
 								<option value="2">不在苏</option>
 							</select>

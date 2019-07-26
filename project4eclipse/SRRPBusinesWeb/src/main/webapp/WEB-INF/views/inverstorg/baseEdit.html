@@ -11,6 +11,7 @@
     <script src="../static/script/autoLoadStyle.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="../static/style/page/form.css">
     <link rel="stylesheet" type="text/css" href="../static/style/page/todo.css">
+    <link rel="stylesheet" type="text/css" href="../static/kzForm/kz.form.css">
     <style>
         .layui-form #layer-photos img {
             max-width: 200px;
@@ -294,11 +295,11 @@
 		    		   </div> 
 		              <div class="layui-form-item">
                           <label class="layui-form-label" style="margin-top:-4px;"><span class="star">*</span>机构类型：</label>
-                          <div class="input-insert-data" style="margin-left: 110px;">
-                                   <select name="orgType" id="orgType" >
+                          <div class="layui-input1" style="margin-left: 110px;">
+                                   <select name="orgType" id="orgType" multiple lay-search>
                                         <option value='' >请选择机构类型</option>
                                         <c:forEach items='${ddOrgType}' var="d">
-                                           <option value='${d.dicCode}' <c:if test ='${d.dicCode eq investor.orgType}'>selected</c:if>>${d.dicName}</option>
+                                           <option value='${d.dicCode}' <c:if test ='${fn:contains(investor.orgType, d.dicCode)}'>selected</c:if>>${d.dicName}</option>
                                        </c:forEach>
                                   </select>
                           </div>
@@ -703,14 +704,29 @@
         });
         //调用富文本编辑器控件
         var layedit = layui.layedit;
-		layui.use('form', function(){
-			 var form = layui.form;
-	         form.on('submit(investor)', function(data){ 
+        layui.config({
+            base: '../static/kzForm/'
+        }).extend({
+            kzForm: 'kz.form'
+        }).use('kzForm', function(){
+			 var form = layui.kzForm;
+	         form.on('submit(investor)', function(data){
 	        	  var financeStage_value="";
 				  var financeTrade_value="";
 				  var  objRegExp;
 				  var investFlag="";
-				  //获取拟投资阶段复选框选中的值
+				  //投资机构的值
+                if(data.field.orgType != null){
+                    var orgType = ''
+                   $.each(data.field.orgType,function(i,d){
+                       orgType += d + ','
+                   }) ;
+                    data.field.orgType =  orgType;
+                }
+                //console.log(data.field.orgType)
+
+
+                 //获取拟投资阶段复选框选中的值
 				  $("input:checkbox[name='financeStage']:checked").each(function() {
 		    		  var financeStageChecked = $(this).val();
 		    		  if(financeStageChecked == null || financeStageChecked == undefined || financeStageChecked == ''){

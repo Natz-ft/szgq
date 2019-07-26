@@ -1,14 +1,13 @@
 package com.icfcc.SRRPDao.jpa.repository;
 
-import javax.persistence.EntityManager;
-
+import com.icfcc.SRRPDao.jpa.entity.QueryCondition;
+import com.icfcc.SRRPDao.jpa.entity.declareAward.DeclareRewarSearshBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Component;
 
-import com.icfcc.SRRPDao.jpa.entity.QueryCondition;
-import com.icfcc.SRRPDao.jpa.entity.declareAward.DeclareRewarSearshBean;
+import javax.persistence.EntityManager;
 
 @Component
 public class BaseNativeQueryDao {
@@ -36,6 +35,7 @@ public class BaseNativeQueryDao {
         }
         return whereCase.toString();
     }
+
     /*
      * 分页sql拼接
      */

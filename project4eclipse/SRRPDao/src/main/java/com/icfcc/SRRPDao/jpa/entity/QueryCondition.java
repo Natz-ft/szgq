@@ -1,8 +1,8 @@
 package com.icfcc.SRRPDao.jpa.entity;
 
-import java.util.Date;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.Date;
 
 public class QueryCondition implements java.io.Serializable {
 
@@ -168,6 +168,25 @@ public class QueryCondition implements java.io.Serializable {
 	private String userName;
 	// 统计周期id标志
 	private String statisticalCycleId;
+
+	private int timeStart;
+	private int timeEnd;
+
+	public int getTimeStart() {
+		return timeStart;
+	}
+
+	public void setTimeStart(int timeStart) {
+		this.timeStart = timeStart;
+	}
+
+	public int getTimeEnd() {
+		return timeEnd;
+	}
+
+	public void setTimeEnd(int timeEnd) {
+		this.timeEnd = timeEnd;
+	}
 
 	public String getStatisticalCycleId() {
 		return statisticalCycleId;

@@ -111,13 +111,11 @@ public class GataWayIndexMakerController extends SRRPBaseController {
 					if (hisInfos != null) {
 						registerInfo.setInvestorId(hisInfos.getInvestorId());
 					} else {
-						registerInfo.setInvestorId(UUID.randomUUID().toString()
-								.replace("-", ""));
+						registerInfo.setInvestorId(UUID.randomUUID().toString().replace("-", ""));
 					}
 					// 入业务库
 					Investor infos = new Investor();
-					BeanUtilsBean.getInstance().getConvertUtils()
-					.register(new SqlDateConverter(null), Date.class);
+					BeanUtilsBean.getInstance().getConvertUtils().register(new SqlDateConverter(null), Date.class);
 					BeanUtils.copyProperties(infos, registerInfo);
 					infos.setAuditStatus("0");
 	//				infos.setRegisteTime(new Date());

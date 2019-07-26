@@ -1,25 +1,15 @@
 package com.icfcc.SRRPDao.jpa.entity.enterprise;
 
+import com.icfcc.credit.platform.util.SRRPConstant;
+import com.icfcc.ssrp.session.RedisGetValue;
+import lombok.Data;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
-import lombok.Data;
-
-import com.icfcc.credit.platform.util.SRRPConstant;
-import com.icfcc.ssrp.session.RedisGetValue;
-import com.icfcc.ssrp.util.DigitFormatUtil;
 
 /**
  * 
@@ -163,8 +153,15 @@ public class QueryInvestorFinacingEventResult implements Serializable {
 	}
 
 	public String getOrgTypeDicname() {
-		return RedisGetValue.getValueByCode(SRRPConstant.DD_ORGTYPE,
-				this.orgType);
+		String[] orgTypes = this.orgType.split(",");
+		String typeNames = "";
+		for (String type : orgTypes) {
+			typeNames += RedisGetValue.getValueByCode(SRRPConstant.DD_ORGTYPE, type)+"、";
+		}
+		if(typeNames.contains("、")){
+			typeNames = typeNames.substring(0,typeNames.length()-1);
+		}
+		return typeNames;
 	}
 
 	public String getInfoId() {

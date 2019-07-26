@@ -1,27 +1,10 @@
 package com.icfcc.SRRPService.enterprise;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
-
-
-import org.apache.poi.ss.usermodel.Sheet;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.icfcc.SRRPDao.jpa.entity.QueryCondition;
 import com.icfcc.SRRPDao.jpa.entity.enterprise.Investor;
 import com.icfcc.SRRPDao.jpa.entity.enterprise.QueryCompanyFinacingEventResult;
 import com.icfcc.SRRPDao.jpa.entity.enterprise.QueryInvestorFinacingEventResult;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.InvestorAchievement;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.InvestorAchievementPending;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.InvestorManageAchievement;
-import com.icfcc.SRRPDao.jpa.entity.inverstorg.InvestorManageAchievementPending;
+import com.icfcc.SRRPDao.jpa.entity.inverstorg.*;
 import com.icfcc.SRRPDao.jpa.entity.managedept.InvestorManageResutList;
 import com.icfcc.SRRPDao.jpa.repository.enterprise.InvestorDao;
 import com.icfcc.SRRPDao.jpa.repository.enterprise.impl.InvestorDaoImpl;
@@ -33,6 +16,15 @@ import com.icfcc.SRRPDao.jpa.repository.inverstorg.InvestorManageAchievementPend
 import com.icfcc.credit.platform.util.Constant;
 import com.icfcc.credit.platform.util.ResultBean;
 import com.icfcc.ssrp.util.ExcelUtil;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(value = "transactionManager")
@@ -59,7 +51,6 @@ public class InvestorService {
 	 * 
 	 * <閫氳繃鏈烘瀯鐨刬d瀵规満鏋勮鎯呰繘琛屾煡璇㈡煡璇㈢粨鏋滆繘琛屾晥鏋滃睍绀�>
 	 * 
-	 * @param searchParams
 	 * @return
 	 */
 	public Investor findInverstorById(String id) {
@@ -71,7 +62,6 @@ public class InvestorService {
 	/**
 	 * 鏍规嵁铻嶈祫浜嬩欢鐨刬d鏌ヨ铻嶈祫鏈烘瀯铻嶈祫鐨勪俊鎭�
 	 * 
-	 * @param fiancingInfoId
 	 * @return
 	 */
 	public List<QueryInvestorFinacingEventResult> findUnionInvestorList(String eventId) {
@@ -82,12 +72,6 @@ public class InvestorService {
 	/**
 	 * <澶氭潯浠舵煡璇㈠垎椤靛垪琛ㄦ樉绀烘姇璧勬満鏋勭殑淇℃伅> 鎶曡祫鏈烘瀯鏌ヨ椤甸潰鐢ㄥ埌鐨勬満鏋勬煡璇�
 	 * 
-	 * @param searchParams
-	 *            鏌ヨ鍙傛暟
-	 * @param pageNumber
-	 *            鏌ヨ璧峰椤�
-	 * @param pageSize
-	 *            鏌ヨ椤靛ぇ灏�
 	 * @return
 	 */
 	// queryCondition
@@ -126,12 +110,6 @@ public class InvestorService {
 	/**
 	 * <澶氭潯浠舵煡璇㈠垎椤靛垪琛ㄦ樉绀烘姇璧勬満鏋勭殑淇℃伅> 閫夋嫨鏈烘瀯椤甸潰鐢ㄥ埌鐨勬姇璧勬満鏋勫鏉′欢鏌ヨ
 	 * 
-	 * @param investorName
-	 *            鏈烘瀯鍚嶇О
-	 * @param orgType
-	 *            鏈烘瀯鐨勭被鍨�
-	 * @param pageIndex
-	 * @param pageSize
 	 * @return
 	 */
 	public List<Investor> listInvestorByOrgType(QueryCondition queryCondition) {
@@ -142,9 +120,7 @@ public class InvestorService {
 	/**
 	 * 涓荤閮ㄩ棬鏌ヨ鎶曡祫鏈烘瀯鍒楄〃撒旦撒旦
 	 * 
-	 * @param name
-	 * @param code
-	 * @param status 
+	 * @param status
 	 * @param auditStatus
 	 * @param page
 	 * @param size
@@ -157,6 +133,14 @@ public class InvestorService {
 
 	public Object getInvestorsForChargeCount(String nameOrCode,String rearea, String status, String auditStatus,String userType) {
 		return investorDaoImpl.getInvestorsForChargeCount(nameOrCode,rearea, status, auditStatus, userType);
+	}
+
+	public List<InvestorManageAchievementSub> getSubInvestorsForCharge(String nameOrCode, String rearea,String isdj, int page, int size) {
+		return investorDaoImpl.getSubInvestorsForCharge(nameOrCode,rearea,isdj, page, size);
+	}
+
+	public Object getSubInvestorsForChargeCount(String nameOrCode,String rearea,String isdj) {
+		return investorDaoImpl.getSubInvestorsForChargeCount(nameOrCode,rearea,isdj);
 	}
 
 	/**

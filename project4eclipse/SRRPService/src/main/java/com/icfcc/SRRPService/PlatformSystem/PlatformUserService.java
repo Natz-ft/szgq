@@ -1,12 +1,16 @@
 package com.icfcc.SRRPService.PlatformSystem;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.MediaType;
-
+import com.alibaba.fastjson.JSON;
+import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyInfoVo;
+import com.icfcc.SRRPDao.jpa.entity.platformSystem.*;
+import com.icfcc.SRRPDao.jpa.repository.paltformSystem.*;
+import com.icfcc.SRRPService.util.AESUtil;
+import com.icfcc.SRRPService.util.jpa.PageUtil;
+import com.icfcc.credit.platform.util.Digests;
+import com.icfcc.credit.platform.util.Encodes;
+import com.icfcc.credit.platform.util.MD5;
+import com.icfcc.credit.platform.util.ShiroUser;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.shiro.SecurityUtils;
@@ -21,24 +25,11 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.fastjson.JSON;
-import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyInfoVo;
-import com.icfcc.SRRPDao.jpa.entity.platformSystem.PlatformUser;
-import com.icfcc.SRRPDao.jpa.entity.platformSystem.PlatformUserActionLog;
-import com.icfcc.SRRPDao.jpa.entity.platformSystem.PlatformUserHistoryPassword;
-import com.icfcc.SRRPDao.jpa.entity.platformSystem.PlatformUserLoginLog;
-import com.icfcc.SRRPDao.jpa.repository.paltformSystem.PlatformUserActionLogDao;
-import com.icfcc.SRRPDao.jpa.repository.paltformSystem.PlatformUserDao;
-import com.icfcc.SRRPDao.jpa.repository.paltformSystem.PlatformUserHistoryPasswordDao;
-import com.icfcc.SRRPDao.jpa.repository.paltformSystem.PlatformUserLoginLogDao;
-import com.icfcc.SRRPService.util.AESUtil;
-import com.icfcc.SRRPService.util.jpa.PageUtil;
-import com.icfcc.credit.platform.util.Digests;
-import com.icfcc.credit.platform.util.Encodes;
-import com.icfcc.credit.platform.util.MD5;
-import com.icfcc.credit.platform.util.ShiroUser;
-
-import net.sf.json.JSONObject;
+import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -70,6 +61,9 @@ public class PlatformUserService {
     private static final String MAXTIME="maxtime";
     
     private static final String STOPDAY="stopday";
+
+    @Autowired
+	private PlatformUserLoginStatisticsDao platformUserLoginStatisticsDao;
     
 	@Autowired
 	private PlatformUserDao userDao;
@@ -516,7 +510,6 @@ public class PlatformUserService {
     
     /**
      * 用于获取用户登录日志，上次成功登录时间和上次失败登录时间
-     * @param id
      * @return
      */
     public List<PlatformUserLoginLog> getLoginLog(String userId){
@@ -638,4 +631,10 @@ public class PlatformUserService {
     public List<PlatformUserHistoryPassword> getHistoryPassword(String id){
     	return hisPasswordDao.findByUserId(id);
     }
+
+	public List<PlatformUserLoginStatistics> findAll(){
+		return platformUserLoginStatisticsDao.findall();
+	}
+
+
 }
