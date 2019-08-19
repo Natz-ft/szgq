@@ -218,7 +218,7 @@ $(function () {
     <div class="contentAndFocus clearfix">
         <div class="footLeft">
             <span>客服热线 (工作时间 9:00-17:00)</span>
-            <p>68555158-5115</p>
+            <p>68555158-6207、68555158-3105、68555158-5115</p>
             <span>客服邮箱 XXXX@XXXXX.com</span>
         </div>
         <div class="footRight">
