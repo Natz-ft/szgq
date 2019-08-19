@@ -57,8 +57,8 @@
 	//MD5对密码加密传输
 	function MD5pwd(){
 		var password=$("#password1").val();
-		var hex=hex_md5(password);
-		$("#password").val(hex);
+        var hex=hex_md5(password);
+        $("#password").val(hex);
 	}
 	// 登录
 	function loginOn() {
@@ -216,6 +216,9 @@ $(function () {
 										<c:when test="${shiroLoginFailure  eq 'com.icfcc.credit.platform.exception.SuCompanyUserErrorException'}">
 											<span class="err">此用户在金服平台未审核,请待审核通过才可登陆</span>
 										</c:when>
+                                        <c:when test="${shiroLoginFailure  eq 'com.icfcc.credit.platform.exception.SimplePassException'}">
+                                            <span class="err">您的密码过于简单，请<a href="javascript:window.location.href = '/SRRPBusinesWeb/portal/resetPwd.html';">点击此处</a>修改密码</span>
+                                        </c:when>
 										<c:when test="${shiroLoginFailure ne null}">
 											<span class="err">你输入的帐号或密码不正确，请重新输入。</span>
 										</c:when>

@@ -1,5 +1,6 @@
 package com.icfcc.ssrp.web.managedept;
 
+import com.alibaba.fastjson.JSON;
 import com.icfcc.SRRPDao.jpa.entity.managedept.CountLoginInfo;
 import com.icfcc.SRRPDao.jpa.entity.platformSystem.PlatformUserLoginStatistics;
 import com.icfcc.SRRPService.PlatformSystem.PlatformUserService;
@@ -47,9 +48,9 @@ public class CountFinanceLoginController extends SRRPBaseController{
 	 *
 	 */
 	@RequestMapping("/statisticsList")
-	public void getcompaniesList(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public void getcompaniesList(Model model,String time, HttpServletRequest request, HttpServletResponse response) {
 		try {
-			List<PlatformUserLoginStatistics> datas = userService.findAll();
+			List<PlatformUserLoginStatistics> datas = userService.findAll(time);
 			// 将数据传输到前端
 			this.writeJson(datas, request, response);
 		} catch (Exception e) {
@@ -60,10 +61,14 @@ public class CountFinanceLoginController extends SRRPBaseController{
 	}
 
 	@RequestMapping(value = "/statisticsInitInfoUserList")
-	public String statisticsInitInfoUserList(HttpServletRequest request, HttpServletResponse response,
-												String area,String type,String id ) {
+	public String statisticsInitInfoUserList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		//System.out.println(request.getParameter("area"));
+		String area = java.net.URLDecoder.decode(request.getParameter("area"),"UTF-8");
+		String type = request.getParameter("type");
+		String id = request.getParameter("id");
 		List<CountLoginInfo> list = service.getCountLoginStatistics(area,type,id);
 		request.setAttribute("userList",list);
+		request.setAttribute("userListStr", JSON.toJSONString(list));
 		return "WEB-INF/views/managedept/finacingStatisticsLoginUserList";
 	}
 

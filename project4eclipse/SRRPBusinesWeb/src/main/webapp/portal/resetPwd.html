@@ -314,15 +314,24 @@ $(function () {
              	data = JSON.parse(data);
              	var result = data.code;
      	        if (result == '00000') {
-     	        	return true; 
+     	        	return true;
      	        }else if (result == '00001') {
-     	        	return false; 
+     	        	return false;
      	       	}else if(result == '00002'){
      	       	    var msg="该用户无法修改密码，请联系系统管理员。";
 	        		layer.alert(msg, function () {
-	        			window.location.href="/creditplatformweb/logout"; 
+	        			window.location.href="/creditplatformweb/logout";
 	        		});
      	       	}
+                 // if (result == '00000'||result == '00002') {
+                 //     return true;
+                 // }else{
+                 //     var msg="用户不存在，请先注册。";
+                 //     layer.alert(msg, function () {
+                 //     	window.location.href="/SRRPBusinesWeb/portal/register.html";
+                 //     });
+                 // }
+
              },
              error: function (jqXHR, textStatus,errorThrown) {
              	return errorThrown;

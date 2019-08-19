@@ -10,7 +10,17 @@ public class UsernamePasswordCaptchaToken extends UsernamePasswordToken {
 	private static final long serialVersionUID = 1L;
 
 	private String captcha;
-	
+
+	private String password1;
+
+	public String getPassword1() {
+		return password1;
+	}
+
+	public void setPassword1(String password1) {
+		this.password1 = password1;
+	}
+
 	public String getCaptcha() {
 		return captcha;
 	}
@@ -25,9 +35,10 @@ public class UsernamePasswordCaptchaToken extends UsernamePasswordToken {
 	}
 
 	public UsernamePasswordCaptchaToken(String username, char[] password,
-			boolean rememberMe, String host, String captcha) {
+			boolean rememberMe, String host, String captcha,String password1) {
 		super(username, password, rememberMe, host);
 		this.captcha = captcha;
+		this.password1 = password1;
 	}
 
 }

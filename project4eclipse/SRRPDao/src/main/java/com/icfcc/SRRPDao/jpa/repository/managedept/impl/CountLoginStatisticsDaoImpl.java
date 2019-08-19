@@ -39,7 +39,7 @@ public class CountLoginStatisticsDaoImpl extends BaseNativeQueryDao {
 				tempType = "(01,02,0201,04)";
 			}
 			Query query = entityManager.createNativeQuery(
-					sql.replace("#0",area).replace("#1",tempType).replace("#2",levels[Integer.valueOf(id)])
+					sql.replace("#0",area).replace("#1",tempType).replace("#2",id)
 					, CountLoginInfo.class);
 			res = (List<CountLoginInfo>) query.getResultList();
 			entityTransaction.commit();

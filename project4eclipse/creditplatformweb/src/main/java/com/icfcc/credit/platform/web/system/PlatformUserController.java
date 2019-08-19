@@ -1,23 +1,14 @@
 package com.icfcc.credit.platform.web.system;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.icfcc.credit.platform.constants.DD;
+import com.icfcc.credit.platform.constants.VipCont;
 import com.icfcc.credit.platform.jpa.entity.system.*;
-
-import lombok.extern.slf4j.Slf4j;
-
+import com.icfcc.credit.platform.service.system.PlatformOrgService;
+import com.icfcc.credit.platform.session.RedisCacheManager;
+import com.icfcc.credit.platform.session.RedisManager;
+import com.icfcc.credit.platform.util.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.cache.Cache;
@@ -34,19 +25,10 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
-import com.icfcc.credit.platform.constants.DD;
-import com.icfcc.credit.platform.constants.VipCont;
-import com.icfcc.credit.platform.service.system.PlatformOrgService;
-import com.icfcc.credit.platform.session.RedisCacheManager;
-import com.icfcc.credit.platform.session.RedisManager;
-import com.icfcc.credit.platform.util.Constant;
-import com.icfcc.credit.platform.util.Digests;
-import com.icfcc.credit.platform.util.Encodes;
-import com.icfcc.credit.platform.util.PageBean;
-import com.icfcc.credit.platform.util.ResultBean;
-import com.icfcc.credit.platform.util.ShiroUser;
-import com.icfcc.credit.platform.util.SysDate;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 /**
  * 用户管理类，用于管理员增删改查用户 重置用户密码 停用用户账户 解锁用户账户 用户添加角色
@@ -495,8 +477,7 @@ public class PlatformUserController extends PlatformBasicController {
 			ShiroUser user = getCurrentUser();
 			PlatformUser systemUser = userService.getUser(user.getId());
 			HttpSession session = req.getSession();
-			if ("02".equals(systemUser.getType())
-					|| "0201".equals(systemUser.getType())) {
+			if ("02".equals(systemUser.getType()) || "0201".equals(systemUser.getType())) {
 				CompanyInfoVo companyRestVo = new CompanyInfoVo();
 				companyRestVo.setName(user.getNickname());
 				companyRestVo.setCode(user.getName());

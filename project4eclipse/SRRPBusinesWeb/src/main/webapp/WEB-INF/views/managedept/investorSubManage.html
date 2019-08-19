@@ -77,12 +77,12 @@
 								<option value="1">在苏</option>
 								<option value="2">不在苏</option>
 							</select>
-							<!--<label style="margin-left: 30px;">是否对接过企业：</label>-->
-							<!--<select name="isdj" id="isdj"  lay-search="" style="border: 1px solid #8DBDDC; border-radius: 5px;">-->
-								<!--<option value="">全部</option>-->
-								<!--<option value="1">有对接</option>-->
-								<!--<option value="2">无对接</option>-->
-							<!--</select>-->
+							<label style="margin-left: 30px;">是否在平台对接过融资：</label>
+							<select name="isdj" id="isdj"  lay-search="" style="border: 1px solid #8DBDDC; border-radius: 5px;">
+								<option value="">全部</option>
+								<option value="1">有对接</option>
+								<option value="2">无对接</option>
+							</select>
 							</select> <a href="javascript:void(0);" class="select-botton">查询</a>
 						</div>
 					</div>
@@ -187,49 +187,59 @@
                         {
                             field : 'fundName',
                             title : '基金名称',
-                            align : 'center'
+                            align : 'center',
+							width:150
                         },{
                             field : 'investName',
                             title : '所属机构',
-                            align : 'center'
+                            align : 'center',
+                            width:150
                         },
 						{
                             field : 'registDateString',
                             title : '注册时间',
-                            align : 'center'
+                            align : 'center',
+                            width:80
                         },
 						{
                             field: 'trusteeship',
                             title: '托管机构',
-                            align: 'center'
+                            align: 'center',
+                            width:80
                         },
 						{
                             field : 'registAddressStr',
                             title : '注册地',
-                            align : 'center'
+                            align : 'center',
+                            width:80
                         },
 						{
                             field : 'manageCapital',
                             title : '管理资金规模(万)',
-                            align : 'center'
+                            align : 'center',
+                            width:120
                         },
 						{
                             field : 'iccFilingNo',
                             title : '基金编号(中基协)',
-                            align : 'center'
+                            align : 'center',
+                            width:80
                         },
 						{
                             field : 'foundTypeDicname',
                             title : '基金类型',
-                            align : 'center'
+                            align : 'center',
+                            width:80
                         }, {
                             field : 'financeTradeDicname',
                             title : '投资行业定位',
-                            align : 'center'
+                            align : 'center',
+                            width:80
                         }, {
                             field : 'financeStageDicname',
                             title : '投资阶段定位',
-                            align : 'center'
+                            align : 'center',
+                            width:80
                         },
 						{
                             field : 'investmentProjects',
@@ -247,13 +257,14 @@
                             align : 'center',
                             width : 130
                         },
-						// {
-                        //     field : 'cnt',
-                        //     title : '是否在平台对接过融资',
-                        //     align : 'center',
-                        //     templet :function(d){return d.cnt==0?'否':"是"},
-                        //     width : 180
-                        // }, {
+						{
+                            field : 'cnt',
+                            title : '是否在平台对接过融资',
+                            align : 'center',
+                            templet :function(d){return d.cnt==0?'否':"是"},
+                            width : 180
+                        }
+						// , {
                         //     field : 'cnt',
                         //     title : '平台对接融资数量',
                         //     align : 'center',

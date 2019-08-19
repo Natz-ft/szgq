@@ -1,8 +1,8 @@
 package com.icfcc.credit.platform.util;
 
-import java.io.Serializable;
-
 import com.google.common.base.Objects;
+
+import java.io.Serializable;
 
 public class ShiroUser implements Serializable{
 	/**
@@ -17,6 +17,8 @@ public class ShiroUser implements Serializable{
 	public String nickname;
 	
 	public String org;
+
+
 	public ShiroUser(String id, String nickname, String name,String org) {
 		super();
 		this.id = id;
@@ -24,6 +26,7 @@ public class ShiroUser implements Serializable{
 		this.name = name;
 		this.org = org;
 	}
+
 
 	public String getId() {
 		return id;
@@ -40,8 +43,6 @@ public class ShiroUser implements Serializable{
 	public String getOrg() {
 		return org;
 	}
-
-	
 
 	/**
 	 * 本函数输出将作为默认的<shiro:principal/>输出.

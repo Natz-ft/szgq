@@ -718,28 +718,29 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 		EntityManager entityManager = this.getEntityManager();
 		EntityTransaction entityTransaction = null;
 		List<InvestorManageAchievementSub> res = null;
-		String sql = "select a.manage_id,a.invest_id,b.name invest_name,a.fund_name,a.regist_date,a.regist_address,a.trusteeship,a.manage_capital_min,a.manage_capital_max,a.currency,a.icc_filing_no,a.fund_type,a.invest_trade,a.invest_stage,a.investment_projects,a.cumulative_investment,a.ci_currency,a.implement_exit_project,c.subac_name,ifnull(c.cnt,0) cnt from rp_investor b,rp_investor_manage_achievement a left join (select su.subac_name,count(1) cnt from rp_finacing_event e,rp_investor_subaccount su where e.fund_id = su.user_id GROUP BY su.subac_name) c on a.fund_name = c.subac_name where a.invest_id = b.investor_id ";
+		//String sql = "select a.manage_id,a.invest_id,b.name invest_name,a.fund_name,a.regist_date,a.regist_address,a.trusteeship,a.manage_capital_min,a.manage_capital_max,a.currency,a.icc_filing_no,a.fund_type,a.invest_trade,a.invest_stage,a.investment_projects,a.cumulative_investment,a.ci_currency,a.implement_exit_project,c.subac_name,ifnull(c.cnt,0) cnt from rp_investor b,rp_investor_manage_achievement a left join (select su.subac_name,count(1) cnt from rp_finacing_event e,rp_investor_subaccount su where e.fund_id = su.user_id GROUP BY su.subac_name) c on a.fund_name = c.subac_name where a.invest_id = b.investor_id ";
+		String sql = "SELECT a.subac_id manage_id,c.investor_id invest_id,c.NAME invest_name,a.subac_name fund_name,a.registe_time regist_date,a.area_county regist_address,a.trusteeship,a.capital_min\tmanage_capital_min,a.capital_max manage_capital_max,a.currency,a.amac_record icc_filing_no,a.subac_type fund_type,a.finance_trade invest_trade,a.finance_stage invest_stage,a.investment_projects,a.cumulative_investment,a.ci_currency,a.implement_exit_project,(select count(1) from rp_finacing_event e where a.user_id = e.fund_id) cnt FROM rp_investor_subaccount a,system_user b,rp_investor c WHERE a.user_id = b.user_id AND b.org_id = c.investor_id";
 		try {
 			entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
 			StringBuffer whereCase = new StringBuffer();
 			if (!StringUtils.isEmpty(nameOrCode)) {
-				whereCase.append(" and (a.fund_name like '%"+nameOrCode+"%' or b.name like '%"+nameOrCode+"%') ");
+				whereCase.append(" and (a.subac_name like '%"+nameOrCode+"%' or c.name like '%"+nameOrCode+"%') ");
 			}
 			if (!StringUtils.isEmpty(rearea)) {
 				if(rearea.equals("1")){
-					whereCase.append(" and regist_address like '3205%' ");
+					whereCase.append(" and a.area_county like '3205%' ");
 				}else if(rearea.equals("2")){
-					whereCase.append(" and regist_address not like '3205%' ");
+					whereCase.append(" and a.area_county not like '3205%' ");
 				}else{
-					whereCase.append(" and regist_address = '"+rearea+"' ");
+					whereCase.append(" and a.area_county = '"+rearea+"' ");
 				}
 			}
 			if (!StringUtils.isEmpty(isdj)) {
 				if(isdj.equals("1")){
-					whereCase.append(" and ifnull(c.cnt,0) > 0 ");
+					whereCase.append(" and (SELECT count( 1 ) FROM rp_finacing_event e WHERE a.user_id = e.fund_id) > 0 ");
 				}else{
-					whereCase.append(" and ifnull(c.cnt,0) = 0 ");
+					whereCase.append(" and (SELECT count( 1 ) FROM rp_finacing_event e WHERE a.user_id = e.fund_id) = 0 ");
 				}
 
 			}
@@ -774,25 +775,26 @@ public class InvestorDaoImpl extends BaseNativeQueryDao {
 			entityTransaction.begin();
 			StringBuffer whereCase = new StringBuffer();
 			whereCase.append(" select count(*) as resultnum from ( ");
-			String sql = "select a.manage_id,a.invest_id,b.name invest_name,a.fund_name,a.regist_date,a.regist_address,a.trusteeship,a.manage_capital_min,a.manage_capital_max,a.currency,a.icc_filing_no,a.fund_type,a.invest_trade,a.invest_stage,a.investment_projects,a.cumulative_investment,a.ci_currency,a.implement_exit_project,c.subac_name,ifnull(c.cnt,0) cnt from rp_investor b,rp_investor_manage_achievement a left join (select su.subac_name,count(1) cnt from rp_finacing_event e,rp_investor_subaccount su where e.fund_id = su.user_id GROUP BY su.subac_name) c on a.fund_name = c.subac_name where a.invest_id = b.investor_id ";
+			//String sql = "select a.manage_id,a.invest_id,b.name invest_name,a.fund_name,a.regist_date,a.regist_address,a.trusteeship,a.manage_capital_min,a.manage_capital_max,a.currency,a.icc_filing_no,a.fund_type,a.invest_trade,a.invest_stage,a.investment_projects,a.cumulative_investment,a.ci_currency,a.implement_exit_project,c.subac_name,ifnull(c.cnt,0) cnt from rp_investor b,rp_investor_manage_achievement a left join (select su.subac_name,count(1) cnt from rp_finacing_event e,rp_investor_subaccount su where e.fund_id = su.user_id GROUP BY su.subac_name) c on a.fund_name = c.subac_name where a.invest_id = b.investor_id ";
+			String sql = "SELECT a.subac_id manage_id,c.investor_id invest_id,c.NAME invest_name,a.subac_name fund_name,a.registe_time regist_date,a.area_county regist_address,a.trusteeship,a.capital_min\tmanage_capital_min,a.capital_max manage_capital_max,a.currency,a.amac_record icc_filing_no,a.subac_type fund_type,a.finance_trade invest_trade,a.finance_stage invest_stage,a.investment_projects,a.cumulative_investment,a.ci_currency,a.implement_exit_project,(select count(1) from rp_finacing_event e where a.user_id = e.fund_id) cnt FROM rp_investor_subaccount a,system_user b,rp_investor c WHERE a.user_id = b.user_id AND b.org_id = c.investor_id";
 			whereCase.append(sql);
 			if (!StringUtils.isEmpty(nameOrCode)) {
-				whereCase.append(" and (a.fund_name like '%"+nameOrCode+"%' or b.name like '%"+nameOrCode+"%') ");
+				whereCase.append(" and (a.subac_name like '%"+nameOrCode+"%' or c.name like '%"+nameOrCode+"%') ");
 			}
 			if (!StringUtils.isEmpty(rearea)) {
 				if(rearea.equals("1")){
-					whereCase.append(" and regist_address like '3205%' ");
+					whereCase.append(" and a.area_county like '3205%' ");
 				}else if(rearea.equals("2")){
-					whereCase.append(" and regist_address not like '3205%' ");
+					whereCase.append(" and a.area_county not like '3205%' ");
 				}else{
-					whereCase.append(" and regist_address = '"+rearea+"' ");
+					whereCase.append(" and a.area_county = '"+rearea+"' ");
 				}
 			}
 			if (!StringUtils.isEmpty(isdj)) {
 				if(isdj.equals("1")){
-					whereCase.append(" and ifnull(c.cnt,0) > 0 ");
+					whereCase.append(" and (SELECT count( 1 ) FROM rp_finacing_event e WHERE a.user_id = e.fund_id) > 0 ");
 				}else{
-					whereCase.append(" and ifnull(c.cnt,0) = 0 ");
+					whereCase.append(" and (SELECT count( 1 ) FROM rp_finacing_event e WHERE a.user_id = e.fund_id) = 0 ");
 				}
 
 			}

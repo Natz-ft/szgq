@@ -1,15 +1,10 @@
 package com.icfcc.credit.platform.filter;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.util.HashMap;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.apache.shiro.authc.AuthenticationException;
+import com.icfcc.credit.platform.jpa.entity.system.PlatformUser;
+import com.icfcc.credit.platform.security.UsernamePasswordCaptchaToken;
+import com.icfcc.credit.platform.service.system.PlatformUserService;
+import com.icfcc.credit.platform.session.RedisCacheManager;
+import com.icfcc.credit.platform.util.ShiroUser;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.session.Session;
@@ -23,13 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.icfcc.credit.platform.jpa.entity.system.PlatformUser;
-import com.icfcc.credit.platform.jpa.entity.system.PlatformUserLoginLog;
-import com.icfcc.credit.platform.security.UsernamePasswordCaptchaToken;
-import com.icfcc.credit.platform.service.system.PlatformConfigService;
-import com.icfcc.credit.platform.service.system.PlatformUserService;
-import com.icfcc.credit.platform.session.RedisCacheManager;
-import com.icfcc.credit.platform.util.ShiroUser;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 /**
  * 自定义的身份验证过滤器
  * @author JERRY.CHEN
@@ -142,10 +135,16 @@ public class FormAuthenticationCaptchaFilter extends FormAuthenticationFilter {
 //		return true;
 //	}
 
+	public String getPassword1Param() {
+		return "password1";
+	}
 
-	protected AuthenticationToken createToken(
+	protected String getPassword1(ServletRequest request) {
+		return WebUtils.getCleanParam(request, getPassword1Param());
+	}
 
-	ServletRequest request, ServletResponse response) {
+
+	protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
 
 		String username = getUsername(request);
 
@@ -153,12 +152,14 @@ public class FormAuthenticationCaptchaFilter extends FormAuthenticationFilter {
 
 		String captcha = getCaptcha(request);
 
+		String password1 = getPassword1(request);
+
 		boolean rememberMe = isRememberMe(request);
 
 		String host = getHost(request);
 
 		return new UsernamePasswordCaptchaToken(username,
-				password.toCharArray(), rememberMe, host, captcha);
+				password.toCharArray(), rememberMe, host, captcha,password1);
 
 	}
 

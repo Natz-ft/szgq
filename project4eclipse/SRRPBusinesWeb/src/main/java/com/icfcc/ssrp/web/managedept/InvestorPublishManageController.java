@@ -55,7 +55,7 @@ public class InvestorPublishManageController extends SRRPBaseController {
 	@RequestMapping(value = "/publishInit")
 	public String controllerTest(HttpServletRequest request,
 			HttpServletResponse response) {
-		return "WEB-INF/views/managedept/investorPublish";
+			return "WEB-INF/views/managedept/investorPublish";
 	}
 
 	/**

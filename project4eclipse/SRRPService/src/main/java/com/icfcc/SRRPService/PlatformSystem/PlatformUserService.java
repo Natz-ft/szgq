@@ -3,7 +3,11 @@ package com.icfcc.SRRPService.PlatformSystem;
 import com.alibaba.fastjson.JSON;
 import com.icfcc.SRRPDao.jpa.entity.enterprise.CompanyInfoVo;
 import com.icfcc.SRRPDao.jpa.entity.platformSystem.*;
-import com.icfcc.SRRPDao.jpa.repository.paltformSystem.*;
+import com.icfcc.SRRPDao.jpa.repository.paltformSystem.PlatformUserActionLogDao;
+import com.icfcc.SRRPDao.jpa.repository.paltformSystem.PlatformUserDao;
+import com.icfcc.SRRPDao.jpa.repository.paltformSystem.PlatformUserHistoryPasswordDao;
+import com.icfcc.SRRPDao.jpa.repository.paltformSystem.PlatformUserLoginLogDao;
+import com.icfcc.SRRPDao.jpa.repository.paltformSystem.impl.PlatformUserLoginStatisticsImpl;
 import com.icfcc.SRRPService.util.AESUtil;
 import com.icfcc.SRRPService.util.jpa.PageUtil;
 import com.icfcc.credit.platform.util.Digests;
@@ -63,7 +67,7 @@ public class PlatformUserService {
     private static final String STOPDAY="stopday";
 
     @Autowired
-	private PlatformUserLoginStatisticsDao platformUserLoginStatisticsDao;
+	private PlatformUserLoginStatisticsImpl platformUserLoginStatistics;
     
 	@Autowired
 	private PlatformUserDao userDao;
@@ -632,8 +636,10 @@ public class PlatformUserService {
     	return hisPasswordDao.findByUserId(id);
     }
 
-	public List<PlatformUserLoginStatistics> findAll(){
-		return platformUserLoginStatisticsDao.findall();
+
+
+	public List<PlatformUserLoginStatistics> findAll(String time){
+		return platformUserLoginStatistics.findall(time);
 	}
 
 

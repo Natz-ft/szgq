@@ -78,8 +78,8 @@ public class InvestorManageAchievementSub implements Serializable {
 	@Column(name = "invest_name")
 	private String investName;
 
-	@Column(name = "subac_name")
-	private String subacName;
+//	@Column(name = "subac_name")
+//	private String subacName;
 
 	@Column(name = "cnt")
 	private int cnt;
@@ -92,13 +92,13 @@ public class InvestorManageAchievementSub implements Serializable {
 		this.investName = investName;
 	}
 
-	public String getSubacName() {
-		return subacName;
-	}
-
-	public void setSubacName(String subacName) {
-		this.subacName = subacName;
-	}
+//	public String getSubacName() {
+//		return subacName;
+//	}
+//
+//	public void setSubacName(String subacName) {
+//		this.subacName = subacName;
+//	}
 
 	public int getCnt() {
 		return cnt;

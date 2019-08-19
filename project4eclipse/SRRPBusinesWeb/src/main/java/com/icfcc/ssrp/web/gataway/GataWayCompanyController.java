@@ -52,7 +52,7 @@ import com.icfcc.ssrp.web.SRRPBaseController;
 import antlr.StringUtils;
 
 /**
- * 门户企业注册
+ * 门户
  * 
  * @xiaob
  */

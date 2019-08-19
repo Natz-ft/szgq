@@ -14,16 +14,20 @@
 <div>
 <div class="popupbg" id="zhezhao"  style="display: none;"> </div><table id="listTable" class="listTable"  cellspacing="0" cellpadding="5" width="100%" border="0" >
 		<thead >	
-              <tr>
+			<tr>
                <td class="tr_td_operate" colspan="8" align="left" >
                		 
 	           	    <button type="button" onclick="create_page();" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover button6"  role="button" aria-disabled="false" id="save_config" >新建</button>
 	                <!-- 开发人员根据更新服务的URL ，将URL 作为参数传入 例如本案例的更新URL为‘/systemConfig/getSystemConfigById.do’，则在update_button方法中，出入该URL -->
 	                <!-- 这里还需要更改后台返回页面 -->
 	                <button type="button" onclick="delete_button('id','/faq/delFaq?id=');" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover button6"  role="button" aria-disabled="false" id="delete_config" >删除</span></button>
-	      	  	    <button type="button" onclick="query_conditions('query_dy');" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover button6"  role="button" aria-disabled="false" id="select_config" >查询</span></button> 
-          	   </td>
-          		</tr>
+	      	  	    <button type="button" onclick="query_conditions('query_dy');" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover button6"  role="button" aria-disabled="false" id="select_config" >查询</span></button>
+
+
+				   <button id="faqStatus" type="button" onclick="switchFaq()" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover button6"  role="button" aria-disabled="false" >
+				   </button>
+			   </td>
+			</tr>
 		</thead>
 		<thead>
 			<tr>
@@ -110,5 +114,17 @@ function updateDetail(id) {
   
 	//openWindow600("detailNews?id="+id);
 }
+
+$(function(){
+    $.get("/creditplatformweb/faq/getFaqStatus",function(data){
+        $("#faqStatus").text(data=='1'?"关闭浮窗":"开启浮窗");
+	});
+});
+function switchFaq(){
+    $.get("/creditplatformweb/faq/switchFaq",function(data){
+        $("#faqStatus").text(data=='1'?"关闭浮窗":"开启浮窗");
+    });
+}
+
 </script>
  

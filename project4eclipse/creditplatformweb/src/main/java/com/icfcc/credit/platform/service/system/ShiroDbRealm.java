@@ -1,32 +1,6 @@
 package com.icfcc.credit.platform.service.system;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.ServletRequest;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AccountException;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.web.subject.WebSubject;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.google.common.base.Objects;
 import com.icfcc.credit.platform.exception.CaptchaException;
-import com.icfcc.credit.platform.exception.LockUserException;
-import com.icfcc.credit.platform.exception.MultipleErrorException;
 import com.icfcc.credit.platform.exception.StopUserException;
 import com.icfcc.credit.platform.exception.SuCompanyUserErrorException;
 import com.icfcc.credit.platform.jpa.entity.query.CompanyBase;
@@ -39,6 +13,22 @@ import com.icfcc.credit.platform.util.Digests;
 import com.icfcc.credit.platform.util.Encodes;
 import com.icfcc.credit.platform.util.ShiroUser;
 import com.icfcc.credit.platform.web.system.CheckCodeServlet;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.web.subject.WebSubject;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletRequest;
+import java.util.Date;
+import java.util.Map;
+import java.util.UUID;
 
 
 public class ShiroDbRealm extends AuthorizingRealm {
@@ -48,6 +38,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	private static final String INVALID_CAPTCHA_ERR_MSG = "验证码错误";
 	
 	private static final String STOP_USER="账号已被停用，请联系管理员";
+
+	private static final String SIMPLE_PASS="密码强度弱，已拒绝登录，请修改密码后登录";
 	
 	private static final String LOCK_USER="账号长时间未登录已被锁定,请联系管理员解锁";
 	
@@ -82,19 +74,17 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	
 	@PostConstruct
 	public void initCredentialsMatcher() {
-		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(
-				PlatformUserService.HASH_ALGORITHM);
+		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(PlatformUserService.HASH_ALGORITHM);
 		matcher.setHashIterations(PlatformUserService.HASH_INTERATIONS);
-
 		setCredentialsMatcher(matcher);
 	}
 
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(
-			AuthenticationToken authcToken) throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordCaptchaToken token = (UsernamePasswordCaptchaToken) authcToken;
 		System.out.println("begin login ...."+new Date());
 		String username = token.getUsername();
+		String passOrg = token.getPassword1();
 		String validStatus=null;
 		String result=null;
 		String source=null;
@@ -109,6 +99,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		if (null == captcha || !captcha.equalsIgnoreCase(exitCode)) {
 			throw new CaptchaException(INVALID_CAPTCHA_ERR_MSG);
 		}
+
 		PlatformUser user = userService.findUserByUserName(username);
 		PlatformUserLoginLog login=new PlatformUserLoginLog();
 		login.setLoginTime(new Date());
@@ -116,6 +107,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		String ip=request.getRemoteAddr();
 		login.setLoginIp(ip);
 		SimpleAuthenticationInfo simpleAuthenticationInfo=null;
+
 		if ( null!= user) {
 			login.setUserId(user.getId());
 			login.setUserType(user.getType());
@@ -168,9 +160,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 						user.setPassword(password);
 				    	user.setSalt(Encodes.encodeHex(salt));
 				    	userService.saveUser(user);
-						simpleAuthenticationInfo=new SimpleAuthenticationInfo(new ShiroUser(user.getId(),
-								user.getNickname(), user.getUsername(), user.getOrg()),password,
-								ByteSource.Util.bytes(salt), getName());
+
+						ShiroUser shiroUser = new ShiroUser(user.getId(),user.getNickname(), user.getUsername(), user.getOrg());
+						simpleAuthenticationInfo=new SimpleAuthenticationInfo(shiroUser,password,ByteSource.Util.bytes(salt), getName());
 					}
 				}
 				
@@ -194,9 +186,10 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			userService.insertLoginLog(login);
 			byte[] salt = Encodes.decodeHex(user.getSalt());
 			System.out.println("end login ...."+new Date());
-			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(),
-					user.getNickname(), user.getUsername(), user.getOrg()), user.getPassword(),
-					ByteSource.Util.bytes(salt), getName());
+
+			ShiroUser shiroUser = new ShiroUser(user.getId(),user.getNickname(), user.getUsername(), user.getOrg());
+			simpleAuthenticationInfo = new SimpleAuthenticationInfo(shiroUser, user.getPassword(),ByteSource.Util.bytes(salt), getName());
+
 		}else{
 			CompanyInfoVo companyRestVo=new CompanyInfoVo();
 		    companyRestVo.setCode(username);
@@ -264,10 +257,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 						login.setUserType(user.getType());
 						login.setFailReason(INVALID_PWD_ERR_MSG);
 						userService.insertLoginLog(login);
-						
-						simpleAuthenticationInfo=new SimpleAuthenticationInfo(new ShiroUser(user.getId(),
-								user.getNickname(), user.getUsername(), user.getOrg()),password,
-								ByteSource.Util.bytes(salt), getName());
+
+						ShiroUser shiroUser = new ShiroUser(user.getId(),user.getNickname(), user.getUsername(), user.getOrg());
+						simpleAuthenticationInfo=new SimpleAuthenticationInfo(shiroUser,password,ByteSource.Util.bytes(salt), getName());
 					}else{
 						throw new AccountException(INVALID_PWD_ERR_MSG);	
 					}
@@ -370,6 +362,44 @@ public class ShiroDbRealm extends AuthorizingRealm {
 //			return true;
 //		}
 //	}
+
+
+	/**
+	 * 密码强度
+	 *
+	 * @return Z = 字母 S = 数字 T = 特殊字符
+	 */
+
+    /*
+    一、假定密码字符数范围6-16，除英文数字和字母外的字符都视为特殊字符：
+    弱：^[0-9A-Za-z]{6,16}$
+    中：^(?=.{6,16})[0-9A-Za-z]*[^0-9A-Za-z][0-9A-Za-z]*$
+    强：^(?=.{6,16})([0-9A-Za-z]*[^0-9A-Za-z][0-9A-Za-z]*){2,}$
+    二、假定密码字符数范围6-16，密码字符允许范围为ASCII码表字符：
+    弱：^[0-9A-Za-z]{6,16}$
+    中：^(?=.{6,16})[0-9A-Za-z]*[\x00-\x2f\x3A-\x40\x5B-\xFF][0-9A-Za-z]*$
+    强：^(?=.{6,16})([0-9A-Za-z]*[\x00-\x2F\x3A-\x40\x5B-\xFF][0-9A-Za-z]*){2,}$
+    */
+	public String checkPassword(String passwordStr) {
+		String regexZ = "\\d*";
+		String regexS = "[a-zA-Z]+";
+		String regexT = "\\W+$";
+		String regexZT = "\\D*";
+		String regexST = "[\\d\\W]*";
+		String regexZS = "\\w*";
+		String regexZST = "[\\w\\W]*";
+
+		if (passwordStr.matches(regexZ)||passwordStr.matches(regexS)||passwordStr.matches(regexT)) {
+			return "弱";
+		}
+		if (passwordStr.matches(regexZT)||passwordStr.matches(regexST)||passwordStr.matches(regexZS)) {
+			return "中";
+		}
+		if (passwordStr.matches(regexZST)) {
+			return "强";
+		}
+		return "强";
+	}
 
 }
 

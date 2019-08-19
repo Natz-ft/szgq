@@ -99,9 +99,9 @@ public class PortalStaticByAreaService   {
 		reflectMap.put("320581", "setChangShu");
 		reflectMap.put("320582", "setZhangJiaGang");
 		reflectMap.put("320583", "setKunShan");
-		reflectMap.put("320584", "setWuJiang");
+		reflectMap.put("320509", "setWuJiang");
 		reflectMap.put("320585", "setTaiCang");
-		reflectMap.put("320599", "setGongYeYuan");
+		reflectMap.put("320594", "setGongYeYuan");
 		reflectMap.put("other", "setOther");
 	}
 

@@ -1,17 +1,19 @@
 package com.icfcc.credit.platform.web.system;
 
 
-import java.util.Date;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.alibaba.fastjson.JSON;
+import com.icfcc.credit.platform.constants.VipCont;
+import com.icfcc.credit.platform.jpa.entity.system.PlatformFaq;
+import com.icfcc.credit.platform.session.RedisManager;
+import com.icfcc.credit.platform.util.Constant;
+import com.icfcc.credit.platform.util.PageBean;
+import com.icfcc.credit.platform.util.ResultBean;
+import com.icfcc.credit.platform.util.ShiroUser;
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
-import com.icfcc.credit.platform.constants.VipCont;
-import com.icfcc.credit.platform.jpa.entity.system.PlatformFaq;
-import com.icfcc.credit.platform.jpa.entity.system.PlatformNews;
-import com.icfcc.credit.platform.util.Constant;
-import com.icfcc.credit.platform.util.PageBean;
-import com.icfcc.credit.platform.util.ResultBean;
-import com.icfcc.credit.platform.util.ShiroUser;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.Map;
 /**
  * 
 * @ClassName: PlatformFaqController
@@ -37,7 +34,7 @@ import com.icfcc.credit.platform.util.ShiroUser;
  */
 @Slf4j
 @Controller
-@RequestMapping(value="faq")
+@RequestMapping(value="/faq")
 public class PlatformFaqController extends PlatformBasicController {
 	private static Logger log = LoggerFactory.getLogger(IndexController.class);
 	
@@ -51,7 +48,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	* @return String    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="curdFaq")
+	@RequestMapping(value="/curdFaq")
 	public String curdFaq(Model model,PageBean page,HttpServletRequest request){
 		Page<PlatformFaq>  queryResults = null;
 		try{
@@ -67,7 +64,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	}
 	
 	
-	@RequestMapping(value="createPage")
+	@RequestMapping(value="/createPage")
 	public String createPage(){
 		return "system/faq/createFaq";
 	}
@@ -93,7 +90,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	* @return String    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="delFaq")
+	@RequestMapping(value="/delFaq")
 	@ResponseBody
 	public String delNews(ResultBean rs,String id){
 		try{
@@ -121,7 +118,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	* @return String    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="updateFaq")
+	@RequestMapping(value="/updateFaq")
 	public String updateNews(Model model,String id){
 		Long sid=Long.parseLong(id);
 		PlatformFaq faq=systemContentFaqService.findById(sid);
@@ -139,7 +136,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	* @return String    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="update")
+	@RequestMapping(value="/update")
 	@ResponseBody
 	public String update(ResultBean rs,HttpServletRequest req) {
 		String faqStr = req.getParameter("faq");
@@ -169,7 +166,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	* @return String    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="insertFaq")
+	@RequestMapping(value="/insertFaq")
 	@ResponseBody
 	public String insertNews(ResultBean rs,HttpServletRequest req){
 		String faqStr = req.getParameter("faq");
@@ -191,7 +188,7 @@ public class PlatformFaqController extends PlatformBasicController {
 		}
 		return rs.toJSONStr();
 	}
-	@RequestMapping(value="curdInform")
+	@RequestMapping(value="/curdInform")
 	public String curdInform(Model model,PageBean page,HttpServletRequest request){
 		Page<PlatformFaq>  queryResults = null;
 		try{
@@ -229,7 +226,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	* @return String    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="delInform")
+	@RequestMapping(value="/delInform")
 	@ResponseBody
 	public String delInform(ResultBean rs,String id){
 		try{
@@ -257,7 +254,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	* @return String    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="InformUpdate")
+	@RequestMapping(value="/InformUpdate")
 	public String InformUpdate(Model model,String id){
 		Long sid=Long.parseLong(id);
 		PlatformFaq faq=systemContentFaqService.findById(sid);
@@ -275,7 +272,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	* @return String    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="updateInform")
+	@RequestMapping(value="/updateInform")
 	@ResponseBody
 	public String updateInform(ResultBean rs,HttpServletRequest req) {
 		String faqStr = req.getParameter("faq");
@@ -305,7 +302,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	* @return String    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="insertInform")
+	@RequestMapping(value="/insertInform")
 	@ResponseBody
 	public String insertInform(ResultBean rs,HttpServletRequest req){
 		String faqStr = req.getParameter("faq");
@@ -332,7 +329,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	
 //***********************************************************************************************************//
 	
-	@RequestMapping(value="curdDy")
+	@RequestMapping(value="/curdDy")
 	public String curdDy(Model model,PageBean page,HttpServletRequest request){
 		Page<PlatformFaq>  queryResults = null;
 		try{
@@ -347,7 +344,7 @@ public class PlatformFaqController extends PlatformBasicController {
 		return "system/faq/curdDy";
 	}
 	
-	@RequestMapping(value="createPageDy")
+	@RequestMapping(value="/createPageDy")
 	public String createPageDy(){
 		return "system/faq/createFaqDy";
 	}
@@ -363,7 +360,7 @@ public class PlatformFaqController extends PlatformBasicController {
 		return model;
 	}
 	
-	@RequestMapping(value="updateFaqDy")
+	@RequestMapping(value="/updateFaqDy")
 	public String updateFaqDy(Model model,String id){
 		Long sid=Long.parseLong(id);
 		PlatformFaq faq=systemContentFaqService.findById(sid);
@@ -381,7 +378,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	* @return String    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="updateDy")
+	@RequestMapping(value="/updateDy")
 	@ResponseBody
 	public String updateDy(ResultBean rs,HttpServletRequest req) {
 		String faqStr = req.getParameter("faq");
@@ -411,7 +408,7 @@ public class PlatformFaqController extends PlatformBasicController {
 	* @return String    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="insertFaqDy")
+	@RequestMapping(value="/insertFaqDy")
 	@ResponseBody
 	public String insertFaqDy(ResultBean rs,HttpServletRequest req){
 		String faqStr = req.getParameter("faq");
@@ -433,9 +430,39 @@ public class PlatformFaqController extends PlatformBasicController {
 		}
 		return rs.toJSONStr();
 	}
-	
-	
-	
+
+	@Autowired
+	private RedisManager redisManager;
+
+	/**
+	 * 浮窗的开启关闭
+	 */
+	@ResponseBody
+	@RequestMapping(value="/switchFaq")
+	public String switchFaq() {
+		String status = redisManager.get("index-faq-status");
+		if("0".equals(status)){
+			status = "1";
+		}else if("1".equals(status)){
+			status = "0";
+		}
+		redisManager.setNoExpire("index-faq-status", status);
+		return status;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/getFaqStatus")
+	public String getFaqStatus() {
+		String status = redisManager.get("index-faq-status");
+		if(StringUtils.isBlank(status)){
+			status = "0";
+			redisManager.setNoExpire("index-faq-status", status);
+		}
+		return status;
+	}
+
+
+
 }
 
 

@@ -66,7 +66,7 @@ public class InvestorSubManageController extends SRRPBaseController {
 	/**
 	 * 
 	 */
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/investorSubManageInit")
 	public String investorManageInit(HttpServletRequest request,HttpServletResponse response) {
 
 		//苏州地区

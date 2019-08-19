@@ -110,7 +110,18 @@ public class RedisManager {
         }
         return value;
     }
- 
+
+    public String setNoExpire(String key,String value) {
+        Jedis jedis = jedisPool.getResource();
+        try {
+            jedis.set(key, value);
+        } finally {
+            jedisPool.returnResource(jedis);
+        }
+        return value;
+    }
+
+
     /**
      * set 
      * @param key

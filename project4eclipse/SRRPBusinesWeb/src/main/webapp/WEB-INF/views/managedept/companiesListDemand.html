@@ -31,17 +31,6 @@
                 <div class="termsList" id="">
                     <input type="text" name="name" class="query-blank-input" style="margin-left: -0px;margin-top: 5px;" id="dataInputName" autocomplete="off" placeholder="请输入企业名称">
                 </div>
-            </div>
-            <div class="termsWrap clearfix">
-
-                <div class="termsType">
-                    <span>发布天数：</span>
-                </div>
-                <div class="termsList" id="">
-                    <input type="number" name="timeStart" class="query-blank-input" style="margin-left: -0px;margin-top: 5px;width: 85px;" id="dataInputTimeStart" autocomplete="off" placeholder="">
-                        至
-                    <input type="number" name="timeEnd" class="query-blank-input" style="margin-left: -0px;margin-top: 5px;width: 85px;" id="dataInputTimeEnd" autocomplete="off" placeholder="">
-                </div>
                 <div class="termsType">
                     <span>所属区域：</span>
                 </div>
@@ -51,6 +40,46 @@
                         <c:forEach items="${reareas}" var="rearea">
                             <option value="${rearea.dicCode}">${rearea.dicName}</option>
                         </c:forEach>
+                    </select>
+                </div>
+            </div>
+            <div class="termsWrap clearfix">
+
+                <div class="termsType">
+                    <span>发布日期：</span>
+                </div>
+                <div class="termsList termsList-query-date">
+                    <input type="text" name="beginTimeStr"
+                           onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endTime\')||\'%y-%M-%d\'}'})"
+                           style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;padding-left: 5px;"
+                           onkeydown="if(event.keyCode==13){event.keyCode=0;return false}"
+                           id="beginTime"/>&nbsp;
+                    至&nbsp;&nbsp;
+                    <input type="text" name="endTimeStr"
+                           onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',minDate:'#F{$dp.$D(\'beginTime\')}'})"
+                           style="border: 1px solid #8DBDDC; border-radius: 3px; width: 150px; height: 22px; font-size: 14px;padding-left: 5px;"
+                           onkeydown="if(event.keyCode==13){event.keyCode=0;return false}"
+                           id="endTime"/>
+                </div>
+
+                <div class="termsType">
+                    <span>对接状态：</span>
+                </div>
+                <div class="termsList" id="">
+                    <select name="status" id="status"  lay-search="" style="margin-top: 5px;border: 1px solid #8DBDDC; border-radius: 5px;">
+                        <option value="">全部</option>
+                        <option value="01">发布</option>
+                        <option value="11">关注</option>
+                        <option value="12">忽略</option>
+                        <option value="21">启动约谈</option>
+                        <option value="22">取消关注</option>
+                        <option value="41">投资成功</option>
+                        <option value="32">拒绝投资</option>
+                        <option value="99">关闭</option>
+                        <option value="42">投资成功-放款中(未披露)</option>
+                        <option value="43">投资成功-放款中(已披露)</option>
+                        <option value="44">投资成功-放款完成</option>
+                        <option value="45">投资成功-披露完成</option>
                     </select>
                 </div>
 

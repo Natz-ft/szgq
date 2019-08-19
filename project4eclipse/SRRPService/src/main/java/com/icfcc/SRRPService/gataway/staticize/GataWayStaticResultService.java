@@ -1,31 +1,8 @@
 package com.icfcc.SRRPService.gataway.staticize;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayRankArea;
-import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayRankCompany;
-import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayRankFinacingTurn;
-import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayRankIndustry;
-import com.icfcc.SRRPDao.jpa.entity.gataway.GataWayRankInvestor;
+import com.icfcc.SRRPDao.jpa.entity.gataway.*;
 import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayStatic;
 import com.icfcc.SRRPDao.jpa.entity.gataway.staticize.GataWayStaticResult;
 import com.icfcc.SRRPDao.jpa.repository.gataway.GataWayRankEcologyDao;
@@ -37,6 +14,20 @@ import com.icfcc.SRRPDao.pojo.demand.FinacTurnAndIndustryData;
 import com.icfcc.credit.platform.util.SRRPConstant;
 import com.icfcc.ssrp.session.RedisGetValue;
 import com.icfcc.ssrp.util.DigitFormatUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * <门户静态化运行成果>
@@ -551,9 +542,9 @@ public class GataWayStaticResultService {
 		reflectMap.put("320581", "setChangShu");
 		reflectMap.put("320582", "setZhangJiaGang");
 		reflectMap.put("320583", "setKunShan");
-		reflectMap.put("320584", "setWuJiang");
+		reflectMap.put("320509", "setWuJiang");
 		reflectMap.put("320585", "setTaiCang");
-		reflectMap.put("320586", "setGongYeYuan");
+		reflectMap.put("320594", "setGongYeYuan");
 	}
 
 	public String getTotalPlatformFinancingPath() {

@@ -288,8 +288,12 @@ public class FinacingDemandInfoResultNew implements Serializable {
 
 	public String getOperdateStr() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		sdf.format(this.operdate);
-		return sdf.format(this.operdate);
+		if(null != this.operdate){
+			sdf.format(this.operdate);
+			return sdf.format(this.operdate);
+		}else{
+			return "--";
+		}
 	}
 
 	public void setOperdateStr(String operdateStr) {

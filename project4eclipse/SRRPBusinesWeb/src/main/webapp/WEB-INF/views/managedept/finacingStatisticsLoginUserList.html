@@ -62,6 +62,10 @@
   <div class="boxWrap">
     <div class="boxContent">
         <!-- 融资统计统计表格 -->
+        <div style="float: right;margin-right: 62px;">
+            <a href="javascript:void(0);" class="select-botton">导出</a>
+        </div>
+        <div style="clear: both"></div>
         <div>
             <table id="finacingStatisticsGrid" lay-filter="investorListfilter">
                 <thead>
@@ -97,15 +101,40 @@
         base: '../static/script/layui_exts/'
     }).extend({
         excel: 'excel'
-    }).use('table',function(){
-
+    }).use(['table','excel'],function(){
         var table = layui.table;
+        var excel = layui.excel;
         //转换静态表格
         table.init('investorListfilter', {
             limits : [5,10],
             limit : 5,
             page : true,
             width: 680
+        });
+
+        $(".select-botton").click(function(){
+            var data = JSON.parse('${userListStr }');
+            data.unshift({area: '区域', userName: '用户名',nickName:"昵称",type:"用户类型",cnt:"登陆次数"})
+            data = excel.filterExportData(data, {
+                area:'area',
+                userName:'userName',
+                nickName:'nickName',
+                type:'type',
+                cnt:'cnt'
+            });
+            var colConf = excel.makeColConfig({'A':80,'B':200,'C':200,'D':150,'E':80});
+            excel.exportExcel(
+                {
+                    用户登陆详情: data
+                },
+                '用户登陆详情.xlsx',
+                'xlsx',
+                {
+                    extend: {
+                        '!cols': colConf
+                    }
+                }
+            );
         });
 
     });

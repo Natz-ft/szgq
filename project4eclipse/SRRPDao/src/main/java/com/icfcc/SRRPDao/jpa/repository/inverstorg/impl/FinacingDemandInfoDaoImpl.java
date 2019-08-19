@@ -513,18 +513,21 @@ public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 				if (null != queryCondition.getRearea()&&!"".equals(queryCondition.getRearea())) {
 					whereCase.append(" and cb.rearea =" + queryCondition.getRearea());
 				}
-				if(!(queryCondition.getTimeStart()==0&&queryCondition.getTimeEnd()==0)){
-					int min = Math.min(queryCondition.getTimeStart(),queryCondition.getTimeEnd());
-					int max = Math.max(queryCondition.getTimeStart(),queryCondition.getTimeEnd());
-					whereCase.append(" and datediff(now(),fd.operdate) >" + min);
-					whereCase.append(" and datediff(now(),fd.operdate) <" + max);
+				if (null != queryCondition.getBeginTimeStr()&&!"".equals(queryCondition.getBeginTimeStr())) {
+					whereCase.append(" and fd.operdate >= '" + queryCondition.getBeginTimeStr()+"'");
+				}
+				if (null != queryCondition.getEndTimeStr()&&!"".equals(queryCondition.getEndTimeStr())) {
+					whereCase.append(" and fd.operdate <= '" + queryCondition.getEndTimeStr()+"'");
+				}
+				if (null != queryCondition.getStatus()&&!"".equals(queryCondition.getStatus())) {
+					whereCase.append(" and e.status = '" + queryCondition.getStatus()+"'");
 				}
 			}
 			whereCase.append(" order by cb.name,fd.operdate desc ");
 
 			// 拼接分頁sql
 			whereCase.append(this.getPageInfos(queryCondition));
-			String newsql = "SELECT fd.info_id,fd.enterprise_id,fd.revoke_flag,fd.project_name,fd.amountmin,fd.amountmax,fd.currency,fd.follow_time,fd.finacing_turn,fd.sell,fd.scalemin,fd.scalemax,fd.operdate,fd.appoint_investor,fd.OPEN,cb.NAME,cb.codetype,cb.CODE,cbs.industry,cb.rearea,if(isnull(e.info_id),'是','否') isdj FROM rp_finacing_demand fd INNER JOIN rp_company_base cb ON fd.enterprise_id = cb.enterprise_id LEFT JOIN rp_company_base_supplement cbs ON fd.enterprise_id = cbs.enterprise_id left join rp_finacing_event e on fd.info_id = e.info_id WHERE fd.STATUS NOT IN ( '00', '99' ) AND fd.`open` = '0'  ";
+			String newsql = "SELECT fd.info_id,fd.enterprise_id,fd.revoke_flag,fd.project_name,fd.amountmin,fd.amountmax,fd.currency,fd.follow_time,fd.finacing_turn,fd.sell,fd.scalemin,fd.scalemax,fd.operdate,fd.appoint_investor,fd.OPEN,cb.NAME,cb.codetype,cb.CODE,cbs.industry,cb.rearea,ifnull(dic.dicname,'未对接') isdj FROM rp_finacing_demand fd INNER JOIN rp_company_base cb ON fd.enterprise_id = cb.enterprise_id LEFT JOIN rp_company_base_supplement cbs ON fd.enterprise_id = cbs.enterprise_id left join rp_finacing_event e on fd.info_id = e.info_id left join platform_dic_detail dic on e.status = dic.diccode and dic.dictype = '08' WHERE fd.STATUS NOT IN ( '00', '99' ) AND fd.`open` = '0'  ";
 			Query query = entityManager.createNativeQuery(newsql + whereCase.toString(),FinacingDemandInfoResultSub.class);
 			res = query.getResultList();
 			entityTransaction.commit();
@@ -694,7 +697,7 @@ public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 			entityTransaction = entityManager.getTransaction();
 			entityTransaction.begin();
 			// 拼接分頁sql
-			String newsql = "SELECT fd.info_id,fd.enterprise_id,fd.revoke_flag,fd.project_name,fd.amountmin,fd.amountmax,fd.currency,fd.follow_time,fd.finacing_turn,fd.sell,fd.scalemin,fd.scalemax,fd.operdate,fd.appoint_investor,fd.OPEN,cb.NAME,cb.codetype,cb.CODE,cbs.industry,cb.rearea,if(isnull(e.info_id),'是','否') isdj FROM rp_finacing_demand fd INNER JOIN rp_company_base cb ON fd.enterprise_id = cb.enterprise_id LEFT JOIN rp_company_base_supplement cbs ON fd.enterprise_id = cbs.enterprise_id left join rp_finacing_event e on fd.info_id = e.info_id WHERE fd.STATUS NOT IN ( '00', '99' ) AND fd.`open` = '0'  ";
+			String newsql = "SELECT fd.info_id,fd.enterprise_id,fd.revoke_flag,fd.project_name,fd.amountmin,fd.amountmax,fd.currency,fd.follow_time,fd.finacing_turn,fd.sell,fd.scalemin,fd.scalemax,fd.operdate,fd.appoint_investor,fd.OPEN,cb.NAME,cb.codetype,cb.CODE,cbs.industry,cb.rearea,ifnull(dic.dicname,'未对接') isdj FROM rp_finacing_demand fd INNER JOIN rp_company_base cb ON fd.enterprise_id = cb.enterprise_id LEFT JOIN rp_company_base_supplement cbs ON fd.enterprise_id = cbs.enterprise_id left join rp_finacing_event e on fd.info_id = e.info_id left join platform_dic_detail dic on e.status = dic.diccode and dic.dictype = '08' WHERE fd.STATUS NOT IN ( '00', '99' ) AND fd.`open` = '0'  ";
 			StringBuffer countSql = new StringBuffer(
 					" select count(*) as resultnum from ( ");
 			countSql.append(newsql);
@@ -705,11 +708,14 @@ public class FinacingDemandInfoDaoImpl extends BaseNativeQueryDao {
 				if (null != queryCondition.getRearea()&&!"".equals(queryCondition.getRearea())) {
 					countSql.append(" and cb.rearea =" + queryCondition.getRearea());
 				}
-				if(!(queryCondition.getTimeStart()==0&&queryCondition.getTimeEnd()==0)){
-					int min = Math.min(queryCondition.getTimeStart(),queryCondition.getTimeEnd());
-					int max = Math.max(queryCondition.getTimeStart(),queryCondition.getTimeEnd());
-					countSql.append(" and datediff(now(),fd.operdate) >" + min);
-					countSql.append(" and datediff(now(),fd.operdate) <" + max);
+				if (null != queryCondition.getBeginTimeStr()&&!"".equals(queryCondition.getBeginTimeStr())) {
+					countSql.append(" and fd.operdate >= '" + queryCondition.getBeginTimeStr()+"'");
+				}
+				if (null != queryCondition.getEndTimeStr()&&!"".equals(queryCondition.getEndTimeStr())) {
+					countSql.append(" and fd.operdate <= '" + queryCondition.getEndTimeStr()+"'");
+				}
+				if (null != queryCondition.getStatus()&&!"".equals(queryCondition.getStatus())) {
+					countSql.append(" and e.status = '" + queryCondition.getStatus()+"'");
 				}
 			}
 			countSql.append(") result ");

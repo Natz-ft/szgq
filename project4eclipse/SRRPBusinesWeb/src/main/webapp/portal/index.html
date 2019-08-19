@@ -285,7 +285,7 @@
 			                                <span>行业：IC设备制造</span>
 			                            </a>
 			                        </td>
-			                        <td><span class="date">121天前</span></td>
+			                        <td><span class="date">147天前</span></td>
 			                    </tr>
 			                	<tr>
 			                        <td>
@@ -294,7 +294,7 @@
 			                                <span>行业：IC设备制造</span>
 			                            </a>
 			                        </td>
-			                        <td><span class="date">122天前</span></td>
+			                        <td><span class="date">148天前</span></td>
 			                    </tr>
 			                	<tr>
 			                        <td>
@@ -303,7 +303,7 @@
 			                                <span>行业：IC设备制造</span>
 			                            </a>
 			                        </td>
-			                        <td><span class="date">122天前</span></td>
+			                        <td><span class="date">148天前</span></td>
 			                    </tr>
 			                	<tr>
 			                        <td>
@@ -312,7 +312,7 @@
 			                                <span>行业：IC设备制造</span>
 			                            </a>
 			                        </td>
-			                        <td><span class="date">122天前</span></td>
+			                        <td><span class="date">148天前</span></td>
 			                    </tr>
 			                	<tr>
 			                        <td>
@@ -321,7 +321,7 @@
 			                                <span>行业：IC设备制造</span>
 			                            </a>
 			                        </td>
-			                        <td><span class="date">122天前</span></td>
+			                        <td><span class="date">148天前</span></td>
 			                    </tr>
 			                	<tr>
 			                        <td>
@@ -330,7 +330,7 @@
 			                                <span>行业：IC设备制造</span>
 			                            </a>
 			                        </td>
-			                        <td><span class="date">122天前</span></td>
+			                        <td><span class="date">148天前</span></td>
 			                    </tr>
 			                	<tr>
 			                        <td>
@@ -339,7 +339,7 @@
 			                                <span>行业：IC设备制造</span>
 			                            </a>
 			                        </td>
-			                        <td><span class="date">122天前</span></td>
+			                        <td><span class="date">148天前</span></td>
 			                    </tr>
 			                	<tr>
 			                        <td>
@@ -348,7 +348,7 @@
 			                                <span>行业：IC设备制造</span>
 			                            </a>
 			                        </td>
-			                        <td><span class="date">122天前</span></td>
+			                        <td><span class="date">148天前</span></td>
 			                    </tr>
 			                	<tr>
 			                        <td>
@@ -357,7 +357,7 @@
 			                                <span>行业：IC设备制造</span>
 			                            </a>
 			                        </td>
-			                        <td><span class="date">122天前</span></td>
+			                        <td><span class="date">148天前</span></td>
 			                    </tr>
 			                	<tr>
 			                        <td>
@@ -366,7 +366,7 @@
 			                                <span>行业：IC设备制造</span>
 			                            </a>
 			                        </td>
-			                        <td><span class="date">128天前</span></td>
+			                        <td><span class="date">154天前</span></td>
 			                    </tr>
 			                	<tr>
 			                        <td>
@@ -375,7 +375,7 @@
 			                                <span>行业：网络营销</span>
 			                            </a>
 			                        </td>
-			                        <td><span class="date">166天前</span></td>
+			                        <td><span class="date">192天前</span></td>
 			                    </tr>
 	                </table>
                 </div>
@@ -479,23 +479,29 @@
 </div>
 <!-- 悬浮菜单结束 -->
 <!-- 悬浮广告 -->
-<div class="move_div">
+<div class="move_div" style="display: none;">
   <div class="move_div_body" id="indexTitle"></div>
 </div>
 <script type="text/javascript">
 $(function(){
-	$.get("../index/getFaq",function(data){
-		var title= data.indexTitle;
-		var subTitle= data.indexSubTitle;
-		var bg= data.indexFilepath;
-		$("#indexTitle").html(title+'<span style="font-size:22px;">'+subTitle+'</span>');
-		$(".move_div").css("background-image","url("+bg+")");	
-		/*调用移动浮窗方法并按顺序传入正确参数["obj",x,y,l,t,m],obj必填*/
-		move_obj(".move_div");
-		$(".move_div_body").click(function(){
-			window.open("inform.html","_self");
-		});
-	});
+    $.get("/creditplatformweb/faq/getFaqStatus",function(data){
+        if(data=='1'){
+            $.get("../index/getFaq",function(data){
+                var title= data.indexTitle;
+                var subTitle= data.indexSubTitle;
+                var bg= data.indexFilepath;
+                $("#indexTitle").html(title+'<span style="font-size:22px;">'+subTitle+'</span>');
+                $(".move_div").css("background-image","url("+bg+")");
+                /*调用移动浮窗方法并按顺序传入正确参数["obj",x,y,l,t,m],obj必填*/
+                move_obj(".move_div");
+                $(".move_div_body").click(function(){
+                    window.open("inform.html","_self");
+                });
+
+                $(".move_div").show();
+            });
+        }
+    });
 });
 </script>
 <!-- 悬浮广告结束 -->

@@ -68,6 +68,6 @@ public class MD5 {
 	    return md5StrBuff.toString();  
 	}
 	public static  void main(String arg[]) { 
-		System.out.println("password======================"+getMd5String("aaa111"));
+		System.out.println("password======================"+getMd5String("123456"));
 	}
 }
