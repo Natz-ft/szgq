@@ -7,7 +7,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<spring.version>4.0.7.RELEASE</spring.version>
+		<spring.version>5.2.7.RELEASE</spring.version>
 		<java.home>F:\Program Files (x86)\jdk\jdk1.8.0_91</java.home>
 		<jetty.version>9.2.0.M0</jetty.version>
 		<maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
